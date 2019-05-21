@@ -1,0 +1,23 @@
+@import "variables";
+
+.question-page {
+    button {
+        background: $color-secondary;
+        color: $color-text-light;
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        width: 80%;
+        height: 60;
+        border-radius: 10;
+        margin-bottom: 30;
+    }
+    label {
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        padding: 20 60;
+        text-align: left;
+    }
+    .q-body {
+        min-height: 400;
+    }
+}

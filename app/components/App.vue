@@ -1,23 +1,24 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!" android:flat="true"/>
-        <TabView android:tabBackgroundColor="#53ba82"
-                 android:tabTextColor="#c4ffdf"
-                 android:selectedTabTextColor="#ffffff"
-                 androidSelectedTabHighlightColor="#ffffff">
-            <TabViewItem title="Tab 1">
+        <TabView>
+            <TabViewItem title="Home">
                 <GridLayout columns="*" rows="*">
-                    <Label class="message" :text="msg" col="0" row="0"/>
+                    <Label class="message" text="Tab1" col="0" row="0"/>
                 </GridLayout>
             </TabViewItem>
-            <TabViewItem title="Tab 2">
+            <TabViewItem title="Resources">
                 <GridLayout columns="*" rows="*">
-                    <Label class="message" text="Tab 2 Content" col="0" row="0"/>
+                    <Label class="message" text="Placeholder for Resources" col="0" row="0"/>
                 </GridLayout>
             </TabViewItem>
-            <TabViewItem title="Tab 3">
+            <TabViewItem title="Glossary">
                 <GridLayout columns="*" rows="*">
-                    <Label class="message" text="Tab 3 Content" col="0" row="0"/>
+                    <Label class="message" text="Placeholder for Glossary" col="0" row="0"/>
+                </GridLayout>
+            </TabViewItem>
+            <TabViewItem title="Settings">
+                <GridLayout columns="*" rows="*">
+                    <Label class="message" text="Placeholder for Settings" col="0" row="0"/>
                 </GridLayout>
             </TabViewItem>
         </TabView>
@@ -28,22 +29,12 @@
     export default {
         data() {
             return {
-                msg: 'Hello World!'
+                
             }
         }
     }
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
 
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20;
-        color: #333333;
-    }
 </style>

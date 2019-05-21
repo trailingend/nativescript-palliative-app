@@ -1,0 +1,6 @@
+export const JSON_UPDATE = 'JSON_UPDATE';
+export const INFO_UPDATE = 'INFO_UPDATE';
+export const TIME_UPDATE = 'TIME_UPDATE';
+export const PROGRESS_UPDATE = 'PROGRESS_UPDATE';
+export const PROGRESS_JUMP = 'PROGRESS_JUMP';
+export const PATIENT_JUMP = 'PATIENT_JUMP';

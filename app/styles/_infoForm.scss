@@ -1,0 +1,35 @@
+@import "variables";
+
+.info-page {
+    .info-ctnr {
+        margin-top: 30;
+    }
+    button {
+        background: $color-secondary;
+        color: $color-text-light;
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        width: 80%;
+        height: 60;
+        border-radius: 10;
+        margin-bottom: 30;
+    }
+    label {
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        padding: 20 60;
+        text-align: left;
+    }
+    .info-a {
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        margin: 0 60 20 60;
+        text-align: left;
+        // border-bottom: 2 solid black;
+        border-bottom-width: 1;
+        border-bottom-color: black;
+    }
+    .info-next-btn {
+        margin-top: 30;
+    }
+}
