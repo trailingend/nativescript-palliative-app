@@ -2,9 +2,9 @@
     <Page>
         <TabView>
             <TabViewItem title="Home">
-                <GridLayout columns="*" rows="*">
-                    <Label class="message" text="Tab1" col="0" row="0"/>
-                </GridLayout>
+                <Frame id="homeFrame">
+                    <DashBoard />
+                </Frame>
             </TabViewItem>
             <TabViewItem title="Resources">
                 <GridLayout columns="*" rows="*">
@@ -26,12 +26,17 @@
 </template>
 
 <script lang="ts">
+    import DashBoard from './homeTab/Dashboard.vue';
+
     export default {
         data() {
             return {
                 
             }
-        }
+        },
+        components: {
+            DashBoard,
+        },
     }
 </script>
 
