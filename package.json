@@ -5,7 +5,7 @@
   "author": "Jayleen",
   "license": "MIT",
   "nativescript": {
-    "id": "ca.vchdesign.palliativeios",
+    "id": "ca.vchdesign.palliativepractice",
     "tns-ios": {
       "version": "5.0.0"
     },
