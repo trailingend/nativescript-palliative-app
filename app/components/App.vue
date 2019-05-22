@@ -6,6 +6,11 @@
                     <DashBoard />
                 </Frame>
             </TabViewItem>
+            <TabViewItem title="Log">
+                <Frame id="logFrame">
+                    <NewPatient />
+                </Frame>
+            </TabViewItem>
             <TabViewItem title="Resources">
                 <GridLayout columns="*" rows="*">
                     <Label class="message" text="Placeholder for Resources" col="0" row="0"/>
@@ -27,6 +32,7 @@
 
 <script lang="ts">
     import DashBoard from './homeTab/Dashboard.vue';
+    import NewPatient from './logTab/NewPatient.vue';
 
     export default {
         data() {
@@ -36,6 +42,7 @@
         },
         components: {
             DashBoard,
+            NewPatient
         },
     }
 </script>

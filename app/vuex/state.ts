@@ -2568,7 +2568,7 @@ export default {
     currentPatientIdx: -1,
     patients: [{
         id: 0,
-        client: 'Apple Pasta',
+        client: 'John Stevenson',
         patient: 'Apple Pasta',
         phone: '778-868-9999',
         createdTime: '5:45 | 05/05/2019',
@@ -2579,7 +2579,7 @@ export default {
 
     }, {
         id: 1,
-        client: 'Melon Pizza',
+        client: 'Michelle Gao',
         patient: 'Melon Pizza',
         phone: '778-868-8888',
         createdTime: '1:45 | 05/05/2019',
@@ -2589,7 +2589,7 @@ export default {
         progress: [[27, 44], [29, 51], [32, -1]]
     }, {
         id: 2,
-        client: 'Banana Hotdog',
+        client: 'Sara Lam',
         patient: 'Banana Hotdog',
         phone: '778-868-7777',
         createdTime: '5:05 | 08/05/2019',

@@ -27,16 +27,20 @@
 
         .user-ctnr {
             margin: 25 25;
+            .user-head {
+                width: 80;
+            }
         }
         .user-q {
             font-size: $user-font-size;
             line-height: auto;
             letter-spacing: 0.1;
-            margin: 10 20;
+            margin: 5 20;
             text-align: left;
         }
         .user-a {
             width: 100%;
+            height: 25;
             font-size: $user-font-size;
             line-height: 10;
             letter-spacing: 0.1;
@@ -45,8 +49,10 @@
             border-bottom-width: 0;
             border-bottom-color: black;
         }
+        .user-q3 {
+            margin: 5 0;
+        }
         .user-a3 {
-            width: 100;
             font-weight: 500;
             font-size: 32;
             text-align: left;
@@ -54,15 +60,13 @@
             letter-spacing: 0;
             border-bottom-width: 0;
         }
-        .user-head {
-            horizontal-align: left;
-        }
+        
     }
 
     .log-title-ctnr {
         background: $color-tertiary;
         margin: 5;
-        padding: 10;
+        padding: 10 25;
 
         .log-title {
             text-align: right;
@@ -87,11 +91,16 @@
         }
         .patient-phone {
             font-weight: 700;
+            font-size: $list-bold-font-size;
             text-align: left;
         }
         .patient-time {
             padding: 5 0;
             text-align: left;
+        }
+        .patient-btn {
+            padding-right: 25;
+            height: 100%;
         }
     }
 

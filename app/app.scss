@@ -17,6 +17,11 @@ Label {
     text-transform: uppercase;
 }
 
+.edit-icon {
+    width: 20;
+    horizontal-align: right;
+}
+
 @import "styles/dashboard";
 @import "styles/newPatient";
 @import "styles/question";

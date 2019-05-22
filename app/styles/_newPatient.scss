@@ -1,35 +1,53 @@
 @import "variables";
 
-.info-page {
-    .info-ctnr {
-        margin-top: 30;
+.new-page {
+    .new-ctnr {
+        margin: 5;
+        background: $color-temp;
     }
-    button {
-        background: $color-secondary;
-        color: $color-text-light;
-        font-size: $q-font-size;
-        letter-spacing: 0.1;
-        width: 80%;
-        height: 60;
-        border-radius: 10;
-        margin-bottom: 30;
+    .new-head {
+        width: 150;
+        vertical-align: top;
+        horizontal-align: left;
     }
-    label {
-        font-size: $q-font-size;
-        letter-spacing: 0.1;
-        padding: 20 60;
-        text-align: left;
+
+    .new-title-ctnr {
+        padding: 10 25;
+
+        .log-title {
+            text-align: right;
+            font-size: 18;
+            font-weight: 700;
+            color: $color-text-light;
+        }
     }
-    .info-a {
-        font-size: $q-font-size;
-        letter-spacing: 0.1;
-        margin: 0 60 20 60;
-        text-align: left;
-        // border-bottom: 2 solid black;
-        border-bottom-width: 1;
-        border-bottom-color: black;
-    }
-    .info-next-btn {
-        margin-top: 30;
+
+    .new-form-ctnr {
+        vertical-align: middle;
+        margin: 40;
+
+        .new-q {
+            margin: 30 30 30 0;
+            text-align: left;
+        }
+        .new-a {
+            width: 80%;
+            height: 40;
+            padding: 0 5;
+            background: white;
+        }
+        .new-consent-title {
+            margin: 30 30 10 0;
+        }
+        .new-consent-body {
+            width: 50%;
+        }
+        .new-btn {
+            background: $color-secondary;
+            color: $color-text-light;
+            height: 40;
+            width: 200;
+            margin: 25 0;
+        }
     }
 }
