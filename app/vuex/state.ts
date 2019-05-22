@@ -2568,9 +2568,10 @@ export default {
     currentPatientIdx: -1,
     patients: [{
         id: 0,
-        name: 'Apple Pasta',
+        client: 'Apple Pasta',
+        patient: 'Apple Pasta',
         phone: '778-868-9999',
-        createdTime: '',
+        createdTime: '5:45 | 05/05/2019',
         timer: 0,
         relation: 'Dad',
         progressLoc: 3,
@@ -2578,18 +2579,20 @@ export default {
 
     }, {
         id: 1,
-        name: 'Melon Pizza',
+        client: 'Melon Pizza',
+        patient: 'Melon Pizza',
         phone: '778-868-8888',
-        createdTime: '',
+        createdTime: '1:45 | 05/05/2019',
         timer: 0,
         relation: 'Mon',
         progressLoc: 2,
         progress: [[27, 44], [29, 51], [32, -1]]
     }, {
         id: 2,
-        name: 'Banana Hotdog',
+        client: 'Banana Hotdog',
+        patient: 'Banana Hotdog',
         phone: '778-868-7777',
-        createdTime: '',
+        createdTime: '5:05 | 08/05/2019',
         timer: 0,
         relation: 'Friend',
         progressLoc: 2,

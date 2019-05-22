@@ -2,43 +2,109 @@
 
 
 .home-page {
-    .home-logo {
-        width: 250;
-        margin: 25 auto;
+    width: 100%;
+    height: 100%;
+
+    .home-ctnr {
+        width: 100%;
+        height: 100%;
+        margin: 0;
     }
-    .user-ctnr {
+    .home-logo-ctnr {
+        background: $color-temp;
+        margin: 5;
+
+        .home-logo {
+            width: 200;
+            horizontal-align: left;
+            margin: 25;
+        }
+    }
+
+    .home-user-ctnr {
+        background: $color-temp;
+        margin: 5;
+
+        .user-ctnr {
+            margin: 25 25;
+        }
+        .user-q {
+            font-size: $user-font-size;
+            line-height: auto;
+            letter-spacing: 0.1;
+            margin: 10 20;
+            text-align: left;
+        }
+        .user-a {
+            width: 100%;
+            font-size: $user-font-size;
+            line-height: 10;
+            letter-spacing: 0.1;
+            // text-align: left;
+            // border-bottom: 2 solid black;
+            border-bottom-width: 0;
+            border-bottom-color: black;
+        }
+        .user-a3 {
+            width: 100;
+            font-weight: 500;
+            font-size: 32;
+            text-align: left;
+            vertical-align: left;
+            letter-spacing: 0;
+            border-bottom-width: 0;
+        }
+        .user-head {
+            horizontal-align: left;
+        }
+    }
+
+    .log-title-ctnr {
         background: $color-tertiary;
-        padding: 25 auto;
+        margin: 5;
+        padding: 10;
+
+        .log-title {
+            text-align: right;
+            font-size: 18;
+            font-weight: 700;
+            color: $color-text-light;
+        }
     }
-    .user-q {
-        font-size: $input-font-size;
-        letter-spacing: 0.1;
-        padding: 10 60;
-        text-align: left;
+    
+    .home-log-ctnr {
+        margin: 5;
+
+        .user-head {
+            margin: 20 30;
+        }
+        .patient-top {
+            padding-top: 5;
+        }
+        .patient-name {
+            font-weight: 200;
+            text-align: left;
+        }
+        .patient-phone {
+            font-weight: 700;
+            text-align: left;
+        }
+        .patient-time {
+            padding: 5 0;
+            text-align: left;
+        }
     }
-    .user-a {
-        font-size: $input-font-size;
-        letter-spacing: 0.1;
-        margin: 0 60 10 60;
-        text-align: left;
-        // border-bottom: 2 solid black;
-        border-bottom-width: 1;
-        border-bottom-color: black;
-    }
-    .home-add-btn {
-        height: 150;
-        font-size: 40;
+
+    .home-btn-ctnr {
+        margin: 5;
         background: $color-secondary;
-        color: $color-text-light;
-        vertical-align: middle;
-        text-align: center;
+
+        .home-add {
+            width: 150;
+            vertical-align: middle;
+            margin: 50;
+        }
     }
-    .patient-name {
-        padding: 20 60;
-        font-weight: 500;
-    }
-    .patient-phone {
-        color: $color-text-gray;
-        font-weight: 200;
-    }
+
+    
 }

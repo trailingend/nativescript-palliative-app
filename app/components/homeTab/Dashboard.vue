@@ -1,10 +1,22 @@
 <template>
     <Page class="page home-page">
-        <GridLayout class="home-ctnr" rows="auto, auto, *, auto" columns="*">
-            <Image row="0" class="home-logo" src="~/assets/images/vch-logo.png" stretch="aspectFill" ></Image>
-            <UserForm row="1" />
-            <Logs row="2" />
-            <Button row="3" class="home-add-btn" text="+" @tap="onNewTap" />
+        <ActionBar title="Dashboard"></ActionBar>
+
+        <GridLayout class="home-ctnr" rows="auto, auto, *, 250" columns="*, *">
+            <StackLayout row="0" col="0" class="home-logo-ctnr">
+                <Image class="home-logo" src="~/assets/images/logo.png" stretch="aspectFill" ></Image>
+            </StackLayout>
+            <StackLayout row="0" col="1" class="home-user-ctnr">
+                <UserForm row="1" />
+            </StackLayout>
+            <FlexboxLayout row="1" col="0" colSpan="2" flexDirection="column" class="log-title-ctnr">
+                <Label class="log-title" text="Log" />
+                <Label class="log-title" text="Progress" />
+            </FlexboxLayout>
+            <Logs row="2" col="0" colSpan="2" class="home-log-ctnr" />
+            <StackLayout row="3" col="0" colSpan="2" class="home-btn-ctnr" @tap="onNewTap">
+                <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit"></Image>
+            </StackLayout>
         </GridLayout>
     </Page>
 </template>

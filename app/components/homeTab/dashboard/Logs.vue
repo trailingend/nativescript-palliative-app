@@ -1,14 +1,21 @@
 <template>
-    <ScrollView class="patient-list" row="0" col="0">
-        <ListView for="patient in patients" @itemTap="onItemTap">
-            <v-template>
-                <FlexboxLayout flexDirection="row" class="patient-item">
-                    <Label :text="patient.name" class="patient-name patient-text"/>
-                    <Label :text="patient.phone" class="patient-phone patient-text"/>
-                </FlexboxLayout>
-            </v-template>
-        </ListView>
-    </ScrollView>
+        <ScrollView class="patient-list">
+            <ListView for="patient in patients" @itemTap="onItemTap">
+                <v-template>
+                    <FlexboxLayout alignItems="center" >
+                        <Image width="50" class="user-head" src="~/assets/images/loading.png" stretch="aspectFit"></Image>
+                        <StackLayout width="72%">
+                            <Label :text="patient.client" class="patient-name patient-top patient-text"/>
+                            <Label :text="patient.phone" class="patient-phone patient-text"/>
+                            <Label :text="patient.patient" class="patient-name patient-text"/>
+                            <Label :text="patient.createdTime" class="patient-time patient-text"/>
+                        </StackLayout>
+                        <Button text="DELETE"></Button>
+                    </FlexboxLayout>
+                </v-template>
+            </ListView>
+        </ScrollView>
+    
 </template>
 
 <script lang="ts">
