@@ -25,12 +25,15 @@
     import Logs from './dashboard/Logs.vue';
     import UserForm from './dashboard/UserForm.vue';
 
+    import { mapActions } from 'vuex';
+
     export default {
         data() {
             return {
             }
         },
-        created() {
+        mounted() {
+            this.loadData();
         },
         components: {
             Logs,
@@ -40,7 +43,14 @@
            
 		},
         methods: {
-           
+            ...mapActions([
+                'loadData'
+            ]),
+            onNewTap(args) {
+                console.log("=== Creating new Patient ===");
+                const tabView = args.object.page.frame.parent.parent;
+                tabView.selectedIndex = 1;
+            }
         },
         
     };

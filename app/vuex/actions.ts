@@ -4,35 +4,17 @@ import * as types from './mutation-types';
 import { knownFolders, Folder, File } from "tns-core-modules/file-system";
 
 export default {
-    loadData({dispatch}){
-        let url = 'https://palliative.vchlearn.ca/_/custom/main';
+    loadData({commit, state}){
+        let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                let filename = 'data.json'
-                var file = knownFolders.documents().getFile(filename);
-                // TODO: check version thenn write to file
-                console.log("=== in load data === " + file.path);
-                file.writeText(JSON.stringify(data));
+                const version_not_match = (state.data_version != data.data.main.version);
+                console.log("=== in load data === does version match - " + version_not_match);
+                if (version_not_match) {
+                    commit(types.JSON_UPDATE, data.data); 
+                }
             });
-            // HANDLE error
-    },
-
-    displayData({commit, state}) {    
-        let filename = 'data.json'
-        var file = knownFolders.documents().getFile(filename);
-        return new Promise(function (resolve, reject) {
-            try {
-                file.readText().then(function (content) {
-                    var data = JSON.parse(content);
-                    console.log("=== in display data === " + "updating json state");
-                    commit(types.JSON_UPDATE, data); 
-                });
-            }
-            catch (err) {
-                reject(err);
-            }
-        });
     },
 
     saveClientInfo({commit, state}, entry) {

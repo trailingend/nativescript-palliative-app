@@ -77,13 +77,16 @@
     }
     
     .home-log-ctnr {
-        margin: 5;
+        margin: 0 5;
 
         .user-head {
             margin: 20 30;
         }
+        .patient-item {
+            padding: 2 0;
+        }
         .patient-top {
-            padding-top: 5;
+            padding-top: 7;
         }
         .patient-name {
             font-weight: 200;
@@ -95,12 +98,17 @@
             text-align: left;
         }
         .patient-time {
-            padding: 5 0;
+            padding-top: 5;
             text-align: left;
         }
         .patient-btn {
-            padding-right: 25;
+            padding: 0 25;
+            background: $color-temp;
             height: 100%;
+        }
+        .edit-icon {
+            margin-bottom: 10;
+            margin-right: 5;
         }
     }
 
