@@ -49,5 +49,24 @@
             width: 200;
             margin: 25 0;
         }
+
+        &.tablet-landscape {
+            margin: 60;
+
+            .new-head {
+                width: 100;
+                margin-bottom: 10;
+            }
+            .new-q {
+                margin: 20 20 20 0;
+            }
+            .new-a {
+                width: 60%;
+                height: 30;
+            }
+            .new-consent-title {
+                margin: 20 20 10 0;
+            }
+        }
     }
 }

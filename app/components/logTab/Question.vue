@@ -4,7 +4,7 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <ActionItem tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
         </ActionBar>
-        <GridLayout class="q-ctnr" rows="auto, *" columns="*">
+        <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
             <FlexboxLayout row="0" col="0" alignItems="stretch" class="q-patient-ctnr">
                 <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
                 <StackLayout flexGrow="2">
@@ -15,7 +15,7 @@
                 </StackLayout>
                 <Image class="edit-icon" alignSelf="flex-end" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
             </FlexboxLayout>
-            <StackLayout row="1" col="0" class="q-main-ctnr">
+            <StackLayout row="1" col="0" :class="mainSetting.class">
                 <StackLayout class="q-title-ctnr">
                     <Label class="q-main-title" text="Log" />
                     <Label class="q-main-title" text="In Progress" />
@@ -35,12 +35,17 @@
 <script>
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import * as utils from "tns-core-modules/utils/utils";
 
     export default {
         data() {
             return {
                 question_body: '?',
-                answers_list: []
+                answers_list: [],
+
+                mainSetting: {
+                    class: "q-main-ctnr"
+                }
             }
         },
         mounted() {
@@ -99,6 +104,19 @@
             onBackward(args) {
                 console.log("=== Backward ===");
             },
+            onLayoutUpdate() {
+                const width = utils.layout.toDeviceIndependentPixels( this.$refs.qGridRef.nativeView.getMeasuredWidth() );
+
+                if (width > 1000) {
+                    this.mainSetting = {
+                        class: "q-main-ctnr tablet-landscape"
+                    };
+                } else {
+                    this.mainSetting = {
+                        class: "q-main-ctnr"
+                    };
+                }
+            }
         }
         
     };

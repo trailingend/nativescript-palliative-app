@@ -1,8 +1,8 @@
 <template>
     <Page class="page new-page">
         <ActionBar title="Patient Log"></ActionBar>
-        <GridLayout rows="*" columns="*, auto" class="new-ctnr">
-            <StackLayout row="0" col="0" class="new-form-ctnr">
+        <GridLayout rows="*" columns="*, auto" class="new-ctnr" ref="newGridRef" @layoutChanged="onLayoutUpdate">
+            <StackLayout row="0" col="0" :class="formSetting.class">
                 <Image class="new-head" src="~/assets/images/head2.png" stretch="aspectFit" ></Image>                    
                 <GridLayout rows="auto, auto, auto, auto" columns="auto, *">
                     <Label row="0" col="0" class="new-q1 new-q" text="Callback #:" textWrap="true"/>
@@ -30,9 +30,10 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
-
     import Question from './Question.vue';
+
+    import { mapActions } from 'vuex';
+    import * as utils from "tns-core-modules/utils/utils";
         
     export default {
         data() {
@@ -42,7 +43,11 @@
                 c_client: '',
                 c_relation: '',
                 created_time: '',
-                is_consented: false
+                is_consented: false,
+
+                formSetting: {
+                    class: "new-form-ctnr",
+                },
             }
         },
         mounted() {
@@ -84,6 +89,14 @@
                     console.log("=== consent not filled ===");
                 }
             },
+            onLayoutUpdate() {
+                const width = utils.layout.toDeviceIndependentPixels( this.$refs.newGridRef.nativeView.getMeasuredWidth() );
+                if (width > 1000) {
+                    this.formSetting.class = "new-form-ctnr tablet-landscape";
+                } else {
+                    this.formSetting.class = "new-form-ctnr";
+                }
+            }
         }
         
     };

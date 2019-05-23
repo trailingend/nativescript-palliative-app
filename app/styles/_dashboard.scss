@@ -121,6 +121,12 @@
             vertical-align: middle;
             margin: 50;
         }
+
+        &.tablet-landscape {
+            .home-add {
+                margin: 120;
+            }
+        }
     }
 
     
