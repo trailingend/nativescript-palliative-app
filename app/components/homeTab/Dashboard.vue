@@ -6,34 +6,34 @@
                                       :columns="gridSetting.columns" 
                                       ref="homeGridRef" 
                                       @layoutChanged="onLayoutUpdate">
-            <StackLayout :row="gridSetting.logoSec.row" 
-                         :col="gridSetting.logoSec.col" 
-                         :rowSpan="gridSetting.logoSec.rowSpan" 
+            <StackLayout :row="gridSetting.children.logoSec.row" 
+                         :col="gridSetting.children.logoSec.col" 
+                         :rowSpan="gridSetting.children.logoSec.rowSpan" 
                          class="home-logo-ctnr">
                 <Image class="home-logo" src="~/assets/images/logo.png" stretch="aspectFill" ></Image>
             </StackLayout>
-            <StackLayout :row="gridSetting.userSec.row" 
-                         :col="gridSetting.userSec.col" 
-                         :rowSpan="gridSetting.userSec.rowSpan" 
+            <StackLayout :row="gridSetting.children.userSec.row" 
+                         :col="gridSetting.children.userSec.col" 
+                         :rowSpan="gridSetting.children.userSec.rowSpan" 
                          class="home-user-ctnr">
                 <UserForm />
             </StackLayout>
-            <FlexboxLayout :row="gridSetting.titleSec.row" 
-                           :col="gridSetting.titleSec.col" 
-                           :colSpan="gridSetting.titleSec.colSpan" 
+            <FlexboxLayout :row="gridSetting.children.titleSec.row" 
+                           :col="gridSetting.children.titleSec.col" 
+                           :colSpan="gridSetting.children.titleSec.colSpan" 
                            flexDirection="column" 
                            class="log-title-ctnr">
                 <Label class="log-title" text="Log" />
                 <Label class="log-title" text="Progress" />
             </FlexboxLayout>
-            <Logs :row="gridSetting.logSec.row" 
-                  :col="gridSetting.logSec.col" 
-                  :rowSpan="gridSetting.logSec.rowSpan" 
-                  :colSpan="gridSetting.logSec.colSpan" 
+            <Logs :row="gridSetting.children.logSec.row" 
+                  :col="gridSetting.children.logSec.col" 
+                  :rowSpan="gridSetting.children.logSec.rowSpan" 
+                  :colSpan="gridSetting.children.logSec.colSpan" 
                   class="home-log-ctnr" />
-            <StackLayout :row="gridSetting.btnSec.row" 
-                         :col="gridSetting.btnSec.col"
-                         :colSpan="gridSetting.btnSec.colSpan" 
+            <StackLayout :row="gridSetting.children.btnSec.row" 
+                         :col="gridSetting.children.btnSec.col"
+                         :colSpan="gridSetting.children.btnSec.colSpan" 
                          :class="btnSetting.class" 
                          @tap="onNewTap">
                 <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit"></Image>
@@ -47,7 +47,8 @@
     import UserForm from './dashboard/UserForm.vue';
 
     import { mapActions } from 'vuex';
-    import * as utils from "tns-core-modules/utils/utils";
+    import * as utils from 'tns-core-modules/utils/utils';
+    import { homeGridChildLandscape, homeGridChildPortrait } from '../../scripts/common';
 
     export default {
         data() {
@@ -58,32 +59,7 @@
                 gridSetting: {
                     rows: "auto, auto, *, 250",
                     columns: "*, *",
-                    logoSec: {
-                        row: "0",
-                        col: "0",
-                        rowSpan: "1"
-                    },
-                    userSec: {
-                        row: "0",
-                        col: "1",
-                        rowSpan: "1"
-                    },
-                    titleSec: {
-                        row: "1",
-                        col: "0",
-                        colSpan: "2"
-                    },
-                    logSec: {
-                        row: "2",
-                        col: "0",
-                        rowSpan: "1",
-                        colSpan: "2"
-                    },
-                    btnSec: {
-                        row: "3",
-                        col: "0",
-                        colSpan: "2"
-                    }
+                    children: homeGridChildPortrait,
                 }
             }
         },
@@ -117,33 +93,8 @@
                     this.gridSetting = {
                         rows: "80, auto, *",
                         columns: `${quater_width}, ${quater_width}, ${half_width}`,
-                        logoSec: {
-                            row: "0",
-                            col: "0",
-                            rowSpan: "2"
-                        },
-                        userSec: {
-                            row: "0",
-                            col: "1",
-                            rowSpan: "2"
-                        },
-                        titleSec: {
-                            row: "0",
-                            col: "2",
-                            colSpan: "1"
-                        },
-                        logSec: {
-                            row: "1",
-                            col: "2",
-                            rowSpan: "2",
-                            colSpan: "1"
-                        },
-                        btnSec: {
-                            row: "3",
-                            col: "0",
-                            colSpan: "2"
-                        }
-                    }
+                        children: homeGridChildLandscape
+                    };
                 } else {
                     this.btnSetting = {
                         class: "home-btn-ctnr"
@@ -151,32 +102,7 @@
                     this.gridSetting = {
                         rows: "auto, auto, *, 250",
                         columns: "*, *",
-                        logoSec: {
-                            row: "0",
-                            col: "0",
-                            rowSpan: "1"
-                        },
-                        userSec: {
-                            row: "0",
-                            col: "1",
-                            rowSpan: "1"
-                        },
-                        titleSec: {
-                            row: "1",
-                            col: "0",
-                            colSpan: "2"
-                        },
-                        logSec: {
-                            row: "2",
-                            col: "0",
-                            rowSpan: "1",
-                            colSpan: "2"
-                        },
-                        btnSec: {
-                            row: "3",
-                            col: "0",
-                            colSpan: "2"
-                        }
+                        children: homeGridChildPortrait
                     }
                 }
             }

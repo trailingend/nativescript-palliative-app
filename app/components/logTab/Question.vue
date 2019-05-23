@@ -2,7 +2,7 @@
     <Page class="page q-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
+            <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
         </ActionBar>
         <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
             <FlexboxLayout row="0" col="0" alignItems="stretch" class="q-patient-ctnr">
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+    import Result from './Result.vue';
+
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -97,7 +99,13 @@
                         this.prepareNextQuestion(new_q_id);
                     }
                 } else {
-                    // navigate to result page with outcome id
+                    this.$navigateTo(Result, {
+                        frame: "logFrame",
+                        animated: false,
+                        props: {
+                            'intro_outcome': outcome,
+                        }
+                    });
                     console.log("=== Heading to result now ===");
                 }
             },

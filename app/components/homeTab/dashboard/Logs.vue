@@ -59,7 +59,16 @@
 				// 			});
 			},
             onDeleteTap(args) {
-                console.dir("=== Delete patient === " + args.object.bindingContext.id);
+                confirm({
+                    title: "Attention",
+                    message: "Confirm you want to delete this patient log?",
+                    okButtonText: "YES",
+                    cancelButtonText: "Cancel"
+                }).then(isConfirmed => {
+                    if (isConfirmed) {
+                        console.dir("=== Delete patient === " + args.object.bindingContext.id);
+                    }
+                });
             }
         },
         

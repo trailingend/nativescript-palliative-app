@@ -83,10 +83,17 @@
 
                     this.$navigateTo(Question, {
                         frame: "logFrame",
+                        animated: false
                     });
                     console.log("=== New Patient Logged ===");
                 } else {
-                    console.log("=== consent not filled ===");
+                    alert({
+                        title: "Attention",
+                        message: "Please agree to the terms first.",
+                        okButtonText: "OK"
+                    }).then(() => {
+                        console.log("=== Do consent first ===");
+                    });
                 }
             },
             onLayoutUpdate() {

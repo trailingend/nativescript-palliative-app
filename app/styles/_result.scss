@@ -1,11 +1,8 @@
 @import "variables";
 
 .result-page {
-    label {
-        font-size: $q-font-size;
-        letter-spacing: 0.1;
-        padding: 20 60;
-        text-align: center;
+    .result-ctnr {
         vertical-align: middle;
+        horizontal-align: center;
     }
 }
