@@ -1,10 +1,11 @@
 <template>
     <Page class="page q-page">
         <ActionBar title="Patient Log">
-            <NavigationButton text="Back" ios.systemIcon="9" ios.position="left" tap="onBackward"/>
+            <NavigationButton visibility="hidden" ></NavigationButton>
+            <ActionItem tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
         </ActionBar>
-        <StackLayout class="q-ctnr">
-            <FlexboxLayout alignItems="stretch" class="q-patient-ctnr">
+        <GridLayout class="q-ctnr" rows="auto, *" columns="*">
+            <FlexboxLayout row="0" col="0" alignItems="stretch" class="q-patient-ctnr">
                 <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
                 <StackLayout flexGrow="2">
                     <Label :text="logs[currLogIndex].client" class="patient-name patient-top patient-text"/>
@@ -14,16 +15,20 @@
                 </StackLayout>
                 <Image class="edit-icon" alignSelf="flex-end" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
             </FlexboxLayout>
-            <StackLayout class="q-main-ctnr">
-                <Label class="q-main-title" text="Log" />
-                <Label class="q-main-title" text="In Progress" />
-                <FlexboxLayout alignItems="stretch" class="q-question-ctnr">
-                    <Image width="50" class="user-head" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
-                    <Label :text="question_body" class="q-question-q"/>
-                </FlexboxLayout>
-                <Label v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" /> 
+            <StackLayout row="1" col="0" class="q-main-ctnr">
+                <StackLayout class="q-title-ctnr">
+                    <Label class="q-main-title" text="Log" />
+                    <Label class="q-main-title" text="In Progress" />
+                </StackLayout>
+                <StackLayout class="q-question-ctnr" >
+                    <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
+                        <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
+                        <Label :text="question_body" class="q-question-body"/>
+                    </FlexboxLayout>
+                    <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="q-question-ans" @tap="onForward(answer)" /> 
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </GridLayout>
     </Page>
 </template>
 
@@ -64,13 +69,32 @@
                 const dateTime = time + ' | ' + date;
                 this.created_time = dateTime;
             },
-            prepareInitialQuestion() {
-                const q = this.questions.find((question) => { return question.id == this.intro_question_id});
+            retrieveQuestion(target_q_id) {
+                const q = this.questions.find(question => { return question.id === target_q_id});
                 this.question_body = q.text;
-                this.answers_list = this.answers.filter(ans => ans.question_id == q.id);
+                this.answers_list = this.answers.filter(ans => ans.question_id === q.id);
             },
-            onForward(args) {
+            prepareInitialQuestion() {
+                this.retrieveQuestion(this.intro_question_id);
+            },
+            prepareNextQuestion(next_id) {
+                this.retrieveQuestion(next_id);
+            },
+            onForward(ans) {
                 console.log("=== Forward ===");
+                const outcome = this.intro_outcomes.find(out => { return out.answer_id === ans.id});
+                if (outcome === undefined) {
+                    const branch = this.branches.find(brc => { return brc.answer_id === ans.id});
+                    if (branch === undefined) {
+                        console.log("=== Trouble in backend ===");
+                    } else {
+                        const new_q_id = branch.question_id;
+                        this.prepareNextQuestion(new_q_id);
+                    }
+                } else {
+                    // navigate to result page with outcome id
+                    console.log("=== Heading to result now ===");
+                }
             },
             onBackward(args) {
                 console.log("=== Backward ===");
