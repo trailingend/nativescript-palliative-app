@@ -10,7 +10,7 @@ export default {
 		phone: '778-809-5547',
         client: 'Jihyun Lee',
         patient: 'Apple Pasta',
-		relation: 'Dad',
+		relation: 'Friend',
         createdTime: '5:45 | 05/JAN/2019',
 		timer: 0,
 		status: true,
@@ -19,16 +19,16 @@ export default {
     }, {
 		id: '2018125145',
 		phone: '604-512-8638',
-        client: 'Michelle Gao',
+        client: 'Ahssan Moshref',
         patient: 'Melon Pizza',
-		relation: 'Mon',
+		relation: 'Dad',
         createdTime: '1:45 | 05/DEC/2018',
 		timer: 0,
 		status: false,// true,
 		progress: [[2, 3], [3, 6]]// [[2, 3], [3, 6], [10, 14], [5, -1]]
     }, {
 		id: '201712855',
-		phone: '778-868-7777',
+		phone: '604-376-6795',
         client: 'Sara Lam',
         patient: 'Banana Hotdog',
 		relation: 'Friend',

@@ -22,7 +22,7 @@
                 </v-template>
 
                 <v-template name="itemswipe">
-                    <GridLayout columns="auto" backgroundColor="White">
+                    <GridLayout class="swipe-ctnr" columns="auto">
                         <Button id="delete-view" class="patient-btn" text="DELETE" @tap="onDeleteTap"></Button>
                     </GridLayout>
                 </v-template>
