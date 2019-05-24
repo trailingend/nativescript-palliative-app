@@ -22,14 +22,15 @@ export default {
     },
     [types.INTRO_LOG_UPDATE](state, log_item){
         state.logs[log_item.idx].progress.push(log_item.q_and_a);
+        console.log("in mutation uppdate ===: " + state.logs[log_item.idx].progress);
     },
     [types.INTRO_LOG_REVERT](state, log_idx){
         state.logs[log_idx].progress.pop();
-        console.log("in mutation ===: " + state.logs[log_idx].progress);
+        console.log("in mutation revert ===: " + state.logs[log_idx].progress);
     },
     [types.INTRO_OUTCOME](state, outcome) {
         state.logs[outcome.idx].progress.push([outcome.id, -1]);
-        console.log("in mutation ===: " + state.logs[outcome.idx].progress);
+        console.log("in mutation result ===: " + state.logs[outcome.idx].progress);
     },
     [types.STATUS_UPDATE](state, id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == id});

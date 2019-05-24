@@ -24,8 +24,8 @@ export default {
 		relation: 'Mon',
         createdTime: '1:45 | 05/DEC/2018',
 		timer: 0,
-		status: false,
-		progress: [[2, 3], [3, 6], [10, 14], [5, -1]]
+		status: false,// true,
+		progress: [[2, 3], [3, 6]]// [[2, 3], [3, 6], [10, 14], [5, -1]]
     }, {
 		id: '201712855',
 		phone: '778-868-7777',
@@ -34,7 +34,7 @@ export default {
 		relation: 'Friend',
         createdTime: '5:05 | 08/DEC/2017',
 		timer: 0,
-		status: false,
+		status: true,
         progress: [[2, 4], [11, 16], [7, -1]]
     }],
 

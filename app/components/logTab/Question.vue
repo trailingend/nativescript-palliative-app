@@ -82,6 +82,7 @@
             ...mapActions([
                 'saveIntroProgress',
                 'revertIntroProgress',
+                'changeLogStatus'
             ]),
             retrieveQuestion(target_q_id) {
                 const q = this.questions.find(question => { return question.id === target_q_id});
@@ -132,6 +133,7 @@
                         }
                     });
                     console.log("=== Heading to result now ===");
+                    this.changeLogStatus(this.log_id);
                 }
             },
             onBackward(args) {

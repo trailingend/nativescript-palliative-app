@@ -60,7 +60,9 @@
             },
             onBackward(args) {
                 const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
+                this.revertIntroProgress(this.log_id);
                 const log_progress = this.logs[log_idx].progress;
+                
                 const last_progress = log_progress[log_progress.length - 1];
                 if (last_progress === undefined) {
                     console.log("=== NOT suppose to happen ===");
@@ -75,6 +77,7 @@
                         }
                     });
                     this.revertIntroProgress(this.log_id);
+                    this.changeLogStatus(this.log_id);
                 }
             },
             onBackHome(args) {
@@ -82,7 +85,6 @@
                     log_id: this.log_id,
                     id: this.intro_outcome.id 
                 });
-                this.changeLogStatus(this.log_id);
 
                 console.log("=== Back to Dashboard ===");
                 const tabView = args.object.page.frame.parent.parent;

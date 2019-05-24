@@ -44,6 +44,7 @@
 
 <script lang="ts">
     import Logs from './dashboard/Logs.vue';
+    import NewPatient from '../logTab/NewPatient.vue';
     import UserForm from './dashboard/UserForm.vue';
 
     import { mapActions } from 'vuex';
@@ -79,6 +80,11 @@
             ]),
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
+                this.$navigateTo(NewPatient, {
+                    frame: "logFrame",
+                    animated: false,
+                    clearHistory: true
+                });
                 const tabView = args.object.page.frame.parent.parent;
                 tabView.selectedIndex = 1;
             },
