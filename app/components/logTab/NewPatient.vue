@@ -126,11 +126,13 @@
                 }
             },
             onLayoutUpdate() {
-                const width = utils.layout.toDeviceIndependentPixels( this.$refs.newGridRef.nativeView.getMeasuredWidth() );
-                if (width > 1000) {
-                    this.formSetting.class = "new-form-ctnr tablet-landscape";
-                } else {
-                    this.formSetting.class = "new-form-ctnr";
+                if (this.$refs.newGridRef) {
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.newGridRef.nativeView.getMeasuredWidth() );
+                    if (width > 1000) {
+                        this.formSetting.class = "new-form-ctnr tablet-landscape";
+                    } else {
+                        this.formSetting.class = "new-form-ctnr";
+                    }
                 }
             }
         }
