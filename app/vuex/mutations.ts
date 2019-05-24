@@ -20,6 +20,9 @@ export default {
     [types.NEW_LOG](state, entry){
         state.logs.push(entry); 
     },
+    [types.DELETE_LOG](state, log_idx) {
+        state.logs.splice(log_idx, 1);
+    },
     [types.INTRO_LOG_UPDATE](state, log_item){
         state.logs[log_item.idx].progress.push(log_item.q_and_a);
         console.log("in mutation uppdate ===: " + state.logs[log_item.idx].progress);

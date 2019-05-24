@@ -87,6 +87,9 @@
         }
         .patient-item {
             padding: 2 0;
+            background: white;
+            border-color: #2b2b2b;
+            border-bottom-width: 0.25;
         }
         .patient-top {
             padding-top: 7;
@@ -112,6 +115,13 @@
         .edit-icon {
             margin-bottom: 10;
             margin-right: 15;
+        }
+        .facetime-ctnr {
+            padding: 0 25;
+            background: $color-temp;
+        }
+        .facetime-icon {
+            height: 100%;
         }
     }
 

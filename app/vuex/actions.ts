@@ -30,6 +30,11 @@ export default {
         commit(types.NEW_LOG, entry);
     },
 
+    deleteLog({commit, state}, log_id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+        commit(types.DELETE_LOG, log_idx);
+    },
+
     saveIntroProgress({commit, state}, progress) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == progress.log_id});
         if (log_idx === -1) {

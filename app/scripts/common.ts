@@ -1,3 +1,5 @@
+import { alert, confirm, prompt, login, action, inputType }  from "tns-core-modules/ui/dialogs";
+
 export const homeGridChildLandscape = {
                 logoSec: {
                     row: "0",
@@ -57,21 +59,21 @@ export const homeGridChildPortrait = {
             };
             
 export const dialogLogDelete = (id) => {
-    // confirm({
-    //     title: "Attention",
-    //     message: "Confirm you want to delete this patient log?",
-    //     okButtonText: "Yes",
-    //     cancelButtonText: "Cancel"
-    // }).then(isConfirmed => {
-    //     if (isConfirmed) {
-    //         console.dir("=== Delete patient === " + id);
-    //     }
-    // });
-    alert({
+    confirm({
         title: "Attention",
         message: "Confirm you want to delete this patient log?",
-        okButtonText: "OK"
+        okButtonText: "Yes",
+        cancelButtonText: "Cancel"
+    }).then(isConfirmed => {
+        if (isConfirmed) {
+            console.dir("=== Delete patient === " + id);
+        }
     });
+    // alert({
+    //     title: "Attention",
+    //     message: "Confirm you want to delete this patient log?",
+    //     okButtonText: "OK"
+    // });
 };
 
 export const dialogConsent = () => {

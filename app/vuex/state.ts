@@ -7,8 +7,8 @@ export default {
 	}],
     logs: [{
 		id: '201915545',
-		phone: '778-868-9999',
-        client: 'John Stevenson',
+		phone: '778-809-5547',
+        client: 'Jihyun Lee',
         patient: 'Apple Pasta',
 		relation: 'Dad',
         createdTime: '5:45 | 05/JAN/2019',
@@ -18,7 +18,7 @@ export default {
 
     }, {
 		id: '2018125145',
-		phone: '778-868-8888',
+		phone: '604-512-8638',
         client: 'Michelle Gao',
         patient: 'Melon Pizza',
 		relation: 'Mon',
