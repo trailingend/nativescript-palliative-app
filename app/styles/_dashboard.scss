@@ -35,7 +35,7 @@
             font-size: $user-font-size;
             line-height: auto;
             letter-spacing: 0.1;
-            margin: 5 20;
+            margin: 2.5 10 2.5 0;
             text-align: left;
         }
         .user-a {
@@ -50,9 +50,10 @@
             border-bottom-color: black;
         }
         .user-q3 {
-            margin: 5 0;
+            margin: 15 0 10 0;
         }
         .user-a3 {
+            width: 150;
             font-weight: 500;
             font-size: 32;
             text-align: left;
@@ -60,7 +61,9 @@
             letter-spacing: 0;
             border-bottom-width: 0;
         }
-        
+        .edit-icon {
+            width: 20;
+        }
     }
 
     .log-title-ctnr {
@@ -108,7 +111,7 @@
         }
         .edit-icon {
             margin-bottom: 10;
-            margin-right: 5;
+            margin-right: 15;
         }
     }
 
@@ -118,13 +121,14 @@
 
         .home-add {
             width: 150;
-            vertical-align: middle;
+            height: 150;
+            // vertical-align: center;
             margin: 50;
         }
 
         &.tablet-landscape {
             .home-add {
-                margin: 120;
+                margin: 150;
             }
         }
     }

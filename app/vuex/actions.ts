@@ -10,27 +10,63 @@ export default {
             .then(response => response.json())
             .then(data => {
                 const version_not_match = (state.data_version != data.data.main.version);
-                console.log("=== in load data === does version match - " + version_not_match);
+                console.log("=== in load data === version match found? - " + version_not_match);
                 if (version_not_match) {
                     commit(types.JSON_UPDATE, data.data); 
                 }
             });
     },
 
+    saveUserInfo({commit, state}, user) {
+        const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
+        if (userIdx == -1) {
+            commit(types.NEW_USER, user);
+        } else {
+            commit(types.USER_UPDATE, userIdx);
+        }
+    },
+
     saveClientInfo({commit, state}, entry) {
-        commit(types.INFO_UPDATE, entry);
+        commit(types.NEW_LOG, entry);
     },
 
-    saveNewProgress({commit, state}, pair) {
-        commit(types.PROGRESS_UPDATE, pair);
+    saveIntroProgress({commit, state}, progress) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro log update: OH NO !!! ===");
+        } else {
+            const log_item = {
+                idx: log_idx,
+                q_and_a: [progress.q_id, progress.a_id]
+            }
+            commit(types.INTRO_LOG_UPDATE, log_item);
+        }
     },
 
-    changeProgressLoc({commit, state}, isForward) {
-        commit(types.PROGRESS_JUMP, isForward);
+    revertIntroProgress({commit, state}, log_id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+        if (log_idx === -1) {
+            console.log("=== In revert log update: OH NO !!! ===");
+        } else {
+            commit(types.INTRO_LOG_REVERT, log_idx);
+        }
     },
 
-    changePatient({commit, state}, id) {
-        commit(types.PATIENT_JUMP, id);
+    saveIntroOutcome({commit, state}, out_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == out_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro outcome update: OH NO !!! ===");
+        } else {
+            const outcome = {
+                idx: log_idx,
+                id: out_item.id
+            }
+            commit(types.INTRO_OUTCOME, outcome);
+        }
+    },
+
+    changeLogStatus({commit, state}, id) {
+        commit(types.STATUS_UPDATE, id);
     },
 
     updateTimer({commit, state}, t) {

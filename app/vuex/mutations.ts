@@ -8,28 +8,32 @@ export default {
         state.intro_outcomes = data.intro_outcomes;
         state.protocols = data.protocols;
     },
-    [types.INFO_UPDATE](state, entry){
-        state.currLogIndex = state.logs.length;
-        entry.id = state.currLogIndex;
-        state.logs.push(entry);
+
+    [types.NEW_USER](state, user) {
+        state.currUserIndex = state.users.length;
+        state.users.push(user);
     },
-    [types.PROGRESS_UPDATE](state, pair){
-        const log_idx = state.currLogIndex;
-        state.logs[log_idx].progress.push([pair.q_id, pair.a_id]);
+    [types.USER_UPDATE](state, idx) {
+        state.currUserIndex = idx;
     },
-    [types.PROGRESS_JUMP](state, isForward){
-        const log_idx = state.currLogIndex;
-        if (isForward) {
-            state.logs[log_idx].progressLoc = state.logs[log_idx].progressLoc + 1;
-        } else {
-            state.logs[log_idx].progressLoc = state.logs[log_idx].progressLoc - 1;
-        }
+
+    [types.NEW_LOG](state, entry){
+        state.logs.push(entry); 
     },
-    [types.PATIENT_JUMP](state, id){
-        state.currLogIndex = id;
+    [types.INTRO_LOG_UPDATE](state, log_item){
+        state.logs[log_item.idx].progress.push(log_item.q_and_a);
     },
+    [types.INTRO_LOG_REVERT](state, log_idx){
+        state.logs[log_idx].progress.pop();
+    },
+    [types.INTRO_OUTCOME](state, outcome) {
+        state.logs[outcome.idx].progress.push([outcome.id, -1]);
+    },
+    [types.STATUS_UPDATE](state, id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == id});
+        state.logs[log_idx].status = state.logs[log_idx].status ? false : true;
+    }
     // [types.TIME_UPDATE](state, newTime){
-    //     const log_idx = state.currLogIndex;
     //     state.logs[log_idx].timer = newTime;
     // },
 

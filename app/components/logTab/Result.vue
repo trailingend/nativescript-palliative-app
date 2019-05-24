@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import NewPatient from './NewPatient.vue';
+
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -32,6 +34,10 @@
                 type: Object,
                 required: false,
             },
+            log_id: {
+                type: String,
+                required: true,
+            }
         },
         computed: {
             ...mapGetters([
@@ -39,6 +45,8 @@
 		},
         methods: {
             ...mapActions([
+                'changeLogStatus',
+                'saveIntroOutcome'
             ]),
             prepareResult() {
                 if (this.intro_outcome.text) {
@@ -51,12 +59,26 @@
                 this.$navigateBack();
             },
             onBackHome(args) {
+                this.saveIntroOutcome({
+                    log_id: this.log_id,
+                    id: this.intro_outcome.id 
+                });
+                this.changeLogStatus(this.log_id);
+
                 console.log("=== Back to Dashboard ===");
                 const tabView = args.object.page.frame.parent.parent;
                 tabView.selectedIndex = 0;
+
+                this.$navigateTo(NewPatient, {
+                    frame: "logFrame",
+                    animated: false,
+                    clearHistory: true
+                });
             },
             onLayoutUpdate() {
-                const width = utils.layout.toDeviceIndependentPixels( this.$refs.resultGridRef.nativeView.getMeasuredWidth() );
+                const width = utils.layout.toDeviceIndependentPixels( 
+                    this.$refs.resultGridRef.nativeView.getMeasuredWidth() 
+                );
 
                 if (width > 1000) {
 
