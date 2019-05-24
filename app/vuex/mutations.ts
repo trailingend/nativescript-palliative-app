@@ -25,9 +25,11 @@ export default {
     },
     [types.INTRO_LOG_REVERT](state, log_idx){
         state.logs[log_idx].progress.pop();
+        console.log("in mutation ===: " + state.logs[log_idx].progress);
     },
     [types.INTRO_OUTCOME](state, outcome) {
         state.logs[outcome.idx].progress.push([outcome.id, -1]);
+        console.log("in mutation ===: " + state.logs[outcome.idx].progress);
     },
     [types.STATUS_UPDATE](state, id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == id});

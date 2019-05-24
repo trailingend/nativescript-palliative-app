@@ -57,15 +57,20 @@ export const homeGridChildPortrait = {
             };
             
 export const dialogLogDelete = (id) => {
-    confirm({
+    // confirm({
+    //     title: "Attention",
+    //     message: "Confirm you want to delete this patient log?",
+    //     okButtonText: "Yes",
+    //     cancelButtonText: "Cancel"
+    // }).then(isConfirmed => {
+    //     if (isConfirmed) {
+    //         console.dir("=== Delete patient === " + id);
+    //     }
+    // });
+    alert({
         title: "Attention",
         message: "Confirm you want to delete this patient log?",
-        okButtonText: "Yes",
-        cancelButtonText: "Cancel"
-    }).then(isConfirmed => {
-        if (isConfirmed) {
-            console.dir("=== Delete patient === " + id);
-        }
+        okButtonText: "OK"
     });
 };
 
@@ -74,8 +79,6 @@ export const dialogConsent = () => {
         title: "Attention",
         message: "Please agree to the terms first.",
         okButtonText: "OK"
-    }).then(() => {
-        console.log("=== Do consent first ===");
     });
 };
 

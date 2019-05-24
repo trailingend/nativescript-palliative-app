@@ -13,6 +13,7 @@
 
 <script>
     import NewPatient from './NewPatient.vue';
+    import Question from './Question.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -41,12 +42,14 @@
         },
         computed: {
             ...mapGetters([
+                'logs'
 			])
 		},
         methods: {
             ...mapActions([
                 'changeLogStatus',
-                'saveIntroOutcome'
+                'saveIntroOutcome',
+                'revertIntroProgress'
             ]),
             prepareResult() {
                 if (this.intro_outcome.text) {
@@ -56,7 +59,23 @@
             onForward(ans) {
             },
             onBackward(args) {
-                this.$navigateBack();
+                const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
+                const log_progress = this.logs[log_idx].progress;
+                const last_progress = log_progress[log_progress.length - 1];
+                if (last_progress === undefined) {
+                    console.log("=== NOT suppose to happen ===");
+                } else {
+                    this.$navigateTo(Question, {
+                        frame: "logFrame",
+                        animated: false,
+                        clearHistory: true,
+                        props: {
+                            log_id: this.log_id,
+                            intro_question_id: last_progress[0]
+                        }
+                    });
+                    this.revertIntroProgress(this.log_id);
+                }
             },
             onBackHome(args) {
                 this.saveIntroOutcome({
