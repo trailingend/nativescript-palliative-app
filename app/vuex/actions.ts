@@ -1,10 +1,14 @@
 let Vue = require('vue');
 
 import * as types from './mutation-types';
-import { knownFolders, Folder, File } from "tns-core-modules/file-system";
+// import { knownFolders, Folder, File } from "tns-core-modules/file-system";
 
 export default {
-    loadData({commit, state}){
+    loadLocalData({commit, state}) {
+        
+    },
+
+    loadOnlineData({commit, state}){
         let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
         fetch(url)
             .then(response => response.json())

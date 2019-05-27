@@ -1,18 +1,38 @@
 <template>
     <Page class="page new-page">
         <ActionBar title="Patient Log"></ActionBar>
-        <GridLayout rows="*" columns="*, auto" class="new-ctnr" ref="newGridRef" @layoutChanged="onLayoutUpdate">
+        <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
+                    ref="newGridRef" 
+                    @tap="clearTextfieldFocus"
+                    @layoutChanged="onLayoutUpdate">
             <StackLayout row="0" col="0" :class="formSetting.class">
                 <Image class="new-head" src="~/assets/images/head2.png" stretch="aspectFit" ></Image>                    
                 <GridLayout rows="auto, auto, auto, auto" columns="auto, *">
                     <Label row="0" col="0" class="new-q1 new-q" text="Callback #:" textWrap="true"/>
-                    <TextField row="0" col="1" class="new-a1 new-a" v-model="c_phone" keyboardType="phone" />
+                    <TextField row="0" col="1" 
+                               id="new-a1"
+                               class="new-a new-a1" 
+                               v-model="c_phone" 
+                               keyboardType="phone"
+                               editable="true" />
                     <Label row="1" col="0" class="new-q2 new-q" text="Client name:" textWrap="true"/>
-                    <TextField row="1" col="1" class="new-a2 new-a" v-model="c_client"  />
+                    <TextField row="1" col="1" 
+                               id="new-a2"
+                               class="new-a new-a2" 
+                               v-model="c_client"
+                               editable="true" />
                     <Label row="2" col="0" class="new-q2 new-q" text="Patient name:" textWrap="true"/>
-                    <TextField row="2" col="1" class="new-a2 new-a" v-model="c_patient"  />
+                    <TextField row="2" col="1" 
+                               id="new-a3"
+                               class="new-a new-a3" 
+                               v-model="c_patient"
+                               editable="true" />
                     <Label row="3" col="0" class="new-q3 new-q" text="Relation to client:" textWrap="true"/>
-                    <TextField row="3" col="1" class="new-a3 new-a" v-model="c_relation"  />
+                    <TextField row="3" col="1"
+                               id="new-a4"
+                               class="new-a new-a4"
+                               v-model="c_relation"
+                               editable="true" />
                 </GridLayout>
                 <Label class="new-q new-consent-title" text="consent" textWrap="true"/>
                 <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
@@ -124,6 +144,17 @@
                 } else {
                     dialogConsent();
                 }
+            },
+            clearTextfieldFocus(args) {
+                const layoutView = args.object;
+                const a1Textfield = layoutView.getViewById("new-a1");
+                const a2Textfield = layoutView.getViewById("new-a2");
+                const a3Textfield = layoutView.getViewById("new-a3");
+                const a4Textfield = layoutView.getViewById("new-a4");
+                a1Textfield.dismissSoftInput();
+                a2Textfield.dismissSoftInput();
+                a3Textfield.dismissSoftInput();
+                a4Textfield.dismissSoftInput();
             },
             onLayoutUpdate() {
                 if (this.$refs.newGridRef) {

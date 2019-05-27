@@ -64,8 +64,11 @@
                 }
             }
         },
+        created() {
+            this.loadLocalData();
+        },
         mounted() {
-            this.loadData();
+            this.loadOnlineData();
         },
         components: {
             Logs,
@@ -76,7 +79,8 @@
 		},
         methods: {
             ...mapActions([
-                'loadData'
+                'loadLocalData',
+                'loadOnlineData'
             ]),
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");

@@ -8,7 +8,7 @@
             </TabViewItem>
             <TabViewItem title="Log">
                 <Frame id="logFrame">
-                    <NewPatient />
+                    <Placeholder />
                 </Frame>
             </TabViewItem>
             <TabViewItem title="Resources">
@@ -32,7 +32,8 @@
 
 <script lang="ts">
     import DashBoard from './homeTab/Dashboard.vue';
-    import NewPatient from './logTab/NewPatient.vue';
+    
+    import Placeholder from './logTab/Placeholder.vue';
 
     export default {
         data() {
@@ -42,7 +43,7 @@
         },
         components: {
             DashBoard,
-            NewPatient
+            Placeholder
         },
     }
 </script>

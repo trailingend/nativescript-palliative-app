@@ -1,0 +1,13 @@
+@import "variables";
+
+.empty-page {
+    .empty-ctnr {
+        vertical-align: middle;
+    }
+    label {
+        font-size: $q-font-size;
+        letter-spacing: 0.1;
+        padding: 20 60;
+        text-align: center;
+    }
+}
