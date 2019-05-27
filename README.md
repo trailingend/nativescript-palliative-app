@@ -1,8 +1,14 @@
 # PAT
 
-> A native application built with NativeScript-Vue for VCH Palliative
+Palliative Assistant Tool (PAT) is a Universal iOS Application for iPhone and iPad.
 
-## Usage
+## Technologies
+- NativeScript
+- Vue
+- TypeScript
+
+
+## Setup Dev Environment
 
 ``` bash
 # Install dependencies
