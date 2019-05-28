@@ -65,7 +65,7 @@
             }
         },
         created() {
-            this.loadLocalData();
+            this.loadLocalJsonFile();
         },
         mounted() {
             this.loadOnlineData();
@@ -82,6 +82,12 @@
                 'loadLocalData',
                 'loadOnlineData'
             ]),
+            loadLocalJsonFile() {
+                const localJsonData = require('@/assets/data/data.json');
+                if (localJsonData) {
+                    this.loadLocalData(localJsonData);
+                }
+            },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
                 this.$navigateTo(NewPatient, {

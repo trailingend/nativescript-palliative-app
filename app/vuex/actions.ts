@@ -4,8 +4,9 @@ import * as types from './mutation-types';
 // import { knownFolders, Folder, File } from "tns-core-modules/file-system";
 
 export default {
-    loadLocalData({commit, state}) {
-        
+    loadLocalData({commit, state}, data) {
+        console.log("=== in local load === ");
+        commit(types.JSON_UPDATE, data.data); 
     },
 
     loadOnlineData({commit, state}){
@@ -14,7 +15,7 @@ export default {
             .then(response => response.json())
             .then(data => {
                 const version_not_match = (state.data_version != data.data.main.version);
-                console.log("=== in load data === version match found? - " + version_not_match);
+                console.log("=== in load online data === version match found? - " + version_not_match);
                 if (version_not_match) {
                     commit(types.JSON_UPDATE, data.data); 
                 }

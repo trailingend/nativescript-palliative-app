@@ -2,6 +2,9 @@ import * as types from './mutation-types';
 
 export default {
     [types.JSON_UPDATE](state, data){
+        state.data_version = data.main.version;
+        state.intro_question_id = data.main.intro_question_id;
+
         state.questions = data.questions;
         state.answers = data.answers;
         state.branches = data.branches;
