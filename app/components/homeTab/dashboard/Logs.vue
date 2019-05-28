@@ -121,7 +121,13 @@
                 openUrl('facetime:' + phone_num);
             },
             onDeleteTap(args) {
-                dialogLogDelete(args.object.bindingContext.id);
+                const id = args.object.bindingContext.id;
+                const isConfirmed = dialogLogDelete(id);
+                if (isConfirmed) {
+                    this.deleteLog(id);
+                } else {
+                    console.log("=== no delete ===");
+                }
             },
 
             onSwipeStarted ({ data, object }) {

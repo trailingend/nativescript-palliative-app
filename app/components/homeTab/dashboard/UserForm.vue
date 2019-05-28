@@ -4,7 +4,7 @@
             <Label row="0" col="0" class="user-q1 user-q" text="Name:" textWrap="true"/>
             <TextField row="0" col="1" class="user-a1 user-a" 
                                         v-model="user.name" 
-                                        hint="Enter your name..."
+                                        hint="Firstname Lastname"
                                         @returnPress="onUserUpdate" />
             <Label row="1" col="0" class="user-q2 user-q" text="ID #:" textWrap="true"/>
             <TextField row="1" col="1" class="user-a2 user-a" 

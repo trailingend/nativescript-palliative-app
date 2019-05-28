@@ -58,17 +58,20 @@ export const homeGridChildPortrait = {
                 }
             };
             
-export const dialogLogDelete = (id) => {
-    confirm({
+export const dialogLogDelete = async (id) => {
+    let willDelete = false;
+    await confirm({
         title: "Attention",
         message: "Confirm you want to delete this patient log?",
         okButtonText: "Yes",
         cancelButtonText: "Cancel"
     }).then(isConfirmed => {
+        willDelete = isConfirmed;
         if (isConfirmed) {
             console.dir("=== Delete patient === " + id);
         }
     });
+    return willDelete;
     // alert({
     //     title: "Attention",
     //     message: "Confirm you want to delete this patient log?",
@@ -89,4 +92,19 @@ export const logMonths = (month_unformatted) => {
     let month_formated = '';
     const month_titles = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return month_titles[month_num];
+};
+
+export const formatPhoneNum = (phone_unformatted) => {
+    let formatted_input = '';
+    const input = phone_unformatted;
+    const len = phone_unformatted.length;
+    if (len > 2) {
+        const area_code = input.substring(0, Math.min(3, input.length));
+        const first_part = input.substring(3, Math.min(6, input.length));
+        const second_part = input.substring(6, Math.min(9, input.length));
+        const hasSecond = second_part != '';
+        formatted_input = hasSecond ? `(${area_code}) ${first_part}-${second_part}` : `(${area_code}) ${first_part}`;
+    }
+    console.log("=== in formatter === " + phone_unformatted + " " + formatted_input);
+    return formatted_input;
 };

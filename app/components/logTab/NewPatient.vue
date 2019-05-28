@@ -12,8 +12,9 @@
                     <TextField row="0" col="1" 
                                id="new-a1"
                                class="new-a new-a1" 
-                               v-model="c_phone" 
+                               v-model="input_phone" 
                                keyboardType="phone"
+                               @blur="onPhoneEntered"
                                editable="true" />
                     <Label row="1" col="0" class="new-q2 new-q" text="Client name:" textWrap="true"/>
                     <TextField row="1" col="1" 
@@ -55,7 +56,7 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
-    import { dialogConsent, logMonths } from '../../scripts/common';
+    import { dialogConsent, logMonths, formatPhoneNum } from '../../scripts/common';
         
     export default {
         data() {
@@ -85,7 +86,16 @@
             ...mapGetters([
                 'intro_question_id',
                 'logs'
-			])
+            ]),
+            input_phone: {
+                get: function() {                    
+                    return formatPhoneNum(this.c_phone);
+                },
+                set: function (new_input) {
+                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(9, new_input.length));
+                    console.log("in setter " + this.c_phone);
+                }
+            }
 		},
         methods: {
             ...mapActions([
@@ -155,6 +165,9 @@
                 a2Textfield.dismissSoftInput();
                 a3Textfield.dismissSoftInput();
                 a4Textfield.dismissSoftInput();
+            },
+            onPhoneEntered() {
+                this.input_phone = formatPhoneNum(this.c_phone);
             },
             onLayoutUpdate() {
                 if (this.$refs.newGridRef) {
