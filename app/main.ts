@@ -1,4 +1,5 @@
 import Vue from 'nativescript-vue';
+
 import App from './components/App.vue';
 import store from './vuex/store';
 
