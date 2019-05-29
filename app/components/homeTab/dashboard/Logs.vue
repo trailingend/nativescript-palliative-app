@@ -61,7 +61,8 @@
 		},
         methods: {
             ...mapActions([
-                'deleteLog'
+                'deleteLog',
+                'saveActiveLog'
             ]),
             onEditTap(args) {
                 if (this.isSwipeMode) {
@@ -70,6 +71,9 @@
                     const log_idx = args.index;
                     const log_id = this.logs[log_idx].id;
                     const log_progress = this.logs[log_idx].progress;
+
+                    this.saveActiveLog(log_id);
+
                     let q_id = this.intro_question_id;
                     if (log_progress.length > 0) {
                         const log_last = log_progress[log_progress.length - 1];

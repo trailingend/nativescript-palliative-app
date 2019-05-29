@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import NewPatient from './NewPatient.vue';
+    import Placeholder from './Placeholder.vue';
     import Question from './Question.vue';
 
     import { mapActions } from 'vuex';
@@ -90,7 +90,7 @@
                 const tabView = args.object.page.frame.parent.parent;
                 tabView.selectedIndex = 0;
 
-                this.$navigateTo(NewPatient, {
+                this.$navigateTo(Placeholder, {
                     frame: "logFrame",
                     animated: false,
                     clearHistory: true

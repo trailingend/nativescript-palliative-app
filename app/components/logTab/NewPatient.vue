@@ -100,6 +100,7 @@
         methods: {
             ...mapActions([
                 'saveClientInfo',
+                'saveActiveLog'
             ]),
             recordTime() {
                 const today = new Date();
@@ -141,6 +142,7 @@
                         progress: [],
                     };
                     this.saveClientInfo(entry);
+                    this.saveActiveLog(this.c_id);
 
                     this.$navigateTo(Question, {
                         frame: "logFrame",

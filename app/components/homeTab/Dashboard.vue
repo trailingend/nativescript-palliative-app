@@ -80,7 +80,8 @@
         methods: {
             ...mapActions([
                 'loadLocalData',
-                'loadOnlineData'
+                'loadOnlineData',
+                'deleteActiveLog'
             ]),
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
@@ -90,6 +91,7 @@
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
+                this.deleteActiveLog();
                 this.$navigateTo(NewPatient, {
                     frame: "logFrame",
                     animated: false,

@@ -1,6 +1,6 @@
 export default {
     currUserIdx: state => state.currUserIdx,
-    currLogIndex: state => state.currLogIndex,
+    currLogId: state => state.currLogId,
     logs: state => state.logs,
     users: state => state.users,
 

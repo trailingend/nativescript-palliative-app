@@ -1,5 +1,6 @@
 export default {
 	currUserIndex: -1,
+	currLogId: null,
 
 	users: [{
 		id: '477567',

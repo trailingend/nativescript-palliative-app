@@ -12,7 +12,7 @@ export default {
         state.protocols = data.protocols;
     },
 
-    [types.NEW_USER](state, user) {
+    [types.USER_CREATE](state, user) {
         state.currUserIndex = state.users.length;
         state.users.push(user);
     },
@@ -20,11 +20,17 @@ export default {
         state.currUserIndex = idx;
     },
 
-    [types.NEW_LOG](state, entry){
+    [types.LOG_CREATE](state, entry){
         state.logs.push(entry); 
     },
-    [types.DELETE_LOG](state, log_idx) {
+    [types.LOG_DELETE](state, log_idx) {
         state.logs.splice(log_idx, 1);
+    },
+    [types.LOG_ACTIVATE](state, log_id) {
+        state.currLogId = log_id;
+    },
+    [types.LOG_DEACTIVATE](state) {
+        state.currLogId = null;
     },
     [types.INTRO_LOG_UPDATE](state, log_item){
         state.logs[log_item.idx].progress.push(log_item.q_and_a);

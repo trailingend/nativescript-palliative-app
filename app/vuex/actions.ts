@@ -25,19 +25,19 @@ export default {
     saveUserInfo({commit, state}, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         if (userIdx == -1) {
-            commit(types.NEW_USER, user);
+            commit(types.USER_CREATE, user);
         } else {
             commit(types.USER_UPDATE, userIdx);
         }
     },
 
     saveClientInfo({commit, state}, entry) {
-        commit(types.NEW_LOG, entry);
+        commit(types.LOG_CREATE, entry);
     },
 
     deleteLog({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
-        commit(types.DELETE_LOG, log_idx);
+        commit(types.LOG_DELETE, log_idx);
     },
 
     saveIntroProgress({commit, state}, progress) {
@@ -77,6 +77,14 @@ export default {
 
     changeLogStatus({commit, state}, id) {
         commit(types.STATUS_UPDATE, id);
+    },
+
+    saveActiveLog({commit, state}, id) {
+        commit(types.LOG_ACTIVATE, id);
+    },
+
+    deleteActiveLog({commit, state}) {
+        commit(types.LOG_DEACTIVATE);
     },
 
     updateTimer({commit, state}, t) {
