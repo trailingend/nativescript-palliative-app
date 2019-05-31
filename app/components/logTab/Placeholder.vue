@@ -5,6 +5,7 @@
         </ActionBar>
         <StackLayout class="empty-ctnr" rows="*" columns="*" ref="emptyGridRef" @layoutChanged="onLayoutUpdate">
             <Label class="empty-msg" text="Add a new log from Dashboard."/>
+            <Label class="empty-msg" text="Or select an existing log."/>
             <Button class="empty-btn" text="Back to Dashboard" @tap="onBackHome"/>
         </StackLayout>
     </Page>

@@ -81,6 +81,7 @@
         methods: {
             ...mapActions([
                 'saveIntroProgress',
+                'saveIntroOutcome',
                 'revertIntroProgress',
                 'changeLogStatus'
             ]),
@@ -133,6 +134,10 @@
                         }
                     });
                     console.log("=== Heading to result now ===");
+                    this.saveIntroOutcome({
+                        log_id: this.log_id,
+                        id: outcome.id 
+                    });
                     this.changeLogStatus(this.log_id);
                 }
             },
@@ -142,14 +147,7 @@
                 const log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const last_progress = log.progress[log.progress.length - 1];
                 if (last_progress === undefined) {
-                    // this.$navigateTo(NewPatient, {
-                    //     frame: "logFrame",
-                    //     animated: false,
-                    //     props: {
-                    //         log_id: log_id_for_nav,
-                    //     }
-                    // });
-                    // the info page need to check if it is a new entry
+                  
                 } else {
                     this.preparePrevQuestion(last_progress[0]);
                     this.revertIntroProgress(this.log_id);

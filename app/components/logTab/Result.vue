@@ -48,7 +48,6 @@
         methods: {
             ...mapActions([
                 'changeLogStatus',
-                'saveIntroOutcome',
                 'revertIntroProgress'
             ]),
             prepareResult() {
@@ -81,11 +80,6 @@
                 }
             },
             onBackHome(args) {
-                this.saveIntroOutcome({
-                    log_id: this.log_id,
-                    id: this.intro_outcome.id 
-                });
-
                 console.log("=== Back to Dashboard ===");
                 const tabView = args.object.page.frame.parent.parent;
                 tabView.selectedIndex = 0;
