@@ -1,0 +1,79 @@
+@import "variables";
+
+.edit-page {
+    .edit-ctnr {
+        margin: 5;
+        background: $color-temp;
+    }
+    .edit-head {
+        width: 150;
+        vertical-align: top;
+        horizontal-align: left;
+    }
+
+    .edit-close {
+        vertical-align: top;
+        horizontal-align: right;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    .edit-title-ctnr {
+        padding: 10 25;
+
+        .log-title {
+            text-align: right;
+            font-size: 18;
+            font-weight: 700;
+            color: $color-text-light;
+        }
+    }
+
+    .edit-form-ctnr {
+        vertical-align: middle;
+        margin: 40;
+
+        .edit-q {
+            margin: 30 30 30 0;
+            text-align: left;
+        }
+        .edit-a {
+            width: 80%;
+            height: 40;
+            padding: 0 5;
+            background: white;
+        }
+        .edit-consent-title {
+            margin: 30 30 10 0;
+        }
+        .edit-consent-body {
+            width: 50%;
+        }
+        .edit-btn {
+            background: $color-secondary;
+            color: $color-text-light;
+            height: 40;
+            width: 200;
+            margin: 25 0;
+        }
+
+        &.tablet-landscape {
+            margin: 60;
+
+            .edit-head {
+                width: 100;
+                margin-bottom: 10;
+            }
+            .edit-q {
+                margin: 20 20 20 0;
+            }
+            .edit-a {
+                width: 60%;
+                height: 30;
+            }
+            .edit-consent-title {
+                margin: 20 20 10 0;
+            }
+        }
+    }
+}

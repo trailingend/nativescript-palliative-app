@@ -6,7 +6,8 @@ export default {
 		id: '477567',
 		name: 'Monster Hunter'
 	}],
-    logs: [{
+	logs: 
+	[{
 		id: '201915545',
 		phone: '778-809-5547',
         client: 'Jihyun Lee',
@@ -15,7 +16,9 @@ export default {
         createdTime: '5:45 | 05/JAN/2019',
 		timer: 0,
 		status: true,
-        progress: [[2, 3], [3, 5], [9, 12], [3, -1]]
+		intro_progress: [[2, 3], [3, 5], [9, 12]],
+		intro_outcome: -1,
+		intro_action: -1,
 
     }, {
 		id: '2018125145',
@@ -26,7 +29,9 @@ export default {
         createdTime: '1:45 | 05/DEC/2018',
 		timer: 0,
 		status: false,// true,
-		progress: [[2, 3], [3, 6]]// [[2, 3], [3, 6], [10, 14], [5, -1]]
+		intro_progress: [[2, 3], [3, 6]],
+		intro_outcome: -1,
+		intro_action: -1,
     }, {
 		id: '201712855',
 		phone: '604-376-6795',
@@ -36,22 +41,25 @@ export default {
         createdTime: '5:05 | 08/DEC/2017',
 		timer: 0,
 		status: true,
-        progress: [[2, 4], [11, 16], [7, -1]]
+		intro_progress: [[2, 4], [11, 16], [7, -1]],
+		intro_outcome: -1,
+		intro_action: -1,
     }],
 
 
 
-		data_version: 1,
-		intro_question_id: 2,
+	data_version: 1,
+	phase_2_question_id: 2,
+	phase_3_question_id: 16,
+	pre_protocol_answer: 27,
+	pre_protocol_question: "",
 
-		questions: [],
-		answers: [],
-		branches: [],
-		intro_outcomes: [],
-		protocols: []
+	questions: [],
+	answers: [],
+	branches: [],
+	intro_outcomes: [],
+	protocols: []
 
-    // data_version: 1,
-    // intro_question_id: 2,
 
     // questions: [
 		// {

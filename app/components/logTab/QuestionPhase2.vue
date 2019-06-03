@@ -5,16 +5,7 @@
             <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
         </ActionBar>
         <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
-            <FlexboxLayout row="0" col="0" alignItems="stretch" class="q-patient-ctnr">
-                <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
-                <StackLayout flexGrow="2">
-                    <Label :text="patient.client" class="patient-name patient-top patient-text"/>
-                    <Label :text="patient.phone" class="patient-phone patient-text"/>
-                    <Label :text="patient.patient" class="patient-name patient-text"/>
-                    <Label :text="patient.createdTime" class="patient-time patient-text" />
-                </StackLayout>
-                <Image class="edit-icon" alignSelf="flex-end" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
-            </FlexboxLayout>
+            <UserBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout row="1" col="0" :class="mainSetting.class">
                 <StackLayout class="q-title-ctnr">
                     <Label class="q-main-title" text="Log" />
@@ -33,7 +24,8 @@
 </template>
 
 <script>
-    import Result from './Result.vue';
+    import UserBlock from './parts/UserBlock.vue';
+    import QuestionPhase3 from './QuestionPhase3.vue';
     import NewPatient from './NewPatient.vue';
 
     import { mapActions } from 'vuex';
@@ -55,12 +47,12 @@
         },
         mounted() {
             this.prepareInitialQuestion();
-            this.preparePatientInfo();
         },
         components: {
+            UserBlock
         },
         props: {
-            intro_question_id: {
+            initial_question_id: {
                 type: Number,
                 required: true,
             },
@@ -92,19 +84,13 @@
                 this.answers_list = this.answers.filter(ans => ans.question_id === q.id);
             },
             prepareInitialQuestion() {
-                this.retrieveQuestion(this.intro_question_id);
+                this.retrieveQuestion(this.initial_question_id);
             },
             prepareNextQuestion(next_id) {
                 this.retrieveQuestion(next_id);
             },
             preparePrevQuestion(prev_id) {
                 this.retrieveQuestion(prev_id);
-            },
-            preparePatientInfo() {
-                const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                if (curr_log) {
-                    this.patient = curr_log;
-                }
             },
             onForward(ans) {
                 console.log("=== Forward === ");
@@ -125,27 +111,25 @@
                         this.prepareNextQuestion(new_q_id);
                     }
                 } else {
-                    this.$navigateTo(Result, {
+                    this.$navigateTo(QuestionPhase3, {
                         frame: "logFrame",
                         animated: false,
                         props: {
-                            intro_outcome: outcome,
                             log_id: this.log_id
                         }
                     });
-                    console.log("=== Heading to result now ===");
+                    console.log("=== Heading to phase 3 now ===");
                     this.saveIntroOutcome({
                         log_id: this.log_id,
                         id: outcome.id 
                     });
-                    this.changeLogStatus(this.log_id);
                 }
             },
             onBackward(args) {
                 console.log("=== Backward ===");
                 const log_id_for_nav = this.log_id;
                 const log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                const last_progress = log.progress[log.progress.length - 1];
+                const last_progress = log.intro_progress[log.intro_progress.length - 1];
                 if (last_progress === undefined) {
                   
                 } else {

@@ -35,19 +35,23 @@ export default {
         commit(types.LOG_CREATE, entry);
     },
 
+    changeClientInfo({commit, state}, entry) {
+        commit(types.LOG_INFO_UPDATE, entry);
+    },
+
     deleteLog({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         commit(types.LOG_DELETE, log_idx);
     },
 
-    saveIntroProgress({commit, state}, progress) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress.log_id});
+    saveIntroProgress({commit, state}, progress_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
             const log_item = {
                 idx: log_idx,
-                q_and_a: [progress.q_id, progress.a_id]
+                q_and_a: [progress_item.q_id, progress_item.a_id]
             }
             commit(types.INTRO_LOG_UPDATE, log_item);
         }

@@ -6,13 +6,14 @@ import store from './vuex/store';
 import VueDevtools from 'nativescript-vue-devtools';
 import RadListView from 'nativescript-ui-listview/vue';
 
-if (TNS_ENV !== 'production') {
-	Vue.use(VueDevtools);
-}
+
+// if (TNS_ENV !== 'production') {
+// 	Vue.use(VueDevtools);
+// }
 Vue.use(RadListView);
 
 // Prints Vue logs when --env.production is *NOT* set while building
-Vue.config.silent = true;// (TNS_ENV === 'production');
+Vue.config.silent = false;// (TNS_ENV === 'production');
 
 
 new Vue({

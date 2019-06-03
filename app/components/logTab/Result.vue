@@ -13,7 +13,7 @@
 
 <script>
     import Placeholder from './Placeholder.vue';
-    import Question from './Question.vue';
+    import QuestionPhase3 from './QuestionPhase3.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -60,19 +60,19 @@
             onBackward(args) {
                 const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
                 this.revertIntroProgress(this.log_id);
-                const log_progress = this.logs[log_idx].progress;
+                const log_progress = this.logs[log_idx].intro_progress;
                 
                 const last_progress = log_progress[log_progress.length - 1];
                 if (last_progress === undefined) {
                     console.log("=== NOT suppose to happen ===");
                 } else {
-                    this.$navigateTo(Question, {
+                    this.$navigateTo(QuestionPhase3, {
                         frame: "logFrame",
                         animated: false,
                         clearHistory: true,
                         props: {
                             log_id: this.log_id,
-                            intro_question_id: last_progress[0]
+                            initial_question_id: last_progress[0]
                         }
                     });
                     this.revertIntroProgress(this.log_id);

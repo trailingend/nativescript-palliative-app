@@ -51,7 +51,7 @@
 </template>
 
 <script>
-    import Question from './Question.vue';
+    import QuestionPhase2 from './QuestionPhase2.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -84,7 +84,7 @@
         },
         computed: {
             ...mapGetters([
-                'intro_question_id',
+                'phase_2_question_id',
                 'logs'
             ]),
             input_phone: {
@@ -137,19 +137,20 @@
                         relation: this.c_relation,
                         createdTime: this.created_time,
                         timer: 0,
-                        status: false,
-                        progressLoc: -1,
-                        progress: [],
+                        status: true,
+                        intro_progress: [],
+                        intro_outcome: -1,
+                        intro_action: -1,
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
 
-                    this.$navigateTo(Question, {
+                    this.$navigateTo(QuestionPhase2, {
                         frame: "logFrame",
                         animated: false,
                         props: {
                             log_id: client_id,
-                            intro_question_id: this.intro_question_id
+                            initial_question_id: this.phase_2_question_id
                         }
                     });
                     console.log("=== New Patient Logged ===");

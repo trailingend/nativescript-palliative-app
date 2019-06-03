@@ -34,7 +34,8 @@
 </template>
 
 <script lang="ts">
-    import Question from '../../logTab/Question.vue';
+    import QuestionPhase2 from '../../logTab/QuestionPhase2.vue';
+    import QuestionPhase3 from '../../logTab/QuestionPhase3.vue';
     import Placeholder from '../../logTab/Placeholder.vue';
     import Result from '../../logTab/Result.vue';
 
@@ -58,7 +59,7 @@
             ...mapGetters([
                 'logs',
                 'branches',
-                'intro_question_id',
+                'phase_2_question_id',
                 'intro_outcomes',
                 'currLogId'
 			])
@@ -74,12 +75,12 @@
                 } else {
                     const log_idx = args.index;
                     const log_id = this.logs[log_idx].id;
-                    const log_progress = this.logs[log_idx].progress;
+                    const log_progress = this.logs[log_idx].intro_progress;
 
                     this.saveActiveLog(log_id);
 
-                    let q_id = this.intro_question_id;
-                    let new_q_id = this.intro_question_id;
+                    let q_id = this.phase_2_question_id;
+                    let new_q_id = this.phase_2_question_id;
                     if (log_progress.length > 0) {
                         const log_last = log_progress[log_progress.length - 1];
                         q_id = log_last[0];
@@ -101,24 +102,24 @@
                                 return;
                             }
                             new_q_id = branch.question_id;
-                            this.$navigateTo(Question, {
+                            this.$navigateTo(QuestionPhase2, {
                                 frame: "logFrame",
                                 animated: false,
                                 clearHistory: true,
                                 props: {
                                     log_id: log_id,
-                                    intro_question_id: new_q_id
+                                    initial_question_id: new_q_id
                                 }
                             });
                         }
                     } else { // if no answer is recorded
-                        this.$navigateTo(Question, {
+                        this.$navigateTo(QuestionPhase2, {
                             frame: "logFrame",
                             animated: false,
                             clearHistory: true,
                             props: {
                                 log_id: log_id,
-                                intro_question_id: q_id
+                                initial_question_id: q_id
                             }
                         });
                     }
