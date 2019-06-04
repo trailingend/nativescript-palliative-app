@@ -140,6 +140,7 @@
                         // go to action result
                     } else if (outcome_indicator != -1) {
                         const log_last = log.intro_progress[log.intro_progress.length - 1];
+                        console.log("=== in edit log === " + log_last[1] + " " + this.pre_protocol_answer + " " + (log_last[1] == this.pre_protocol_answer));
                         if (log_last[0] == this.phase_3_question_id) {
                             if (log_last[1] == this.pre_protocol_answer) {
                                 this.prepareChooseProtoPage(log.id);

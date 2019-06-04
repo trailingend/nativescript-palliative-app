@@ -93,8 +93,17 @@
                     }
                 });
             },
+            prepareToNavigate(elem) {
+                this.$navigateTo(elem, {
+                    frame: "logFrame",
+                    animated: false,
+                    props: {
+                        log_id: this.log_id
+                    }
+                });
+            },
             onForward(ans) {
-                console.log("=== Forward === ");
+                console.log("=== Forward === " + ans.id + " " + ans.text);
                 const progress = {
                     log_id: this.log_id,
                     q_id: this.question_id, 
@@ -103,23 +112,11 @@
                 this.saveIntroProgress(progress);
                 
                 if (ans.id === this.pre_protocol_answer) {
-                    this.$navigateTo(Action, {
-                        frame: "logFrame",
-                        animated: false,
-                        props: {
-                            log_id: this.log_id
-                        }
-                    });
-                    console.log("=== Heading to actions now ===");
-                } else {
-                    this.$navigateTo(ChooseProtocol, {
-                        frame: "logFrame",
-                        animated: false,
-                        props: {
-                            log_id: this.log_id
-                        }
-                    });
+                    this.prepareToNavigate(ChooseProtocol);
                     console.log("=== Heading to choose protocols now ===");
+                } else {
+                    this.prepareToNavigate(Action);
+                    console.log("=== Heading to actions now ===");
                 }
             },
             onBackward(args) {

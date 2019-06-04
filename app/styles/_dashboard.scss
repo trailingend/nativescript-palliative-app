@@ -13,6 +13,7 @@
     .home-logo-ctnr {
         background: $color-temp;
         margin: 5;
+        margin-bottom: 0;
 
         .home-logo {
             width: 200;
@@ -23,7 +24,7 @@
 
     .home-user-ctnr {
         background: $color-temp;
-        margin: 5;
+        margin: 5 5 0 0;
 
         .user-ctnr {
             margin: 25 25;
@@ -140,13 +141,19 @@
             // vertical-align: center;
             margin: 50;
         }
+    }
 
-        &.tablet-landscape {
+    &.tablet-landscape {
+        .log-title-ctnr {
+            margin: 5 5 5 0;
+        }
+        .home-log-ctnr {
+            margin: 5 5 5 0;
+        }
+        .home-btn-ctnr {
             .home-add {
                 margin: 150;
             }
         }
     }
-
-    
 }

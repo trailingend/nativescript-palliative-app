@@ -1,5 +1,5 @@
 <template>
-    <Page class="page home-page">
+    <Page :class="pageSetting.class">
         <ActionBar title="Dashboard"></ActionBar>
 
         <GridLayout class="home-ctnr" :rows="gridSetting.rows" 
@@ -34,7 +34,7 @@
             <StackLayout :row="gridSetting.children.btnSec.row" 
                          :col="gridSetting.children.btnSec.col"
                          :colSpan="gridSetting.children.btnSec.colSpan" 
-                         :class="btnSetting.class" 
+                         class="home-btn-ctnr" 
                          @tap="onNewTap">
                 <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit"></Image>
             </StackLayout>
@@ -54,8 +54,8 @@
     export default {
         data() {
             return {
-                btnSetting: {
-                    class: "home-btn-ctnr"
+                pageSetting: {
+                    class: "page home-page"
                 },
                 gridSetting: {
                     rows: "auto, auto, *, 250",
@@ -105,18 +105,18 @@
                 const half_width = width / 2;
                 const quater_width = width / 4;
                 if (width > 1000) {
-                    this.btnSetting = {
-                        class: "home-btn-ctnr tablet-landscape"
-                    };
+                    this.pageSetting = {
+                        class: "page home-page tablet-landscape"
+                    },
                     this.gridSetting = {
                         rows: "80, auto, *",
                         columns: `${quater_width}, ${quater_width}, ${half_width}`,
                         children: homeGridChildLandscape
                     };
                 } else {
-                    this.btnSetting = {
-                        class: "home-btn-ctnr"
-                    };
+                    this.pageSetting = {
+                        class: "page home-page"
+                    },
                     this.gridSetting = {
                         rows: "auto, auto, *, 250",
                         columns: "*, *",
