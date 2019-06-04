@@ -2,6 +2,11 @@
 
 .action-page {
     .action-ctnr {
-
+        .action-body-ctnr {
+            margin: 5;
+            margin-top: 0;
+            padding: 25;
+            background: $color-temp;
+        }
     }
 }

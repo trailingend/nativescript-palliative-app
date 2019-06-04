@@ -2,8 +2,8 @@
         <ScrollView class="patient-list">
             <RadListView for="patient in logs" 
                          ref="logListView"
-                         @itemTap="onEditTap"
                          swipeActions="true"
+                         @itemTap="onEditTap"
                          @itemSwipeProgressStarted="onSwipeStarted" >
                 <v-template>
                     <FlexboxLayout alignItems="stretch" class="patient-item">
@@ -11,7 +11,7 @@
                         <Image width="50" class="user-head" v-show="patient.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
                         <StackLayout flexGrow="2">
                             <Label :text="patient.client" class="patient-name patient-top patient-text"/>
-                            <Label :text="patient.phone" class="patient-phone patient-text"/>
+                            <Label :text="formatPhoneNum(patient.phone)" class="patient-phone patient-text"/>
                             <Label :text="patient.patient" class="patient-name patient-text"/>
                             <Label :text="patient.createdTime" class="patient-time patient-text" />
                         </StackLayout>
@@ -36,6 +36,8 @@
 <script lang="ts">
     import QuestionPhase2 from '../../logTab/QuestionPhase2.vue';
     import QuestionPhase3 from '../../logTab/QuestionPhase3.vue';
+    import ChooseProtocol from '../../logTab/ChooseProtocol.vue';
+    import Action from '../../logTab/Action.vue';
     import Placeholder from '../../logTab/Placeholder.vue';
     import Result from '../../logTab/Result.vue';
 
@@ -43,15 +45,16 @@
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { confirm }  from "tns-core-modules/ui/dialogs";
+    import { formatPhoneForDisplay } from '../../../scripts/common';
 
 
     export default {
         data() {
             return {
-                isSwipeMode: false
+                isSwipeMode: false,
             }
         },
-        created() {
+        mounted() {
         },
         components: {
         },
@@ -60,6 +63,8 @@
                 'logs',
                 'branches',
                 'phase_2_question_id',
+                'phase_3_question_id',
+                'pre_protocol_answer',
                 'intro_outcomes',
                 'currLogId'
 			])
@@ -69,59 +74,83 @@
                 'deleteLog',
                 'saveActiveLog'
             ]),
+            formatPhoneNum(num) {
+                return formatPhoneForDisplay(num);
+            },
+            navigateToPhase2Question(log_id, q_id) {
+                this.$navigateTo(QuestionPhase2, {
+                    frame: "logFrame",
+                    animated: false,
+                    clearHistory: true,
+                    props: {
+                        log_id: log_id,
+                        initial_question_id: q_id
+                    }
+                });
+            },
+            navigateToPhase3Page(log_id, elem) { // phase3 question, action and choose protocol
+                this.$navigateTo(elem, {
+                    frame: "logFrame",
+                    animated: false,
+                    props: {
+                        log_id: log_id
+                    }
+                });
+            },
+            preparePhase2Question(log) {
+                let init_q_id = this.phase_2_question_id;
+                let next_q_id = this.phase_2_question_id;
+                if (log.intro_progress.length > 0) {
+                    const log_last = log.intro_progress[log.intro_progress.length - 1];
+                    const branch = this.branches.find(brc => { return brc.answer_id === log_last[1]});
+                    if (branch === undefined) {
+                        console.log("=== Unsync of outcome and progress navigating to phase 2 ===");
+                    } else {
+                        next_q_id = branch.question_id;
+                        this.navigateToPhase2Question(log.id, next_q_id);
+                    }
+                } else { 
+                    this.navigateToPhase2Question(log.id, init_q_id);
+                }
+            },
+            preparePhase3Question(log_id) {
+                this.navigateToPhase3Page(log_id, QuestionPhase3);
+            },
+            prepareActionPage(log_id) {
+                this.navigateToPhase3Page(log_id, Action);
+            },
+            prepareChooseProtoPage(log_id) {
+                this.navigateToPhase3Page(log_id, ChooseProtocol);
+            },
             onEditTap(args) {
                 if (this.isSwipeMode) {
                     this.isSwipeMode = false;
                 } else {
                     const log_idx = args.index;
-                    const log_id = this.logs[log_idx].id;
-                    const log_progress = this.logs[log_idx].intro_progress;
+                    const log = this.logs[log_idx];
+                    const action_indicator = log.intro_action;
+                    const protocol_indicator = log.protocol_id;
+                    const outcome_indicator = log.intro_outcome;
+                    
+                    this.saveActiveLog(log.id);
 
-                    this.saveActiveLog(log_id);
-
-                    let q_id = this.phase_2_question_id;
-                    let new_q_id = this.phase_2_question_id;
-                    if (log_progress.length > 0) {
-                        const log_last = log_progress[log_progress.length - 1];
-                        q_id = log_last[0];
-                        console.log("=== to edit record === " + log_last);
-                        if (log_last[1] == -1) { // if the last answer is a result
-                            const outcome = this.intro_outcomes.find(out => { return out.id === log_last[0]});
-                            this.$navigateTo(Result, {
-                                frame: "logFrame",
-                                animated: false,
-                                props: {
-                                    intro_outcome: outcome,
-                                    log_id: log_id
-                                }
-                            });
-                        } else { // if the last record is a question
-                            const branch = this.branches.find(brc => { return brc.answer_id === log_last[1]});
-                            if (branch === undefined) {
-                                console.log("=== Trouble in backend ===");
-                                return;
+                    if (protocol_indicator != -1) {
+                        // do it after complete protocol section
+                    } else if (action_indicator != -1) {
+                        // go to action result
+                    } else if (outcome_indicator != -1) {
+                        const log_last = log.intro_progress[log.intro_progress.length - 1];
+                        if (log_last[0] == this.phase_3_question_id) {
+                            if (log_last[1] == this.pre_protocol_answer) {
+                                this.prepareChooseProtoPage(log.id);
+                            } else {
+                                this.prepareActionPage(log.id);
                             }
-                            new_q_id = branch.question_id;
-                            this.$navigateTo(QuestionPhase2, {
-                                frame: "logFrame",
-                                animated: false,
-                                clearHistory: true,
-                                props: {
-                                    log_id: log_id,
-                                    initial_question_id: new_q_id
-                                }
-                            });
+                        } else {
+                            this.preparePhase3Question(log.id);
                         }
-                    } else { // if no answer is recorded
-                        this.$navigateTo(QuestionPhase2, {
-                            frame: "logFrame",
-                            animated: false,
-                            clearHistory: true,
-                            props: {
-                                log_id: log_id,
-                                initial_question_id: q_id
-                            }
-                        });
+                    } else {
+                        this.preparePhase2Question(log);
                     }
                     
                     // navigate to second tabview

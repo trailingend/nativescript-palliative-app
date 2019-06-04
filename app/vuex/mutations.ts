@@ -24,7 +24,7 @@ export default {
     },
 
     [types.LOG_CREATE](state, entry){
-        state.logs.push(entry); 
+        state.logs.unshift(entry); 
     },
     [types.LOG_DELETE](state, log_idx) {
         state.logs.splice(log_idx, 1);

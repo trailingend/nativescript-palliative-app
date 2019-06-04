@@ -108,3 +108,7 @@ export const formatPhoneNum = (phone_unformatted) => {
     console.log("=== in formatter === " + phone_unformatted + " " + formatted_input);
     return formatted_input;
 };
+
+export const formatPhoneForDisplay = (input) => {
+    return `${input.substring(0, 3)}-${input.substring(3, 6)}-${input.substring(6, input.length)}`;
+};

@@ -126,7 +126,7 @@
 
                 if (this.is_consented) {
                     const client_id = this.c_id;
-                    const client_phone = (this.c_phone === '') ? '888-888-8888' : this.c_phone;
+                    const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                     const client_name = (this.c_client === '') ? 'Anonymous Nobody' : this.c_client;
                     const patient_name = (this.c_patient === '') ? 'John Dow' : this.c_patient;
                     const entry = {
@@ -137,10 +137,11 @@
                         relation: this.c_relation,
                         createdTime: this.created_time,
                         timer: 0,
-                        status: true,
+                        status: false,
                         intro_progress: [],
                         intro_outcome: -1,
                         intro_action: -1,
+                        protocol_id: -1,
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);

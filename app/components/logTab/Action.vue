@@ -6,7 +6,7 @@
         </ActionBar>
         <GridLayout class="action-ctnr" rows="auto, *" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout class="" row="1" col="0">
+            <StackLayout class="action-body-ctnr" row="1" col="0">
                 <Label class="action-msg" :text="outcomeMsg"/>
                 <Label class="action-msg" :text="actionMsg"/>
                 <Button class="action-btn" text="Back to Dashboard" @tap="onBackHome"/>

@@ -3,7 +3,7 @@
         <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
         <StackLayout flexGrow="2">
             <Label :text="patient.client" class="patient-name patient-top patient-text"/>
-            <Label :text="patient.phone" class="patient-phone patient-text"/>
+            <Label :text="formatted_phone" class="patient-phone patient-text"/>
             <Label :text="patient.patient" class="patient-name patient-text"/>
             <Label :text="patient.createdTime" class="patient-time patient-text" />
         </StackLayout>
@@ -16,11 +16,13 @@
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import { formatPhoneForDisplay } from '../../../scripts/common';
 
     export default {
         data() {
             return {
                 patient: {},
+                formatted_phone: ''
             }
         },
         mounted() {
@@ -46,6 +48,7 @@
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
                     this.patient = curr_log;
+                    this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
                 }
             },
             onEditTap() {

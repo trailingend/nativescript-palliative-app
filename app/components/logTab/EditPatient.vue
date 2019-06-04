@@ -106,12 +106,13 @@
             onSaveTap(args) {
                 const entry = {
                     id: this.log_id,
-                    phone: client_phone,
-                    client: client_name,
-                    patient: patient_name,
+                    phone: this.c_phone,
+                    client: this.c_client,
+                    patient: this.c_patient,
                     relation: this.c_relation,
                 };
                 this.changeClientInfo(entry);
+                this.$modal.close();
 
                 console.log("=== Patient Info Edited ===");
             },

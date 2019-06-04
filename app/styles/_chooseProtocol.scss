@@ -2,6 +2,19 @@
 
 .pre-proto-page {
     .pre-proto-ctnr {
-
+        .pre-proto-choice-ctnr {
+            margin: 5;
+            margin-top: 0;
+            padding: 25;
+            background: $color-temp;
+        }
+        .pre-proto-body {
+            margin: 25 0;
+        }
+        .pre-proto-btn {
+            color: $color-text-light;
+            margin: 5;
+            background: $color-secondary;
+        }
     }
 }

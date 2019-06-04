@@ -6,11 +6,19 @@
         </ActionBar>
         <GridLayout class="pre-proto-ctnr" rows="auto, *" columns="*" ref="preProtoGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout class="" row="1" col="0">
+            <StackLayout class="pre-proto-choice-ctnr" row="1" col="0">
                 <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
                     <Label :text="pre_protocol_question" class="pre-proto-body"/>
                 </FlexboxLayout>
-                <Button v-for="(protocol, index) in protocols" v-bind:key="protocol.id" :text="protocol.name" :class="`pre-proto-btn${index}`" @tap="onForward(protocol)" />
+                <GridLayout class="pre-proto-btn-ctnr" rows="*, *, *, *, *, *" columns="*, *" >
+                    <Button v-for="(protocol, index) in protocols" 
+                            v-bind:key="protocol.id" 
+                            :row="Math.floor(index / 2)"
+                            :col="index % 2"
+                            :text="protocol.name" 
+                            :class="`pre-proto-btn pre-proto-btn${index}`" 
+                            @tap="onForward(protocol)" />
+                </GridLayout>
             </StackLayout>
         </GridLayout>
     </Page>
