@@ -1,52 +1,57 @@
 <template>
     <Page class="page new-page">
         <ActionBar title="Patient Log"></ActionBar>
-        <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
-                    ref="newGridRef" 
-                    @tap="clearTextfieldFocus"
-                    @layoutChanged="onLayoutUpdate">
-            <StackLayout row="0" col="0" :class="formSetting.class">
-                <Image class="new-head" src="~/assets/images/head2.png" stretch="aspectFit" ></Image>                    
-                <GridLayout rows="auto, auto, auto, auto" columns="auto, *">
-                    <Label row="0" col="0" class="new-q1 new-q" text="Callback #:" textWrap="true"/>
-                    <TextField row="0" col="1" 
-                               id="new-a1"
-                               class="new-a new-a1" 
-                               v-model="input_phone" 
-                               keyboardType="phone"
-                               @blur="onPhoneEntered"
-                               editable="true" />
-                    <Label row="1" col="0" class="new-q2 new-q" text="Client name:" textWrap="true"/>
-                    <TextField row="1" col="1" 
-                               id="new-a2"
-                               class="new-a new-a2" 
-                               v-model="c_client"
-                               editable="true" />
-                    <Label row="2" col="0" class="new-q2 new-q" text="Patient name:" textWrap="true"/>
-                    <TextField row="2" col="1" 
-                               id="new-a3"
-                               class="new-a new-a3" 
-                               v-model="c_patient"
-                               editable="true" />
-                    <Label row="3" col="0" class="new-q3 new-q" text="Relation to client:" textWrap="true"/>
-                    <TextField row="3" col="1"
-                               id="new-a4"
-                               class="new-a new-a4"
-                               v-model="c_relation"
-                               editable="true" />
-                </GridLayout>
-                <Label class="new-q new-consent-title" text="consent" textWrap="true"/>
-                <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
-                    <Label class="new-q new-consent-body" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textWrap="true"/>
-                    <Switch v-model="is_consented" />
-                </FlexboxLayout>
-                <Button class="new-btn" text="Continue" @tap="onNavigateForward" />
-            </StackLayout>
-            <StackLayout row="0" col="1" class="new-title-ctnr">
-                <Label class="log-title" text="Patient" />
-                <Label class="log-title" text="Log" />
-            </StackLayout>
-        </GridLayout>
+        <StackLayout>
+            <Progress row="0" class="time-progress" 
+                    :value="currentTime"
+                    :maxValue="maxTime" />
+            <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
+                        ref="newGridRef" 
+                        @tap="clearTextfieldFocus"
+                        @layoutChanged="onLayoutUpdate">
+                <StackLayout row="0" col="0" :class="formSetting.class">
+                    <Image class="new-head" src="~/assets/images/head2.png" stretch="aspectFit" ></Image>                    
+                    <GridLayout rows="auto, auto, auto, auto" columns="auto, *">
+                        <Label row="0" col="0" class="new-q1 new-q" text="Callback #:" textWrap="true"/>
+                        <TextField row="0" col="1" 
+                                id="new-a1"
+                                class="new-a new-a1" 
+                                v-model="input_phone" 
+                                keyboardType="phone"
+                                @blur="onPhoneEntered"
+                                editable="true" />
+                        <Label row="1" col="0" class="new-q2 new-q" text="Client name:" textWrap="true"/>
+                        <TextField row="1" col="1" 
+                                id="new-a2"
+                                class="new-a new-a2" 
+                                v-model="c_client"
+                                editable="true" />
+                        <Label row="2" col="0" class="new-q2 new-q" text="Patient name:" textWrap="true"/>
+                        <TextField row="2" col="1" 
+                                id="new-a3"
+                                class="new-a new-a3" 
+                                v-model="c_patient"
+                                editable="true" />
+                        <Label row="3" col="0" class="new-q3 new-q" text="Relation to client:" textWrap="true"/>
+                        <TextField row="3" col="1"
+                                id="new-a4"
+                                class="new-a new-a4"
+                                v-model="c_relation"
+                                editable="true" />
+                    </GridLayout>
+                    <Label class="new-q new-consent-title" text="consent" textWrap="true"/>
+                    <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
+                        <Label class="new-q new-consent-body" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textWrap="true"/>
+                        <Switch v-model="is_consented" />
+                    </FlexboxLayout>
+                    <Button class="new-btn" text="Continue" @tap="onNavigateForward" />
+                </StackLayout>
+                <StackLayout row="0" col="1" class="new-title-ctnr">
+                    <Label class="log-title" text="Patient" />
+                    <Label class="log-title" text="Log" />
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
     </Page>
 </template>
 
@@ -68,6 +73,9 @@
                 c_relation: '',
                 created_time: '',
                 is_consented: false,
+
+                current_time: 5,
+                maxTime: 10, // 0 - 9
 
                 formSetting: {
                     class: "new-form-ctnr",

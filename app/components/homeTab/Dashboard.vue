@@ -94,7 +94,6 @@
                 this.deleteActiveLog();
                 this.$navigateTo(NewPatient, {
                     frame: "logFrame",
-                    animated: false,
                     clearHistory: true
                 });
                 const tabView = args.object.page.frame.parent.parent;

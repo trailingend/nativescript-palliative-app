@@ -22,6 +22,14 @@ Label {
     horizontal-align: right;
 }
 
+.time-progress {
+    height: 10;
+    // color: $color-secondary;
+    color: cyan;
+    background-color: green;
+
+}
+
 @import "styles/dashboard";
 @import "styles/placeholder";
 @import "styles/newPatient";

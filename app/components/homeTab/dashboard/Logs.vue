@@ -80,7 +80,6 @@
             navigateToPhase2Question(log_id, q_id) {
                 this.$navigateTo(QuestionPhase2, {
                     frame: "logFrame",
-                    animated: false,
                     clearHistory: true,
                     props: {
                         log_id: log_id,
@@ -91,7 +90,6 @@
             navigateToPhase3Page(log_id, elem) { // phase3 question, action and choose protocol
                 this.$navigateTo(elem, {
                     frame: "logFrame",
-                    animated: false,
                     props: {
                         log_id: log_id
                     }
@@ -201,8 +199,10 @@
                 const swipeLimits = data.swipeLimits;
                 const swipeView = object;
                 const rightItem = swipeView.getViewById('delete-view');
-                swipeLimits.left = rightItem.getMeasuredWidth() + 10;
-                swipeLimits.right = 0;
+                // swipeLimits.left = rightItem.getMeasuredWidth() + 10;
+                // swipeLimits.right = 0;
+                swipeLimits.left = 0;
+                swipeLimits.right = rightItem.getMeasuredWidth();
                 swipeLimits.top = 0;
                 swipeLimits.bottom = 0;
                 swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
