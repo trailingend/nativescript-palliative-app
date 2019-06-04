@@ -92,6 +92,15 @@
             preparePrevQuestion(prev_id) {
                 this.retrieveQuestion(prev_id);
             },
+            prepareNextStage() {
+                this.$navigateTo(QuestionPhase3, {
+                    frame: "logFrame",
+                    animated: false,
+                    props: {
+                        log_id: this.log_id
+                    }
+                });
+            },
             onForward(ans) {
                 console.log("=== Forward === ");
                 const progress = {
@@ -111,14 +120,8 @@
                         this.prepareNextQuestion(new_q_id);
                     }
                 } else {
-                    this.$navigateTo(QuestionPhase3, {
-                        frame: "logFrame",
-                        animated: false,
-                        props: {
-                            log_id: this.log_id
-                        }
-                    });
                     console.log("=== Heading to phase 3 now ===");
+                    this.prepareNextStage();
                     this.saveIntroOutcome({
                         log_id: this.log_id,
                         id: outcome.id 

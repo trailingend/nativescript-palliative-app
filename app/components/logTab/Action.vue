@@ -4,15 +4,19 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
         </ActionBar>
-        <StackLayout class="action-ctnr" rows="*" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
-            <Label class="action-msg" :text="outcomeMsg"/>
-            <Label class="action-msg" :text="actionMsg"/>
-            <Button class="action-btn" text="Back to Dashboard" @tap="onBackHome"/>
-        </StackLayout>
+        <GridLayout class="action-ctnr" rows="auto, *" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
+            <UserBlock row="0" col="0" :log_id="log_id"/>
+            <StackLayout class="" row="1" col="0">
+                <Label class="action-msg" :text="outcomeMsg"/>
+                <Label class="action-msg" :text="actionMsg"/>
+                <Button class="action-btn" text="Back to Dashboard" @tap="onBackHome"/>
+            </StackLayout>
+        </GridLayout>
     </Page>
 </template>
 
 <script>
+    import UserBlock from './parts/UserBlock.vue';
     import Placeholder from './Placeholder.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
 
@@ -31,6 +35,7 @@
             this.prepareAction();
         },
         components: {
+            UserBlock
         },
         props: {
             log_id: {
@@ -57,29 +62,27 @@
                     this.outcomeMsg = outcome.text;
                 }
             },
+            preparePrevQuestion() {
+                this.$navigateTo(QuestionPhase3, {
+                    frame: "logFrame",
+                    animated: false,
+                    props: {
+                        log_id: this.log_id,
+                    }
+                });
+            },
             onForward(ans) {
             },
             onBackward(args) {
-                // const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
-                // this.revertIntroProgress(this.log_id);
-                // const log_progress = this.logs[log_idx].intro_progress;
-                
-                // const last_progress = log_progress[log_progress.length - 1];
-                // if (last_progress === undefined) {
-                //     console.log("=== NOT suppose to happen ===");
-                // } else {
-                //     this.$navigateTo(QuestionPhase3, {
-                //         frame: "logFrame",
-                //         animated: false,
-                //         clearHistory: true,
-                //         props: {
-                //             log_id: this.log_id,
-                //             initial_question_id: last_progress[0]
-                //         }
-                //     });
-                //     this.revertIntroProgress(this.log_id);
-                //     this.changeLogStatus(this.log_id);
-                // }
+                console.log("=== Backward ===");
+                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                const last_progress = log.intro_progress[log.intro_progress.length - 1];
+                if (last_progress === undefined) {
+                    console.log("=== Not suppose to happen!!! ===");
+                } else {
+                    this.preparePrevQuestion();
+                    this.revertIntroProgress(this.log_id);
+                }
             },
             onBackHome(args) {
                 console.log("=== Back to Dashboard ===");

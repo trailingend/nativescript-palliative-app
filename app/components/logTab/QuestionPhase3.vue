@@ -27,6 +27,7 @@
     import UserBlock from './parts/UserBlock.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
     import Action from './Action.vue';
+    import ChooseProtocol from './ChooseProtocol.vue';
     import NewPatient from './NewPatient.vue';
 
     import { mapActions } from 'vuex';
@@ -71,6 +72,7 @@
             ...mapActions([
                 'saveIntroProgress',
                 'revertIntroProgress',
+                'revertIntroOutcome'
             ]),
             retrieveQuestion(target_q_id) {
                 const q = this.questions.find(question => { return question.id === target_q_id});
@@ -81,6 +83,16 @@
             prepareQuestion() {
                 this.retrieveQuestion(this.phase_3_question_id);
             },
+            preparePrevQuestion(q_id) {
+                this.$navigateTo(QuestionPhase2, {
+                    frame: "logFrame",
+                    animated: false,
+                    props: {
+                        log_id: this.log_id,
+                        initial_question_id: q_id
+                    }
+                });
+            },
             onForward(ans) {
                 console.log("=== Forward === ");
                 const progress = {
@@ -90,7 +102,7 @@
                 };
                 this.saveIntroProgress(progress);
                 
-                if (ans.id === pre_protocol_answer) {
+                if (ans.id === this.pre_protocol_answer) {
                     this.$navigateTo(Action, {
                         frame: "logFrame",
                         animated: false,
@@ -100,28 +112,27 @@
                     });
                     console.log("=== Heading to actions now ===");
                 } else {
-                    // this.$navigateTo(Protocol, {
-                    //     frame: "logFrame",
-                    //     animated: false,
-                    //     // props: {
-                    //     //     intro_outcome: outcome,
-                    //     //     log_id: this.log_id
-                    //     // }
-                    // });
-                    console.log("=== Heading to protocols now ===");
+                    this.$navigateTo(ChooseProtocol, {
+                        frame: "logFrame",
+                        animated: false,
+                        props: {
+                            log_id: this.log_id
+                        }
+                    });
+                    console.log("=== Heading to choose protocols now ===");
                 }
             },
             onBackward(args) {
-                // console.log("=== Backward ===");
-                // const log_id_for_nav = this.log_id;
-                // const log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                // const last_progress = log.intro_progress[log.intro_progress.length - 1];
-                // if (last_progress === undefined) {
-                  
-                // } else {
-                //     this.preparePrevQuestion(last_progress[0]);
-                //     this.revertIntroProgress(this.log_id);
-                // }
+                console.log("=== Backward ===");
+                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                const last_progress = log.intro_progress[log.intro_progress.length - 1];
+                if (last_progress === undefined) {
+                    console.log("=== Not suppose to happen!!! ===");
+                } else {
+                    this.preparePrevQuestion(last_progress[0]);
+                    this.revertIntroProgress(this.log_id);
+                    this.revertIntroOutcome(this.log_id);
+                }
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.qPh3GridRef.nativeView.getMeasuredWidth() );

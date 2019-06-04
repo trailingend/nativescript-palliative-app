@@ -75,7 +75,16 @@ export default {
                 idx: log_idx,
                 id: out_item.id
             }
-            commit(types.INTRO_OUTCOME, outcome);
+            commit(types.INTRO_OUTCOME_UPDATE, outcome);
+        }
+    },
+
+    revertIntroOutcome({commit, state}, log_id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro outcome revert: OH NO !!! ===");
+        } else {
+            commit(types.INTRO_OUTCOME_REVERT, log_idx);
         }
     },
 

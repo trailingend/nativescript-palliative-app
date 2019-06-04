@@ -6,6 +6,7 @@ export default {
         state.phase_2_question_id = data.main.phase_2_question,
         state.phase_3_question_id = data.main.phase_3_question,
         state.pre_protocol_question = data.main.pre_protocol_question,
+        state.pre_protocol_answer = data.main.pre_protocol_answer,
 
         state.questions = data.questions;
         state.answers = data.answers;
@@ -50,9 +51,13 @@ export default {
         console.log("in mutation backward ===: progress - " + state.logs[log_idx].intro_progress);
         console.log("in mutation backward ===: outcome - " + state.logs[log_idx].intro_outcome);
     },
-    [types.INTRO_OUTCOME](state, outcome) {
+    [types.INTRO_OUTCOME_UPDATE](state, outcome) {
         state.logs[outcome.idx].intro_outcome = outcome.id;
         console.log("in mutation outcome ===: outcome - " + state.logs[outcome.idx].intro_outcome);
+    },
+    [types.INTRO_OUTCOME_REVERT](state, log_idx) {
+        state.logs[log_idx].intro_outcome = -1;
+        console.log("in mutation outcome revert ===: outcome - " + state.logs[log_idx].intro_outcome);
     },
     [types.STATUS_UPDATE](state, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
