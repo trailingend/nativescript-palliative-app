@@ -33,7 +33,7 @@
         },
         mounted() {
             this.prepareAction();
-            this.changeLogStatus(this.log_id);
+            // this.changeLogStatus(this.log_id);
         },
         components: {
             UserBlock
@@ -85,7 +85,7 @@
                     this.revertIntroProgress(this.log_id);
                 }
 
-                this.changeLogStatus(this.log_id);
+                // this.changeLogStatus(this.log_id);
             },
             onBackHome(args) {
                 console.log("=== Back to Dashboard ===");

@@ -16,7 +16,7 @@
                          :col="gridSetting.children.userSec.col" 
                          :rowSpan="gridSetting.children.userSec.rowSpan" 
                          class="home-user-ctnr">
-                <UserForm />
+                <UserBlock />
             </StackLayout>
             <FlexboxLayout :row="gridSetting.children.titleSec.row" 
                            :col="gridSetting.children.titleSec.col" 
@@ -34,9 +34,8 @@
             <StackLayout :row="gridSetting.children.btnSec.row" 
                          :col="gridSetting.children.btnSec.col"
                          :colSpan="gridSetting.children.btnSec.colSpan" 
-                         class="home-btn-ctnr" 
-                         @tap="onNewTap">
-                <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit"></Image>
+                         class="home-btn-ctnr" >
+                <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit" @tap="onNewTap"></Image>
             </StackLayout>
         </GridLayout>
     </Page>
@@ -45,7 +44,7 @@
 <script lang="ts">
     import Logs from './dashboard/Logs.vue';
     import NewPatient from '../logTab/NewPatient.vue';
-    import UserForm from './dashboard/UserForm.vue';
+    import UserBlock from './dashboard/UserBlock.vue';
 
     import { mapActions } from 'vuex';
     import * as utils from 'tns-core-modules/utils/utils';
@@ -72,7 +71,7 @@
         },
         components: {
             Logs,
-            UserForm,
+            UserBlock,
         },
         computed: {
 
@@ -94,7 +93,10 @@
                 this.deleteActiveLog();
                 this.$navigateTo(NewPatient, {
                     frame: "logFrame",
-                    clearHistory: true
+                    clearHistory: true,
+                    props: {
+                        time_status: true,
+                    }
                 });
                 const tabView = args.object.page.frame.parent.parent;
                 tabView.selectedIndex = 1;
@@ -122,7 +124,7 @@
                         children: homeGridChildPortrait
                     }
                 }
-            }
+            },
         },
         
     };

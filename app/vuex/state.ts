@@ -1,10 +1,11 @@
 export default {
-	currUserIndex: -1,
+	currUserIdx: -1,
 	currLogId: null,
 
 	users: [{
 		id: '477567',
-		name: 'Monster Hunter'
+		name: 'Monster Hunter',
+		shift: '7:00AM'
 	}],
 	logs: 
 	[{

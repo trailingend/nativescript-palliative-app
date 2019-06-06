@@ -199,10 +199,10 @@
                 const swipeLimits = data.swipeLimits;
                 const swipeView = object;
                 const rightItem = swipeView.getViewById('delete-view');
-                // swipeLimits.left = rightItem.getMeasuredWidth() + 10;
-                // swipeLimits.right = 0;
-                swipeLimits.left = 0;
-                swipeLimits.right = rightItem.getMeasuredWidth();
+                swipeLimits.left = rightItem.getMeasuredWidth() + 10;
+                swipeLimits.right = 0;
+                // swipeLimits.left = 0;
+                // swipeLimits.right = rightItem.getMeasuredWidth();
                 swipeLimits.top = 0;
                 swipeLimits.bottom = 0;
                 swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;

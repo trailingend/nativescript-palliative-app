@@ -1,25 +1,33 @@
 <template>
-    <Page class="page q-page">
+    <Page class="page q-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
         </ActionBar>
-        <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
-            <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout row="1" col="0" :class="mainSetting.class">
-                <StackLayout class="q-title-ctnr">
-                    <Label class="q-main-title" text="Log" />
-                    <Label class="q-main-title" text="In Progress" />
+        <StackLayout>
+            <Progress v-show="timer_status" class="time-progress"                     
+                      :value="curr_time"
+                      :minValue="min_time"
+                      :maxValue="max_time"
+                      :color="color"
+                      @loaded="onProgressLoaded" />
+            <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
+                <UserBlock row="0" col="0" :log_id="log_id"/>
+                <StackLayout row="1" col="0" :class="mainSetting.class">
+                    <StackLayout class="q-title-ctnr">
+                        <Label class="q-main-title" text="Log" />
+                        <Label class="q-main-title" text="In Progress" />
+                    </StackLayout>
+                    <StackLayout class="q-question-ctnr" >
+                        <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
+                            <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
+                            <Label :text="question_body" class="q-question-body"/>
+                        </FlexboxLayout>
+                        <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="q-question-ans" @tap="onForward(answer)" /> 
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout class="q-question-ctnr" >
-                    <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
-                        <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
-                        <Label :text="question_body" class="q-question-body"/>
-                    </FlexboxLayout>
-                    <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="q-question-ans" @tap="onForward(answer)" /> 
-                </StackLayout>
-            </StackLayout>
-        </GridLayout>
+            </GridLayout>
+        </StackLayout>
     </Page>
 </template>
 
@@ -31,6 +39,8 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { Progress } from 'tns-core-modules/ui/progress';
+    import { isIOS } from "platform";
 
     export default {
         data() {
@@ -40,6 +50,13 @@
                 question_body: '?',
                 answers_list: [],
 
+                curr_time: "0",
+                min_time: "0", 
+                max_time: "10", 
+                color: "#adebad",
+                timer: null,
+                time_status: true,
+
                 mainSetting: {
                     class: "q-main-ctnr"
                 }
@@ -47,6 +64,7 @@
         },
         mounted() {
             this.prepareInitialQuestion();
+            this.tick();
         },
         components: {
             UserBlock
@@ -139,6 +157,32 @@
                     this.preparePrevQuestion(last_progress[0]);
                     this.revertIntroProgress(this.log_id);
                 }
+            },
+            onProgressLoaded(args) {
+                let progress = args.object;
+                if (isIOS) {
+                    let transform = CGAffineTransformMakeScale(1.0, 5.0);  
+                    progress.ios.transform = transform; // progress.ios === UIProgressView
+                }
+
+            },
+            tick() {
+                this.timer = setInterval(() => {
+                    const max_time_val = parseInt(this.max_time);
+                    let curr_time_val = parseInt(this.curr_time);
+                    curr_time_val++;
+                    this.curr_time = '' + curr_time_val;
+                    console.log("=== in timer ===" + this.curr_time)
+                    if (curr_time_val >= max_time_val) {
+                        this.color = '#ffcccc';
+                        clearInterval(this.timer);
+                    } else if (curr_time_val >= max_time_val / 2) {
+                        this.color = '#ffdd99';
+                    }
+                }, 1000);
+            },
+            onNavigatingFrom() {
+                 clearInterval(this.timer);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.qGridRef.nativeView.getMeasuredWidth() );

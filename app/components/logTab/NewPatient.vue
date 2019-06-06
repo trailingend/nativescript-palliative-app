@@ -1,10 +1,13 @@
 <template>
-    <Page class="page new-page">
+    <Page class="page new-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log"></ActionBar>
         <StackLayout>
-            <Progress row="0" class="time-progress" 
-                    :value="currentTime"
-                    :maxValue="maxTime" />
+            <Progress v-show="timer_status" class="time-progress"                     
+                      :value="curr_time"
+                      :minValue="min_time"
+                      :maxValue="max_time"
+                      :color="color"
+                      @loaded="onProgressLoaded" />
             <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
                         ref="newGridRef" 
                         @tap="clearTextfieldFocus"
@@ -61,8 +64,10 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { Progress } from 'tns-core-modules/ui/progress';
+    import { isIOS } from "platform";
     import { dialogConsent, logMonths, formatPhoneNum } from '../../scripts/common';
-        
+    
     export default {
         data() {
             return {
@@ -74,8 +79,11 @@
                 created_time: '',
                 is_consented: false,
 
-                current_time: 5,
-                maxTime: 10, // 0 - 9
+                curr_time: "0",
+                min_time: "0", 
+                max_time: "10", 
+                color: "#adebad",
+                timer: null,
 
                 formSetting: {
                     class: "new-form-ctnr",
@@ -83,8 +91,15 @@
             }
         },
         mounted() {
+            if (this.timer_status) {
+                this.tick();
+            }
         },
         props: {
+            timer_status: {
+                type: Boolean,
+                required: true
+            },
             log_id: {
                 type: String,
                 required: false,
@@ -100,7 +115,7 @@
                     return formatPhoneNum(this.c_phone);
                 },
                 set: function (new_input) {
-                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(9, new_input.length));
+                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
                     console.log("in setter " + this.c_phone);
                 }
             }
@@ -136,7 +151,7 @@
                     const client_id = this.c_id;
                     const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                     const client_name = (this.c_client === '') ? 'Anonymous Nobody' : this.c_client;
-                    const patient_name = (this.c_patient === '') ? 'John Dow' : this.c_patient;
+                    const patient_name = (this.c_patient === '') ? 'John Doe' : this.c_patient;
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
@@ -179,7 +194,34 @@
                 a4Textfield.dismissSoftInput();
             },
             onPhoneEntered() {
-                this.input_phone = formatPhoneNum(this.c_phone);
+                this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));
+            },
+            onProgressLoaded(args) {
+                let progress = args.object;
+                if (isIOS) {
+                    let transform = CGAffineTransformMakeScale(1.0, 5.0);  
+                    progress.ios.transform = transform; // progress.ios === UIProgressView
+                }
+            },
+            tick() {
+                this.timer = setInterval(() => {
+                    const max_time_val = parseInt(this.max_time);
+                    let curr_time_val = parseInt(this.curr_time);
+                    curr_time_val++;
+                    this.curr_time = '' + curr_time_val;
+                    console.log("=== in timer ===" + this.curr_time)
+                    if (curr_time_val >= max_time_val) {
+                        this.color = '#ffcccc';
+                        clearInterval(this.timer);
+                    } else if (curr_time_val >= max_time_val / 2) {
+                        this.color = '#ffdd99';
+                    }
+                }, 1000);
+            },
+            onNavigatingFrom() {
+                if (this.timer_status) {
+                    clearInterval(this.timer);
+                }
             },
             onLayoutUpdate() {
                 if (this.$refs.newGridRef) {
@@ -190,7 +232,8 @@
                         this.formSetting.class = "new-form-ctnr";
                     }
                 }
-            }
+            },
+            
         }
         
     };

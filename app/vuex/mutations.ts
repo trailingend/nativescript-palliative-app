@@ -16,11 +16,11 @@ export default {
     },
 
     [types.USER_CREATE](state, user) {
-        state.currUserIndex = state.users.length;
+        state.currUserIdx = state.users.length;
         state.users.push(user);
     },
     [types.USER_UPDATE](state, user_idx) {
-        state.currUserIndex = user_idx;
+        state.currUserIdx = user_idx;
     },
 
     [types.LOG_CREATE](state, entry){

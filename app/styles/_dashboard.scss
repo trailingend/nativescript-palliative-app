@@ -41,14 +41,12 @@
         }
         .user-a {
             width: 100%;
-            height: 25;
+            // height: 25;
             font-size: $user-font-size;
-            line-height: 10;
+            // line-height: 10;
             letter-spacing: 0.1;
-            // text-align: left;
-            // border-bottom: 2 solid black;
-            border-bottom-width: 0;
-            border-bottom-color: black;
+            text-transform: capitalize;
+            text-align: left;
         }
         .user-q3 {
             margin: 15 0 10 0;
@@ -59,7 +57,7 @@
             font-size: 32;
             text-align: left;
             letter-spacing: 0;
-            border-bottom-width: 0;
+            text-transform: uppercase;
         }
         .edit-icon {
             width: 20;

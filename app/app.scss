@@ -23,11 +23,10 @@ Label {
 }
 
 .time-progress {
-    height: 10;
-    // color: $color-secondary;
-    color: cyan;
-    background-color: green;
-
+    height: 5;
+    margin-top: 7.5;
+    background-color: $color-tertiary;
+    vertical-align: middle;
 }
 
 @import "styles/dashboard";
