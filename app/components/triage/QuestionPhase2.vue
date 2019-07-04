@@ -4,43 +4,41 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
         </ActionBar>
-        <StackLayout>
-            <Progress v-show="timer_status" class="time-progress"                     
-                      :value="curr_time"
-                      :minValue="min_time"
-                      :maxValue="max_time"
-                      :color="color"
-                      @loaded="onProgressLoaded" />
-            <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
-                <UserBlock row="0" col="0" :log_id="log_id"/>
-                <StackLayout row="1" col="0" :class="mainSetting.class">
-                    <StackLayout class="q-title-ctnr">
-                        <Label class="q-main-title" text="Log" />
-                        <Label class="q-main-title" text="In Progress" />
-                    </StackLayout>
-                    <StackLayout class="q-question-ctnr" >
-                        <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
-                            <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
-                            <Label :text="question_body" class="q-question-body"/>
-                        </FlexboxLayout>
-                        <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="q-question-ans" @tap="onForward(answer)" /> 
-                    </StackLayout>
+        <GridLayout class="q-ctnr" rows="auto, auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
+            <UserBlock row="0" col="0" :log_id="log_id"/>
+            <Timer row="1" col="0"
+                   class="timer-wrapper timer-wrapper-q-page"
+                   :init_val=curr_time
+                   :segment_id=1 
+                   :event_bus=event_bus
+                   v-if="true" />
+            <StackLayout row="2" col="0" :class="mainSetting.class">
+                <StackLayout class="q-title-ctnr">
+                    <Label class="q-main-title" text="Log" />
+                    <Label class="q-main-title" text="In Progress" />
                 </StackLayout>
-            </GridLayout>
-        </StackLayout>
+                <StackLayout class="q-question-ctnr" >
+                    <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
+                        <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
+                        <Label :text="question_body" class="q-question-body"/>
+                    </FlexboxLayout>
+                    <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="q-question-ans" @tap="onForward(answer)" /> 
+                </StackLayout>
+            </StackLayout>
+        </GridLayout>
     </Page>
 </template>
 
 <script>
     import UserBlock from './parts/UserBlock.vue';
+    import Timer from './parts/Timer.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
     import NewPatient from './NewPatient.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
-    import { Progress } from 'tns-core-modules/ui/progress';
-    import { isIOS } from "platform";
 
     export default {
         data() {
@@ -50,24 +48,24 @@
                 question_body: '?',
                 answers_list: [],
 
-                curr_time: "0",
-                min_time: "0", 
-                max_time: "10", 
-                color: "#adebad",
-                timer: null,
-                time_status: true,
+                curr_time: 0,
+                event_bus: new Vue(),
 
                 mainSetting: {
                     class: "q-main-ctnr"
                 }
             }
         },
+        created() {
+            this.initTimer();
+        },
         mounted() {
+            
             this.prepareInitialQuestion();
-            this.tick();
         },
         components: {
-            UserBlock
+            UserBlock,
+            Timer
         },
         props: {
             initial_question_id: {
@@ -77,7 +75,11 @@
             log_id: {
                 type: String,
                 required: true,
-            }
+            },
+            timer_status: {
+                type: Boolean,
+                required: false,
+            },
         },
         computed: {
             ...mapGetters([
@@ -93,7 +95,8 @@
                 'saveIntroProgress',
                 'saveIntroOutcome',
                 'revertIntroProgress',
-                'changeLogStatus'
+                'changeLogStatus',
+                'updateTimer'
             ]),
             retrieveQuestion(target_q_id) {
                 const q = this.questions.find(question => { return question.id === target_q_id});
@@ -111,13 +114,23 @@
                 this.retrieveQuestion(prev_id);
             },
             prepareNextStage() {
+                this.stopTimer();
                 this.$navigateTo(QuestionPhase3, {
-                    frame: "logFrame",
                     animated: false,
+                    clearHistory: true,
                     props: {
                         log_id: this.log_id
                     }
                 });
+            },
+            initTimer() {
+                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                this.curr_time = log.timer;
+            },
+            stopTimer() {
+                // if (this.timer_status) {
+                    this.event_bus.$emit('clear_timer', this.log_id);
+                // }
             },
             onForward(ans) {
                 console.log("=== Forward === ");
@@ -158,31 +171,10 @@
                     this.revertIntroProgress(this.log_id);
                 }
             },
-            onProgressLoaded(args) {
-                let progress = args.object;
-                if (isIOS) {
-                    let transform = CGAffineTransformMakeScale(1.0, 5.0);  
-                    progress.ios.transform = transform; // progress.ios === UIProgressView
-                }
-
-            },
-            tick() {
-                this.timer = setInterval(() => {
-                    const max_time_val = parseInt(this.max_time);
-                    let curr_time_val = parseInt(this.curr_time);
-                    curr_time_val++;
-                    this.curr_time = '' + curr_time_val;
-                    console.log("=== in timer ===" + this.curr_time)
-                    if (curr_time_val >= max_time_val) {
-                        this.color = '#ffcccc';
-                        clearInterval(this.timer);
-                    } else if (curr_time_val >= max_time_val / 2) {
-                        this.color = '#ffdd99';
-                    }
-                }, 1000);
+            onRecordTime(value) {
+                
             },
             onNavigatingFrom() {
-                 clearInterval(this.timer);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.qGridRef.nativeView.getMeasuredWidth() );

@@ -63,9 +63,9 @@ export default {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         state.logs[log_idx].status = state.logs[log_idx].status ? false : true;
         console.log("in mutation status ===: " + state.logs[log_idx].status);
-    }
-    // [types.TIME_UPDATE](state, newTime){
-    //     state.logs[log_idx].timer = newTime;
-    // },
+    },
+    [types.TIME_UPDATE](state, t_item){
+        state.logs[t_item.idx].timer = t_item.t;
+    },
 
 };

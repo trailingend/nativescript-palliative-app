@@ -42,10 +42,10 @@
 </template>
 
 <script lang="ts">
-    import Logs from './dashboard/Logs.vue';
-    import NewPatient from '../logTab/NewPatient.vue';
-    import UserBlock from './dashboard/UserBlock.vue';
-
+    import UserBlock from './parts/UserBlock.vue';
+    import Logs from './parts/Logs.vue';
+    import NewPatient from '../triage/NewPatient.vue';
+    
     import { mapActions } from 'vuex';
     import * as utils from 'tns-core-modules/utils/utils';
     import { homeGridChildLandscape, homeGridChildPortrait } from '../../scripts/common';
@@ -92,14 +92,12 @@
                 console.log("=== Creating new Patient ===");
                 this.deleteActiveLog();
                 this.$navigateTo(NewPatient, {
-                    frame: "logFrame",
+                    animated: true,
                     clearHistory: true,
                     props: {
-                        time_status: true,
+                        timer_status: true,
                     }
                 });
-                const tabView = args.object.page.frame.parent.parent;
-                tabView.selectedIndex = 1;
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.homeGridRef.nativeView.getMeasuredWidth() );

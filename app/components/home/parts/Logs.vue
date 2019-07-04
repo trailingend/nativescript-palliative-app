@@ -34,12 +34,11 @@
 </template>
 
 <script lang="ts">
-    import QuestionPhase2 from '../../logTab/QuestionPhase2.vue';
-    import QuestionPhase3 from '../../logTab/QuestionPhase3.vue';
-    import ChooseProtocol from '../../logTab/ChooseProtocol.vue';
-    import Action from '../../logTab/Action.vue';
-    import Placeholder from '../../logTab/Placeholder.vue';
-    import Result from '../../logTab/Result.vue';
+    import QuestionPhase2 from '../../triage/QuestionPhase2.vue';
+    import QuestionPhase3 from '../../triage/QuestionPhase3.vue';
+    import ChooseProtocol from '../../documentation/ChooseProtocol.vue';
+    import Action from '../../triage/TakeAction.vue';
+    import Result from '../../triage/Result.vue';
 
     import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
@@ -79,7 +78,7 @@
             },
             navigateToPhase2Question(log_id, q_id) {
                 this.$navigateTo(QuestionPhase2, {
-                    frame: "logFrame",
+                    animated: true,
                     clearHistory: true,
                     props: {
                         log_id: log_id,
@@ -89,7 +88,8 @@
             },
             navigateToPhase3Page(log_id, elem) { // phase3 question, action and choose protocol
                 this.$navigateTo(elem, {
-                    frame: "logFrame",
+                    animated: true,
+                    clearHistory: true,
                     props: {
                         log_id: log_id
                     }
@@ -151,12 +151,11 @@
                     } else {
                         this.preparePhase2Question(log);
                     }
-                    
-                    // navigate to second tabview
-                    const tabView = args.object.page.frame.parent.parent;
-                    tabView.selectedIndex = 1;
                 }
                 
+            },
+            onTouch(args) {
+                console.log("=== Log touched === " + args.action);
             },
             onCallTap(id) {
                 const log = this.logs.find(elem => { return elem.id === id; });
@@ -175,15 +174,6 @@
                     if (isConfirmed) {
                         console.dir("=== Delete patient === " + id);
                         this.deleteLog(id);
-                        // check if current log, if yes, end it
-                        if (id === this.currLogId) {
-                            console.log("=== Refresh the log tag upon deleting ===");
-                            this.$navigateTo(Placeholder, {
-                                frame: "logFrame",
-                                animated: false,
-                                clearHistory: true
-                            });
-                        }
                     } else {
                         console.log("=== no delete ===");
                     }

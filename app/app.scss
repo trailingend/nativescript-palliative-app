@@ -22,13 +22,6 @@ Label {
     horizontal-align: right;
 }
 
-.time-progress {
-    height: 5;
-    margin-top: 7.5;
-    background-color: $color-tertiary;
-    vertical-align: middle;
-}
-
 @import "styles/dashboard";
 @import "styles/placeholder";
 @import "styles/newPatient";
@@ -39,3 +32,4 @@ Label {
 @import "styles/chooseProtocol";
 @import "styles/result";
 @import "styles/settings";
+@import "styles/timer";

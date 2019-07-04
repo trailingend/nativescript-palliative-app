@@ -1,0 +1,35 @@
+@import "variables";
+
+.timer-ctnr {
+    width: 100%;
+    
+    .timer-bar-ctnr {
+        height: 10;
+        background: $color-temp;
+
+        &.timer-bar-ctnr-1 {
+            margin-left: 5;
+        }
+        &.timer-bar-ctnr-2 {
+            width: 33%;
+            margin: 0 5;
+        }
+        &.timer-bar-ctnr-3 {
+            width: 50%;
+            margin-right: 5;
+        }
+    }
+
+    .timer-value {
+        width: 0%;
+        background: $color-text-gray;
+    }
+}
+
+.timer-wrapper-new-page {
+    margin: 5 0 0 0;
+}
+
+.timer-wrapper-q-page {
+    margin: 0 0 0 0;
+}

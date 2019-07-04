@@ -30,8 +30,7 @@
         methods: {
             onBackHome(args) {
                 console.log("=== Back to Dashboard ===");
-                const tabView = args.object.page.frame.parent.parent;
-                tabView.selectedIndex = 0;
+
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 

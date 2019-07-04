@@ -17,7 +17,7 @@
 
 <script>
     import UserBlock from './parts/UserBlock.vue';
-    import Placeholder from './Placeholder.vue';
+    import Dashboard from '../home/Dashboard.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
 
     import { mapActions } from 'vuex';
@@ -65,8 +65,8 @@
             },
             preparePrevQuestion() {
                 this.$navigateTo(QuestionPhase3, {
-                    frame: "logFrame",
                     animated: false,
+                    clearHistory: true,
                     props: {
                         log_id: this.log_id,
                     }
@@ -89,11 +89,7 @@
             },
             onBackHome(args) {
                 console.log("=== Back to Dashboard ===");
-                const tabView = args.object.page.frame.parent.parent;
-                tabView.selectedIndex = 0;
-
-                this.$navigateTo(Placeholder, {
-                    frame: "logFrame",
+                this.$navigateTo(Dashboard, {
                     animated: false,
                     clearHistory: true
                 });

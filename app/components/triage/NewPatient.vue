@@ -2,12 +2,11 @@
     <Page class="page new-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log"></ActionBar>
         <StackLayout>
-            <Progress v-show="timer_status" class="time-progress"                     
-                      :value="curr_time"
-                      :minValue="min_time"
-                      :maxValue="max_time"
-                      :color="color"
-                      @loaded="onProgressLoaded" />
+            <Timer class="timer-wrapper timer-wrapper-new-page"
+                   :init_val=0
+                   :segment_id=0 
+                   :event_bus=event_bus
+                   v-if="timer_status" />
             <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
                         ref="newGridRef" 
                         @tap="clearTextfieldFocus"
@@ -59,10 +58,12 @@
 </template>
 
 <script>
+    import Timer from './parts/Timer.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
     import { Progress } from 'tns-core-modules/ui/progress';
     import { isIOS } from "platform";
@@ -79,11 +80,7 @@
                 created_time: '',
                 is_consented: false,
 
-                curr_time: "0",
-                min_time: "0", 
-                max_time: "10", 
-                color: "#adebad",
-                timer: null,
+                event_bus: new Vue(),
 
                 formSetting: {
                     class: "new-form-ctnr",
@@ -91,9 +88,9 @@
             }
         },
         mounted() {
-            if (this.timer_status) {
-                this.tick();
-            }
+        },
+        components: {
+            Timer
         },
         props: {
             timer_status: {
@@ -134,6 +131,11 @@
                 this.created_time = dateTime;
                 this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
             },
+            stopTimer(log_id) {
+                if (this.timer_status) {
+                    this.event_bus.$emit('clear_timer', log_id);
+                }
+            },
             loadExistingInfo() {
                 if (this.log_id) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
@@ -145,7 +147,7 @@
                 }
             },
             onNavigateForward(args) {
-                this.recordTime();
+                this.recordTime(); 
 
                 if (this.is_consented) {
                     const client_id = this.c_id;
@@ -159,7 +161,7 @@
                         patient: patient_name,
                         relation: this.c_relation,
                         createdTime: this.created_time,
-                        timer: 0,
+                        timer: 0, 
                         status: false,
                         intro_progress: [],
                         intro_outcome: -1,
@@ -168,15 +170,17 @@
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
+                    this.stopTimer(this.c_id);
 
                     this.$navigateTo(QuestionPhase2, {
-                        frame: "logFrame",
                         animated: false,
+                        clearHistory: true,
                         props: {
                             log_id: client_id,
                             initial_question_id: this.phase_2_question_id
                         }
                     });
+                    console.log("in nav forward " + this.curr_time);
                     console.log("=== New Patient Logged ===");
                 } else {
                     dialogConsent();
@@ -196,32 +200,8 @@
             onPhoneEntered() {
                 this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));
             },
-            onProgressLoaded(args) {
-                let progress = args.object;
-                if (isIOS) {
-                    let transform = CGAffineTransformMakeScale(1.0, 5.0);  
-                    progress.ios.transform = transform; // progress.ios === UIProgressView
-                }
-            },
-            tick() {
-                this.timer = setInterval(() => {
-                    const max_time_val = parseInt(this.max_time);
-                    let curr_time_val = parseInt(this.curr_time);
-                    curr_time_val++;
-                    this.curr_time = '' + curr_time_val;
-                    console.log("=== in timer ===" + this.curr_time)
-                    if (curr_time_val >= max_time_val) {
-                        this.color = '#ffcccc';
-                        clearInterval(this.timer);
-                    } else if (curr_time_val >= max_time_val / 2) {
-                        this.color = '#ffdd99';
-                    }
-                }, 1000);
-            },
             onNavigatingFrom() {
-                if (this.timer_status) {
-                    clearInterval(this.timer);
-                }
+                
             },
             onLayoutUpdate() {
                 if (this.$refs.newGridRef) {

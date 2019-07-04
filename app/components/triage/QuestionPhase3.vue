@@ -4,9 +4,15 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
         </ActionBar>
-        <GridLayout class="q-ctnr" rows="auto, *" columns="*" ref="qPh3GridRef" @layoutChanged="onLayoutUpdate">
+        <GridLayout class="q-ctnr" rows="auto, auto *" columns="*" ref="qPh3GridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout row="1" col="0" :class="mainSetting.class">
+            <Timer row="1" col="0"
+                   class="timer-wrapper timer-wrapper-q-page"
+                   :init_val=curr_time
+                   :segment_id=3 
+                   :event_bus=event_bus
+                   v-if="true" />
+            <StackLayout row="2" col="0" :class="mainSetting.class">
                 <StackLayout class="q-title-ctnr">
                     <Label class="q-main-title" text="Log" />
                     <Label class="q-main-title" text="In Progress" />
@@ -25,13 +31,15 @@
 
 <script>
     import UserBlock from './parts/UserBlock.vue';
+    import Timer from './parts/Timer.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
-    import Action from './Action.vue';
-    import ChooseProtocol from './ChooseProtocol.vue';
+    import Action from './TakeAction.vue';
+    import ChooseProtocol from '../documentation/ChooseProtocol.vue';
     import NewPatient from './NewPatient.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -42,16 +50,23 @@
                 question_body: '?',
                 answers_list: [],
 
+                curr_time: 0,
+                event_bus: new Vue(),
+
                 mainSetting: {
                     class: "q-main-ctnr"
                 }
             }
         },
+        created() {
+            this.initTimer();
+        },
         mounted() {
             this.prepareQuestion();
         },
         components: {
-            UserBlock
+            UserBlock,
+            Timer
         },
         props: {
             log_id: {
@@ -84,9 +99,10 @@
                 this.retrieveQuestion(this.phase_3_question_id);
             },
             preparePrevQuestion(q_id) {
+                this.stopTimer();
                 this.$navigateTo(QuestionPhase2, {
-                    frame: "logFrame",
                     animated: false,
+                    clearHistory: true,
                     props: {
                         log_id: this.log_id,
                         initial_question_id: q_id
@@ -94,13 +110,23 @@
                 });
             },
             prepareToNavigate(elem) {
+                this.stopTimer();
                 this.$navigateTo(elem, {
-                    frame: "logFrame",
                     animated: false,
+                    clearHistory: true,
                     props: {
                         log_id: this.log_id
                     }
                 });
+            },
+            initTimer() {
+                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                this.curr_time = log.timer;
+            },
+            stopTimer() {
+                // if (this.timer_status) {
+                    this.event_bus.$emit('clear_timer', this.log_id);
+                // }
             },
             onForward(ans) {
                 console.log("=== Forward === " + ans.id + " " + ans.text);
