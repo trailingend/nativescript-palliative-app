@@ -2,11 +2,16 @@
     <Page class="page action-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
+            <CloseButton />
         </ActionBar>
-        <GridLayout class="action-ctnr" rows="auto, *" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
+        <GridLayout class="action-ctnr" rows="auto, auto, *" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout class="action-body-ctnr" row="1" col="0">
+            <Timer row="1" col="0"
+                   class="timer-wrapper timer-wrapper-action-page"
+                   :log_id=log_id
+                   :segment_id=3 
+                   :event_bus=event_bus />
+            <StackLayout class="action-body-ctnr" row="2" col="0">
                 <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
                     <Button class="action-back-btn" text="Back" @tap="onBackward" ></Button>
                     <StackLayout class="action-title-ctnr">
@@ -16,19 +21,20 @@
                 </FlexboxLayout>
                 <Label class="action-msg" :text="outcomeMsg"/>
                 <Label class="action-msg" :text="actionMsg"/>
-                <Button class="action-btn" text="Back to Dashboard" @tap="onBackToHome"/>
             </StackLayout>
         </GridLayout>
     </Page>
 </template>
 
 <script>
+    import CloseButton from './parts/CloseButton.vue';
     import UserBlock from './parts/UserBlock.vue';
-    import Dashboard from '../home/Dashboard.vue';
+    import Timer from './parts/Timer.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -36,14 +42,17 @@
             return {
                 outcomeMsg: 'Placeholder for outcome',
                 actionMsg: 'Placeholder for action',
+
+                event_bus: new Vue(),
             }
         },
         mounted() {
             this.prepareAction();
-            // this.changeLogStatus(this.log_id);
         },
         components: {
-            UserBlock
+            CloseButton,
+            UserBlock,
+            Timer,
         },
         props: {
             log_id: {
@@ -71,6 +80,7 @@
                 }
             },
             preparePrevQuestion() {
+                this.stopTimer();
                 this.$navigateTo(QuestionPhase3, {
                     animated: false,
                     clearHistory: true,
@@ -78,6 +88,9 @@
                         log_id: this.log_id,
                     }
                 });
+            },
+            stopTimer() {
+                this.event_bus.$emit('clear_timer', this.log_id);
             },
             onForward(ans) {
             },
@@ -93,13 +106,6 @@
                 }
 
                 // this.changeLogStatus(this.log_id);
-            },
-            onBackToHome(args) {
-                console.log("=== Back To Home ===");
-                this.$navigateTo(Dashboard, {
-                    animated: false,
-                    clearHistory: true,
-                });
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 

@@ -2,7 +2,7 @@
     <Page class="page q-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
+            <CloseButton @close="stopTimer" />
         </ActionBar>
         <GridLayout class="q-ctnr" rows="auto, auto *" columns="*" ref="qPh3GridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
@@ -10,8 +10,7 @@
                    class="timer-wrapper timer-wrapper-q-page"
                    :log_id=log_id
                    :segment_id=3 
-                   :event_bus=event_bus
-                   v-if="true" />
+                   :event_bus=event_bus />
             <StackLayout row="2" col="0" :class="mainSetting.class">
                 <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
                     <Button class="q-back-btn" text="Back" @tap="onBackward" ></Button>
@@ -33,13 +32,12 @@
 </template>
 
 <script>
+    import CloseButton from './parts/CloseButton.vue';
     import UserBlock from './parts/UserBlock.vue';
     import Timer from './parts/Timer.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
-    import Dashboard from '../home/Dashboard.vue';
-    import Action from './TakeAction.vue';
+    import TakeAction from './TakeAction.vue';
     import ChooseProtocol from '../documentation/ChooseProtocol.vue';
-    import NewPatient from './NewPatient.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -65,6 +63,7 @@
             this.prepareQuestion();
         },
         components: {
+            CloseButton,
             UserBlock,
             Timer
         },
@@ -87,7 +86,7 @@
             ...mapActions([
                 'saveIntroProgress',
                 'revertIntroProgress',
-                'revertIntroOutcome'
+                'revertIntroOutcome',
             ]),
             retrieveQuestion(target_q_id) {
                 const q = this.questions.find(question => { return question.id === target_q_id});
@@ -112,17 +111,20 @@
             prepareToNavigate(elem) {
                 this.stopTimer();
                 this.$navigateTo(elem, {
-                    animated: false,
+                    animated: true,
                     clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'linear',
+                        duration: 300
+                    },
                     props: {
-                        log_id: this.log_id
+                        log_id: this.log_id 
                     }
                 });
             },
             stopTimer() {
-                // if (this.timer_status) {
-                    this.event_bus.$emit('clear_timer', this.log_id);
-                // }
+                this.event_bus.$emit('clear_timer', this.log_id);
             },
             onForward(ans) {
                 console.log("=== Forward === " + ans.id + " " + ans.text);
@@ -137,7 +139,7 @@
                     this.prepareToNavigate(ChooseProtocol);
                     console.log("=== Heading to choose protocols now ===");
                 } else {
-                    this.prepareToNavigate(Action);
+                    this.prepareToNavigate(TakeAction);
                     console.log("=== Heading to actions now ===");
                 }
             },
@@ -152,13 +154,6 @@
                     this.revertIntroProgress(this.log_id);
                     this.revertIntroOutcome(this.log_id);
                 }
-            },
-            onBackToHome(args) {
-                console.log("=== Back To Home ===");
-                this.$navigateTo(Dashboard, {
-                    animated: false,
-                    clearHistory: true,
-                });
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.qPh3GridRef.nativeView.getMeasuredWidth() );

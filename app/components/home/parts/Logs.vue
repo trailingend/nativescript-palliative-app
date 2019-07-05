@@ -178,10 +178,6 @@
                         console.log("=== no delete ===");
                     }
                 });
-
-
-
-                
             },
 
             onSwipeStarted ({ data, object }) {

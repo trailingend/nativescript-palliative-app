@@ -64,8 +64,14 @@ export default {
         state.logs[log_idx].status = state.logs[log_idx].status ? false : true;
         console.log("in mutation status ===: " + state.logs[log_idx].status);
     },
-    [types.TIME_UPDATE](state, t_item){
-        state.logs[t_item.idx].timer = t_item.t;
+    [types.TIME_UPDATE](state, t){
+        state.timer_value = t;
+    },
+    [types.TIMER_ON](state){
+        state.timer_status = true;
+    },
+    [types.TIMER_OFF](state){
+        state.timer_status = false;
     },
 
 };

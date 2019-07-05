@@ -2,7 +2,7 @@
     <Page class="page q-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
+            <CloseButton @close="stopTimer" />
         </ActionBar>
         <GridLayout class="q-ctnr" rows="auto, auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
@@ -10,8 +10,7 @@
                    class="timer-wrapper timer-wrapper-q-page"
                    :log_id=log_id
                    :segment_id=1 
-                   :event_bus=event_bus
-                   v-if="true" />
+                   :event_bus=event_bus />
             <StackLayout row="2" col="0" :class="mainSetting.class">
                 <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
                     <Button class="q-back-btn" text="Back" @tap="onBackward" ></Button>
@@ -33,11 +32,11 @@
 </template>
 
 <script>
+    import CloseButton from './parts/CloseButton.vue';
     import UserBlock from './parts/UserBlock.vue';
     import Timer from './parts/Timer.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
     import NewPatient from './NewPatient.vue';
-    import Dashboard from '../home/Dashboard.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -64,8 +63,9 @@
             this.prepareInitialQuestion();
         },
         components: {
+            CloseButton,
             UserBlock,
-            Timer
+            Timer,
         },
         props: {
             initial_question_id: {
@@ -75,10 +75,6 @@
             log_id: {
                 type: String,
                 required: true,
-            },
-            timer_status: {
-                type: Boolean,
-                required: false,
             },
         },
         computed: {
@@ -124,9 +120,7 @@
                 });
             },
             stopTimer() {
-                // if (this.timer_status) {
-                    this.event_bus.$emit('clear_timer', this.log_id);
-                // }
+                this.event_bus.$emit('clear_timer');
             },
             onForward(ans) {
                 console.log("=== Forward === ");
@@ -166,16 +160,6 @@
                     this.preparePrevQuestion(last_progress[0]);
                     this.revertIntroProgress(this.log_id);
                 }
-            },
-            onBackToHome(args) {
-                console.log("=== Back To Home ===");
-                this.$navigateTo(Dashboard, {
-                    animated: false,
-                    clearHistory: true,
-                });
-            },
-            onRecordTime(value) {
-                
             },
             onNavigatingFrom() {
             },

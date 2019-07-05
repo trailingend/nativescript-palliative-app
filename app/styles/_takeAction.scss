@@ -9,17 +9,12 @@
             background: $color-temp;
         }
         .action-title-ctnr {
-            padding: 10 25;
-
             .action-main-title {
                 text-align: right;
                 font-size: 18;
                 font-weight: 700;
                 color: $color-text-light;
             }
-        }
-        .action-back-btn {
-            padding: 10 25;
         }
     }
 }

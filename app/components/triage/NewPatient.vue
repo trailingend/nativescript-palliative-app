@@ -2,14 +2,12 @@
     <Page class="page new-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-                <ActionItem @tap="onBackToHome" ios.systemIcon="1" ios.position="left"></ActionItem>
-            </ActionBar>
+            <CloseButton @close="stopTimer"/>
+        </ActionBar>
         <StackLayout>
             <Timer class="timer-wrapper timer-wrapper-new-page"
-                   :log_id=null
                    :segment_id=0 
-                   :event_bus=event_bus
-                   v-if="timer_status" />
+                   :event_bus=event_bus />
             <GridLayout rows="*" columns="*, auto" class="new-ctnr" 
                         ref="newGridRef" 
                         @tap="clearTextfieldFocus"
@@ -61,16 +59,14 @@
 </template>
 
 <script>
+    import CloseButton from './parts/CloseButton.vue';
     import Timer from './parts/Timer.vue';
-    import Dashboard from '../home/Dashboard.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
-    import { Progress } from 'tns-core-modules/ui/progress';
-    import { isIOS } from "platform";
     import { dialogConsent, logMonths, formatPhoneNum } from '../../scripts/common';
     
     export default {
@@ -91,16 +87,17 @@
                 },
             }
         },
+        created() {
+            this.turnOnTimer();
+        },
         mounted() {
+            
         },
         components: {
+            CloseButton,
             Timer
         },
         props: {
-            timer_status: {
-                type: Boolean,
-                required: true
-            },
             log_id: {
                 type: String,
                 required: false,
@@ -124,7 +121,8 @@
         methods: {
             ...mapActions([
                 'saveClientInfo',
-                'saveActiveLog'
+                'saveActiveLog',
+                'turnOnTimer',
             ]),
             recordTime() {
                 const today = new Date();
@@ -135,10 +133,8 @@
                 this.created_time = dateTime;
                 this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
             },
-            stopTimer(log_id) {
-                if (this.timer_status) {
-                    this.event_bus.$emit('clear_timer', log_id);
-                }
+            stopTimer() {
+                this.event_bus.$emit('clear_timer');
             },
             loadExistingInfo() {
                 if (this.log_id) {
@@ -174,7 +170,7 @@
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
-                    this.stopTimer(this.c_id);
+                    this.stopTimer();
 
                     this.$navigateTo(QuestionPhase2, {
                         animated: false,
@@ -184,18 +180,10 @@
                             initial_question_id: this.phase_2_question_id
                         }
                     });
-                    console.log("in nav forward " + this.curr_time);
                     console.log("=== New Patient Logged ===");
                 } else {
                     dialogConsent();
                 }
-            },
-            onBackToHome(args) {
-                console.log("=== Back To Home ===");
-                this.$navigateTo(Dashboard, {
-                    animated: false,
-                    clearHistory: true,
-                });
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;

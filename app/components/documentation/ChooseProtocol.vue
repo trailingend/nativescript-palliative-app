@@ -2,7 +2,8 @@
     <Page class="page pre-proto-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
+            <CloseButton />
+            <NewButton />
         </ActionBar>
         <GridLayout class="pre-proto-ctnr" rows="auto, *" columns="*" ref="preProtoGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
@@ -32,9 +33,10 @@
 </template>
 
 <script>
+    import CloseButton from '../triage/parts/CloseButton.vue';
+    import NewButton from './parts/NewButton.vue';
     import UserBlock from '../triage/parts/UserBlock.vue';
     import QuestionPhase3 from '../triage/QuestionPhase3.vue';
-    import Dashboard from '../home/Dashboard.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -54,6 +56,8 @@
             // this.prepareProtocols();
         },
         components: {
+            CloseButton,
+            NewButton,
             UserBlock
         },
         props: {
@@ -105,6 +109,16 @@
                 this.$navigateTo(Dashboard, {
                     animated: false,
                     clearHistory: true
+                });
+            },
+            onAddNew() {
+                console.log("=== Back to Dashboard ===");
+                this.$navigateTo(NewPatient, {
+                    animated: false,
+                    clearHistory: true,
+                    props: {
+                        timer_status: true,
+                    }
                 });
             },
             onLayoutUpdate() {

@@ -15,3 +15,5 @@ export const INTRO_OUTCOME_REVERT = 'INTRO_OUTCOME_REVERT';
 export const STATUS_UPDATE = 'LOG_COMPLETE';
 
 export const TIME_UPDATE = 'TIME_UPDATE';
+export const TIMER_ON = 'TIMER_ON';
+export const TIMER_OFF = 'TIMER_OFF';

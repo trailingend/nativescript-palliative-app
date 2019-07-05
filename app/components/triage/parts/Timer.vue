@@ -32,13 +32,14 @@
             }
         },
         created() {
-            this.initTimer();
         },
         mounted() {
+            this.initTimer();
             this.tick();
             if (this.event_bus) {
-                this.event_bus.$on('clear_timer', (log_id) => {
-                    this.stopTimer(log_id);
+                this.event_bus.$on('clear_timer', () => {
+                    console.log("=== Timer: in clear time === ");
+                    this.stopTimer();
                 });
             }
         },
@@ -60,62 +61,77 @@
         },
         computed: {
             ...mapGetters([
-                'logs',
+                'timer_value',
+                'timer_status',
 			])
 		},
         methods: {
             ...mapActions([
-                'updateTimer'
+                'updateTimerValue',
+                'turnOffTimer'
             ]),
             initTimer() {
-                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                if (log) this.curr_time = log.timer;
+                console.log("status " + this.timer_status);
+                if (this.timer_status) {
+                    this.curr_time = 0 + this.timer_value;
+                } else {
+                    console.log("here")
+                    this.curr_time = 61;
+                }
+                
+                this.updateColor();
                 this.updateBarValue();
             },
             tick() {
-                this.initTimer();
                 this.timer = setInterval(() => {
-                    let checkpoint = (this.segment_id >= 0 && this.segment_id <= 2) ? 
-                                     this.checkpoints[this.segment_id] : this.checkpoints[2];
-                    this.curr_time++;
-                    this.color = (this.curr_time >= checkpoint) ? this.warning_color : this.normal_color;
+                    if (this.curr_time <= 60) this.curr_time++;
+                    this.updateColor();
                     this.updateBarValue();
-                    console.log("=== in timer ===" + this.curr_time)
+                    console.log("=== in timer ===" + this.curr_time);
                     
-                    if (this.curr_time >= this.checkpoints[2]) {
-                        this.color = this.warning_color;
-                        this.stopTimer();
+                    if (this.curr_time > this.checkpoints[2]) {
+                        this.updateTimerStatus();
                     } 
                 }, 1000);
             },
-            stopTimer(log_id) {
+            stopTimer() { // Public-facing
                 clearInterval(this.timer);
-                if (log_id) {
-                    console.log("=== Timer: in stop timer === " + log_id + " " + this.curr_time)
-                    this.updateTimer({
-                        log_id: log_id,
-                        curr_time: this.curr_time
-                    });
-                }
+                this.updateTimerValue(this.curr_time);
+            },
+            updateTimerStatus() {
+                clearInterval(this.timer);
+                this.turnOffTimer();
             },
             updateBarValue() {
                 if (this.curr_time <= this.checkpoints[0]) {
-                    const fraction = this.curr_time / this.checkpoints[0] * 100;
+                    let fraction = this.curr_time / this.checkpoints[0] * 100;
+                    if (fraction > 100) fraction = 100;
                     this.timer_value_1 = fraction + '%';
                     this.timer_value_2 = '0%';
                     this.timer_value_3 = '0%';
                 } else if (this.curr_time > this.checkpoints[0] && this.curr_time <= this.checkpoints[1]) {
-                    const fraction = (this.curr_time - this.checkpoints[0]) / (this.checkpoints[1] - this.checkpoints[0]) * 100;
+                    let fraction = (this.curr_time - this.checkpoints[0]) / (this.checkpoints[1] - this.checkpoints[0]) * 100;
+                    if (fraction > 100) fraction = 100;
                     this.timer_value_1 = '100%';
                     this.timer_value_2 = fraction + '%';
                     this.timer_value_3 = '0%';
                 }
                 else if (this.curr_time > this.checkpoints[1] && this.curr_time <= this.checkpoints[2]) {
-                    const fraction = (this.curr_time - this.checkpoints[1]) / (this.checkpoints[2] - this.checkpoints[1]) * 100;
+                    let fraction = (this.curr_time - this.checkpoints[1]) / (this.checkpoints[2] - this.checkpoints[1]) * 100;
+                    if (fraction > 100) fraction = 100;
                     this.timer_value_1 = '100%';
                     this.timer_value_2 = '100%';
                     this.timer_value_3 = fraction + '%'; 
+                } else {
+                    this.timer_value_1 = '100%';
+                    this.timer_value_2 = '100%';
+                    this.timer_value_3 = '100%'; 
                 }
+            },
+            updateColor() {
+                let checkpoint = (this.segment_id >= 0 && this.segment_id <= 2) ? 
+                                  this.checkpoints[this.segment_id] : this.checkpoints[2];
+                this.color = (this.curr_time > checkpoint || this.curr_time > this.checkpoints[2]) ? this.warning_color : this.normal_color;
             }
         },
         

@@ -100,17 +100,16 @@ export default {
         commit(types.LOG_DEACTIVATE);
     },
 
-    updateTimer({commit, state}, time_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == time_item.log_id});
-        if (log_idx === -1) {
-            console.log("=== In intro log update: OH NO !!! ===");
-        } else {
-            const t_item = {
-                idx: log_idx,
-                t: time_item.curr_time
-            }
-            commit(types.TIME_UPDATE, t_item);
-        }
+    updateTimerValue({commit, state}, curr_time) {
+        commit(types.TIME_UPDATE, curr_time);
+    },
+    turnOnTimer({commit, state}) {
+        commit(types.TIMER_ON);
+        commit(types.TIME_UPDATE, 0);
+    },
+    turnOffTimer({commit, state}) {
+        commit(types.TIMER_OFF);
+        commit(types.TIME_UPDATE, 60);
     },
 };
 

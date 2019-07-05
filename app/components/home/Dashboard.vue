@@ -94,9 +94,11 @@
                 this.$navigateTo(NewPatient, {
                     animated: true,
                     clearHistory: true,
-                    props: {
-                        timer_status: true,
-                    }
+                    transition: {
+                        name: 'slideTop',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
                 });
             },
             onLayoutUpdate() {

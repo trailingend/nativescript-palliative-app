@@ -1,6 +1,8 @@
 export default {
 	currUserIdx: -1,
 	currLogId: null,
+	timer_value: 0,
+	timer_status: false,
 
 	users: [{
 		id: '477567',
