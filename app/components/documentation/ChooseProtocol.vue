@@ -2,19 +2,26 @@
     <Page class="page pre-proto-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
+            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
         </ActionBar>
         <GridLayout class="pre-proto-ctnr" rows="auto, *" columns="*" ref="preProtoGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout class="pre-proto-choice-ctnr" row="1" col="0">
+                <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
+                    <Button class="pre-proto-back-btn" text="Back" @tap="onBackward" ></Button>
+                    <StackLayout class="pre-proto-title-ctnr">
+                        <Label class="pre-proto-main-title" text="Log" />
+                        <Label class="pre-proto-main-title" text="In Progress" />
+                    </StackLayout>
+                </FlexboxLayout>
                 <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
                     <Label :text="pre_protocol_question" class="pre-proto-body"/>
                 </FlexboxLayout>
-                <GridLayout class="pre-proto-btn-ctnr" rows="*, *, *, *, *, *" columns="*, *" >
+                <GridLayout class="pre-proto-btn-ctnr" :rows="gridSetting.rows" :columns="gridSetting.columns" >
                     <Button v-for="(protocol, index) in protocols" 
                             v-bind:key="protocol.id" 
-                            :row="Math.floor(index / 2)"
-                            :col="index % 2"
+                            :row="Math.floor(index / gridSetting.denominator)"
+                            :col="index % gridSetting.denominator"
                             :text="protocol.name" 
                             :class="`pre-proto-btn pre-proto-btn${index}`" 
                             @tap="onForward(protocol)" />
@@ -36,6 +43,11 @@
     export default {
         data() {
             return {
+                gridSetting: {
+                    rows: "*, *, *, *, *, *, *",
+                    columns: "*, *",
+                    denominator: 2
+                }
             }
         },
         mounted() {
@@ -88,7 +100,7 @@
                     this.revertIntroProgress(this.log_id);
                 }
             },
-            onBackHome(args) {
+            onBackToHome(args) {
                 console.log("=== Back to Dashboard ===");
                 this.$navigateTo(Dashboard, {
                     animated: false,
@@ -101,9 +113,17 @@
                 );
 
                 if (width > 1000) {
-
+                    this.gridSetting = {
+                        rows: "*, *, *, *, *",
+                        columns: "*, *, *",
+                        denominator: 3
+                    };
                 } else {
-                 
+                    this.gridSetting = {
+                        rows: "*, *, *, *, *, *, *",
+                        columns: "*, *",
+                        denominator: 2
+                    };
                 }
             },
         }

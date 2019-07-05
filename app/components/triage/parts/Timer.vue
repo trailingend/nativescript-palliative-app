@@ -14,6 +14,7 @@
 
 <script lang="ts">
     import { mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
 
     export default {
         data() {
@@ -30,8 +31,10 @@
                 timer_value_3: '0%',
             }
         },
+        created() {
+            this.initTimer();
+        },
         mounted() {
-            this.curr_time = this.init_val;
             this.tick();
             if (this.event_bus) {
                 this.event_bus.$on('clear_timer', (log_id) => {
@@ -42,13 +45,13 @@
         components: {
         },
         props: {
+            log_id: {
+                type: String,
+                required: false,
+            },
             segment_id: {
                 type: Number,
                 required: true
-            },
-            init_val: {
-                type: Number,
-                required: true,
             },
             event_bus: {
                 type: Object,
@@ -56,37 +59,29 @@
             }
         },
         computed: {
+            ...mapGetters([
+                'logs',
+			])
 		},
         methods: {
             ...mapActions([
                 'updateTimer'
             ]),
+            initTimer() {
+                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                if (log) this.curr_time = log.timer;
+                this.updateBarValue();
+            },
             tick() {
+                this.initTimer();
                 this.timer = setInterval(() => {
                     let checkpoint = (this.segment_id >= 0 && this.segment_id <= 2) ? 
                                      this.checkpoints[this.segment_id] : this.checkpoints[2];
                     this.curr_time++;
                     this.color = (this.curr_time >= checkpoint) ? this.warning_color : this.normal_color;
+                    this.updateBarValue();
                     console.log("=== in timer ===" + this.curr_time)
-
-                    if (this.curr_time <= this.checkpoints[0]) {
-                        const fraction = this.curr_time / this.checkpoints[0] * 100;
-                        this.timer_value_1 = fraction + '%';
-                        this.timer_value_2 = '0%';
-                        this.timer_value_3 = '0%';
-                    } else if (this.curr_time > this.checkpoints[0] && this.curr_time <= this.checkpoints[1]) {
-                        const fraction = (this.curr_time - this.checkpoints[0]) / (this.checkpoints[1] - this.checkpoints[0]) * 100;
-                        this.timer_value_1 = '100%';
-                        this.timer_value_2 = fraction + '%';
-                        this.timer_value_3 = '0%';
-                    }
-                    else if (this.curr_time > this.checkpoints[1] && this.curr_time <= this.checkpoints[2]) {
-                        const fraction = (this.curr_time - this.checkpoints[1]) / (this.checkpoints[2] - this.checkpoints[1]) * 100;
-                        this.timer_value_1 = '100%';
-                        this.timer_value_2 = '100%';
-                        this.timer_value_3 = fraction + '%'; 
-                    }
-
+                    
                     if (this.curr_time >= this.checkpoints[2]) {
                         this.color = this.warning_color;
                         this.stopTimer();
@@ -103,7 +98,25 @@
                     });
                 }
             },
-            
+            updateBarValue() {
+                if (this.curr_time <= this.checkpoints[0]) {
+                    const fraction = this.curr_time / this.checkpoints[0] * 100;
+                    this.timer_value_1 = fraction + '%';
+                    this.timer_value_2 = '0%';
+                    this.timer_value_3 = '0%';
+                } else if (this.curr_time > this.checkpoints[0] && this.curr_time <= this.checkpoints[1]) {
+                    const fraction = (this.curr_time - this.checkpoints[0]) / (this.checkpoints[1] - this.checkpoints[0]) * 100;
+                    this.timer_value_1 = '100%';
+                    this.timer_value_2 = fraction + '%';
+                    this.timer_value_3 = '0%';
+                }
+                else if (this.curr_time > this.checkpoints[1] && this.curr_time <= this.checkpoints[2]) {
+                    const fraction = (this.curr_time - this.checkpoints[1]) / (this.checkpoints[2] - this.checkpoints[1]) * 100;
+                    this.timer_value_1 = '100%';
+                    this.timer_value_2 = '100%';
+                    this.timer_value_3 = fraction + '%'; 
+                }
+            }
         },
         
     };

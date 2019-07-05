@@ -2,21 +2,24 @@
     <Page class="page q-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left"></ActionItem>
+            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
         </ActionBar>
         <GridLayout class="q-ctnr" rows="auto, auto, *" columns="*" ref="qGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
             <Timer row="1" col="0"
                    class="timer-wrapper timer-wrapper-q-page"
-                   :init_val=curr_time
+                   :log_id=log_id
                    :segment_id=1 
                    :event_bus=event_bus
                    v-if="true" />
             <StackLayout row="2" col="0" :class="mainSetting.class">
-                <StackLayout class="q-title-ctnr">
-                    <Label class="q-main-title" text="Log" />
-                    <Label class="q-main-title" text="In Progress" />
-                </StackLayout>
+                <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
+                    <Button class="q-back-btn" text="Back" @tap="onBackward" ></Button>
+                    <StackLayout class="q-title-ctnr">
+                        <Label class="q-main-title" text="Log" />
+                        <Label class="q-main-title" text="In Progress" />
+                    </StackLayout>
+                </FlexboxLayout>
                 <StackLayout class="q-question-ctnr" >
                     <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
                         <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
@@ -34,6 +37,7 @@
     import Timer from './parts/Timer.vue';
     import QuestionPhase3 from './QuestionPhase3.vue';
     import NewPatient from './NewPatient.vue';
+    import Dashboard from '../home/Dashboard.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -48,16 +52,12 @@
                 question_body: '?',
                 answers_list: [],
 
-                curr_time: 0,
                 event_bus: new Vue(),
 
                 mainSetting: {
                     class: "q-main-ctnr"
                 }
             }
-        },
-        created() {
-            this.initTimer();
         },
         mounted() {
             
@@ -123,10 +123,6 @@
                     }
                 });
             },
-            initTimer() {
-                const log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                this.curr_time = log.timer;
-            },
             stopTimer() {
                 // if (this.timer_status) {
                     this.event_bus.$emit('clear_timer', this.log_id);
@@ -170,6 +166,13 @@
                     this.preparePrevQuestion(last_progress[0]);
                     this.revertIntroProgress(this.log_id);
                 }
+            },
+            onBackToHome(args) {
+                console.log("=== Back To Home ===");
+                this.$navigateTo(Dashboard, {
+                    animated: false,
+                    clearHistory: true,
+                });
             },
             onRecordTime(value) {
                 

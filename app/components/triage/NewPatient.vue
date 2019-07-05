@@ -1,9 +1,12 @@
 <template>
     <Page class="page new-page" @navigatingFrom="onNavigatingFrom">
-        <ActionBar title="Patient Log"></ActionBar>
+        <ActionBar title="Patient Log">
+            <NavigationButton visibility="hidden" ></NavigationButton>
+                <ActionItem @tap="onBackToHome" ios.systemIcon="1" ios.position="left"></ActionItem>
+            </ActionBar>
         <StackLayout>
             <Timer class="timer-wrapper timer-wrapper-new-page"
-                   :init_val=0
+                   :log_id=null
                    :segment_id=0 
                    :event_bus=event_bus
                    v-if="timer_status" />
@@ -59,6 +62,7 @@
 
 <script>
     import Timer from './parts/Timer.vue';
+    import Dashboard from '../home/Dashboard.vue';
     import QuestionPhase2 from './QuestionPhase2.vue';
     
     import { mapActions } from 'vuex';
@@ -185,6 +189,13 @@
                 } else {
                     dialogConsent();
                 }
+            },
+            onBackToHome(args) {
+                console.log("=== Back To Home ===");
+                this.$navigateTo(Dashboard, {
+                    animated: false,
+                    clearHistory: true,
+                });
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;

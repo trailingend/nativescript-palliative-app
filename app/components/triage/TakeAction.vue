@@ -2,14 +2,21 @@
     <Page class="page action-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <ActionItem @tap="onBackward" ios.systemIcon="21" ios.position="left" ></ActionItem>
+            <ActionItem @tap="onBackToHome" ios.systemIcon="0" ios.position="left"></ActionItem>
         </ActionBar>
         <GridLayout class="action-ctnr" rows="auto, *" columns="*" ref="actionGridRef" @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout class="action-body-ctnr" row="1" col="0">
+                <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
+                    <Button class="action-back-btn" text="Back" @tap="onBackward" ></Button>
+                    <StackLayout class="action-title-ctnr">
+                        <Label class="action-main-title" text="Log" />
+                        <Label class="action-main-title" text="In Progress" />
+                    </StackLayout>
+                </FlexboxLayout>
                 <Label class="action-msg" :text="outcomeMsg"/>
                 <Label class="action-msg" :text="actionMsg"/>
-                <Button class="action-btn" text="Back to Dashboard" @tap="onBackHome"/>
+                <Button class="action-btn" text="Back to Dashboard" @tap="onBackToHome"/>
             </StackLayout>
         </GridLayout>
     </Page>
@@ -87,11 +94,11 @@
 
                 // this.changeLogStatus(this.log_id);
             },
-            onBackHome(args) {
-                console.log("=== Back to Dashboard ===");
+            onBackToHome(args) {
+                console.log("=== Back To Home ===");
                 this.$navigateTo(Dashboard, {
                     animated: false,
-                    clearHistory: true
+                    clearHistory: true,
                 });
             },
             onLayoutUpdate() {
