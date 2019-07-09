@@ -1,288 +1,310 @@
 {
+    "info": {
+        "id": 1,
+        "version": 0
+    },
     "data": {
-        "main": {
-            "id": 1,
-            "version": 1,
-            "phase_2_question": 2,
-            "phase_3_question": 16,
-            "pre_protocol_question": "Ask caller to identify their biggest concern - Refer to 1\/11 After Hours Protocols."
-        },
-        "questions": [
+        "intro_questions": [
             {
                 "id": 1,
-                "text": "Is Josh Beard-y?"
+                "question": "Great first question??"
             },
             {
                 "id": 2,
-                "text": "Is this an old or new symptom?"
+                "question": "Even better second question?"
             },
             {
                 "id": 3,
-                "text": "Has the doctor\/Nurse told you to expect this new symptom?"
-            },
-            {
-                "id": 4,
-                "text": "Is there a DNR in place?"
-            },
-            {
-                "id": 5,
-                "text": "Is there a DNR in place?"
-            },
-            {
-                "id": 9,
-                "text": "Question: Is there a DNR in place?"
-            },
-            {
-                "id": 10,
-                "text": "Question: Is there a DNR in place?"
-            },
-            {
-                "id": 11,
-                "text": "Is there a DNR in place?"
-            },
-            {
-                "id": 14,
-                "text": "anotehr question"
-            },
-            {
-                "id": 16,
-                "text": "Are the symptoms life threatening?"
-            }
-        ],
-        "answers": [
-            {
-                "id": 1,
-                "question_id": 1,
-                "text": "Yes"
-            },
-            {
-                "id": 2,
-                "question_id": 1,
-                "text": "No"
-            },
-            {
-                "id": 3,
-                "question_id": 2,
-                "text": "New Symptom"
-            },
-            {
-                "id": 4,
-                "question_id": 2,
-                "text": "Old Symptom"
-            },
-            {
-                "id": 5,
-                "question_id": 3,
-                "text": "Yes \u2013Expected symptom"
-            },
-            {
-                "id": 6,
-                "question_id": 3,
-                "text": "No \u2013Unexpected symptom"
-            },
-            {
-                "id": 7,
-                "question_id": 4,
-                "text": "Yes"
-            },
-            {
-                "id": 8,
-                "question_id": 4,
-                "text": "No"
-            },
-            {
-                "id": 9,
-                "question_id": 5,
-                "text": "Yes"
-            },
-            {
-                "id": 10,
-                "question_id": 5,
-                "text": "No"
-            },
-            {
-                "id": 12,
-                "question_id": 9,
-                "text": "Yes"
-            },
-            {
-                "id": 13,
-                "question_id": 9,
-                "text": "No"
-            },
-            {
-                "id": 14,
-                "question_id": 10,
-                "text": "Yes"
-            },
-            {
-                "id": 15,
-                "question_id": 10,
-                "text": "No"
-            },
-            {
-                "id": 16,
-                "question_id": 11,
-                "text": "Yes"
-            },
-            {
-                "id": 17,
-                "question_id": 11,
-                "text": "No"
-            },
-            {
-                "id": 24,
-                "question_id": 2,
-                "text": "Anotehr Answer!"
-            },
-            {
-                "id": 25,
-                "question_id": 14,
-                "text": "Yes"
-            },
-            {
-                "id": 26,
-                "question_id": 16,
-                "text": "Yes - Life threatening"
-            },
-            {
-                "id": 27,
-                "question_id": 16,
-                "text": "No - Not life threatening"
-            }
-        ],
-        "branches": [
-            {
-                "id": 1,
-                "question_id": 3,
-                "answer_id": 3
-            },
-            {
-                "id": 3,
-                "question_id": 9,
-                "answer_id": 5
-            },
-            {
-                "id": 4,
-                "question_id": 10,
-                "answer_id": 6
-            },
-            {
-                "id": 5,
-                "question_id": 11,
-                "answer_id": 4
-            },
-            {
-                "id": 6,
-                "question_id": 12,
-                "answer_id": 18
-            },
-            {
-                "id": 7,
-                "question_id": 13,
-                "answer_id": 21
-            },
-            {
-                "id": 8,
-                "question_id": 14,
-                "answer_id": 24
-            },
-            {
-                "id": 9,
-                "question_id": 15,
-                "answer_id": 25
-            }
-        ],
-        "intro_outcomes": [
-            {
-                "id": 3,
-                "answer_id": 12,
-                "text": "Expected Symptom Expected Death"
-            },
-            {
-                "id": 4,
-                "answer_id": 13,
-                "text": "Expected Symptom Unexpected Death"
-            },
-            {
-                "id": 5,
-                "answer_id": 14,
-                "text": "Unexpected Symptom Expected Death"
-            },
-            {
-                "id": 6,
-                "answer_id": 15,
-                "text": "Unexpected Symptom Unexpected Death"
-            },
-            {
-                "id": 7,
-                "answer_id": 16,
-                "text": "Expected Symptom Expected Death"
-            },
-            {
-                "id": 8,
-                "answer_id": 17,
-                "text": "Expected Symptom Unexpected Death"
+                "question": "Really great third question?? \nAlso, is Josh Beardy?"
             }
         ],
         "protocols": [
             {
                 "id": 1,
-                "name": "Nausea"
+                "name": "First Protocol",
+                "additional_questions": [
+                    {
+                        "id": 1,
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "How do you feel about even more questions?"
+                    },
+                    {
+                        "id": 2,
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Do you like it that there are more questions?"
+                    }
+                ],
+                "assessment_questions": [
+                    {
+                        "id": 1,
+                        "question": "How many Octopusses are under the ocean?",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 1,
+                                "answer": "Lots",
+                                "question": 1
+                            },
+                            {
+                                "id": 2,
+                                "answer": "Few",
+                                "question": 1
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "question": "What do you think of pointsettas? ",
+                        "assessment_letter": {
+                            "id": 2
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 3,
+                        "question": "Question marks are the best marks, right?",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 4,
+                        "question": "Really try to relate to me:",
+                        "assessment_letter": {
+                            "id": 4
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 5,
+                        "question": "On a scale from 1 to 10, how great is the last name \"Stuible\"?",
+                        "assessment_letter": {
+                            "id": 5
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 4,
+                            "type": "scale"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 6,
+                        "question": "Was that last question a Travesty?",
+                        "assessment_letter": {
+                            "id": 6
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 7,
+                        "question": "Now tell me about U!?",
+                        "assessment_letter": {
+                            "id": 7
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 8,
+                        "question": "That was VERY hard, write whatever you want here:",
+                        "assessment_letter": {
+                            "id": 8
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 9,
+                        "question": "Select all the emotions you are feeling now that you know there is REALLY another \"R\" Question:",
+                        "assessment_letter": {
+                            "id": 4
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 3,
+                            "type": "multiple_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 7,
+                                "answer": "Happiness",
+                                "question": 9
+                            },
+                            {
+                                "id": 8,
+                                "answer": "Sadness",
+                                "question": 9
+                            },
+                            {
+                                "id": 9,
+                                "answer": "Anger",
+                                "question": 9
+                            },
+                            {
+                                "id": 10,
+                                "answer": "Dispair",
+                                "question": 9
+                            },
+                            {
+                                "id": 11,
+                                "answer": "Meloncholy",
+                                "question": 9
+                            }
+                        ]
+                    }
+                ],
+                "plans": [
+                    {
+                        "plan": 1
+                    },
+                    {
+                        "plan": 2
+                    },
+                    {
+                        "plan": 3
+                    }
+                ]
+            }
+        ],
+        "assessment_letters": [
+            {
+                "id": 1,
+                "letter": "O",
+                "title": "Onset"
             },
             {
                 "id": 2,
-                "name": "Anxiety \/ Agitation"
+                "letter": "P",
+                "title": "Provoking"
             },
             {
                 "id": 3,
-                "name": "CADD Pump"
+                "letter": "Q",
+                "title": "Quality"
             },
             {
                 "id": 4,
-                "name": "Care Giver Distress"
+                "letter": "R",
+                "title": "Region"
             },
             {
                 "id": 5,
-                "name": "Constipation"
+                "letter": "S",
+                "title": "Severity"
             },
             {
                 "id": 6,
-                "name": "Death"
+                "letter": "T",
+                "title": "Treatment"
             },
             {
                 "id": 7,
-                "name": "Dyspnea"
+                "letter": "U",
+                "title": "Understanding"
             },
             {
                 "id": 8,
-                "name": "Last Days"
-            },
-            {
-                "id": 9,
-                "name": "Last Hours"
-            },
-            {
-                "id": 10,
-                "name": "Pain"
-            },
-            {
-                "id": 11,
-                "name": "Terminal Bleed"
+                "letter": "V",
+                "title": "Values"
             }
         ],
-        "protocol_question_origins": [
+        "plans": [
             {
                 "id": 1,
-                "order": 1,
-                "protocol": 1,
-                "question": 1
+                "plan": "After hours nurse to follow-up in 30 to 60 minutes if symptom management",
+                "details": null
             },
             {
                 "id": 2,
-                "order": 1,
-                "protocol": 1,
-                "question": 2
+                "plan": "Home care nurse to follow-up next morning with visit",
+                "details": null
+            },
+            {
+                "id": 3,
+                "plan": "Reach out for medical support (e.g. MRP)",
+                "details": null
+            },
+            {
+                "id": 4,
+                "plan": "Recommend going to UPCC (Urgent Primary Care Center)* if appropriate and unable to manage symptoms at home and if ambulatory and within client\u2019s goals of care",
+                "details": "Before 10pm: downtown Vancouver & Lonsdale North Vancouver"
+            },
+            {
+                "id": 5,
+                "plan": "Recommend calling 911 or going to emergency department if unable to manage symptoms at home and within client\u2019s goals of care",
+                "details": null
+            },
+            {
+                "id": 6,
+                "plan": "After hours nurse to follow-up in 30 to 60 minutes if symptom management",
+                "details": null
             }
         ]
     }

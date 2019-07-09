@@ -1,5 +1,5 @@
 <template>
-    <FlexboxLayout alignItems="stretch" class="q-patient-ctnr" @tap="onEditTap">
+    <FlexboxLayout alignItems="stretch" class="patient-info-ctnr" @tap="onEditTap">
         <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
         <StackLayout flexGrow="2">
             <Label :text="patient.client" class="patient-name patient-top patient-text"/>

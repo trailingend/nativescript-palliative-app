@@ -2,17 +2,12 @@ import * as types from './mutation-types';
 
 export default {
     [types.JSON_UPDATE](state, data){
-        state.data_version = data.main.version;
-        state.phase_2_question_id = data.main.phase_2_question,
-        state.phase_3_question_id = data.main.phase_3_question,
-        state.pre_protocol_question = data.main.pre_protocol_question,
-        state.pre_protocol_answer = data.main.pre_protocol_answer,
+        state.data_version = data.info.version;
 
-        state.questions = data.questions;
-        state.answers = data.answers;
-        state.branches = data.branches;
-        state.intro_outcomes = data.intro_outcomes;
-        state.protocols = data.protocols;
+        state.intro_questions = data.data.intro_questions;
+        state.protocols = data.data.protocols;
+        state.assessment_letters = data.data.assessment_letters;
+        state.plans = data.data.plans;
     },
 
     [types.USER_CREATE](state, user) {

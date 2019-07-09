@@ -1,0 +1,40 @@
+@import "variables";
+
+.patient-info-ctnr {
+    margin: 5;
+    margin-top: 0;
+    padding: 25;
+    background: $color-temp;
+
+    .user-head {
+        margin: 20 30;
+    }
+    .patient-item {
+        padding: 2 0;
+    }
+    .patient-top {
+        padding-top: 7;
+    }
+    .patient-name {
+        font-weight: 200;
+        text-align: left;
+    }
+    .patient-phone {
+        font-weight: 700;
+        font-size: $list-bold-font-size;
+        text-align: left;
+    }
+    .patient-time {
+        padding-top: 5;
+        text-align: left;
+    }
+    .patient-btn {
+        padding: 0 25;
+        background: $color-temp;
+        height: 100%;
+    }
+    .edit-icon {
+        margin-bottom: 10;
+        margin-right: 5;
+    }
+}

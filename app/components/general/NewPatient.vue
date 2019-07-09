@@ -1,0 +1,251 @@
+<template>
+    <Page class="page new-patient-page" @navigatingFrom="onNavigatingFrom">
+        <ActionBar>
+            <NavigationButton visibility="hidden" ></NavigationButton>
+            <CloseButton />
+        </ActionBar>
+        <StackLayout :class="ctnrSetting.class" 
+                     ref="newPatientGridRef" 
+                     @tap="clearTextfieldFocus"
+                     @layoutChanged="onLayoutUpdate">
+            <Label class="patient-title" text="Patient log" ></Label>                    
+            <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
+                <Label :row="gridSetting.children.q1.row" 
+                       :col="gridSetting.children.q1.col"
+                       class="patient-q patient-q1" 
+                       text="Callback #:" 
+                       textWrap="true"/>
+                <TextField :row="gridSetting.children.a1.row" 
+                           :col="gridSetting.children.a1.col"
+                           id="patient-a1"
+                           class="patient-a patient-a1" 
+                           v-model="input_phone" 
+                           keyboardType="phone"
+                           @blur="onPhoneEntered"
+                           editable="true" />
+                <Label :row="gridSetting.children.q2.row" 
+                       :col="gridSetting.children.q2.col"
+                       class="patient-q patient-q2" 
+                       text="Caller name:" 
+                       textWrap="true"/>
+                <TextField :row="gridSetting.children.a2.row" 
+                           :col="gridSetting.children.a2.col"
+                           id="patient-a2"
+                           class="patient-a patient-a2" 
+                           v-model="c_client" 
+                           editable="true" />
+                <Label :row="gridSetting.children.q3.row" 
+                       :col="gridSetting.children.q3.col"
+                       class="patient-q patient-q3" 
+                       text="Patient name:" 
+                       textWrap="true"/>
+                <TextField :row="gridSetting.children.a3.row" 
+                           :col="gridSetting.children.a3.col"
+                           id="patient-a3"
+                           class="patient-a patient-a3" 
+                           v-model="c_patient" 
+                           editable="true" />
+                <Label :row="gridSetting.children.q4.row" 
+                       :col="gridSetting.children.q4.col"
+                       class="patient-q patient-q4" 
+                       text="Relation to Patient:" 
+                       textWrap="true"/>
+                <TextField :row="gridSetting.children.a4.row" 
+                           :col="gridSetting.children.a4.col"
+                           id="patient-a4"
+                           class="patient-a patient-a4" 
+                           v-model="c_relation" 
+                           editable="true" />
+            </GridLayout>
+            <Label class="patient-t" text="consent" textWrap="true"/>
+            <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
+                <Label class="patient-d" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textWrap="true"/>
+                <Switch v-model="is_consented" />
+            </FlexboxLayout>
+            <Button class="form-btn patient-btn" text="Continue" @tap="onNavigateForward" />
+        </StackLayout>
+    </Page>
+</template>
+
+<script>
+    import CloseButton from './parts/CloseButton.vue';
+    import Dashboard from '../home/Dashboard.vue';
+    import Diagnose from "./Diagnose.vue";
+
+    import { mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
+    import { confirm }  from "tns-core-modules/ui/dialogs";
+    import * as utils from "tns-core-modules/utils/utils";
+    import { dialogConsent, 
+             logMonths, 
+             formatPhoneNum, 
+             newGridChildPortrait, 
+             newGridChildLandscape } from '../../scripts/common';
+    
+    export default {
+        data() {
+            return {
+                c_id: '',
+                c_phone: '',
+                c_patient: '',
+                c_client: '',
+                c_relation: '',
+                created_time: '',
+                is_consented: false,
+
+                ctnrSetting: {
+                    class: "patient-ctnr",
+                },
+                gridSetting: {
+                    rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
+                    columns: "*",
+                    children: newGridChildPortrait,
+                }
+            }
+        },
+        created() {
+        },
+        mounted() {
+        },
+        components: {
+            CloseButton
+        },
+        props: {
+            log_id: {
+                type: String,
+                required: false,
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'logs'
+            ]),
+            input_phone: {
+                get: function() {                    
+                    return formatPhoneNum(this.c_phone);
+                },
+                set: function (new_input) {
+                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
+                    console.log("in setter " + this.c_phone);
+                }
+            }
+		},
+        methods: {
+            ...mapActions([
+                'saveClientInfo',
+                'saveActiveLog',
+            ]),
+            recordTime() {
+                const today = new Date();
+                const date = today.getDate() + '/' + logMonths(today.getMonth()) + '/' + today.getFullYear();
+                const time = today.getHours() + ':' + today.getMinutes();
+                const dateTime = time + ' | ' + date;
+
+                this.created_time = dateTime;
+                this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
+            },
+            loadExistingInfo() {
+                if (this.log_id) {
+                    const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                    this.c_phone = curr_log.phone;
+                    this.c_patient = curr_log.patient;
+                    this.c_client = curr_log.client;
+                    this.c_relation = curr_log.relation;
+                    this.is_consented = true;
+                }
+            },
+            onNavigateForward(args) {
+                this.recordTime(); 
+
+                if (this.is_consented) {
+                    const client_id = this.c_id;
+                    const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
+                    const client_name = (this.c_client === '') ? 'Anonymous Nobody' : this.c_client;
+                    const patient_name = (this.c_patient === '') ? 'John Doe' : this.c_patient;
+                    const entry = {
+                        id: this.c_id,
+                        phone: client_phone,
+                        client: client_name,
+                        patient: patient_name,
+                        relation: this.c_relation,
+                        createdTime: this.created_time,
+                        timer: 0, 
+                        status: false,
+                        intro_progress: [],
+                        intro_outcome: -1,
+                        intro_action: -1,
+                        protocol_id: -1,
+                    };
+                    this.saveClientInfo(entry);
+                    this.saveActiveLog(this.c_id);
+
+                    this.$navigateTo(Diagnose, {
+                        animated: false,
+                        clearHistory: true,
+                        props: {
+                            log_id: client_id,
+                            initial_question_id: 1
+                        }
+                    });
+                    console.log("=== New Patient Logged ===");
+                } else {
+                    dialogConsent();
+                }
+            },
+            clearTextfieldFocus(args) {
+                const layoutView = args.object;
+                const a1Textfield = layoutView.getViewById("patient-a1");
+                const a2Textfield = layoutView.getViewById("patient-a2");
+                const a3Textfield = layoutView.getViewById("patient-a3");
+                const a4Textfield = layoutView.getViewById("patient-a4");
+                a1Textfield.dismissSoftInput();
+                a2Textfield.dismissSoftInput();
+                a3Textfield.dismissSoftInput();
+                a4Textfield.dismissSoftInput();
+            },
+            onPhoneEntered() {
+                this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));
+            },
+            onBackToHome(args) {
+                console.log("=== Navigate Back To Home ===");
+                this.$navigateTo(Dashboard, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slideBottom',
+                        curve: 'easeIn',
+                        duration: 300
+                    }
+                });
+            },
+            onNavigatingFrom() {
+                
+            },
+            onLayoutUpdate() {
+                if (this.$refs.newPatientGridRef) {
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.newPatientGridRef.nativeView.getMeasuredWidth() );
+                    if (width > 800) {
+                        this.ctnrSetting.class = "patient-ctnr tablet-landscape";
+                        this.gridSetting = {
+                            rows: "auto, auto, auto, auto",
+                            columns: "auto, *",
+                            children: newGridChildLandscape,
+                        }
+                    } else {
+                        this.ctnrSetting.class = "patient-ctnr";
+                        this.gridSetting = {
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
+                            columns: "*",
+                            children: newGridChildPortrait,
+                        }
+                    }
+                }
+            },
+            
+        }
+        
+    };
+</script>
+
+<style>
+</style>

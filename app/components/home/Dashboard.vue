@@ -1,7 +1,6 @@
 <template>
     <Page :class="pageSetting.class">
-        <ActionBar title="Dashboard"></ActionBar>
-
+        <!-- <ActionBar title="Dashboard"></ActionBar> -->
         <GridLayout class="home-ctnr" :rows="gridSetting.rows" 
                                       :columns="gridSetting.columns" 
                                       ref="homeGridRef" 
@@ -18,14 +17,12 @@
                          class="home-user-ctnr">
                 <UserBlock />
             </StackLayout>
-            <FlexboxLayout :row="gridSetting.children.titleSec.row" 
+            <StackLayout :row="gridSetting.children.titleSec.row" 
                            :col="gridSetting.children.titleSec.col" 
                            :colSpan="gridSetting.children.titleSec.colSpan" 
-                           flexDirection="column" 
                            class="log-title-ctnr">
-                <Label class="log-title" text="Log" />
-                <Label class="log-title" text="Progress" />
-            </FlexboxLayout>
+                <Label class="log-title" text="Logs" />
+            </StackLayout>
             <Logs :row="gridSetting.children.logSec.row" 
                   :col="gridSetting.children.logSec.col" 
                   :rowSpan="gridSetting.children.logSec.rowSpan" 
@@ -35,7 +32,7 @@
                          :col="gridSetting.children.btnSec.col"
                          :colSpan="gridSetting.children.btnSec.colSpan" 
                          class="home-btn-ctnr" >
-                <Image class="home-add" src="~/assets/images/plus.png" stretch="aspectFit" @tap="onNewTap"></Image>
+                <Button class="home-add" text="NEW LOG" @tap="onNewTap"></Button>
             </StackLayout>
         </GridLayout>
     </Page>
@@ -44,7 +41,7 @@
 <script lang="ts">
     import UserBlock from './parts/UserBlock.vue';
     import Logs from './parts/Logs.vue';
-    import NewPatient from '../triage/NewPatient.vue';
+    import NewPatient from '../general/NewPatient.vue';
     
     import { mapActions } from 'vuex';
     import * as utils from 'tns-core-modules/utils/utils';

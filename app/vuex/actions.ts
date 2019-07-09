@@ -6,18 +6,18 @@ import * as types from './mutation-types';
 export default {
     loadLocalData({commit, state}, data) {
         console.log("=== in local load === ");
-        commit(types.JSON_UPDATE, data.data); 
+        commit(types.JSON_UPDATE, data); 
     },
 
     loadOnlineData({commit, state}){
         let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
         fetch(url)
             .then(response => response.json())
-            .then(data => {
-                const version_not_match = (state.data_version != data.data.main.version);
+            .then(input => {
+                const version_not_match = (state.data_version != input.info.version);
                 console.log("=== in load online data === version match found? - " + version_not_match);
                 if (version_not_match) {
-                    commit(types.JSON_UPDATE, data.data); 
+                    commit(types.JSON_UPDATE, input); 
                 }
             });
     },
