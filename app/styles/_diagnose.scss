@@ -4,21 +4,48 @@
     .diagnose-ctnr {
         .diagnose-main-ctnr {
             margin: 5;
-            background: $color-temp;        
+            background: white; 
+            vertical-align: middle;
+        }
+        .diagnose-title-ctnr {
+            vertical-align: middle;
+        }
+        .diagnose-title {
+            text-align: center;
+            font-size: $log-title-font-size;
+            font-weight: 700;
+            color: $color-text-dark;
+            margin-bottom: 20; 
+        }
+        .divider-ctnr {
+            width: 50;
+            height: 1;
+            background: black;
         }
         .diagnose-q-ctnr {
-            margin-top: 80;
+            width: 500;
+            margin: 0 auto;
         }
         .diagnose-q {
         }
-        .diagnose-a {
+        .diagnose-a-ctnr {
             background: $color-secondary;
             color: $color-text-light;
-            height: 40;
-            width: 400;
-            margin: 20 0;
+            width: 500;
+            margin: 5 0;
+            padding: 10;
         }
-    
+        .diagnose-free {
+            width: 500;
+            height: 200;
+            margin: 15 0;
+            padding: 5;
+            border-width: 3;
+            text-align: left;
+            border-color: $log-border-color;
+            border-radius: $border-size;
+        }
+
         .back-btn {
         }
         .next-btn {

@@ -32,7 +32,7 @@
                            :col="gridSetting.children.a2.col"
                            id="patient-a2"
                            class="patient-a patient-a2" 
-                           v-model="c_client" 
+                           v-model="c_caller" 
                            editable="true" />
                 <Label :row="gridSetting.children.q3.row" 
                        :col="gridSetting.children.q3.col"
@@ -88,7 +88,7 @@
                 c_id: '',
                 c_phone: '',
                 c_patient: '',
-                c_client: '',
+                c_caller: '',
                 c_relation: '',
                 created_time: '',
                 is_consented: false,
@@ -137,7 +137,7 @@
             ]),
             recordTime() {
                 const today = new Date();
-                const date = today.getDate() + '/' + logMonths(today.getMonth()) + '/' + today.getFullYear();
+                const date = today.getDate() + ' / ' + logMonths(today.getMonth()) + ' / ' + today.getFullYear();
                 const time = today.getHours() + ':' + today.getMinutes();
                 const dateTime = time + ' | ' + date;
 
@@ -149,7 +149,7 @@
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                     this.c_phone = curr_log.phone;
                     this.c_patient = curr_log.patient;
-                    this.c_client = curr_log.client;
+                    this.c_caller = curr_log.client;
                     this.c_relation = curr_log.relation;
                     this.is_consented = true;
                 }
@@ -160,21 +160,19 @@
                 if (this.is_consented) {
                     const client_id = this.c_id;
                     const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
-                    const client_name = (this.c_client === '') ? 'Anonymous Nobody' : this.c_client;
+                    const caller_name = (this.c_caller === '') ? 'Anonymous Nobody' : this.c_caller;
                     const patient_name = (this.c_patient === '') ? 'John Doe' : this.c_patient;
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
-                        client: client_name,
+                        caller: caller_name,
                         patient: patient_name,
                         relation: this.c_relation,
                         createdTime: this.created_time,
-                        timer: 0, 
                         status: false,
-                        intro_progress: [],
-                        intro_outcome: -1,
-                        intro_action: -1,
-                        protocol_id: -1,
+                        progress: -1,
+                        intro_answers: [],
+                        protocol_answers: [],
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
@@ -184,7 +182,7 @@
                         clearHistory: true,
                         props: {
                             log_id: client_id,
-                            initial_question_id: 1
+                            question_id: 1
                         }
                     });
                     console.log("=== New Patient Logged ===");

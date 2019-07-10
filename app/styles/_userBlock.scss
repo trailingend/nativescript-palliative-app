@@ -3,30 +3,32 @@
 .patient-info-ctnr {
     margin: 5;
     margin-top: 0;
-    padding: 25;
+    padding: 20 10;
     background: $color-temp;
 
     .user-head {
         margin: 20 30;
     }
     .patient-item {
+        position: relative;
         padding: 2 0;
+        background: white;
+        border-color: $log-border-color;
+        border-bottom-width: 0.25;
     }
     .patient-top {
         padding-top: 7;
     }
-    .patient-name {
+    .patient-text {
         font-weight: 200;
         text-align: left;
     }
-    .patient-phone {
+    .patient-bold {
         font-weight: 700;
         font-size: $list-bold-font-size;
-        text-align: left;
     }
-    .patient-time {
-        padding-top: 5;
-        text-align: left;
+    .patient-light {
+        padding-top: 10;
     }
     .patient-btn {
         padding: 0 25;
@@ -34,7 +36,22 @@
         height: 100%;
     }
     .edit-icon {
-        margin-bottom: 10;
-        margin-right: 5;
+        // margin-bottom: 10;
+        margin-right: 20;
+    }
+    .bar-ctnr {
+        width: 0.25;
+        height: 50;
+        background: $log-border-color;
+    }
+    .facetime-ctnr {
+        position: relative;
+        height: 100%;
+        padding: 0 25;
+
+    }
+    .facetime-icon {
+        position: relative;
+        height: 100%;
     }
 }

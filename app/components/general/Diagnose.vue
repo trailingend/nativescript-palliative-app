@@ -4,15 +4,37 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
         </ActionBar>
-        <GridLayout :class="ctnrSetting.class" rows="auto, *, auto" columns="*" ref="diagnoseGridRef" @layoutChanged="onLayoutUpdate">
+        <GridLayout :class="ctnrSetting.class" 
+                    rows="auto, *, auto" columns="*" 
+                    ref="diagnoseGridRef" 
+                    @tap="clearTextfieldFocus"
+                    @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout row="1" col="0" class="diagnose-main-ctnr">
-                <StackLayout class="diagnose-q-ctnr" >
-                    <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="center">
-                        <Image width="100" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
-                        <Label :text="question" class="diagnose-q"/>
+                <StackLayout class="diagnose-q-a-ctnr" >
+                    <StackLayout class="diagnose-title-ctnr">
+                        <Label class="diagnose-title" text="General"></Label>
+                        <StackLayout class="dividor-ctnr"></StackLayout>
+                    </StackLayout>
+                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
+                        <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
+                        <Label :text="question_text" class="diagnose-q"/>
                     </FlexboxLayout>
-                    <Button v-for="answer in answers_list" v-bind:key="answer.id" :text="answer.text" class="diagnose-a" @tap="onForward(answer)" /> 
+                    <GridLayout v-for="answer in answers_list" 
+                                   :key="answer.id" 
+                                   class="diagnose-a-ctnr" 
+                                   rows="auto" columns="auto, *"
+                                   @tap="onAnswerTap(answer)" > 
+                        <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!answer.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
+                        <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                        <Label row="0" col="1" class="diagnose-a" :text="answer.answer" />
+                    </GridLayout>
+                    <TextField v-model="free_text" 
+                               id="diagnose-free"
+                               class="diagnose-free"
+                               hint="Take notes here..."
+                               @textChange="onTextEntered"
+                               editable="true" />
                 </StackLayout>
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
@@ -29,30 +51,44 @@
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
         data() {
             return {
-                question_id: -1,
-                question: '?',
+                question_type: 'free_form',
+                question_text: '?',
                 answers_list: [],
                 next_text: 'Skip',
 
+                selected_answers: [],
+                free_text: '',
+
+                boolean_answers: [{
+                    "id": 1,
+                    "answer": "Yes"
+                }, {
+                    "id": 2,
+                    "answer": "No"
+                }],
                 ctnrSetting: {
                     class: "diagnose-ctnr"
                 }
             }
         },
+        beforeCreate: function () {
+            this.$options.components.Diagnose = require('./Diagnose.vue').default
+        },
         mounted() {
-            this.prepareInitialQuestion();
+            this.prepareCurrentQuestion();
         },
         components: {
             UserBlock,
             CloseButton
         },
         props: {
-            initial_question_id: {
+            question_id: {
                 type: Number,
                 required: true,
             },
@@ -74,53 +110,142 @@
                 'changeLogStatus',
             ]),
             retrieveQuestion(target_q_id) {
-                const question_obj = this.intro_questions.filter(elem => { return elem.id == target_q_id; });
+                const q_obj = this.intro_questions.find(elem => { return elem.id == target_q_id; });
+                if (q_obj) {
+                    this.question_text = q_obj.question;
+                    this.question_type = q_obj.question_type.type;
+                    if ( this.question_type === 'boolean') {
+                        this.answers_list = this.boolean_answers;
+                    } else {
+                        this.answers_list = q_obj.answers;
+                    } 
+                } else {
+                    console.log("=== Retriving question === no such question");
+                }
+                this.prepareAnswersStatus();
+                this.retrieveSavedAnswers();
             },
-            prepareInitialQuestion() {
-                this.retrieveQuestion(this.initial_question_id);
+            retrieveSavedAnswers() {
+                console.log("=== retrieve saved answers related with this question ===");
+                const log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const log_answers = log.intro_answers;
+                let saved_answers = log_answers.find(elem => { return elem.id === this.question_id; });
+                if (saved_answers) {
+                    this.free_text = saved_answers.pop();
+                    this.answers_list.forEach(elem => {
+                        const search_in_saved = saved_answers.find(elem => { return elem == elem.answer; });
+                        if (search_in_saved) {
+                            elem.status = true;
+                            elem.id = elem.id + Math.random() * 0.01;
+                        }
+                    });
+                }
             },
-            prepareNextQuestion(next_id) {
-                this.retrieveQuestion(next_id);
+            prepareCurrentQuestion() {
+                this.retrieveQuestion(this.question_id);
             },
-            preparePrevQuestion(prev_id) {
-                this.retrieveQuestion(prev_id);
+            prepareAnotherQuestion(q_id) {
+                this.$navigateTo(this.$options.components.Diagnose, {
+                    animated: true,
+                    clearHistory: false,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        question_id: q_id
+                    }
+                });
             },
             prepareNextStage() {
-                // TODO
+                console.log("=== TODO Finished General ===")
             },
-            onForward(ans) {
+            prepareAnswersStatus() {
+                this.answers_list.forEach(elem => { elem.status = false; });
+            },
+            toggleMultiAnswerSelection(ans_text) {
+                const ans_idx = this.selected_answers.findIndex( selected => { return selected === ans_text; });
+                if (ans_idx) {
+                    this.selected_answers.push(ans_text);
+                } else {
+                    this.selected_answers.splice(ans_idx, 1);
+                }
+                console.dir(this.selected_answers)
+            },
+            changeNextText(new_text) {
+                this.next_text = new_text;
+            },
+            checkNextButtonStatus() {
+                const whetherSelected = this.selected_answers.length > 0;
+                const whetherEnterred = this.free_text.trim() != "";
+                if (! whetherSelected && ! whetherEnterred) this.changeNextText("Skip");
+                else this.changeNextText("Next");
+            },
+            clearTextfieldFocus(args) {
+                const layoutView = args.object;
+                const freeTextfield = layoutView.getViewById("diagnose-free");
+                freeTextfield.dismissSoftInput();
+            },
+            onForward() {
                 console.log("=== Forward === ");
+                this.selected_answers.push(this.free_text);
                 const progress = {
                     log_id: this.log_id,
                     q_id: this.question_id, 
-                    a_id: ans.id
+                    a: this.selected_answers
                 };
-                // TODO: this.saveIntroProgress(progress);
+                console.log("== TODO log progress == " + progress);
+                this.saveIntroProgress(progress);
                 
                 const next_question_id = this.question_id + 1;
-                if (next_question_id < this.intro_questions.length) {
-                    this.prepareNextQuestion(next_question_id);
+                if (next_question_id <= this.intro_questions.length) {
+                    this.prepareAnotherQuestion(next_question_id);
                 } else {
                     this.prepareNextStage();
                 }
             },
-            onBackward(args) {
-                // console.log("=== Backward ===");
-                // const log_id_for_nav = this.log_id;
-                // const log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                // const last_progress = log.intro_progress[log.intro_progress.length - 1];
-                // if (last_progress === undefined) {
-                  
-                // } else {
-                //     this.preparePrevQuestion(last_progress[0]);
-                //     this.revertIntroProgress(this.log_id);
-                // }
+            onBackward() {
+                console.log("=== Backward ===");
+                const prev_question_id = this.question_id - 1;
+                if (prev_question_id >= 1) {
+                    this.prepareAnotherQuestion(prev_question_id);
+                } else {
+                    console.log("=== No prev question to go to ===")
+                }
             },
             onBackTap() {
-
+                this.onBackward();
             },
             onNextTap() {
+                this.onForward();
+            },
+            onAnswerTap(ans) {
+                const ans_idx = this.answers_list.findIndex( elem => { return elem.id === ans.id; });
+                
+                if (this.question_type == 'single_select' || this.question_type == 'boolean') {
+                    const prev_status = ans.status; 
+                    this.answers_list.forEach((elem, elem_idx) => { 
+                        elem.status = false;
+                    });
+                    this.selected_answers = prev_status ? [] : [ans.answer];   
+                    ans.status = ! prev_status;
+                    ans.id = ans.id + Math.random() * 0.01;
+                } else if (this.question_type == 'multiple_select') {
+                    this.toggleMultiAnswerSelection(ans.answer);
+                    ans.status = ! ans.status;
+                    ans.id = ans.id + Math.random() * 0.01;
+                } else {
+                    console.log("=== on answer tap === q type is scale or free form");
+                }
 
+                this.checkNextButtonStatus();
+                console.log("=== Answer tapped === " + this.selected_answers);
+            },
+            onTextEntered() {
+                this.checkNextButtonStatus();
+                console.log("=== Answer enterred === " + this.free_text);
             },
             onNavigatingFrom() {
             },

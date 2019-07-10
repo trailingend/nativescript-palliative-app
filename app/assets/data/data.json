@@ -7,15 +7,41 @@
         "intro_questions": [
             {
                 "id": 1,
-                "question": "Great first question??"
+                "question": "Great first question??",
+                "question_type": {
+                    "id": 5,
+                    "type": "boolean"
+                },
+                "answers": []
             },
             {
                 "id": 2,
-                "question": "Even better second question?"
+                "question": "Even better second question?",
+                "question_type": {
+                    "id": 2,
+                    "type": "single_select"
+                },
+                "answers": [
+                    {
+                        "id": 1,
+                        "answer": "Lots",
+                        "question": 1
+                    },
+                    {
+                        "id": 2,
+                        "answer": "Few",
+                        "question": 1
+                    }
+                ]
             },
             {
                 "id": 3,
-                "question": "Really great third question?? \nAlso, is Josh Beardy?"
+                "question": "Really great third question?? \nAlso, is Josh Beardy?",
+                "question_type": {
+                    "id": 1,
+                    "type": "free_form"
+                },
+                "answers": []
             }
         ],
         "protocols": [

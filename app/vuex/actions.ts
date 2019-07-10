@@ -51,7 +51,10 @@ export default {
         } else {
             const log_item = {
                 idx: log_idx,
-                q_and_a: [progress_item.q_id, progress_item.a_id]
+                item: {
+                    id: progress_item.q_id,
+                    a: progress_item.a,
+                }
             }
             commit(types.INTRO_LOG_UPDATE, log_item);
         }
