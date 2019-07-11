@@ -1,6 +1,6 @@
 <template>
     <StackLayout class="user-ctnr" @tap="onEditTap">
-        <FlexboxLayout justifyContent="space-between" alignItems="flex-start">
+        <FlexboxLayout justifyContent="space-between" alignItems="flex-start" v-show="has_user">
             <StackLayout>
                 <Label class="user-item user-bold" :text="user.name" />
                 <Label class="user-item" :text="`ID #: ${user.id}`" />
@@ -10,7 +10,15 @@
                 <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
             </StackLayout>
         </FlexboxLayout>
-
+        <FlexboxLayout justifyContent="center" alignItems="center" v-show="! has_user">
+            <StackLayout class="user-begin-text-ctnr">
+                <Label class="user-item user-begin-text" text="START" />
+                <Label class="user-item user-begin-text" text="MY SHIFT" />
+            </StackLayout>   
+            <StackLayout>
+                <Image class="edit-icon" src="~/assets/images/arrow.png" stretch="aspectFit"></Image>
+            </StackLayout>
+        </FlexboxLayout>
     </StackLayout>
 </template>
 
@@ -21,6 +29,7 @@
     export default {
         data() {
             return {
+                has_user: false,
                 user: {
                     id: '888888',
                     name: 'Nomen Nescio',
@@ -35,14 +44,14 @@
         },
         computed: {
             ...mapGetters([
-                'currUserIdx',
+                'curr_user_idx',
                 'users'
 			]),
 		},
         methods: {
             prepareUser() {
-                if (this.currUserIdx != -1) {
-                    this.user = this.users[this.currUserIdx];
+                if (this.curr_user_idx != -1) {
+                    this.user = this.users[this.curr_user_idx];
                 } 
             },
             onEditTap() {

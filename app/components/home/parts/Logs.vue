@@ -11,7 +11,7 @@
                         <Image width="50" class="user-head" v-show="patient.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
                         <StackLayout flexGrow="2">
                             <Label :text="patient.patient" class="patient-text patient-bold"/>
-                            <Label :text="`${formatPhoneNum(patient.phone)} | Caller: ${patient.client}`" class="patient-text"/>                            
+                            <Label :text="`${formatPhoneNum(patient.phone)} | Caller: ${patient.caller}`" class="patient-text"/>                            
                             <Label :text="patient.createdTime" class="patient-text patient-light" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>

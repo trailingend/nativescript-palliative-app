@@ -38,8 +38,14 @@ export default {
         state.currLogId = null;
     },
     [types.INTRO_LOG_UPDATE](state, log_item){
-        state.logs[log_item.idx].intro_progress.push(log_item.q_and_a);
-        console.log("in mutation forward ===: progress - " + state.logs[log_item.idx].intro_progress);
+        if (log_item.action === 'ADD') {
+            state.logs[log_item.idx].intro_answers.push(log_item.content);
+        } else if (log_item.action === 'CHANGE') {
+            const ans_idx = state.logs[log_item.idx].intro_answers.findIndex(elem => { return elem.id == log_item.content.id; });
+            state.logs[log_item.idx].intro_answers[ans_idx].a = log_item.content.a;
+        } 
+        console.log("=== in mutation forward ===");
+        console.dir(state.logs[log_item.idx].intro_answers);
     },
     [types.INTRO_LOG_REVERT](state, log_idx){
         state.logs[log_idx].intro_progress.pop();

@@ -14,7 +14,7 @@
             <StackLayout :row="gridSetting.children.userSec.row" 
                          :col="gridSetting.children.userSec.col" 
                          :rowSpan="gridSetting.children.userSec.rowSpan" 
-                         class="home-user-ctnr">
+                         :class="userSetting">
                 <UserBlock />
             </StackLayout>
             <StackLayout :row="gridSetting.children.titleSec.row" 
@@ -44,6 +44,7 @@
     import NewPatient from '../general/NewPatient.vue';
     
     import { mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
     import * as utils from 'tns-core-modules/utils/utils';
     import { homeGridChildLandscape, homeGridChildPortrait } from '../../scripts/common';
 
@@ -55,15 +56,17 @@
                 },
                 gridSetting: {
                     rows: "auto, auto, *, 250",
-                    columns: "*, *",
+                    columns: "*, auto",
                     children: homeGridChildPortrait,
-                }
+                },
+                userSetting: "home-user-ctnr home-user-begin-ctnr"
             }
         },
         created() {
             this.loadLocalJsonFile();
         },
         mounted() {
+            this.checkUserStatus();
             this.loadOnlineData();
         },
         components: {
@@ -71,7 +74,9 @@
             UserBlock,
         },
         computed: {
-
+            ...mapGetters([
+                'curr_user_idx',
+			])
 		},
         methods: {
             ...mapActions([
@@ -84,6 +89,9 @@
                 if (localJsonData) {
                     this.loadLocalData(localJsonData);
                 }
+            },
+            checkUserStatus() {
+                this.userSetting = (this.curr_user_idx == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr"
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
@@ -103,14 +111,22 @@
                 const half_width = width / 2;
                 const quater_width = width / 4;
                 if (width > 1000) {
-                    this.pageSetting = {
-                        class: "page home-page tablet-landscape"
+                    // this.pageSetting = {
+                    //     class: "page home-page tablet-landscape"
+                    // },
+                    // this.gridSetting = {
+                    //     rows: "80, auto, *",
+                    //     columns: `${quater_width}, ${quater_width}, ${half_width}`,
+                    //     children: homeGridChildLandscape
+                    // };
+                     this.pageSetting = {
+                        class: "page home-page"
                     },
                     this.gridSetting = {
-                        rows: "80, auto, *",
-                        columns: `${quater_width}, ${quater_width}, ${half_width}`,
-                        children: homeGridChildLandscape
-                    };
+                        rows: "auto, auto, *, 250",
+                        columns: "*, *",
+                        children: homeGridChildPortrait
+                    }
                 } else {
                     this.pageSetting = {
                         class: "page home-page"

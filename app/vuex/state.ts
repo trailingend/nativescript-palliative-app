@@ -1,6 +1,6 @@
 export default {
-	currUserIdx: -1,
-	currLogId: null,
+	curr_user_idx: -1,
+	curr_log_id: null,
 	timer_value: 0,
 	timer_status: false,
 
@@ -8,6 +8,10 @@ export default {
 		id: '477567',
 		name: 'Monster Hunter',
 		shift: '7:00AM'
+	}, {
+		id: '888888',
+		name: 'Nomen Nescio',
+		shift: '5:30PM'
 	}],
 	logs: 
 	[{

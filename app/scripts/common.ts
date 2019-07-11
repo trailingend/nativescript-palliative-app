@@ -175,7 +175,6 @@ export const formatPhoneNum = (phone_unformatted) => {
         const hasSecond = second_part != '';
         formatted_input = hasSecond ? `(${area_code}) ${first_part}-${second_part}` : `(${area_code}) ${first_part}`;
     }
-    console.log("=== in formatter === " + phone_unformatted + " " + formatted_input);
     return formatted_input;
 };
 

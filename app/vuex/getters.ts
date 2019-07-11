@@ -1,6 +1,6 @@
 export default {
-    currUserIdx: state => state.currUserIdx,
-    currLogId: state => state.currLogId,
+    curr_user_idx: state => state.curr_user_idx,
+    curr_log_id: state => state.curr_log_id,
     timer_value: state => state.timer_value,
     timer_status: state => state.timer_status,
     logs: state => state.logs,

@@ -129,14 +129,18 @@
                 console.log("=== retrieve saved answers related with this question ===");
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const log_answers = log.intro_answers;
-                let saved_answers = log_answers.find(elem => { return elem.id === this.question_id; });
-                if (saved_answers) {
-                    this.free_text = saved_answers.pop();
-                    this.answers_list.forEach(elem => {
-                        const search_in_saved = saved_answers.find(elem => { return elem == elem.answer; });
+                const saved_answers_objs = log_answers.find(elem => { return elem.id === this.question_id; });
+                
+                if (saved_answers_objs) {
+                    const saved_answers = saved_answers_objs.a;
+                    console.dir(saved_answers);
+                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : [];
+                    this.answers_list.forEach(ans => {
+                        const search_in_saved = saved_answers.find(elem => { return elem == ans.answer; });
                         if (search_in_saved) {
-                            elem.status = true;
-                            elem.id = elem.id + Math.random() * 0.01;
+                            ans.status = true;
+                            ans.id = ans.id + Math.random() * 0.01;
+                            this.selected_answers.push(ans.answer);
                         }
                     });
                 }

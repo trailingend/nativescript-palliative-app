@@ -49,9 +49,12 @@ export default {
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
+            const log_answers = state.logs.find((elem) => {return elem.id == progress_item.log_id}).intro_answers;
+            const find_existed = log_answers.find(elem => { return elem.id === progress_item.q_id; });
             const log_item = {
                 idx: log_idx,
-                item: {
+                action: (find_existed === undefined) ? 'ADD' : 'CHANGE',
+                content: {
                     id: progress_item.q_id,
                     a: progress_item.a,
                 }

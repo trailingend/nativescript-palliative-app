@@ -3,7 +3,7 @@
 Page {
     background: white;
     font-size: 16px;
-    font-family: 'proxima-nova', 'Calibri', sans-serif;
+    font-family: 'Nunito', 'proxima-nova', sans-serif;
 }
 ActionBar {
     background-color: white;
@@ -13,6 +13,7 @@ ActionBar {
 Label {
     font-size: $list-font-size;
     text-align: center;
+    letter-spacing: 0.05;
     vertical-align: middle;
     text-transform: uppercase;
 }

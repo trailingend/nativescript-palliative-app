@@ -16,8 +16,7 @@
     }
     .home-logo-ctnr {
         background: transparent;
-        margin: 5;
-        margin-bottom: 0;
+        margin: 0 5;
 
         .home-logo {
             width: 200;
@@ -56,6 +55,26 @@
             width: 20;
             margin-right: $border-size;
         }
+
+        &.home-user-begin-ctnr {
+            width: 300;
+            background: $color-dark-yellow;
+            border-color: white;
+            transform: translateX(68);
+            .user-ctnr {
+                margin: 35 25;
+            }
+            .user-begin-text {
+                font-size: $user-begin-font-size;
+                font-weight: 700;
+                line-height: 00%;
+                text-align: right;
+            }
+            .edit-icon {
+                width: 30;
+                margin: auto 25;
+            }
+        }
     }
 
     .log-title-ctnr {
@@ -88,15 +107,19 @@
             border-bottom-width: 0.25;
         }
         .patient-text {
-            font-weight: 200;
+            font-family: 'Nunito Sans', 'Nunito', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05;
             text-align: left;
         }
         .patient-bold {
-            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
             font-size: $list-bold-font-size;
         }
         .patient-light {
             padding-top: 10;
+            font-weight: 200;
         }
         .patient-btn {
             padding: 0 25;
