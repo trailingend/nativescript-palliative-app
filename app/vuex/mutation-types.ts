@@ -2,6 +2,7 @@ export const JSON_UPDATE = 'JSON_UPDATE';
 
 export const USER_CREATE = 'USER_CREATE';
 export const USER_UPDATE = 'USER_UPDATE';
+export const USER_ALTER = 'USER_ALTER';
 
 export const LOG_CREATE = 'LOG_CREATE';
 export const LOG_DELETE = 'LOG_DELETE';

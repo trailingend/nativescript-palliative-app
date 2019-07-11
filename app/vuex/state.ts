@@ -5,14 +5,17 @@ export default {
 	timer_status: false,
 
 	users: [{
-		id: '477567',
-		name: 'Monster Hunter',
-		shift: '7:00AM'
-	}, {
 		id: '888888',
-		name: 'Nomen Nescio',
-		shift: '5:30PM'
+		name: 'Lesie Simon',
+		shift_start: '7:00AM',
+		shift_end: '5:00PM'
+	}, {
+		id: '477567',
+		name: 'Ruby Chen',
+		shift_start: '8:00AM',
+		shift_end: '6:00PM'
 	}],
+
 	logs: 
 	[{
 		id: '201915545',
@@ -20,6 +23,7 @@ export default {
         caller: 'Jihyun Lee',
         patient: 'Apple Pasta',
 		relation: 'Friend',
+		info: '27, no history',
         createdTime: '5:45 | JAN / 05 / 2019',
 		status: true,
 		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
@@ -41,6 +45,7 @@ export default {
         caller: 'Ahssan Moshref',
         patient: 'Melon Pizza',
 		relation: 'Friend',
+		info: '88, no history',
         createdTime: '1:45 | DEC / 05 / 2018',
 		status: false,
 		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
@@ -61,6 +66,7 @@ export default {
         caller: 'Jayleen Zhou',
         patient: 'Orange Chicken',
 		relation: 'Friend',
+		info: '77, no history',
         createdTime: '5:05 | DEC / 08 /2017',
 		status: false,
 		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit

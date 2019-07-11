@@ -11,11 +11,16 @@ export default {
     },
 
     [types.USER_CREATE](state, user) {
-        state.currUserIdx = state.users.length;
+        state.curr_user_idx = state.users.length;
         state.users.push(user);
     },
     [types.USER_UPDATE](state, user_idx) {
-        state.currUserIdx = user_idx;
+        state.curr_user_idx = user_idx;
+    },
+    [types.USER_ALTER](state, user) {
+        const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
+        state.curr_user_idx = userIdx;
+        state.users[userIdx] = user;
     },
 
     [types.LOG_CREATE](state, entry){
@@ -27,7 +32,7 @@ export default {
     [types.LOG_INFO_UPDATE](state, entry) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == entry.id});
         state.logs[log_idx].phone = entry.phone;
-        state.logs[log_idx].client = entry.client;
+        state.logs[log_idx].caller = entry.caller;
         state.logs[log_idx].patient = entry.patient;
         state.logs[log_idx].relation = entry.relation;
     },

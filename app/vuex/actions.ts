@@ -22,12 +22,17 @@ export default {
             });
     },
 
+    activateUser({commit, state}, user) {
+        const idx = state.users.findIndex(elem => { return elem.id === user.id });
+        commit(types.USER_UPDATE, idx);
+    },
+
     saveUserInfo({commit, state}, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         if (userIdx == -1) {
             commit(types.USER_CREATE, user);
         } else {
-            commit(types.USER_UPDATE, userIdx);
+            commit(types.USER_ALTER, user);
         }
     },
 

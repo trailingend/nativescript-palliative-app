@@ -15,7 +15,7 @@
                          :col="gridSetting.children.userSec.col" 
                          :rowSpan="gridSetting.children.userSec.rowSpan" 
                          :class="userSetting">
-                <UserBlock />
+                <UserBlock @userChange="checkUserStatus" />
             </StackLayout>
             <StackLayout :row="gridSetting.children.titleSec.row" 
                            :col="gridSetting.children.titleSec.col" 

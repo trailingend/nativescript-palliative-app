@@ -29,7 +29,7 @@
                         <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
                         <Label row="0" col="1" class="diagnose-a" :text="answer.answer" />
                     </GridLayout>
-                    <TextField v-model="free_text" 
+                    <TextView v-model="free_text" 
                                id="diagnose-free"
                                class="diagnose-free"
                                hint="Take notes here..."

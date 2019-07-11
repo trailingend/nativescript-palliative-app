@@ -57,11 +57,21 @@
                            v-model="c_relation" 
                            editable="true" />
             </GridLayout>
-            <Label class="patient-t" text="consent" textWrap="true"/>
+            
             <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
-                <Label class="patient-d" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textWrap="true"/>
-                <Switch v-model="is_consented" />
+                <Label class="patient-t" text="consent to have the call recorded" textWrap="true"/>
+                <Switch class="patient-switch" v-model="is_consented" />
             </FlexboxLayout>
+                
+            <StackLayout>
+                <Label class="patient-t" text="General Client Information" textWrap="true"/>
+                <Label class="patient-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
+                <TextView v-model="c_info" 
+                            id="patient-free"
+                            class="patient-free"
+                            hint="Take notes here..."
+                            editable="true" />
+            </StackLayout>
             <Button class="form-btn patient-btn" text="Continue" @tap="onNavigateForward" />
         </StackLayout>
     </Page>
@@ -90,6 +100,7 @@
                 c_patient: '',
                 c_caller: '',
                 c_relation: '',
+                c_info: '',
                 created_time: '',
                 is_consented: false,
 
@@ -168,6 +179,7 @@
                         caller: caller_name,
                         patient: patient_name,
                         relation: this.c_relation,
+                        info: this.c_info,
                         createdTime: this.created_time,
                         status: false,
                         progress: -1,
@@ -178,8 +190,13 @@
                     this.saveActiveLog(this.c_id);
 
                     this.$navigateTo(Diagnose, {
-                        animated: false,
+                        animated: true,
                         clearHistory: true,
+                        transition: {
+                            name: 'fade',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
                         props: {
                             log_id: client_id,
                             question_id: 1

@@ -4,9 +4,9 @@
             <StackLayout>
                 <Label class="user-item user-bold" :text="user.name" />
                 <Label class="user-item" :text="`ID #: ${user.id}`" />
-                <Label class="user-item user-shift" :text="`Shift ends: ${user.shift}`" />
+                <Label class="user-item user-shift" :text="`Shift: ${user.shift_start} - ${user.shift_end}`" />
             </StackLayout>
-            <StackLayout>
+            <StackLayout class="edit-ctnr">
                 <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
             </StackLayout>
         </FlexboxLayout>
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-    import UserForm from './UserForm.vue';
+    import SelectUser from '../SelectUser.vue';
     import { mapGetters } from 'vuex';
 
     export default {
@@ -51,11 +51,15 @@
         methods: {
             prepareUser() {
                 if (this.curr_user_idx != -1) {
+                    this.has_user = true;
                     this.user = this.users[this.curr_user_idx];
-                } 
+                    this.$emit("userChange");
+                } else {
+                     this.has_user = false;
+                }
             },
             onEditTap() {
-                this.$showModal(UserForm, { 
+                this.$showModal(SelectUser, { 
                     fullscreen: true,
                 }).then(data => {
                     this.prepareUser();
