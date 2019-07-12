@@ -25,8 +25,8 @@
             background: black;
         }
         .items-d {
-            margin: 0;
-            font-weight: 700;
+            margin: 25 0;
+            font-weight: 500;
         }
 
         .items-tab-ctnr {
@@ -36,6 +36,46 @@
             padding: 10 15;
             background: $color-temp;
             margin: 5 0;
+        }
+
+
+        .items-main-ctnr {
+            width: 100%;
+        }
+        .items-item.ctnr {
+            margin-bottom: 15;
+        }
+        .items-unit-ctnr {
+            width: 500;
+            margin-bottom: 25;
+        }
+        .items-q, .items-a {
+            text-transform: none;
+        }
+        .items-q {
+            margin-bottom: 5;
+        }
+        .items-a-wrapper {
+            width: 500;
+            margin: 10 0;
+        }
+        .items-a-inner {
+            width: 50%;
+        }
+        .items-a-ctnr {
+            background: $color-secondary;
+            color: $color-text-light;
+            margin: 5 5;
+            padding: 10;
+        }
+        .items-free {
+            height: 200;
+            margin: 0;
+            padding: 5;
+            border-width: 3;
+            text-align: left;
+            border-color: $log-border-color;
+            border-radius: $border-size;
         }
     }
     

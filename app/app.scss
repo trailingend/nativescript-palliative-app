@@ -37,10 +37,23 @@ Label {
 }
 
 .back-btn, .next-btn {
+    width: 120;
+    height: 60;
+    border-radius: 10;
+    margin: 0 auto 25 auto;
+    font-size: 18;
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    color: white;
+    background: $color-dark-blue;
+}
+
+.add-btn {
     width: 200;
     height: 60;
     border-radius: 10;
-    margin: 25 auto;
+    margin: 0 auto 15 auto;
     font-size: 18;
     font-weight: 500;
     letter-spacing: 0.1;
@@ -53,7 +66,7 @@ Label {
     transform: translateX(-10);
 }
 
-.next-btn {
+.next-btn, .add-btn {
     transform: translateX(10);
 }
 

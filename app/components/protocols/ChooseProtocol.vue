@@ -24,7 +24,7 @@
                             :text="protocol.name" 
                             :background="unclicked_color"
                             :id="`choose-btn-${index}`"
-                            :class="choose-btn" 
+                            class="choose-btn" 
                             @tap="(args) => onBtnTap(args, protocol, index)" />
                 </GridLayout>
             </StackLayout>
