@@ -76,7 +76,6 @@
                 }
                 this.saveUserInfo(item);
                 this.onBackHome();
-                console.log("=== User Info Added TODO ===");
             },
             onCloseTap() {
                 this.onBackHome();

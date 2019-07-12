@@ -1,21 +1,22 @@
 @import "variables";
 
-.choose-page {
-    .choose-ctnr {
-        .choose-main-ctnr {
-            margin: 5;
-            margin-top: 0;
+.items-page {
+    .items-ctnr {
+        .items-main-ctnr {
             padding: 25;
             background: white;
         }
-        .choose-title-ctnr {
-            vertical-align: middle;
+        .items-title-ctnr {
+            margin-top: 25;
         }
-        .choose-title {
+        .items-title {
             text-align: center;
             font-size: $log-title-font-size;
             font-weight: 700;
             color: black;
+            margin-bottom: 5; 
+        }
+        .items-subtitle {
             margin-bottom: 20; 
         }
         .divider-ctnr {
@@ -23,15 +24,19 @@
             height: 1;
             background: black;
         }
-        .choose-warning {
-            margin: 25 0;
+        .items-d {
+            margin: 0;
             font-weight: 700;
         }
-        .choose-btn {
-            color: black;
-            margin: 5;
-            background: $color-secondary;
+
+        .items-tab-ctnr {
+            vertical-align: middle;
         }
-        
+        .items-tab {
+            padding: 10 15;
+            background: $color-temp;
+            margin: 5 0;
+        }
     }
+    
 }

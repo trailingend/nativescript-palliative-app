@@ -14,7 +14,7 @@
                 <StackLayout class="diagnose-q-a-ctnr" >
                     <StackLayout class="diagnose-title-ctnr">
                         <Label class="diagnose-title" text="General"></Label>
-                        <StackLayout class="dividor-ctnr"></StackLayout>
+                        <StackLayout class="divider-ctnr"></StackLayout>
                     </StackLayout>
                     <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
                         <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
@@ -48,6 +48,7 @@
 <script>
     import UserBlock from './parts/UserBlock.vue';
     import CloseButton from './parts/CloseButton.vue';
+    import ChooseProtocol from '../protocols/ChooseProtocol.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -164,7 +165,19 @@
                 });
             },
             prepareNextStage() {
-                console.log("=== TODO Finished General ===")
+                console.log("=== TODO Finished General ===");
+                this.$navigateTo(ChooseProtocol, {
+                    animated: true,
+                    clearHistory: false,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                    }
+                });
             },
             prepareAnswersStatus() {
                 this.answers_list.forEach(elem => { elem.status = false; });
