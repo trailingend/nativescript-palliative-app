@@ -3,7 +3,7 @@
         <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
         <StackLayout flexGrow="2">
             <Label :text="patient.patient" class="patient-text patient-bold"/>
-            <Label :text="`${formatted_phone} | Caller: ${patient.caller}`" class="patient-text"/>                            
+            <Label :text="`${formatted_phone}`" class="patient-text"/>                            
             <Label :text="patient.createdTime" class="patient-text patient-light" />
         </StackLayout>
         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>

@@ -30,7 +30,8 @@
         }
 
         .items-tab-ctnr {
-            vertical-align: middle;
+            // vertical-align: middle;
+            margin: 15 auto 0 auto;
         }
         .items-tab {
             padding: 10 15;
@@ -59,7 +60,7 @@
             width: 500;
             margin: 10 0;
         }
-        .items-a-inner {
+        .items-a-select-ctnr {
             width: 50%;
         }
         .items-a-ctnr {

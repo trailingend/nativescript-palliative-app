@@ -36,8 +36,7 @@ Label {
     background: $color-dark-blue;
 }
 
-.back-btn, .next-btn {
-    width: 120;
+.back-btn, .next-btn, .resource-btn {
     height: 60;
     border-radius: 10;
     margin: 0 auto 25 auto;
@@ -48,27 +47,22 @@ Label {
     color: white;
     background: $color-dark-blue;
 }
-
-.add-btn {
-    width: 200;
-    height: 60;
-    border-radius: 10;
-    margin: 0 auto 15 auto;
-    font-size: 18;
-    font-weight: 500;
-    letter-spacing: 0.1;
-    text-transform: uppercase;
-    color: white;
-    background: $color-dark-blue;
+.back-btn, .next-btn {
+    width: 120;
+    margin: 0 auto 25 auto;
 }
-
+.next-btn, .resource-btn {
+    transform: translateX(10);
+}
 .back-btn {
     transform: translateX(-10);
 }
-
-.next-btn, .add-btn {
-    transform: translateX(10);
+.resource-btn {
+    width: 200;
+    margin: 15 auto 0 auto;
 }
+
+
 
 @import "styles/dashboard";
 @import "styles/user";
