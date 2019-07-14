@@ -1,43 +1,48 @@
 <template>
-    <Page class="page diagnose-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page others-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, *, auto" columns="*" 
-                    ref="diagnoseGridRef" 
+                    rows="auto, auto, *, auto" columns="*" 
+                    ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout row="1" col="0" class="diagnose-main-ctnr">
-                <StackLayout class="diagnose-q-a-ctnr" >
-                    <StackLayout class="diagnose-title-ctnr">
-                        <Label class="diagnose-title" text="General"></Label>
+
+            <StackLayout row="1" col="0" rowSpan="3" class="others-main-ctnr">
+                <StackLayout class="others-q-a-ctnr" >
+                    <StackLayout class="others-title-ctnr">
+                        <Label class="others-title" text="Assess"></Label>
+                        <Label class="others-subtitle" text="Others"></Label>
                         <StackLayout class="divider-ctnr"></StackLayout>
                     </StackLayout>
-                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
+                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="others-q-ctnr">
                         <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
-                        <Label :text="question_text" class="diagnose-q"/>
+                        <Label :text="question_text" class="others-q"/>
                     </FlexboxLayout>
                     <GridLayout v-for="answer in answers_list" 
                                    :key="answer.id" 
-                                   class="diagnose-a-ctnr" 
+                                   class="others-a-ctnr" 
                                    rows="auto" columns="auto, *"
                                    @tap="onAnswerTap(answer)" > 
                         <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!answer.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
                         <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                        <Label row="0" col="1" class="diagnose-a" :text="answer.answer" />
+                        <Label row="0" col="1" class="others-a" :text="answer.answer" />
                     </GridLayout>
                     <TextView v-model="free_text" 
-                               id="diagnose-free"
-                               class="diagnose-free"
+                               id="others-free"
+                               class="others-free"
                                hint="Take notes here..."
                                @textChange="onTextEntered"
                                editable="true" />
                 </StackLayout>
             </StackLayout>
-            <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
+
+            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" />
+
+            <FlexboxLayout row="3" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
                 <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 <Button class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
             </FlexboxLayout>
@@ -46,13 +51,15 @@
 </template>
 
 <script>
-    import UserBlock from './parts/UserBlock.vue';
     import CloseButton from './parts/CloseButton.vue';
-    import ChooseProtocol from '../protocols/ChooseProtocol.vue';
+    import NewButton from './parts/NewButton.vue';
+    import UserBlock from '../general/parts/UserBlock.vue';
+    import ResourcesButton from './parts/ResourcesButton.vue';
+    import AssessItems from './AssessItems.vue';
+    import Plans from './Plans.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
-    import Vue from 'nativescript-vue';
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -75,23 +82,29 @@
                     "answer": "No"
                 }],
                 ctnrSetting: {
-                    class: "diagnose-ctnr"
+                    class: "others-ctnr"
                 }
             }
         },
         beforeCreate: function () {
-            this.$options.components.Diagnose = require('./Diagnose.vue').default
+            this.$options.components.AssessOthers = require('./AssessOthers.vue').default
         },
         created() {
             this.prepareCurrentQuestion();
         },
         components: {
+            CloseButton,
+            NewButton,
             UserBlock,
-            CloseButton
+            ResourcesButton
         },
         props: {
             log_id: {
                 type: String,
+                required: true,
+            },
+            protocol_id: {
+                type: Number,
                 required: true,
             },
             question_ids: {
@@ -106,20 +119,22 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions'
-			])
-		},
+                'protocols',
+            ]),
+        },
         methods: {
             ...mapActions([
-                'saveIntroProgress',
             ]),
             retrieveQuestion(target_q_id) {
-                const q_obj = this.intro_questions.find(elem => { return elem.id == target_q_id; });
+                const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });
+                const q_obj = this.protocols[p_idx].additional_questions.find(elem => { return elem.id == target_q_id; });
                 if (q_obj) {
                     this.question_text = q_obj.question;
                     this.question_type = q_obj.question_type.type;
                     if ( this.question_type === 'boolean') {
                         this.answers_list = this.boolean_answers;
+                    } else if (this.question_type === 'free_form') {
+                        this.answers_list = [];
                     } else {
                         this.answers_list = q_obj.answers;
                     } 
@@ -130,31 +145,13 @@
                 this.retrieveSavedAnswers();
             },
             retrieveSavedAnswers() {
-                console.log("=== retrieve saved answers related with this question ===");
-                const log = this.logs.find(elem => { return elem.id === this.log_id; });
-                const log_answers = log.intro_answers;
-                const saved_answers_objs = log_answers.find(elem => { return elem.id === this.question_id; });
-                
-                if (saved_answers_objs) {
-                    const saved_answers = saved_answers_objs.a;
-                    console.dir(saved_answers);
-                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : [];
-                    this.answers_list.forEach(ans => {
-                        const search_in_saved = saved_answers.find(elem => { return elem == ans.answer; });
-                        if (search_in_saved) {
-                            ans.status = true;
-                            ans.id = ans.id + Math.random() * 0.01;
-                            this.selected_answers.push(ans.answer);
-                        }
-                    });
-                }
             },
             prepareCurrentQuestion() {
                 this.question_id = this.question_ids[this.question_idx];
                 this.retrieveQuestion(this.question_id);
             },
             prepareAnotherQuestion(q_idx) {
-                this.$navigateTo(this.$options.components.Diagnose, {
+                this.$navigateTo(this.$options.components.AssessOthers, {
                     animated: true,
                     clearHistory: false,
                     transition: {
@@ -164,14 +161,14 @@
                     },
                     props: {
                         log_id: this.log_id,
+                        protocol_id: this.protocol_id,
                         question_ids: this.question_ids,
                         question_idx: q_idx
                     }
                 });
             },
-            prepareNextStage() {
-                console.log("=== TODO Finished General ===");
-                this.$navigateTo(ChooseProtocol, {
+            preparePrevStage() {
+                this.$navigateTo(AssessItems, {
                     animated: true,
                     clearHistory: false,
                     transition: {
@@ -181,6 +178,22 @@
                     },
                     props: {
                         log_id: this.log_id,
+                        protocol_id: this.protocol_id
+                    }
+                });
+            },
+            prepareNextStage() {
+                this.$navigateTo(Plans, {
+                    animated: true,
+                    clearHistory: false,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        protocol_id: this.protocol_id
                     }
                 });
             },
@@ -207,7 +220,7 @@
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                const freeTextfield = layoutView.getViewById("diagnose-free");
+                const freeTextfield = layoutView.getViewById("others-free");
                 freeTextfield.dismissSoftInput();
             },
             onForward() {
@@ -218,10 +231,11 @@
                     q_id: this.question_id, 
                     a: this.selected_answers
                 };
-                this.saveIntroProgress(progress);
+                console.log("=== TODO log progress === ");
                 
+                const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });
                 const next_question_idx = this.question_idx + 1;
-                if (next_question_idx < this.intro_questions.length) {
+                if (next_question_idx < this.protocols[p_idx].additional_questions.length) {
                     this.prepareAnotherQuestion(next_question_idx);
                 } else {
                     this.prepareNextStage();
@@ -233,7 +247,7 @@
                 if (prev_question_idx >= 0) {
                     this.prepareAnotherQuestion(prev_question_idx);
                 } else {
-                    console.log("=== No prev question to go to ===")
+                    this.preparePrevStage();
                 }
             },
             onBackTap() {
@@ -268,25 +282,19 @@
                 this.checkNextButtonStatus();
                 console.log("=== Answer enterred === " + this.free_text);
             },
-            onNavigatingFrom() {
-            },
             onLayoutUpdate() {
-                const width = utils.layout.toDeviceIndependentPixels( this.$refs.diagnoseGridRef.nativeView.getMeasuredWidth() );
+                const width = utils.layout.toDeviceIndependentPixels( this.$refs.othersGridRef.nativeView.getMeasuredWidth() );
 
                 if (width > 1000) {
                     this.ctnrSetting = {
-                        class: "diagnose-ctnr tablet-landscape"
+                        class: "others-ctnr tablet-landscape"
                     };
                 } else {
                     this.ctnrSetting = {
-                        class: "diagnose-ctnr"
+                        class: "others-ctnr"
                     };
                 }
             }
         }
-        
-    };
+    }
 </script>
-
-<style>
-</style>

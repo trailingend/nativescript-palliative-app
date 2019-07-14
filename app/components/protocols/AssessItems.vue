@@ -11,8 +11,6 @@
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <UserBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
-            
-            
 
             <ScrollView row="1" col="0" rowSpan="3" colSpan="2" 
                         id="items-main-ctnr"
@@ -37,10 +35,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <FlexboxLayout row="1" col="0" rowSpan="1" colSpan="2" 
-                           orientation="horizontal" alignItems="center" justifyContent="flex-end">
-                <Button class="resource-btn" text="references" @tap="onResourceTap" ></Button>
-            </FlexboxLayout>
+            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" />
 
             <FlexboxLayout row="3" col="0" rowSpan="1" colSpan="2"
                            orientation="horizontal" alignItems="center" justifyContent="space-between">
@@ -67,7 +62,9 @@
     import NewButton from './parts/NewButton.vue';
     import AssessItem from './parts/AssessItem.vue';
     import UserBlock from '../general/parts/UserBlock.vue';
-    import Diagnose from '../general/Diagnose.vue';
+    import ResourcesButton from './parts/ResourcesButton.vue';
+    import ChooseProtocol from './ChooseProtocol.vue';
+    import AssessOthers from './AssessOthers.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -102,7 +99,8 @@
             CloseButton,
             NewButton,
             UserBlock,
-            AssessItem
+            AssessItem,
+            ResourcesButton
         },
         props: {
             log_id: {
@@ -119,8 +117,7 @@
                 'logs',
                 'protocols',
                 'assessment_letters'
-            ]),
-            
+            ]), 
 		},
         methods: {
             ...mapActions([
@@ -135,6 +132,40 @@
                 this.assessments = this.protocols.find(elem => { return elem.id === this.protocol_id; }).assessment_questions;
                 this.letters = this.assessment_letters;
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
+            },
+            preparePrevPage() {
+                this.$navigateTo(ChooseProtocol, {
+                    animated: true,
+                    clearHistory: false,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                    }
+                });
+            },
+            prepareNextPage() {
+                let q_ids = [];
+                const others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
+                others_questions.forEach(elem => { q_ids.push(elem.id); });
+                this.$navigateTo(AssessOthers, {
+                    animated: true,
+                    clearHistory: false,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        protocol_id: this.protocol_id,
+                        question_ids: q_ids,
+                        question_idx: 0,
+                    }
+                });
             },
             setupAnchors(args) {
                 const page = args.object.page;
@@ -152,8 +183,10 @@
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     if (elem.id === id) {
                         // letter_view.text = elem.title;
+                        letter_view.backgroundColor = "#777777";
                     } else {
                         // letter_view.text = elem.letter;
+                        letter_view.backgroundColor = "#cccccc";
                     }
                 });
                 console.log("change of letter: " + id);
@@ -181,17 +214,17 @@
                     content: this.responses,
                 };
                 this.saveItemsProgress(progress);
+                this.prepareNextPage();
             },
             onBackward(args) {
+                console.log("=== Backward === ");
+                this.preparePrevPage();
             },
             onBackTap() {
                 this.onBackward();
             },
             onNextTap() {
                 this.onForward();
-            },
-            onResourceTap() {
-
             },
             onTabTap(args, letter) {
                 const scrollView = args.object.page.getViewById("items-main-ctnr");

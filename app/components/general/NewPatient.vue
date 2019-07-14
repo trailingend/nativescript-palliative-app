@@ -129,7 +129,8 @@
         },
         computed: {
             ...mapGetters([
-                'logs'
+                'logs',
+                'intro_questions'
             ]),
             input_phone: {
                 get: function() {                    
@@ -189,6 +190,8 @@
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
 
+                    let q_ids = [];
+                    this.intro_questions.forEach(elem => { q_ids.push(elem.id); });
                     this.$navigateTo(Diagnose, {
                         animated: true,
                         clearHistory: true,
@@ -199,7 +202,8 @@
                         },
                         props: {
                             log_id: client_id,
-                            question_id: 1
+                            question_ids: q_ids,
+                            question_idx: 0
                         }
                     });
                     console.log("=== New Patient Logged ===");

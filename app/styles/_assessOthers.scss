@@ -1,19 +1,67 @@
 @import "variables";
 
-.action-page {
-    .action-ctnr {
-        .action-body-ctnr {
+.others-page {
+    .others-ctnr {
+        .others-main-ctnr {
             margin: 5;
-            margin-top: 0;
-            padding: 25;
-            background: $color-temp;
+            background: white; 
+            vertical-align: middle;
         }
-        .action-title-ctnr {
-            .action-main-title {
-                text-align: right;
-                font-size: 18;
-                font-weight: 700;
-                color: $color-text-light;
+        .others-title-ctnr {
+            vertical-align: middle;
+        }
+        .others-title {
+            text-align: center;
+            font-size: $log-title-font-size;
+            font-weight: 700;
+            color: $color-text-dark;
+            margin-bottom: 20; 
+        }
+        .items-subtitle {
+            margin-bottom: 20; 
+        }
+        .divider-ctnr {
+            width: 50;
+            height: 1;
+            background: black;
+        }
+        .others-q-ctnr {
+            width: 500;
+            margin: 0 auto;
+        }
+        .others-q {
+        }
+        .others-a-ctnr {
+            background: $color-secondary;
+            color: $color-text-light;
+            width: 500;
+            margin: 5 0;
+            padding: 10;
+        }
+        .others-free {
+            width: 500;
+            height: 200;
+            margin: 15 0;
+            padding: 5;
+            border-width: 3;
+            text-align: left;
+            border-color: $log-border-color;
+            border-radius: $border-size;
+        }
+
+        .q-icon {
+            margin: 20 30 20 0;
+        }
+
+        &.tablet-landscape {
+            .q-icon {
+                margin: 10 30 10 0;
+            }
+            .q-question-ctnr {
+                margin-top: 0;
+            }
+            .q-question-ans {
+                margin: 15 0;
             }
         }
     }
