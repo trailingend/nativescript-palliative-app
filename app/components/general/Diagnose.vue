@@ -107,8 +107,6 @@
         methods: {
             ...mapActions([
                 'saveIntroProgress',
-                'revertIntroProgress',
-                'changeLogStatus',
             ]),
             retrieveQuestion(target_q_id) {
                 const q_obj = this.intro_questions.find(elem => { return elem.id == target_q_id; });
@@ -184,7 +182,7 @@
             },
             toggleMultiAnswerSelection(ans_text) {
                 const ans_idx = this.selected_answers.findIndex( selected => { return selected === ans_text; });
-                if (ans_idx) {
+                if (ans_idx === -1) {
                     this.selected_answers.push(ans_text);
                 } else {
                     this.selected_answers.splice(ans_idx, 1);
@@ -213,7 +211,6 @@
                     q_id: this.question_id, 
                     a: this.selected_answers
                 };
-                console.log("== TODO log progress == " + progress);
                 this.saveIntroProgress(progress);
                 
                 const next_question_id = this.question_id + 1;

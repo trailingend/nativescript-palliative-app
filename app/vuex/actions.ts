@@ -54,8 +54,7 @@ export default {
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
-            const log_answers = state.logs.find((elem) => {return elem.id == progress_item.log_id}).intro_answers;
-            const find_existed = log_answers.find(elem => { return elem.id === progress_item.q_id; });
+            const find_existed = state.logs[log_idx].intro_answers.find(elem => { return elem.id === progress_item.q_id; });
             const log_item = {
                 idx: log_idx,
                 action: (find_existed === undefined) ? 'ADD' : 'CHANGE',
@@ -96,6 +95,24 @@ export default {
             console.log("=== In intro outcome revert: OH NO !!! ===");
         } else {
             commit(types.INTRO_OUTCOME_REVERT, log_idx);
+        }
+    },
+
+    saveItemsProgress({commit, state}, progress_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro log update: OH NO !!! ===");
+        } else {
+            const existed_p_idx = state.logs[log_idx].protocol_answers.findIndex(elem => { return elem.id === progress_item.p_id; });
+            const log_item = {
+                idx: log_idx,
+                action: (existed_p_idx === -1) ? 'ADD' : 'CHANGE',
+                content: {
+                    id: progress_item.p_id,
+                    a: progress_item.content,
+                }
+            }
+            commit(types.ITEMS_LOG_UPDATE, log_item);
         }
     },
 

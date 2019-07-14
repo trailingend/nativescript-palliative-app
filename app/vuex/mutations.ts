@@ -65,6 +65,16 @@ export default {
         state.logs[log_idx].intro_outcome = -1;
         console.log("in mutation outcome revert ===: outcome - " + state.logs[log_idx].intro_outcome);
     },
+    [types.ITEMS_LOG_UPDATE](state, log_item) {
+        if (log_item.action === 'ADD') {
+            state.logs[log_item.idx].protocol_answers.push(log_item.content);
+        } else if (log_item.action === 'CHANGE') {
+            const p_idx = state.logs[log_item.idx].protocol_answers.findIndex(elem => { return elem.id == log_item.content.id; });
+            state.logs[log_item.idx].protocol_answers[p_idx].a = log_item.content.a;
+        } 
+        console.log("=== in mutation forward ===");
+        console.dir(state.logs[log_item.idx].protocol_answers);
+    },
     [types.STATUS_UPDATE](state, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         state.logs[log_idx].status = state.logs[log_idx].status ? false : true;

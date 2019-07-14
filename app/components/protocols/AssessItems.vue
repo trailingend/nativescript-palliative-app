@@ -31,31 +31,14 @@
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
-                                <AssessItem :unit="question" /> 
+                                <AssessItem :unit="question" @answerChange="(data) => { recordResponse(question, data); }" /> 
                         </StackLayout>
                     </StackLayout>                            
                 </StackLayout>
             </ScrollView>
 
-            
-            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
-
-                    <!-- <FlexboxLayout flexDirection="column" alignItems="flex-start"
-                                   v-for="letter in letters"
-                                   v-bind:key="letter.unique"> -->
-                    <Label class="items-tab" 
-                            textWrap="true"
-                            v-for="letter in letters"
-                            v-bind:key="letter.unique"
-                            :id="`items-tab-${letter.id}`"
-                            :text="letter.letter"
-                            @tap="(args) => { onTabTap(args, letter); }" />
-                    <!-- </FlexboxLayout> -->
-            </StackLayout>
-
             <FlexboxLayout row="1" col="0" rowSpan="1" colSpan="2" 
-                           orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Label />
+                           orientation="horizontal" alignItems="center" justifyContent="flex-end">
                 <Button class="resource-btn" text="references" @tap="onResourceTap" ></Button>
             </FlexboxLayout>
 
@@ -64,6 +47,17 @@
                 <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
             </FlexboxLayout>
+
+            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
+                <Label class="items-tab" 
+                        textWrap="true"
+                        v-for="letter in letters"
+                        v-bind:key="letter.unique"
+                        :id="`items-tab-${letter.id}`"
+                        :text="letter.letter"
+                        @tap="(args) => { onTabTap(args, letter); }" />
+            </StackLayout>
+
         </GridLayout>
     </Page>
 </template>
@@ -130,7 +124,7 @@
 		},
         methods: {
             ...mapActions([
-                'changeLogStatus',
+                'saveItemsProgress',
             ]),
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
@@ -157,15 +151,36 @@
                 this.letters.forEach(elem => { 
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     if (elem.id === id) {
-                        letter_view.text = elem.title;
+                        // letter_view.text = elem.title;
                     } else {
-                        letter_view.text = elem.letter;
+                        // letter_view.text = elem.letter;
                     }
                 });
                 console.log("change of letter: " + id);
             },
+            recordResponse(q, data) {
+                const response_item = {
+                    log_id: this.log_id,
+                    q_id: q.id, 
+                    q_type: q.question_type.type,
+                    a: data,
+                };
+                const response_idx = this.responses.findIndex( elem => { return elem.q_id === q.id; });
+                if (response_idx === -1) {
+                    this.responses.push(response_item);
+                } else {
+                    this.responses[response_idx].a = data;
+                }
+                console.dir(this.responses);
+            },
             onForward(args) {
-                
+                console.log("=== Forward === ");
+                const progress = {
+                    log_id: this.log_id,
+                    p_id: this.protocol_id, 
+                    content: this.responses,
+                };
+                this.saveItemsProgress(progress);
             },
             onBackward(args) {
             },
