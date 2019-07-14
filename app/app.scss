@@ -36,7 +36,8 @@ Label {
     background: $color-dark-blue;
 }
 
-.back-btn, .next-btn, .resource-btn {
+.back-btn, .next-btn, 
+.resource-btn, .new-proto-btn {
     height: 60;
     border-radius: 10;
     margin: 0 auto 25 auto;
@@ -51,7 +52,8 @@ Label {
     width: 120;
     margin: 0 auto 25 auto;
 }
-.next-btn, .resource-btn {
+.next-btn, 
+.resource-btn, .new-proto-btn {
     transform: translateX(10);
 }
 .back-btn {
@@ -59,6 +61,10 @@ Label {
 }
 .resource-btn {
     width: 200;
+    margin: 15 auto 0 auto;
+}
+.new-proto-btn {
+    width: 220;
     margin: 15 auto 0 auto;
 }
 
@@ -70,6 +76,7 @@ Label {
 @import "styles/diagnose";
 @import "styles/assessItems";
 @import "styles/assessOthers";
+@import "styles/plans";
 @import "styles/chooseProtocol";
 @import "styles/result";
 @import "styles/settings";

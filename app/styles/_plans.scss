@@ -1,0 +1,70 @@
+@import "variables";
+
+.plans-page {
+    .plans-ctnr {
+        .plans-main-ctnr {
+            margin: 5;
+            background: white; 
+            vertical-align: middle;
+        }
+        .plans-title-ctnr {
+            vertical-align: middle;
+        }
+        .plans-title {
+            text-align: center;
+            font-size: $log-title-font-size;
+            font-weight: 700;
+            color: $color-text-dark;
+            margin-bottom: 20; 
+        }
+        .divider-ctnr {
+            width: 50;
+            height: 1;
+            background: black;
+        }
+        .plans-q-ctnr {
+            width: 500;
+            margin: 0 auto;
+        }
+        .plans-q {
+        }
+        .plans-a-ctnr {
+            background: $color-secondary;
+            color: $color-text-light;
+            width: 500;
+            margin: 5 0;
+            padding: 10;
+        }
+        .plans-free {
+            width: 500;
+            height: 200;
+            margin: 15 0;
+            padding: 5;
+            border-width: 3;
+            text-align: left;
+            border-color: $log-border-color;
+            border-radius: $border-size;
+        }
+
+        .back-btn {
+        }
+        .next-btn {
+            
+        }
+        .q-icon {
+            margin: 20 30 20 0;
+        }
+
+        &.tablet-landscape {
+            .q-icon {
+                margin: 10 30 10 0;
+            }
+            .q-question-ctnr {
+                margin-top: 0;
+            }
+            .q-question-ans {
+                margin: 15 0;
+            }
+        }
+    }
+}
