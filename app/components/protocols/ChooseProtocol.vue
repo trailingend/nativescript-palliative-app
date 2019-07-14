@@ -122,13 +122,13 @@
                 });
             },
             onBtnTap(args, proto, index) {
-                const layoutView = args.object;
-                const clicked_btn = layoutView.getViewById(`choose-btn-${index}`);
+                const page = args.object.page;
+                const clicked_btn = page.getViewById(`choose-btn-${index}`);
                 this.protocol_id = (this.protocol_id === proto.id) ? null : proto.id;
                 this.next_text = (this.protocol_id === null) ? "Skip" : "Next";
 
                 for (let i = 0; i < this.protocols.length; i++) {
-                    layoutView.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
+                    page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
                 }
                 clicked_btn.background = (this.protocol_id === null) ? this.unclicked_color : this.clicked_color;
             },

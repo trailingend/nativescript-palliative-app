@@ -35,7 +35,8 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" />
+            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" 
+                             :log_id="log_id" :protocol_id="protocol_id" />
 
             <FlexboxLayout row="3" col="0" rowSpan="1" colSpan="2"
                            orientation="horizontal" alignItems="center" justifyContent="space-between">
