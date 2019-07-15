@@ -30,13 +30,15 @@
         }
 
         .items-tab-ctnr {
-            // vertical-align: middle;
-            margin: 15 auto 0 auto;
+            vertical-align: middle;
+            // margin: 15 auto 0 auto;
         }
         .items-tab {
-            padding: 10 15;
+            padding: 10 20;
+            border-radius: 5; 
             background: $color-temp;
             margin: 5 0;
+            transform: translateX(-5);
         }
 
 
@@ -70,7 +72,7 @@
             padding: 10;
         }
         .items-free {
-            height: 200;
+            height: $textview-height;
             margin: 0;
             padding: 5;
             border-width: 3;

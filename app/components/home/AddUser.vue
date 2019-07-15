@@ -37,14 +37,15 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { formatShiftTime } from '../../scripts/common';
 
     export default {
         data() {
             return {
                 u_id: '',
                 u_name: '',
-                u_shift_start: '5:30PM',
-                u_shift_end: '7:30PM',
+                u_shift_start: 'Sun Dec 31 1899 03:01:00 GMT-0800 (PST)',
+                u_shift_end: 'Sun Dec 31 1899 03:01:00 GMT-0800 (PST)',
 
                 formSetting: {
                     class: "add-user-ctnr",
@@ -71,8 +72,8 @@
                 const item = {
                     id: this.u_id,
                     name: this.u_name,
-                    shift_start: this.u_shift_start,
-                    shift_end: this.u_shift_end
+                    shift_start: formatShiftTime(this.u_shift_start),
+                    shift_end: formatShiftTime(this.u_shift_end)
                 }
                 this.saveUserInfo(item);
                 this.onBackHome();

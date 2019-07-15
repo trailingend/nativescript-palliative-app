@@ -36,8 +36,7 @@ Label {
     background: $color-dark-blue;
 }
 
-.back-btn, .next-btn, 
-.resource-btn, .new-proto-btn {
+.back-btn, .next-btn, .new-proto-btn {
     height: 60;
     border-radius: 10;
     margin: 0 auto 25 auto;
@@ -60,8 +59,19 @@ Label {
     transform: translateX(-10);
 }
 .resource-btn {
-    width: 200;
-    margin: 15 auto 0 auto;
+    width: 125;
+    margin: 10 auto 0 auto;
+    height: 60;
+    
+    font-size: 14;
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    color: $color-dark-blue;
+    border-radius: 10;
+    border-width: 3;
+    border-color: $color-dark-blue;
+    background: white;
 }
 .new-proto-btn {
     width: 220;

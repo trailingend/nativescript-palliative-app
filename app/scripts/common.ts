@@ -181,3 +181,13 @@ export const formatPhoneNum = (phone_unformatted) => {
 export const formatPhoneForDisplay = (input) => {
     return `${input.substring(0, 3)}-${input.substring(3, 6)}-${input.substring(6, input.length)}`;
 };
+
+export const formatShiftTime = (input) => {
+    console.log(" input ====" + input)
+    const millitary = input.toString().split(" ");
+    const time = millitary[4];
+    const hours = time.split(':')[0];
+    const minutes = time.split(':')[1];
+    const suffix = hours >= 12 ? "PM":"AM"; 
+    return `${((hours + 11) % 12 + 1)}:${minutes}${suffix}`; 
+};

@@ -17,7 +17,7 @@
             color: $color-text-dark;
             margin-bottom: 20; 
         }
-        .items-subtitle {
+        .others-subtitle {
             margin-bottom: 20; 
         }
         .divider-ctnr {
@@ -40,7 +40,7 @@
         }
         .others-free {
             width: 500;
-            height: 200;
+            height: $textview-height;
             margin: 15 0;
             padding: 5;
             border-width: 3;

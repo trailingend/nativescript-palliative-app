@@ -18,9 +18,9 @@
                         <Label class="plans-title" text="Select plan"></Label>
                         <StackLayout class="divider-ctnr"></StackLayout>
                     </StackLayout>
-                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="plans-q-ctnr">
+                    <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="plans-q-ctnr">
                         <Label text="description placeholder" class="plans-q"/>
-                    </FlexboxLayout>
+                    </FlexboxLayout> -->
                     <GridLayout v-for="plan in plans_list" 
                                 :key="plan.id" 
                                 class="plans-a-ctnr" 

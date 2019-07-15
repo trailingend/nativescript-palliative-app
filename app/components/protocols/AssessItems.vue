@@ -44,7 +44,7 @@
                 <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
             </FlexboxLayout>
 
-            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
+            <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
                         textWrap="true"
                         v-for="letter in letters"

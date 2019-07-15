@@ -13,6 +13,8 @@ export default {
     [types.USER_CREATE](state, user) {
         state.curr_user_idx = state.users.length;
         state.users.push(user);
+        console.log("=== in mutation USER_CREATE ===");
+        console.dir(state.users);
     },
     [types.USER_UPDATE](state, user_idx) {
         state.curr_user_idx = user_idx;
@@ -21,6 +23,8 @@ export default {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         state.curr_user_idx = userIdx;
         state.users[userIdx] = user;
+        console.log("=== in mutation USER_ALTER ===");
+        console.dir(state.users);
     },
 
     [types.LOG_CREATE](state, entry){
