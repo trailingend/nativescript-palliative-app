@@ -103,7 +103,7 @@ export default {
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
-            const existed_p_idx = state.logs[log_idx].protocol_answers.findIndex(elem => { return elem.id === progress_item.p_id; });
+            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(elem => { return elem.id === progress_item.p_id; });
             const log_item = {
                 idx: log_idx,
                 action: (existed_p_idx === -1) ? 'ADD' : 'CHANGE',

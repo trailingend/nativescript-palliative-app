@@ -37,8 +37,9 @@ export default {
 			id: 3,
 			a: []
 		}],
-		protocol_answers: [],
-
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
     }, {
 		id: '2018125145',
 		phone: '6045128638',
@@ -59,7 +60,9 @@ export default {
 			id: 3,
 			a: []
 		}],
-		protocol_answers: [],
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
     }, {
 		id: '201712855',
 		phone: '7788836996',
@@ -80,7 +83,9 @@ export default {
 			id: 3,
 			a: []
 		}],
-		protocol_answers: [],
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
     }],
 
 

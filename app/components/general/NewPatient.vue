@@ -185,7 +185,9 @@
                         status: false,
                         progress: -1,
                         intro_answers: [],
-                        protocol_answers: [],
+                        items_answers: [],
+                        others_answers: [],
+                        plans_answers: [],
                     };
                     this.saveClientInfo(entry);
                     this.saveActiveLog(this.c_id);
