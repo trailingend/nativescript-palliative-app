@@ -1,15 +1,10 @@
 <template>
-    <Page class="page summary-page">
-        <StackLayout>
-            
-            <ProtocolSummary :log_id="log_id" :protocol_id="protocol_id" />
-        </StackLayout>
-    </Page>
+    <StackLayout>
+        <Label text="one protocol summary" />
+    </StackLayout>
 </template>
 
 <script lang="ts">
-    import ProtocolSummary from './parts/ProtocolSummary.vue';
-
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
 
@@ -21,6 +16,8 @@
         created() {
             this.prepareSummary();
         },
+        components: {
+        },
         props: {
             log_id: {
                 type: String,
@@ -30,9 +27,6 @@
                 type: Number,
                 required: true,
             },
-        },
-        components: {
-            ProtocolSummary
         },
         computed: {
             ...mapGetters([
@@ -50,6 +44,3 @@
         
     };
 </script>
-
-<style>
-</style>

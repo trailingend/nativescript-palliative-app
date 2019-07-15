@@ -1,5 +1,5 @@
 <template>
-    <Page class="page others-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page others-page">
         <ActionBar title="Patient Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
@@ -9,7 +9,7 @@
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <UserBlock row="0" col="0" :log_id="log_id"/>
+            <PatientBlock row="0" col="0" :log_id="log_id"/>
 
             <StackLayout row="1" col="0" rowSpan="3" class="others-main-ctnr">
                 <StackLayout class="others-q-a-ctnr" >
@@ -54,7 +54,7 @@
 <script>
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import UserBlock from '../general/parts/UserBlock.vue';
+    import PatientBlock from '../general/parts/PatientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';
@@ -96,7 +96,7 @@
         components: {
             CloseButton,
             NewButton,
-            UserBlock,
+            PatientBlock,
             ResourcesButton
         },
         props: {
@@ -125,6 +125,7 @@
         },
         methods: {
             ...mapActions([
+                'saveOthersProgress'
             ]),
             retrieveQuestion(target_q_id) {
                 const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });
@@ -229,10 +230,13 @@
                 this.selected_answers.push(this.free_text);
                 const progress = {
                     log_id: this.log_id,
+                    p_id: this.protocol_id,
                     q_id: this.question_id, 
+                    q_type: this.question_type,
                     a: this.selected_answers
                 };
                 console.log("=== TODO log progress === ");
+                this.saveOthersProgress(progress);
                 
                 const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });
                 const next_question_idx = this.question_idx + 1;

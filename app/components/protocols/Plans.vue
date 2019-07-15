@@ -10,7 +10,7 @@
                     columns="*" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <UserBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <PatientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
 
             <StackLayout row="1" col="0" rowSpan="2" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
@@ -55,7 +55,7 @@
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
     import NewProtocolButton from './parts/NewProtocolButton.vue';
-    import UserBlock from '../general/parts/UserBlock.vue';
+    import PatientBlock from '../general/parts/PatientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
     import Summary from './Summary.vue';
 
@@ -90,7 +90,7 @@
             },
         },
         components: {
-            UserBlock,
+            PatientBlock,
             NewButton,
             CloseButton,
             NewProtocolButton
@@ -104,6 +104,7 @@
 		},
         methods: {
             ...mapActions([
+                'savePlansProgress'
             ]),
             retrieveSavedPlans() {
                 
@@ -177,7 +178,7 @@
                     a: this.selected_plans
                 };
                 console.log("=== TODO log progress === ");
-                // this.saveIntroProgress(progress);
+                this.savePlansProgress(progress);
                 this.prepareNextStage();
             },
             onBackward() {

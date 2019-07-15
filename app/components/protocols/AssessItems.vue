@@ -10,7 +10,7 @@
                     columns="auto, *" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <UserBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <PatientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
 
             <ScrollView row="1" col="0" rowSpan="3" colSpan="2" 
                         id="items-main-ctnr"
@@ -62,7 +62,7 @@
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
     import AssessItem from './parts/AssessItem.vue';
-    import UserBlock from '../general/parts/UserBlock.vue';
+    import PatientBlock from '../general/parts/PatientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';
@@ -99,7 +99,7 @@
         components: {
             CloseButton,
             NewButton,
-            UserBlock,
+            PatientBlock,
             AssessItem,
             ResourcesButton
         },

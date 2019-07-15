@@ -43,37 +43,45 @@ export default {
         state.currLogId = null;
     },
     [types.INTRO_LOG_UPDATE](state, log_item){
-        if (log_item.action === 'ADD') {
+        if (log_item.q_idx === -1) {
             state.logs[log_item.idx].intro_answers.push(log_item.content);
-        } else if (log_item.action === 'CHANGE') {
-            const ans_idx = state.logs[log_item.idx].intro_answers.findIndex(elem => { return elem.id == log_item.content.id; });
-            state.logs[log_item.idx].intro_answers[ans_idx].a = log_item.content.a;
+        } else {
+            state.logs[log_item.idx].intro_answers[log_item.q_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation forward ===");
+        console.log("=== in mutation INTRO_LOG_UPDATE ===");
         console.dir(state.logs[log_item.idx].intro_answers);
     },
-    [types.INTRO_LOG_REVERT](state, log_idx){
-        state.logs[log_idx].intro_progress.pop();
-        console.log("in mutation backward ===: progress - " + state.logs[log_idx].intro_progress);
-        console.log("in mutation backward ===: outcome - " + state.logs[log_idx].intro_outcome);
-    },
-    [types.INTRO_OUTCOME_UPDATE](state, outcome) {
-        state.logs[outcome.idx].intro_outcome = outcome.id;
-        console.log("in mutation outcome ===: outcome - " + state.logs[outcome.idx].intro_outcome);
-    },
-    [types.INTRO_OUTCOME_REVERT](state, log_idx) {
-        state.logs[log_idx].intro_outcome = -1;
-        console.log("in mutation outcome revert ===: outcome - " + state.logs[log_idx].intro_outcome);
-    },
     [types.ITEMS_LOG_UPDATE](state, log_item) {
-        if (log_item.action === 'ADD') {
+        if (log_item.p_idx === -1) {
             state.logs[log_item.idx].items_answers.push(log_item.content);
-        } else if (log_item.action === 'CHANGE') {
-            const p_idx = state.logs[log_item.idx].items_answers.findIndex(elem => { return elem.id == log_item.content.id; });
-            state.logs[log_item.idx].items_answers[p_idx].a = log_item.content.a;
+        } else {
+            state.logs[log_item.idx].items_answers[log_item.p_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation forward ===");
+        console.log("=== in mutation ITEMS_LOG_UPDATE ===");
         console.dir(state.logs[log_item.idx].items_answers);
+    },
+    [types.OTHERS_LOG_ADD](state, log_item){
+        state.logs[log_item.idx].others_answers.push(log_item.content);
+        console.log("=== in mutation OTHERS_LOG_ADD ===");
+        console.dir(state.logs[log_item.idx].others_answers);
+    },
+    [types.OTHERS_LOG_UPDATE](state, log_item){
+        if (log_item.q_idx === -1) {
+            state.logs[log_item.idx].others_answers[log_item.p_idx].a.push(log_item.content);
+        } else {
+            state.logs[log_item.idx].others_answers[log_item.p_idx].a[log_item.q_idx] = log_item.content.a;
+        } 
+        console.log("=== in mutation OTHERS_LOG_UPDATE ===");
+        console.dir(state.logs[log_item.idx].others_answers);
+    },
+    [types.PLANS_LOG_UPDATE](state, log_item) {
+        if (log_item.p_idx === -1) {
+            state.logs[log_item.idx].plans_answers.push(log_item.content);
+        } else {
+            state.logs[log_item.idx].plans_answers[log_item.p_idx].a = log_item.content.a;
+        } 
+        console.log("=== in mutation PLANS_LOG_UPDATE ===");
+        console.dir(state.logs[log_item.idx].plans_answers);
     },
     [types.STATUS_UPDATE](state, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
