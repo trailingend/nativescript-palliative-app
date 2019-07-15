@@ -67,7 +67,7 @@
                 //     fullscreen: true,
                 //     props: {
                 //         log_id: this.log_id,
-                //         protocol_id: this.protocol_id
+                //         protocol_id: 1
                 //     }
                 // });
             }

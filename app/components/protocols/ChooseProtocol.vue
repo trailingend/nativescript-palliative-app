@@ -81,6 +81,7 @@
         computed: {
             ...mapGetters([
                 'logs',
+                'intro_questions',
                 'protocols',
 			])
 		},
@@ -92,6 +93,8 @@
                 const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
             },
             preparePrevQuestion() {
+                let q_ids = [];
+                this.intro_questions.forEach(elem => { q_ids.push(elem.id); });
                 this.$navigateTo(Diagnose, {
                     animated: true,
                     clearHistory: true,
@@ -102,8 +105,9 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        question_id: 3
-                    },
+                        question_ids: q_ids,
+                        question_idx: q_ids.length - 1
+                    }
                 });
             },
             prepareNextProtocol() {

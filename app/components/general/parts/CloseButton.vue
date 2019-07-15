@@ -1,5 +1,6 @@
 <template>
-    <ActionItem @tap="onCloseTap" ios.systemIcon="0" ios.position="left"></ActionItem>
+    <!-- <ActionItem @tap="onCloseTap" ios.systemIcon="0" ios.position="left"></ActionItem> -->
+    <ActionItem @tap="onCloseTap" text="Close" ios.position="left"></ActionItem>
 </template>
 
 <script lang="ts">

@@ -1,6 +1,6 @@
 <template>
     <Page class="page diagnose-page" @navigatingFrom="onNavigatingFrom">
-        <ActionBar title="Patient Log">
+        <ActionBar title="Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
         </ActionBar>
