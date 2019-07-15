@@ -29,7 +29,7 @@
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
-                                <AssessItem :unit="question" @answerChange="(data) => { recordResponse(question, data); }" /> 
+                                <AssessItem :unit="question" :log_id="log_id" @answerChange="(data) => { recordResponse(question, data); }" /> 
                         </StackLayout>
                     </StackLayout>                            
                 </StackLayout>

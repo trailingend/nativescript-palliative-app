@@ -18,7 +18,10 @@
                     </StackLayout>
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />
-                    <ProtocolSummary :log_id="log_id" :protocol_id="protocol_id" />
+                    <ProtocolSummary v-for="p_id in protocol_ids"
+                                     :key="p_id"
+                                     :log_id="log_id" 
+                                     :protocol_id="p_id" />
                 </StackLayout>
             </ScrollView>
 
@@ -48,8 +51,10 @@
     export default {
         data() {
             return {
+                protocol_ids: [],
+
                 ctnrSetting: {
-                    class: "preview-ctnr"
+                    class: "preview-ctnr",
                 }
             }
         },
@@ -59,10 +64,6 @@
         props: {
             log_id: {
                 type: String,
-                required: true,
-            },
-            protocol_id: {
-                type: Number,
                 required: true,
             },
         },
@@ -85,6 +86,10 @@
             ...mapActions([
             ]),
             prepareSummary() {
+                const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                if (curr_log) {
+                    curr_log.items_answers.forEach(elem => { this.protocol_ids.push(elem.id) });
+                }
             },
             preparePrevStage() {
                 this.$navigateTo(Plans, {
