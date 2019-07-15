@@ -21,7 +21,7 @@
                                  :key="letter.id" 
                                  :id="`items-item-ctnr-${letter.id}`"
                                  class="items-item-ctnr">  
-                        <StackLayout row="1" col="0" rowSpan="1" colSpan="2" class="items-title-ctnr">
+                        <StackLayout class="items-title-ctnr">
                             <Label class="items-title" text="Assess"></Label>
                             <Label class="items-subtitle" :text="letter.title"></Label>
                             <StackLayout class="divider-ctnr"></StackLayout>

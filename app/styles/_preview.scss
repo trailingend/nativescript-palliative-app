@@ -1,0 +1,49 @@
+@import "variables";
+
+.preview-ctnr {
+    background: white;
+
+    .preview-main-ctnr {
+        margin: 25 80;
+    }
+    .sum-title-ctnr {
+        margin: 25 auto;
+    }
+    .sum-title {
+        text-align: center;
+        font-size: $log-title-font-size;
+        font-weight: 700;
+        color: black;
+        margin-bottom: 20; 
+    }
+    .divider-ctnr {
+        width: 50;
+        height: 1;
+        background: black;
+        margin-bottom: 20; 
+    }
+    .sum-sec-ctnr {
+        margin-bottom: 50; 
+    }
+    .sum-sec-title {
+        font-size: 18;
+        font-weight: 700;
+        text-align: left;
+        margin-bottom: 10; 
+        margin-bottom: 5 0 15 0;
+    }
+    .sum-item-ctnr {
+        margin-bottom: 25;
+    }
+    .sum-item-title {
+        font-weight: 700;
+        margin-bottom: 10; 
+    }
+    .sum-text {
+        font-weight: 400;
+        text-align: left;
+    }
+    .sum-bold {
+        font-weight: 700;
+    }
+}

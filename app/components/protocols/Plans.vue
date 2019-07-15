@@ -6,7 +6,7 @@
             <NewButton />
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, auto, *, auto" 
+                    rows="auto, *, auto" 
                     columns="*" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
@@ -39,9 +39,9 @@
                 </StackLayout>
             </StackLayout>
 
-            <NewProtocolButton row="1" col="0" />
+            <!-- <NewProtocolButton row="1" col="0" /> -->
 
-            <FlexboxLayout row="3" col="0"
+            <FlexboxLayout row="2" col="0"
                            orientation="horizontal" alignItems="center" justifyContent="space-between">
                 <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
@@ -54,10 +54,10 @@
 <script lang="ts">
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import NewProtocolButton from './parts/NewProtocolButton.vue';
+    // import NewProtocolButton from './parts/NewProtocolButton.vue';
     import PatientBlock from '../general/parts/PatientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
-    import Summary from './Summary.vue';
+    import Preview from './Preview.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -93,7 +93,7 @@
             PatientBlock,
             NewButton,
             CloseButton,
-            NewProtocolButton
+            // NewProtocolButton
         },
         computed: {
             ...mapGetters([
@@ -126,7 +126,7 @@
                 others_questions.forEach(elem => { q_ids.push(elem.id); });
                 this.$navigateTo(AssessOthers, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',
@@ -141,9 +141,9 @@
                 });
             },
             prepareNextStage() {
-                this.$navigateTo(Summary, {
+                this.$navigateTo(Preview, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',

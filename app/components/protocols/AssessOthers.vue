@@ -172,7 +172,7 @@
             preparePrevStage() {
                 this.$navigateTo(AssessItems, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',
@@ -187,7 +187,7 @@
             prepareNextStage() {
                 this.$navigateTo(Plans, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',

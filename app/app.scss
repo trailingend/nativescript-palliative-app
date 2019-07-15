@@ -65,7 +65,7 @@ Label {
 }
 .new-proto-btn {
     width: 220;
-    margin: 15 auto 0 auto;
+    margin: 15 auto 20 auto;
 }
 
 
@@ -80,6 +80,7 @@ Label {
 @import "styles/assessOthers";
 @import "styles/resources";
 @import "styles/plans";
+@import "styles/preview";
+@import "styles/summary";
 
-@import "styles/result";
-@import "styles/settings";
+
