@@ -8,7 +8,8 @@
                      ref="newPatientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <Label class="patient-title" text="Patient log" ></Label>                    
+            <Label class="patient-title" text="Patient log" ></Label>       
+            <PreviousNextView>             
             <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
                 <Label :row="gridSetting.children.q1.row" 
                        :col="gridSetting.children.q1.col"
@@ -57,7 +58,8 @@
                            v-model="c_relation" 
                            editable="true" />
             </GridLayout>
-            
+            </PreviousNextView>
+
             <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
                 <Label class="patient-t" text="consent to have the call recorded" textWrap="true"/>
                 <Switch class="patient-switch" v-model="is_consented" />
@@ -66,11 +68,11 @@
             <StackLayout>
                 <Label class="patient-t" text="General Client Information" textWrap="true"/>
                 <Label class="patient-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
-                <TextView v-model="c_info" 
-                            id="patient-free"
-                            class="patient-free"
-                            hint="Take notes here..."
-                            editable="true" />
+                <TextViewWithHint v-model="c_info" 
+                                  id="patient-free"
+                                  class="patient-free"
+                                  hint="Take notes here..."
+                                  editable="true" />
             </StackLayout>
             <Button class="form-btn patient-btn" text="Continue" @tap="onNavigateForward" />
         </StackLayout>

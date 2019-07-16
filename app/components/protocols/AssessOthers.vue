@@ -31,12 +31,12 @@
                         <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
                         <Label row="0" col="1" class="others-a" :text="answer.answer" />
                     </GridLayout>
-                    <TextView v-model="free_text" 
-                               id="others-free"
-                               class="others-free"
-                               hint="Take notes here..."
-                               @textChange="onTextEntered"
-                               editable="true" />
+                    <TextViewWithHint v-model="free_text" 
+                                      id="others-free"
+                                      class="others-free"
+                                      hint="Take notes here..."
+                                      @textChange="onTextEntered"
+                                      editable="true" />
                 </StackLayout>
             </StackLayout>
 

@@ -29,12 +29,12 @@
                         <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
                         <Label row="0" col="1" class="diagnose-a" :text="answer.answer" />
                     </GridLayout>
-                    <TextView v-model="free_text" 
-                               id="diagnose-free"
-                               class="diagnose-free"
-                               hint="Take notes here..."
-                               @textChange="onTextEntered"
-                               editable="true" />
+                    <TextViewWithHint v-model="free_text" 
+                                      id="diagnose-free"
+                                      class="diagnose-free"
+                                      hint="Take notes here..."
+                                      @textChange="onTextEntered"
+                                      editable="true" />
                 </StackLayout>
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">

@@ -14,12 +14,12 @@
                 </GridLayout>
             </StackLayout>
         </GridLayout>
-        <TextView v-model="free_text" 
-                  :id="`items-free-${question_id}`"
-                  class="items-free"
-                  hint="Take notes here..."
-                  @textChange="onTextEntered"
-                  editable="true" />
+        <TextViewWithHint v-model="free_text" 
+                          :id="`items-free-${question_id}`"
+                          class="items-free"
+                          hint="Take notes here..."
+                          @textChange="onTextEntered"
+                          editable="true" />
     </StackLayout>
 </template>
 

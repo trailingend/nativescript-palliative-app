@@ -18,6 +18,7 @@
     "@vue/devtools": "^5.0.6",
     "base-64": "^0.1.0",
     "nativescript-email": "^1.5.3",
+    "nativescript-iqkeyboardmanager": "^1.5.1",
     "nativescript-localstorage": "^2.0.0",
     "nativescript-socketio": "^3.2.1",
     "nativescript-toasty": "^1.3.0",

@@ -7,6 +7,7 @@
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <StackLayout row="1" col="0" :class="formSetting.class">
                 <Label class="add-user-title" text="Shift information" ></Label>    
+                <PreviousNextView>
                 <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*">
                     <Label row="0" col="0" class="add-q1 add-q" text="Full name:" textWrap="true"/>
                     <TextField row="1" col="0" 
@@ -25,8 +26,8 @@
                     <TimePicker row="5" col="0" class="add-picker" v-model="u_shift_start" />
                     <Label row="6" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true"/>
                     <TimePicker row="7" col="0" class="add-picker" v-model="u_shift_end" />
-
                 </GridLayout>
+                </PreviousNextView>
                 <Button class="form-btn add-user-btn" text="Save" @tap="onSaveTap" />
             </StackLayout>
         </GridLayout>

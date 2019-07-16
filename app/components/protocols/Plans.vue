@@ -32,12 +32,12 @@
                         <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
                     </GridLayout>
                     </StackLayout>
-                    <TextView v-model="free_text" 
-                              id="plans-free"
-                              class="plans-free"
-                              hint="Take notes here..."
-                              @textChange="onTextEntered"
-                              editable="true" />
+                    <TextViewWithHint v-model="free_text" 
+                                      id="plans-free"
+                                      class="plans-free"
+                                      hint="Take notes here..."
+                                      @textChange="onTextEntered"
+                                      editable="true" />
                 </StackLayout>
             </StackLayout>
 

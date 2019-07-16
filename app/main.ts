@@ -11,6 +11,8 @@ import RadListView from 'nativescript-ui-listview/vue';
 // 	Vue.use(VueDevtools);
 // }
 Vue.use(RadListView);
+Vue.registerElement("PreviousNextView", () => require("nativescript-iqkeyboardmanager"). PreviousNextView);
+Vue.registerElement("TextViewWithHint", () => require("nativescript-iqkeyboardmanager"). TextViewWithHint);
 
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = false;// (TNS_ENV === 'production');
