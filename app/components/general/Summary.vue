@@ -1,5 +1,5 @@
 <template>
-    <Page class="page preview-page">
+    <Page class="page sum-page summary-page">
         <ActionBar title="Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
@@ -7,11 +7,11 @@
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
                     rows="*, auto" 
-                    columns="*" ref="previewGridRef" 
+                    columns="*" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
 
             <ScrollView row="0" col="0" rowSpan="2">
-                <StackLayout class="preview-main-ctnr">
+                <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Client Summary"></Label>
                         <StackLayout class="divider-ctnr"></StackLayout>
@@ -24,7 +24,7 @@
                                      :protocol_id="p_id" />
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
-                        <Button class="form-btn sum-btn submit-btn" text="Submit" @tap="onSumbitTap" ></Button>
+                        <Button class="form-btn sum-btn submit-btn" text="Submit" @tap="onSubmitTap" ></Button>
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-    import CloseButton from './parts/CloseButton.vue';
-    import NewButton from './parts/NewButton.vue';
-    import InfoSummary from '../general/parts/InfoSummary.vue';
-    import IntroSummary from '../general/parts/IntroSummary.vue';
-    import ProtocolSummary from '../general/parts/ProtocolSummary.vue';
-    import ChooseProtocol from './ChooseProtocol.vue';
-    import Plans from './Plans.vue';
+    import CloseButton from '../protocols/parts/CloseButton.vue';
+    import NewButton from '../protocols/parts/NewButton.vue';
+    import InfoSummary from './parts/InfoSummary.vue';
+    import IntroSummary from './parts/IntroSummary.vue';
+    import ProtocolSummary from './parts/ProtocolSummary.vue';
+    import ChooseProtocol from '../protocols/ChooseProtocol.vue';
+    import Plans from '../protocols/Plans.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -55,7 +55,7 @@
                 protocol_ids: [],
 
                 ctnrSetting: {
-                    class: "preview-ctnr",
+                    class: "summary-ctnr",
                 }
             }
         },
@@ -138,15 +138,15 @@
                 });
             },
             onLayoutUpdate() {
-                const width = utils.layout.toDeviceIndependentPixels( this.$refs.previewGridRef.nativeView.getMeasuredWidth() );
+                const width = utils.layout.toDeviceIndependentPixels( this.$refs.summaryGridRef.nativeView.getMeasuredWidth() );
 
                 if (width > 1000) {
                     this.ctnrSetting = {
-                        class: "preview-ctnr tablet-landscape"
+                        class: "summary-ctnr tablet-landscape"
                     };
                 } else {
                     this.ctnrSetting = {
-                        class: "preview-ctnr"
+                        class: "summary-ctnr"
                     };
                 }
             }

@@ -3,7 +3,7 @@
         <ActionBar title="Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
-            <NewButton />
+            <!-- <NewButton /> -->
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
                     rows="auto, *, auto" 
@@ -58,7 +58,7 @@
     import NewButton from './parts/NewButton.vue';
     import PatientBlock from '../general/parts/PatientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
-    import Preview from './Preview.vue';
+    import Summary from '../general/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -159,7 +159,7 @@
                 });
             },
             prepareNextStage() {
-                this.$navigateTo(Preview, {
+                this.$navigateTo(Summary, {
                     animated: true,
                     clearHistory: true,
                     transition: {

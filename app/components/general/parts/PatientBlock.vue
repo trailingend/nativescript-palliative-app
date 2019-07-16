@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-    // import Preview from '../../protocols/Preview.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -63,7 +62,7 @@
             },
             onEditTap() {
                 console.log("=== TODO to open edit ===");
-                // this.$showModal(Preview, { 
+                // this.$showModal(EditPatient, { 
                 //     fullscreen: true,
                 //     props: {
                 //         log_id: this.log_id,

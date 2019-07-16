@@ -98,6 +98,16 @@
     .home-log-ctnr {
         margin: 0 $log-border;
 
+        .home-log-null {
+            font-family: 'Nunito', sans-serif;
+            color: #777777;
+            margin-top: 50;
+            font-size: 18;
+            font-weight: 200;
+            letter-spacing: 0.05;
+            text-transform: uppercase;
+        }
+
         .user-head {
             margin: 20 30;
         }

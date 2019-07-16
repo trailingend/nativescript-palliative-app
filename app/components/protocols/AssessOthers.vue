@@ -64,6 +64,7 @@
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
+        name: 'AssessOthers',
         data() {
             return {
                 question_type: 'free_form',

@@ -1,5 +1,6 @@
 <template>
-        <ScrollView class="patient-list">
+    <StackLayout>
+        <ScrollView class="patient-list" v-if="logs.length > 0">
             <RadListView for="patient in logs" 
                          ref="logListView"
                          swipeActions="true"
@@ -30,12 +31,11 @@
 
             </RadListView>
         </ScrollView>
-    
+        <Label v-else text="no current chart records" class="home-log-null"/>
+    </StackLayout>
 </template>
 
 <script lang="ts">
-    import Preview from '../../protocols/Preview.vue';
-
     import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
@@ -73,19 +73,19 @@
                     const log_idx = args.index;
                     const log = this.logs[log_idx];
                     // this.saveActiveLog(log.id);
-                    this.$navigateTo(Preview, {
-                        animated: true,
-                        clearHistory: true,
-                        transition: {
-                            name: 'slideTop',
-                            curve: 'easeIn',
-                            duration: 300
-                        },
-                        props: {
-                            log_id: log.id,
-                            has_prev: false
-                        }
-                    });
+                    // this.$navigateTo(Preview, {
+                    //     animated: true,
+                    //     clearHistory: true,
+                    //     transition: {
+                    //         name: 'slideTop',
+                    //         curve: 'easeIn',
+                    //         duration: 300
+                    //     },
+                    //     props: {
+                    //         log_id: log.id,
+                    //         has_prev: false
+                    //     }
+                    // });
                 }
             },
             onTouch(args) {

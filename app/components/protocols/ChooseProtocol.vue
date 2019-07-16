@@ -3,7 +3,7 @@
         <ActionBar title="Log">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
-            <NewButton />
+            <!-- <NewButton /> -->
         </ActionBar>
         <GridLayout class="choose-ctnr" 
                     rows="auto, *, auto" 
@@ -48,6 +48,7 @@
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
+        name: 'ChooseProtocol',
         data() {
             return {
                 warning_text: 'If the situation appears to be urgent and life-threatening then a possible transfer to the hospital might be warranted',
@@ -65,11 +66,10 @@
             }
         },
         mounted() {
-            // this.prepareProtocols();
         },
         components: {
-            CloseButton,
             NewButton,
+            CloseButton,
             PatientBlock
         },
         props: {
@@ -87,7 +87,6 @@
 		},
         methods: {
             ...mapActions([
-                'changeLogStatus',
             ]),
             prepareProtocols() {
                 const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });

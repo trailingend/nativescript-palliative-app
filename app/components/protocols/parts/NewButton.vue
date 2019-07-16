@@ -2,11 +2,12 @@
     <ActionItem @tap="onNewTap" text="+ New Log" ios.position="right"></ActionItem>
 </template>
 
-<script lang="ts">
+<script>
     import NewPatient from '../../general/NewPatient.vue';
     import { confirm }  from "tns-core-modules/ui/dialogs";
 
     export default {
+        name: 'NewButton',
         methods: {
             onNewTap() {
                 confirm({
