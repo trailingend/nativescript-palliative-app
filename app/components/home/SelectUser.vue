@@ -9,17 +9,20 @@
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <StackLayout row="1" col="0" class="select-content-ctnr">
                 <Label class="select-title" text="shift infomation" ></Label>   
-                <Label class="select-text" text="select from saved users" ></Label>   
-                <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">
-                    <StackLayout v-for="user in users" 
-                                :key="user.id" 
-                                class="select-ppl" 
-                                @tap="onUserTap(user)" > 
-                                <StackLayout class="select-head"></StackLayout>
-                                <Label class="select-text select-name" :text="user.name"></Label>
-                    </StackLayout>
-                </FlexboxLayout>
-                <Label class="select-text" text="or" ></Label> 
+                <StackLayout v-if="users.length > 0">
+                    <Label class="select-text" text="select from saved users" ></Label>   
+                    <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">
+                        <StackLayout v-for="user in users" 
+                                    :key="user.id" 
+                                    class="select-ppl" 
+                                    @tap="onUserTap(user)" > 
+                                    <StackLayout class="select-head"></StackLayout>
+                                    <Label class="select-text select-name" :text="user.name"></Label>
+                        </StackLayout>
+                    </FlexboxLayout>
+                    <Label class="select-text" text="or" ></Label> 
+                </StackLayout>
+                <Label v-else text="No Currently saved user" class="user-null" />
                 <Button class="form-btn select-add-btn" text="Add new user" @tap="onAddTap" />
             </StackLayout>
         </GridLayout>

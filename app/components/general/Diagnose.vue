@@ -38,7 +38,8 @@
                 </StackLayout>
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
+                <Button v-if="question_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+                <Label v-else />
                 <Button class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
             </FlexboxLayout>
         </GridLayout>

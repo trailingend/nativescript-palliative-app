@@ -4,7 +4,8 @@ export default {
 	timer_value: 0,
 	timer_status: false,
 
-	users: [{
+	users: 
+	[{
 		id: '888888',
 		name: 'Lesie Simon',
 		shift_start: '7:00AM',

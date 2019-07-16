@@ -21,7 +21,7 @@
                            :col="gridSetting.children.titleSec.col" 
                            :colSpan="gridSetting.children.titleSec.colSpan" 
                            class="log-title-ctnr">
-                <Label class="log-title" text="Logs" />
+                <Label class="log-title" text="charts" />
             </StackLayout>
             <Logs :row="gridSetting.children.logSec.row" 
                   :col="gridSetting.children.logSec.col" 
@@ -32,7 +32,7 @@
                          :col="gridSetting.children.btnSec.col"
                          :colSpan="gridSetting.children.btnSec.colSpan" 
                          class="home-btn-ctnr" >
-                <Button class="home-add" text="NEW LOG" @tap="onNewTap"></Button>
+                <Button class="home-add" text="NEW CHART" @tap="onNewTap"></Button>
             </StackLayout>
         </GridLayout>
     </Page>
@@ -111,17 +111,17 @@
                 const half_width = width / 2;
                 const quater_width = width / 4;
                 if (width > 1000) {
-                    // this.pageSetting = {
-                    //     class: "page home-page tablet-landscape"
-                    // },
+                    this.pageSetting = {
+                        class: "page home-page tablet-landscape"
+                    },
                     // this.gridSetting = {
                     //     rows: "80, auto, *",
                     //     columns: `${quater_width}, ${quater_width}, ${half_width}`,
                     //     children: homeGridChildLandscape
                     // };
-                     this.pageSetting = {
-                        class: "page home-page"
-                    },
+                    //  this.pageSetting = {
+                    //     class: "page home-page"
+                    // },
                     this.gridSetting = {
                         rows: "auto, auto, *, 250",
                         columns: "*, *",

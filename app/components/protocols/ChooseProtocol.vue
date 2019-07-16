@@ -30,7 +30,8 @@
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
                 <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+                <Button v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+                <Label v-else />
             </FlexboxLayout>
         </GridLayout>
     </Page>
@@ -52,7 +53,7 @@
         data() {
             return {
                 warning_text: 'If the situation appears to be urgent and life-threatening then a possible transfer to the hospital might be warranted',
-                next_text: 'Skip',
+                show_next: false,
                 unclicked_color: '#eeeeee',
                 clicked_color: '#cccccc',
                 protocol_id: null,
@@ -128,7 +129,7 @@
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
                 this.protocol_id = (this.protocol_id === proto.id) ? null : proto.id;
-                this.next_text = (this.protocol_id === null) ? "Skip" : "Next";
+                this.show_next = (this.protocol_id != null);
 
                 for (let i = 0; i < this.protocols.length; i++) {
                     page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;

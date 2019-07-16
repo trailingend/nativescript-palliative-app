@@ -75,8 +75,8 @@
         .items-free {
             height: $textview-height;
             margin: 0;
-            padding: 5;
-            border-width: 3;
+            padding: $border-size;
+            border-width: 1.5;
             text-align: left;
             border-color: $log-border-color;
             border-radius: $border-size;
