@@ -52,7 +52,7 @@ Label {
     margin: 0 auto 25 auto;
 }
 .next-btn, 
-.resource-btn, .new-proto-btn {
+.resource-btn {
     transform: translateX(10);
 }
 .back-btn {
@@ -72,10 +72,6 @@ Label {
     border-width: 3;
     border-color: $color-dark-blue;
     background: white;
-}
-.new-proto-btn {
-    width: 220;
-    margin: 15 auto 20 auto;
 }
 
 

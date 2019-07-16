@@ -24,7 +24,7 @@
 
                 <v-template name="itemswipe">
                     <GridLayout class="swipe-ctnr" columns="auto">
-                        <Button id="delete-view" class="patient-btn" text="DELETE" @tap="onDeleteTap"></Button>
+                        <Button id="delete-view" class="delete-btn" text="DELETE" @tap="onDeleteTap"></Button>
                     </GridLayout>
                 </v-template>
 
@@ -34,11 +34,7 @@
 </template>
 
 <script lang="ts">
-    // import QuestionPhase2 from '../../triage/QuestionPhase2.vue';
-    // import QuestionPhase3 from '../../triage/QuestionPhase3.vue';
-    // import ChooseProtocol from '../../documentation/ChooseProtocol.vue';
-    // import Action from '../../triage/TakeAction.vue';
-    // import Result from '../../triage/Result.vue';
+    import Preview from '../../protocols/Preview.vue';
 
     import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
@@ -60,7 +56,6 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'currLogId'
 			])
 		},
         methods: {
@@ -71,84 +66,28 @@
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
             },
-            // navigateToPhase2Question(log_id, q_id) {
-            //     // this.$navigateTo(QuestionPhase2, {
-            //     //     animated: true,
-            //     //     clearHistory: true,
-            //     //     props: {
-            //     //         log_id: log_id,
-            //     //         initial_question_id: q_id
-            //     //     }
-            //     // });
-            // },
-            // navigateToPhase3Page(log_id, elem) { // phase3 question, action and choose protocol
-            //     this.$navigateTo(elem, {
-            //         animated: true,
-            //         clearHistory: true,
-            //         props: {
-            //             log_id: log_id
-            //         }
-            //     });
-            // },
-            // preparePhase2Question(log) {
-            //     let init_q_id = this.phase_2_question_id;
-            //     let next_q_id = this.phase_2_question_id;
-            //     if (log.intro_progress.length > 0) {
-            //         const log_last = log.intro_progress[log.intro_progress.length - 1];
-            //         const branch = this.branches.find(brc => { return brc.answer_id === log_last[1]});
-            //         if (branch === undefined) {
-            //             console.log("=== Unsync of outcome and progress navigating to phase 2 ===");
-            //         } else {
-            //             next_q_id = branch.question_id;
-            //             // this.navigateToPhase2Question(log.id, next_q_id);
-            //         }
-            //     } else { 
-            //         // this.navigateToPhase2Question(log.id, init_q_id);
-            //     }
-            // },
-            // preparePhase3Question(log_id) {
-            //     // this.navigateToPhase3Page(log_id, QuestionPhase3);
-            // },
-            // prepareActionPage(log_id) {
-            //     // this.navigateToPhase3Page(log_id, Action);
-            // },
-            // prepareChooseProtoPage(log_id) {
-            //     // this.navigateToPhase3Page(log_id, ChooseProtocol);
-            // },
-            // onEditTap(args) {
-            //     if (this.isSwipeMode) {
-            //         this.isSwipeMode = false;
-            //     } else {
-            //         const log_idx = args.index;
-            //         const log = this.logs[log_idx];
-            //         const action_indicator = log.intro_action;
-            //         const protocol_indicator = log.protocol_id;
-            //         const outcome_indicator = log.intro_outcome;
-                    
-            //         this.saveActiveLog(log.id);
-
-            //         if (protocol_indicator != -1) {
-            //             // do it after complete protocol section
-            //         } else if (action_indicator != -1) {
-            //             // go to action result
-            //         } else if (outcome_indicator != -1) {
-            //             const log_last = log.intro_progress[log.intro_progress.length - 1];
-            //             console.log("=== in edit log === " + log_last[1] + " " + this.pre_protocol_answer + " " + (log_last[1] == this.pre_protocol_answer));
-            //             if (log_last[0] == this.phase_3_question_id) {
-            //                 if (log_last[1] == this.pre_protocol_answer) {
-            //                     // this.prepareChooseProtoPage(log.id);
-            //                 } else {
-            //                     // this.prepareActionPage(log.id);
-            //                 }
-            //             } else {
-            //                 // this.preparePhase3Question(log.id);
-            //             }
-            //         } else {
-            //             // this.preparePhase2Question(log);
-            //         }
-            //     }
-                
-            // },
+            onEditTap(args) {
+                if (this.isSwipeMode) {
+                    this.isSwipeMode = false;
+                } else {
+                    const log_idx = args.index;
+                    const log = this.logs[log_idx];
+                    // this.saveActiveLog(log.id);
+                    this.$navigateTo(Preview, {
+                        animated: true,
+                        clearHistory: true,
+                        transition: {
+                            name: 'slideTop',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
+                        props: {
+                            log_id: log.id,
+                            has_prev: false
+                        }
+                    });
+                }
+            },
             onTouch(args) {
                 console.log("=== Log touched === " + args.action);
             },
@@ -180,7 +119,7 @@
                 const swipeLimits = data.swipeLimits;
                 const swipeView = object;
                 const rightItem = swipeView.getViewById('delete-view');
-                swipeLimits.left = rightItem.getMeasuredWidth() + 10;
+                swipeLimits.left = rightItem.getMeasuredWidth();
                 swipeLimits.right = 0;
                 // swipeLimits.left = 0;
                 // swipeLimits.right = rightItem.getMeasuredWidth();

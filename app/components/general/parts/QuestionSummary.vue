@@ -1,6 +1,7 @@
 <template>
     <StackLayout class="sum-unit-ctnr">
         <Label :text="unit.question" textWrap="true" class="sum-text sum-bold sum-q"/>
+        <Label :text="response" textWrap="true" class="sum-text"/>
     </StackLayout>
 </template>
 
@@ -10,9 +11,11 @@
     export default {
         data() {
             return {
+                response: '',
             }
         },
         created() {
+            this.prepareSummary();
         },
         components: {
         },
@@ -42,11 +45,37 @@
 		},
         methods: {
             prepareSummary() {
-                const protocol = this.protocols.find(elem => { return elem.id === this.protocol_id; });
                 const curr_log = this.logs.find(elem => { return elem.id === this.log_id; });
-                const items_responses = curr_log.items_answers.find(elem => { return elem.id === this.protocol_id; }).a;
-                const others_responses = curr_log.others_answers.find(elem => { return elem.id === this.protocol_id; }).a;
-                const plans_responses = curr_log.plans_answers.find(elem => { return elem.id === this.protocol_id; }).a;
+                
+                if (this.section === 'intro') {
+                    this.prepareIntroResponses(curr_log);
+                } else if (this.section === 'items') {
+                    this.prepareItemsResponses(curr_log);
+                } else if (this.section === 'others') {
+                    this.prepareOthersResponses(curr_log);
+                } 
+            },
+            prepareIntroResponses(curr_log) {
+
+            },
+            prepareItemsResponses(curr_log) {
+                const p_obj = curr_log.items_answers.find(elem => { return elem.id === this.protocol_id; });
+                if (p_obj) {
+                    const q_obj = p_obj.a.find(elem => { return elem.q_id === this.unit.id; });
+                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                } else {
+                    this.response = 'N/A';
+                }
+            },
+            prepareOthersResponses(curr_log) {
+                const p_obj = curr_log.others_answers.find(elem => { return elem.id === this.protocol_id; });
+                if (p_obj) {
+                    const q_obj = p_obj.a.find(elem => { return elem.q_id === this.unit.id; });
+                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                } else {
+                    this.response = 'N/A';
+                }
+                if (this.response === "") this.response = 'N/A';
             }
         },
         

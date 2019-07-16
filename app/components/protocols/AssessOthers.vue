@@ -153,9 +153,7 @@
                     const q_objs = p_obj.a.find(elem => { return elem.q_id === this.question_id; });
                     if (q_objs) {
                         const saved_answers = q_objs.a;
-                        console.log("========= retrieve saved for other")
-                        console.dir(saved_answers)
-                        this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : [];
+                        this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
                         this.answers_list.forEach(ans => {
                             const search_in_saved = saved_answers.find(elem => { return elem == ans.answer; });
                             if (search_in_saved) {
@@ -166,7 +164,6 @@
                         });
                     }
                 }
-                
             },
             prepareCurrentQuestion() {
                 this.question_id = this.question_ids[this.question_idx];

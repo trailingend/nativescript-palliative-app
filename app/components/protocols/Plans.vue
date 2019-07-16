@@ -110,7 +110,20 @@
                 'savePlansProgress'
             ]),
             retrieveSavedPlans() {
-                
+                const log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const p_obj = log.plans_answers.find(elem => { return elem.id === this.protocol_id; });
+                if (p_obj) {
+                    const saved_answers = p_obj.a;
+                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
+                    this.plans_list.forEach(plan => {
+                        const search_in_saved = saved_answers.find(elem => { return elem == plan.plan; });
+                        if (search_in_saved) {
+                            plan.status = true;
+                            plan.unique = plan.unique + Math.random() * 0.01;
+                            this.selected_plans.push(plan.plan);
+                        }
+                    });
+                }
             },
             preparePlans() {
                 const plan_id_objs = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans;
@@ -156,7 +169,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        has_prev: true
                     }
                 });
             },

@@ -16,7 +16,7 @@
             </StackLayout>   
         </StackLayout>  
 
-        <StackLayout>
+        <StackLayout class="sum-pseudo-item-ctnr">
             <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
                 <Label class="sum-item-title" text="Others" />
                 <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
@@ -26,11 +26,22 @@
             </StackLayout>
         </StackLayout>  
 
+        <StackLayout class="sum-pseudo-item-ctnr">
+            <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
+                <Label class="sum-item-title" text="Plans" />
+                <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
+            </FlexboxLayout>                    
+            <StackLayout>
+                <PlanSummary :log_id="log_id" :protocol_id="protocol_id" /> 
+            </StackLayout>
+        </StackLayout>
+
     </StackLayout>
 </template>
 
 <script lang="ts">
     import QuestionSummary from './QuestionSummary.vue';
+    import PlanSummary from './PlanSummary.vue';
     
     import { mapGetters } from 'vuex';
 
@@ -46,7 +57,8 @@
             this.prepareSummary();
         },
         components: {
-            QuestionSummary
+            QuestionSummary,
+            PlanSummary
         },
         props: {
             log_id: {

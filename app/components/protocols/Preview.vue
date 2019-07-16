@@ -6,11 +6,11 @@
             <NewButton />
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="*, auto, auto" 
+                    rows="*, auto" 
                     columns="*" ref="previewGridRef" 
                     @layoutChanged="onLayoutUpdate">
 
-            <ScrollView row="0" col="0" rowSpan="3">
+            <ScrollView row="0" col="0" rowSpan="2">
                 <StackLayout class="preview-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Client Summary"></Label>
@@ -22,14 +22,15 @@
                                      :key="p_id"
                                      :log_id="log_id" 
                                      :protocol_id="p_id" />
+                    <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
+                        <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
+                        <Button class="form-btn sum-btn submit-btn" text="Submit" @tap="onSumbitTap" ></Button>
+                    </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
 
-            <NewProtocolButton row="1" col="0" />
-
-            <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button class="next-btn" text="Finish" @tap="onNextTap" ></Button>
+            <FlexboxLayout row="1" col="0" orientation="horizontal" alignItems="center" justifyContent="flex-start">
+                <Button v-show="has_prev" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             </FlexboxLayout>
         </GridLayout>
     </Page>
@@ -38,10 +39,10 @@
 <script lang="ts">
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import NewProtocolButton from './parts/NewProtocolButton.vue';
     import InfoSummary from '../general/parts/InfoSummary.vue';
     import IntroSummary from '../general/parts/IntroSummary.vue';
     import ProtocolSummary from '../general/parts/ProtocolSummary.vue';
+    import ChooseProtocol from './ChooseProtocol.vue';
     import Plans from './Plans.vue';
 
     import { mapActions } from 'vuex';
@@ -68,13 +69,16 @@
             },
             protocol_id: {
                 type: Number,
-                required: true,
+                required: false,
             },
+            has_prev: {
+                type: Boolean,
+                required: true,
+            }
         },
         components: {
             NewButton,
             CloseButton,
-            NewProtocolButton,
             InfoSummary,
             IntroSummary,
             ProtocolSummary
@@ -111,23 +115,7 @@
                 });
             },
             prepareNextStage() {
-                // this.$navigateTo(Summary, {
-                //     animated: true,
-                //     clearHistory: true,
-                //     transition: {
-                //         name: 'fade',
-                //         curve: 'easeIn',
-                //         duration: 300
-                //     },
-                //     props: {
-                //         log_id: this.log_id,
-                //         protocol_id: this.protocol_id
-                //     }
-                // });
-            },
-            onForward() {
-                console.log("=== Forward === ");
-                this.prepareNextStage();
+
             },
             onBackward() {
                 this.preparePrevStage();
@@ -135,8 +123,19 @@
             onBackTap() {
                 this.onBackward();
             },
-            onNextTap() {
-                this.onForward();
+            onSubmitTap() {
+                this.prepareNextStage();
+            },
+            onNewTap() {
+                this.$navigateTo(ChooseProtocol, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.previewGridRef.nativeView.getMeasuredWidth() );

@@ -32,18 +32,32 @@
         margin-bottom: 10; 
         margin-bottom: 5 0 15 0;
     }
-    .sum-item-ctnr {
+    .sum-item-ctnr,
+    .sum-pseudo-item-ctnr {
         margin-bottom: 25;
     }
     .sum-item-title {
         font-weight: 700;
         margin-bottom: 10; 
     }
+    .sum-unit-ctnr {
+        margin-bottom: 15; 
+    }
     .sum-text {
         font-weight: 400;
         text-align: left;
+        text-transform: none;
     }
     .sum-bold {
         font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .sum-btn {
+        width: 220;
+        margin-bottom: 25;
+    }
+    .submit-btn {
+        margin-bottom: 80;
     }
 }
