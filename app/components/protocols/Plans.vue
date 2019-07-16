@@ -21,15 +21,17 @@
                     <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="plans-q-ctnr">
                         <Label text="description placeholder" class="plans-q"/>
                     </FlexboxLayout> -->
+                    <StackLayout>
                     <GridLayout v-for="plan in plans_list" 
-                                :key="plan.id" 
+                                :key="plan.unique" 
                                 class="plans-a-ctnr" 
                                 rows="auto" columns="auto, *"
-                                @tap="onPlanTap(plan)" > 
+                                @tap="onAnswerTap(plan)" > 
                         <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
                         <Image row="0" col="0" width="30" class="ans-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                        <Label row="0" col="1" class="diagnose-a" :text="plan.plan" textWrap="true" />
+                        <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
                     </GridLayout>
+                    </StackLayout>
                     <TextView v-model="free_text" 
                               id="plans-free"
                               class="plans-free"
@@ -54,19 +56,21 @@
 <script lang="ts">
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    // import NewProtocolButton from './parts/NewProtocolButton.vue';
     import PatientBlock from '../general/parts/PatientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
     import Preview from './Preview.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import Vue from 'nativescript-vue';
+
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
         data() {
             return {
                 plans_list: [],
+                status_list: [],
 
                 selected_plans: [],
                 free_text: '',
@@ -93,7 +97,6 @@
             PatientBlock,
             NewButton,
             CloseButton,
-            // NewProtocolButton
         },
         computed: {
             ...mapGetters([
@@ -101,7 +104,7 @@
                 'plans',
                 'protocols'
 			]),
-		},
+        },
         methods: {
             ...mapActions([
                 'savePlansProgress'
@@ -111,14 +114,16 @@
             },
             preparePlans() {
                 const plan_id_objs = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans;
-                let plan_ids = [];
-                plan_id_objs.forEach(elem => { plan_ids.push(elem.plan); });
-                this.plans_list = this.plans.filter(elem => { return plan_ids.indexOf(elem.id) != -1; });
+                const plan_ids = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans.map(plan => plan.plan);
+                this.plans_list = this.plans.filter(elem => { return plan_ids.includes(elem.id); });
                 this.preparePlansStatus();
                 this.retrieveSavedPlans();
             },
             preparePlansStatus() {
-                this.plans_list.forEach(elem => { elem.status = false; });
+                this.plans_list.forEach(elem => { 
+                    elem.status = false; 
+                    this.$set(elem, 'unique', elem.id)
+                });
             },
             preparePrevStage() {
                 let q_ids = [];
@@ -162,7 +167,6 @@
                 } else {
                     this.selected_plans.splice(plan_idx, 1);
                 }
-                console.dir(this.selected_plans)
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
@@ -190,11 +194,11 @@
             onNextTap() {
                 this.onForward();
             },
-            onPlanTap(plan) {
+            onAnswerTap(plan) {
                 const plan_idx = this.plans_list.findIndex( elem => { return elem.id === plan.id; });
                 this.toggleMultiPlanSelection(plan.plan);
                 plan.status = ! plan.status;
-                plan.id = plan.id + Math.random() * 0.01;
+                this.$set(plan, 'unique', plan.unique + 0.01);
                 console.log("=== Answer tapped === " + this.selected_plans);
             },
             onTextEntered() {
@@ -215,10 +219,7 @@
                     };
                 }
             }
-        },
-        
+        }
     };
 </script>
 
-<style>
-</style>

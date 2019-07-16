@@ -73,7 +73,7 @@ export default {
         if (log_item.q_idx === -1) {
             state.logs[log_item.idx].others_answers[log_item.p_idx].a.push(log_item.content);
         } else {
-            state.logs[log_item.idx].others_answers[log_item.p_idx].a[log_item.q_idx] = log_item.content.a;
+            state.logs[log_item.idx].others_answers[log_item.p_idx].a[log_item.q_idx].a = log_item.content.a;
         } 
         console.log("=== in mutation OTHERS_LOG_UPDATE ===");
         console.dir(state.logs[log_item.idx].others_answers);

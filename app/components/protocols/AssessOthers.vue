@@ -147,9 +147,30 @@
                 this.retrieveSavedAnswers();
             },
             retrieveSavedAnswers() {
+                const log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const p_obj = log.others_answers.find(elem => { return elem.id === this.protocol_id; });
+                if (p_obj) {
+                    const q_objs = p_obj.a.find(elem => { return elem.q_id === this.question_id; });
+                    if (q_objs) {
+                        const saved_answers = q_objs.a;
+                        console.log("========= retrieve saved for other")
+                        console.dir(saved_answers)
+                        this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : [];
+                        this.answers_list.forEach(ans => {
+                            const search_in_saved = saved_answers.find(elem => { return elem == ans.answer; });
+                            if (search_in_saved) {
+                                ans.status = true;
+                                ans.id = ans.id + Math.random() * 0.01;
+                                this.selected_answers.push(ans.answer);
+                            }
+                        });
+                    }
+                }
+                
             },
             prepareCurrentQuestion() {
                 this.question_id = this.question_ids[this.question_idx];
+                console.log(this.question_idx+"    id "+this.question_id)
                 this.retrieveQuestion(this.question_id);
             },
             prepareAnotherQuestion(q_idx) {
@@ -235,7 +256,6 @@
                     q_type: this.question_type,
                     a: this.selected_answers
                 };
-                console.log("=== TODO log progress === ");
                 this.saveOthersProgress(progress);
                 
                 const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });

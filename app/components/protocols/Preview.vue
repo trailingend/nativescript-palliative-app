@@ -66,6 +66,10 @@
                 type: String,
                 required: true,
             },
+            protocol_id: {
+                type: Number,
+                required: true,
+            },
         },
         components: {
             NewButton,

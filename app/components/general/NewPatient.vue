@@ -2,7 +2,7 @@
     <Page class="page new-patient-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar>
             <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
+            <CancelButton />
         </ActionBar>
         <StackLayout :class="ctnrSetting.class" 
                      ref="newPatientGridRef" 
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-    import CloseButton from './parts/CloseButton.vue';
+    import CancelButton from './parts/CancelButton.vue';
     import Dashboard from '../home/Dashboard.vue';
     import Diagnose from "./Diagnose.vue";
 
@@ -119,7 +119,7 @@
         mounted() {
         },
         components: {
-            CloseButton
+            CancelButton
         },
         props: {
             log_id: {
