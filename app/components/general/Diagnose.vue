@@ -9,7 +9,7 @@
                     ref="diagnoseGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <PatientBlock row="0" col="0" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout row="1" col="0" class="diagnose-main-ctnr">
                 <StackLayout class="diagnose-q-a-ctnr" >
                     <StackLayout class="diagnose-title-ctnr">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import PatientBlock from './parts/PatientBlock.vue';
+    import ClientBlock from './parts/ClientBlock.vue';
     import CloseButton from './parts/CloseButton.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
 
@@ -87,7 +87,7 @@
             this.prepareCurrentQuestion();
         },
         components: {
-            PatientBlock,
+            ClientBlock,
             CloseButton
         },
         props: {

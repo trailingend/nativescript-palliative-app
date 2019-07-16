@@ -10,7 +10,7 @@
                     columns="*" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <PatientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
 
             <StackLayout row="1" col="0" rowSpan="2" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
@@ -56,7 +56,7 @@
 <script lang="ts">
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import PatientBlock from '../general/parts/PatientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
     import Summary from '../general/Summary.vue';
 
@@ -94,7 +94,7 @@
             },
         },
         components: {
-            PatientBlock,
+            ClientBlock,
             NewButton,
             CloseButton,
         },

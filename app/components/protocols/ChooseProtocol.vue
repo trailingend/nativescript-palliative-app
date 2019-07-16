@@ -9,7 +9,7 @@
                     rows="auto, *, auto" 
                     columns="*" ref="chooseGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <PatientBlock row="0" col="0" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout class="choose-main-ctnr" row="1" col="0">
                 <StackLayout class="choose-title-ctnr">
                     <Label class="choose-title" text="What is the caller's biggest concern?"></Label>
@@ -40,7 +40,7 @@
 <script>
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import PatientBlock from '../general/parts/PatientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import Diagnose from '../general/Diagnose.vue';
     import AssessItems from './AssessItems.vue';
 
@@ -71,7 +71,7 @@
         components: {
             NewButton,
             CloseButton,
-            PatientBlock
+            ClientBlock
         },
         props: {
             log_id: {

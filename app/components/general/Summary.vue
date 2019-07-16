@@ -24,7 +24,7 @@
                                      :protocol_id="p_id" />
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
-                        <Button class="form-btn sum-btn submit-btn" text="Submit" @tap="onSubmitTap" ></Button>
+                        <SubmitButton />
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
@@ -39,6 +39,7 @@
 <script lang="ts">
     import CloseButton from '../protocols/parts/CloseButton.vue';
     import NewButton from '../protocols/parts/NewButton.vue';
+    import SubmitButton from './parts/SubmitButton.vue';
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
@@ -78,6 +79,7 @@
         },
         components: {
             NewButton,
+            SubmitButton,
             CloseButton,
             InfoSummary,
             IntroSummary,

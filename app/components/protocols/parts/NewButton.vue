@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import NewPatient from '../../general/NewPatient.vue';
+    import NewClient from '../../general/NewClient.vue';
     import { confirm }  from "tns-core-modules/ui/dialogs";
 
     export default {
@@ -22,7 +22,7 @@
                 });
             },
             addNewLog(args) {
-                this.$navigateTo(NewPatient, {
+                this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
                     transition: {

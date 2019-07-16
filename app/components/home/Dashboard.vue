@@ -32,7 +32,7 @@
                          :col="gridSetting.children.btnSec.col"
                          :colSpan="gridSetting.children.btnSec.colSpan" 
                          class="home-btn-ctnr" >
-                <Button class="home-add" text="NEW CHART" @tap="onNewTap"></Button>
+                <Button class="home-add" text="NEW CLIENT" @tap="onNewTap"></Button>
             </StackLayout>
         </GridLayout>
     </Page>
@@ -41,7 +41,7 @@
 <script lang="ts">
     import UserBlock from './parts/UserBlock.vue';
     import Logs from './parts/Logs.vue';
-    import NewPatient from '../general/NewPatient.vue';
+    import NewClient from '../general/NewClient.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -96,7 +96,7 @@
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
                 this.deleteActiveLog();
-                this.$navigateTo(NewPatient, {
+                this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
                     transition: {

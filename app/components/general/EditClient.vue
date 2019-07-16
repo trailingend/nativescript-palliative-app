@@ -1,80 +1,80 @@
 <template>
-    <Page class="page new-patient-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page edit-client-page" @navigatingFrom="onNavigatingFrom">
         <ActionBar>
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CancelButton />
         </ActionBar>
         <StackLayout :class="ctnrSetting.class" 
-                     ref="newPatientGridRef" 
+                     ref="editClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <Label class="patient-title" text="Patient log" ></Label>       
+            <Label class="client-title" text="client log" ></Label>       
             <PreviousNextView>             
             <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
                 <Label :row="gridSetting.children.q1.row" 
                        :col="gridSetting.children.q1.col"
-                       class="patient-q patient-q1" 
+                       class="client-q client-q1" 
                        text="Callback #:" 
                        textWrap="true"/>
                 <TextField :row="gridSetting.children.a1.row" 
                            :col="gridSetting.children.a1.col"
-                           id="patient-a1"
-                           class="patient-a patient-a1" 
+                           id="client-a1"
+                           class="client-a client-a1" 
                            v-model="input_phone" 
                            keyboardType="phone"
                            @blur="onPhoneEntered"
                            editable="true" />
                 <Label :row="gridSetting.children.q2.row" 
                        :col="gridSetting.children.q2.col"
-                       class="patient-q patient-q2" 
+                       class="client-q client-q2" 
                        text="Caller name:" 
                        textWrap="true"/>
                 <TextField :row="gridSetting.children.a2.row" 
                            :col="gridSetting.children.a2.col"
-                           id="patient-a2"
-                           class="patient-a patient-a2" 
+                           id="client-a2"
+                           class="client-a client-a2" 
                            v-model="c_caller" 
                            editable="true" />
                 <Label :row="gridSetting.children.q3.row" 
                        :col="gridSetting.children.q3.col"
-                       class="patient-q patient-q3" 
-                       text="Patient name:" 
+                       class="client-q client-q3" 
+                       text="client name:" 
                        textWrap="true"/>
                 <TextField :row="gridSetting.children.a3.row" 
                            :col="gridSetting.children.a3.col"
-                           id="patient-a3"
-                           class="patient-a patient-a3" 
-                           v-model="c_patient" 
+                           id="client-a3"
+                           class="client-a client-a3" 
+                           v-model="c_client" 
                            editable="true" />
                 <Label :row="gridSetting.children.q4.row" 
                        :col="gridSetting.children.q4.col"
-                       class="patient-q patient-q4" 
-                       text="Relation to Patient:" 
+                       class="client-q client-q4" 
+                       text="Relation to client:" 
                        textWrap="true"/>
                 <TextField :row="gridSetting.children.a4.row" 
                            :col="gridSetting.children.a4.col"
-                           id="patient-a4"
-                           class="patient-a patient-a4" 
+                           id="client-a4"
+                           class="client-a client-a4" 
                            v-model="c_relation" 
                            editable="true" />
             </GridLayout>
             </PreviousNextView>
 
             <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
-                <Label class="patient-t" text="consent to have the call recorded" textWrap="true"/>
-                <Switch class="patient-switch" v-model="is_consented" />
+                <Label class="client-t" text="consent to have the call recorded" textWrap="true"/>
+                <Switch class="client-switch" v-model="is_consented" />
             </FlexboxLayout>
                 
             <StackLayout>
-                <Label class="patient-t" text="General Client Information" textWrap="true"/>
-                <Label class="patient-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
+                <Label class="client-t" text="General Client Information" textWrap="true"/>
+                <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
                 <TextViewWithHint v-model="c_info" 
-                                  id="patient-free"
-                                  class="patient-free"
+                                  id="client-free"
+                                  class="client-free"
                                   hint="Take notes here..."
                                   editable="true" />
             </StackLayout>
-            <Button class="form-btn patient-btn" text="Continue" @tap="onNavigateForward" />
+            <Button class="form-btn client-btn" text="Continue" @tap="onNavigateForward" />
         </StackLayout>
     </Page>
 </template>
@@ -99,7 +99,7 @@
             return {
                 c_id: '',
                 c_phone: '',
-                c_patient: '',
+                c_client: '',
                 c_caller: '',
                 c_relation: '',
                 c_info: '',
@@ -107,7 +107,7 @@
                 is_consented: false,
 
                 ctnrSetting: {
-                    class: "patient-ctnr",
+                    class: "client-ctnr",
                 },
                 gridSetting: {
                     rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
@@ -162,7 +162,7 @@
                 if (this.log_id) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                     this.c_phone = curr_log.phone;
-                    this.c_patient = curr_log.patient;
+                    this.c_client = curr_log.client;
                     this.c_caller = curr_log.client;
                     this.c_relation = curr_log.relation;
                     this.is_consented = true;
@@ -175,12 +175,12 @@
                     const client_id = this.c_id;
                     const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                     const caller_name = (this.c_caller === '') ? 'Anonymous Nobody' : this.c_caller;
-                    const patient_name = (this.c_patient === '') ? 'John Doe' : this.c_patient;
+                    const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
                         caller: caller_name,
-                        patient: patient_name,
+                        client: client_name,
                         relation: this.c_relation,
                         info: this.c_info,
                         createdTime: this.created_time,
@@ -210,17 +210,17 @@
                             question_idx: 0
                         }
                     });
-                    console.log("=== New Patient Logged ===");
+                    console.log("=== New client Logged ===");
                 } else {
                     dialogConsent();
                 }
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                const a1Textfield = layoutView.getViewById("patient-a1");
-                const a2Textfield = layoutView.getViewById("patient-a2");
-                const a3Textfield = layoutView.getViewById("patient-a3");
-                const a4Textfield = layoutView.getViewById("patient-a4");
+                const a1Textfield = layoutView.getViewById("client-a1");
+                const a2Textfield = layoutView.getViewById("client-a2");
+                const a3Textfield = layoutView.getViewById("client-a3");
+                const a4Textfield = layoutView.getViewById("client-a4");
                 a1Textfield.dismissSoftInput();
                 a2Textfield.dismissSoftInput();
                 a3Textfield.dismissSoftInput();
@@ -245,17 +245,17 @@
                 
             },
             onLayoutUpdate() {
-                if (this.$refs.newPatientGridRef) {
-                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.newPatientGridRef.nativeView.getMeasuredWidth() );
+                if (this.$refs.editClientGridRef) {
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.editClientGridRef.nativeView.getMeasuredWidth() );
                     if (width > 800) {
-                        this.ctnrSetting.class = "patient-ctnr tablet-landscape";
+                        this.ctnrSetting.class = "client-ctnr tablet-landscape";
                         this.gridSetting = {
                             rows: "auto, auto, auto, auto",
                             columns: "auto, *",
                             children: newGridChildLandscape,
                         }
                     } else {
-                        this.ctnrSetting.class = "patient-ctnr";
+                        this.ctnrSetting.class = "client-ctnr";
                         this.gridSetting = {
                             rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "*",
@@ -269,6 +269,3 @@
         
     };
 </script>
-
-<style>
-</style>

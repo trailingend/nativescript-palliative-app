@@ -9,7 +9,7 @@
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <PatientBlock row="0" col="0" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" :log_id="log_id"/>
 
             <StackLayout row="1" col="0" rowSpan="3" class="others-main-ctnr">
                 <StackLayout class="others-q-a-ctnr" >
@@ -54,7 +54,7 @@
 <script>
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import PatientBlock from '../general/parts/PatientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';
@@ -97,7 +97,7 @@
         components: {
             CloseButton,
             NewButton,
-            PatientBlock,
+            ClientBlock,
             ResourcesButton
         },
         props: {
