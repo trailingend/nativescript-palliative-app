@@ -40,13 +40,15 @@ Label {
     width: 140;
     height: 50;
     margin: 0 auto 25 auto;
-    border-radius: 25;
     font-size: 19;
     font-weight: 500;
     letter-spacing: 0.1;
     text-transform: uppercase;
     color: white;
     background: $color-dark-blue;
+    border-width: 3;
+    border-radius: 25;
+    border-color: $color-dark-blue;
 }
 .back-btn {
     padding-left: 20; 
@@ -60,10 +62,10 @@ Label {
     transform: translateX(25);
 }
 .resource-btn {
-    width: 125;
+    width: 130;
     margin: 25 auto 0 auto;
-    height: 60;
-    
+    height: 50;
+    padding-right: 5; 
     font-size: 14;
     font-weight: 500;
     letter-spacing: 0.1;

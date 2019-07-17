@@ -8,61 +8,61 @@
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <StackLayout row="0" col="0" class="client-main-ctnr">
+            <StackLayout row="0" col="0" rowSpan="2" class="client-main-ctnr">
                 <Label class="client-title" text="client Information" ></Label>       
                 <PreviousNextView>             
-                <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
-                    <Label :row="gridSetting.children.q1.row" 
-                            :col="gridSetting.children.q1.col"
-                            class="client-q client-q1" 
-                            text="Call-back #:" 
-                            textWrap="true"/>
-                    <TextField :row="gridSetting.children.a1.row" 
-                                :col="gridSetting.children.a1.col"
-                                id="client-a1"
-                                class="client-a client-a1" 
-                                v-model="input_phone" 
-                                hint="Firstname Lastname"
-                                keyboardType="phone"
-                                @blur="onPhoneEntered"
-                                editable="true" />
-                    <Label :row="gridSetting.children.q3.row" 
-                            :col="gridSetting.children.q3.col"
-                            class="client-q client-q3" 
-                            text="client's name:" 
-                            textWrap="true"/>
-                    <TextField :row="gridSetting.children.a3.row" 
-                                :col="gridSetting.children.a3.col"
-                                id="client-a3"
-                                class="client-a client-a3" 
-                                v-model="c_client" 
-                                hint="Firstname Lastname"
-                                editable="true" />
-                    <Label :row="gridSetting.children.q2.row" 
-                            :col="gridSetting.children.q2.col"
-                            class="client-q client-q2" 
-                            text="Caller's name:" 
-                            textWrap="true"/>
-                    <TextField :row="gridSetting.children.a2.row" 
-                                :col="gridSetting.children.a2.col"
-                                id="client-a2"
-                                class="client-a client-a2" 
-                                v-model="c_caller" 
-                                hint="Firstname Lastname"
-                                editable="true" />
-                    <Label :row="gridSetting.children.q4.row" 
-                            :col="gridSetting.children.q4.col"
-                            class="client-q client-q4" 
-                            text="Relationship to client:" 
-                            textWrap="true"/>
-                    <TextField :row="gridSetting.children.a4.row" 
-                                :col="gridSetting.children.a4.col"
-                                id="client-a4"
-                                class="client-a client-a4" 
-                                v-model="c_relation" 
-                                hint="i.e. Daughter"
-                                editable="true" />
-                </GridLayout>
+                    <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
+                        <Label :row="gridSetting.children.q1.row" 
+                                :col="gridSetting.children.q1.col"
+                                class="client-q client-q1" 
+                                text="Call-back #:" 
+                                textWrap="true"/>
+                        <TextField :row="gridSetting.children.a1.row" 
+                                    :col="gridSetting.children.a1.col"
+                                    id="client-a1"
+                                    class="client-a client-a1" 
+                                    v-model="input_phone" 
+                                    hint="Firstname Lastname"
+                                    keyboardType="phone"
+                                    @blur="onPhoneEntered"
+                                    editable="true" />
+                        <Label :row="gridSetting.children.q3.row" 
+                                :col="gridSetting.children.q3.col"
+                                class="client-q client-q3" 
+                                text="client's name:" 
+                                textWrap="true"/>
+                        <TextField :row="gridSetting.children.a3.row" 
+                                    :col="gridSetting.children.a3.col"
+                                    id="client-a3"
+                                    class="client-a client-a3" 
+                                    v-model="c_client" 
+                                    hint="Firstname Lastname"
+                                    editable="true" />
+                        <Label :row="gridSetting.children.q2.row" 
+                                :col="gridSetting.children.q2.col"
+                                class="client-q client-q2" 
+                                text="Caller's name:" 
+                                textWrap="true"/>
+                        <TextField :row="gridSetting.children.a2.row" 
+                                    :col="gridSetting.children.a2.col"
+                                    id="client-a2"
+                                    class="client-a client-a2" 
+                                    v-model="c_caller" 
+                                    hint="Firstname Lastname"
+                                    editable="true" />
+                        <Label :row="gridSetting.children.q4.row" 
+                                :col="gridSetting.children.q4.col"
+                                class="client-q client-q4" 
+                                text="Relationship to client:" 
+                                textWrap="true"/>
+                        <TextField :row="gridSetting.children.a4.row" 
+                                    :col="gridSetting.children.a4.col"
+                                    id="client-a4"
+                                    class="client-a client-a4" 
+                                    v-model="c_relation" 
+                                    hint="i.e. Daughter"
+                                    editable="true" />
+                    </GridLayout>
                 </PreviousNextView>
 
                 <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="flex-start" justifyContent="space-between">
@@ -78,11 +78,12 @@
                                     hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
                                     editable="true" />
                 </StackLayout>
+
+                <Button class="form-btn client-btn" text="Next" @tap="onNextTap" />
             </StackLayout>
 
-            <FlexboxLayout row="1" col="0" justifyContent="flex-end">
-                <Button class="next-btn" text="Next" @tap="onNextTap" />
-            </FlexboxLayout>
+            <!-- <Button row="1" col="0" class="next-btn" text="Next" @tap="onNextTap" /> -->
+            
         </GridLayout>
     </Page>
 </template>
