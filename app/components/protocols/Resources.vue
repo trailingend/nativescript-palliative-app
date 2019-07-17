@@ -30,16 +30,8 @@
                         <Label class="resources-text resources-sec-title" text="resources" />
                         <StackLayout v-for="resource in resources_list" 
                                     :key="resource.id" 
-                                    class="resources-item resources-reco-item" > 
+                                    class="resources-item resources-res-item" > 
                             <Label class="resources-text resources-url" :text="resource.title" @tap="onLinkTap(resource.url)" />
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout class="resources-item-ctnr resources-reco-ctnr">
-                        <StackLayout v-for="recommendation in recommendations_list" 
-                                    :key="recommendation.id" 
-                                    class="resources-item resources-reco-item" > 
-                            <Label class="resources-text resources-sec-title" :text="recommendation.title" />
-                            <HtmlView class="resources-text resources-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout class="resources-item-ctnr resources-resc-ctnr">
@@ -48,6 +40,14 @@
                                     :key="related.id" 
                                     class="resources-item resources-rela-item" > 
                             <Label class="resources-text" :text="related.name"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout class="resources-item-ctnr resources-reco-ctnr">
+                        <StackLayout v-for="recommendation in recommendations_list" 
+                                    :key="recommendation.id" 
+                                    class="resources-item resources-reco-item" > 
+                            <Label class="resources-text resources-sec-title" :text="recommendation.title" />
+                            <HtmlView class="resources-text resources-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -66,7 +66,7 @@
     export default {
         data() {
             return {
-                style_string: "<style type='text/css'>h1, h2, h3, h4, h5, h6, ul, li, div, p, span{background: red; font-family: 'Nunito', 'proxima-nova', sans-serif;}ul, li, p, span{font-size: 16px;}</style>",
+                style_string: "<style type='text/css'>h1, h2, h3, h4, h5, h6, ul, li, div, p, span{background: transparent; font-family: 'Nunito', 'proxima-nova', sans-serif;}ul, li, p, span{font-size: 16px;}</style>",
                 
                 protocol_name: '',
                 resources_list: [],
