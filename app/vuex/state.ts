@@ -17,77 +17,80 @@ export default {
 		shift_end: '6:00PM'
 	}],
 
-	logs: 
-	[{
-		id: '201915545',
-		phone: '7788095547',
-        caller: 'Jihyun Lee',
-        client: 'Apple Pasta',
-		relation: 'Friend',
-		info: '27, no history',
-        createdTime: '5:45 | JAN / 05 / 2019',
-		status: true,
-		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
-		intro_answers: [{
-			id: 1,
-			a: ["Yes", "Terrible"]
-		}, {
-			id: 2,
-			a: ["Lots"]
-		}, {
-			id: 3,
-			a: []
-		}],
-		items_answers: [],
-		others_answers: [],
-		plans_answers: [],
-    }, {
-		id: '2018125145',
-		phone: '6045128638',
-        caller: 'Ahssan Moshref',
-        client: 'Melon Pizza',
-		relation: 'Friend',
-		info: '88, no history',
-        createdTime: '1:45 | DEC / 05 / 2018',
-		status: false,
-		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
-		intro_answers: [{
-			id: 1,
-			a: ["Yes", "Terrible"]
-		}, {
-			id: 2,
-			a: ["Lots"]
-		}, {
-			id: 3,
-			a: []
-		}],
-		items_answers: [],
-		others_answers: [],
-		plans_answers: [],
-    }, {
-		id: '201712855',
-		phone: '7788836996',
-        caller: 'Jayleen Zhou',
-        client: 'Orange Chicken',
-		relation: 'Friend',
-		info: '77, no history',
-        createdTime: '5:05 | DEC / 08 /2017',
-		status: false,
-		progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
-		intro_answers: [{
-			id: 1,
-			a: ["No", "Terrible"]
-		}, {
-			id: 2,
-			a: ["Lots"]
-		}, {
-			id: 3,
-			a: []
-		}],
-		items_answers: [],
-		others_answers: [],
-		plans_answers: [],
-    }],
+	logs: [],
+	// [{
+	// 	id: '201915545',
+	// 	phone: '7788095547',
+    //     caller: 'Jihyun Lee',
+    //     client: 'Apple Pasta',
+	// 	relation: 'Friend',
+	// 	info: '27, no history',
+	// 	nurse: '888888',
+    //     createdTime: '5:45 | JAN / 05 / 2019',
+	// 	status: true,
+	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	intro_answers: [{
+	// 		id: 1,
+	// 		a: ["Yes", "Terrible"]
+	// 	}, {
+	// 		id: 2,
+	// 		a: ["Lots"]
+	// 	}, {
+	// 		id: 3,
+	// 		a: []
+	// 	}],
+	// 	items_answers: [],
+	// 	others_answers: [],
+	// 	plans_answers: [],
+    // }, {
+	// 	id: '2018125145',
+	// 	phone: '6045128638',
+    //     caller: 'Ahssan Moshref',
+    //     client: 'Melon Pizza',
+	// 	relation: 'Friend',
+	// 	info: '88, no history',
+	// 	nurse: '888888',
+    //     createdTime: '1:45 | DEC / 05 / 2018',
+	// 	status: false,
+	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	intro_answers: [{
+	// 		id: 1,
+	// 		a: ["Yes", "Terrible"]
+	// 	}, {
+	// 		id: 2,
+	// 		a: ["Lots"]
+	// 	}, {
+	// 		id: 3,
+	// 		a: []
+	// 	}],
+	// 	items_answers: [],
+	// 	others_answers: [],
+	// 	plans_answers: [],
+    // }, {
+	// 	id: '201712855',
+	// 	phone: '7788836996',
+    //     caller: 'Jayleen Zhou',
+    //     client: 'Orange Chicken',
+	// 	relation: 'Friend',
+	// 	info: '77, no history',
+	// 	nurse: '477567',
+    //     createdTime: '5:05 | DEC / 08 /2017',
+	// 	status: false,
+	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	intro_answers: [{
+	// 		id: 1,
+	// 		a: ["No", "Terrible"]
+	// 	}, {
+	// 		id: 2,
+	// 		a: ["Lots"]
+	// 	}, {
+	// 		id: 3,
+	// 		a: []
+	// 	}],
+	// 	items_answers: [],
+	// 	others_answers: [],
+	// 	plans_answers: [],
+    // }],
 
 
 

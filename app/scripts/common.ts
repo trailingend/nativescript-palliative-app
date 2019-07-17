@@ -1,132 +1,68 @@
 import { alert, confirm, prompt, login, action, inputType }  from "tns-core-modules/ui/dialogs";
 
 export const homeGridChildLandscape = {
-                logoSec: {
-                    row: "0",
-                    col: "0",
-                    rowSpan: "2"
-                },
-                userSec: {
-                    row: "0",
-                    col: "1",
-                    rowSpan: "2"
-                },
-                titleSec: {
-                    row: "0",
-                    col: "2",
-                    colSpan: "1"
-                },
-                logSec: {
-                    row: "1",
-                    col: "2",
-                    rowSpan: "2",
-                    colSpan: "1"
-                },
-                btnSec: {
-                    row: "3",
-                    col: "0",
-                    colSpan: "2"
-                }
-            };
+    logoSec:    { row: "0", col: "0", rowSpan: "2" },
+    userSec:    { row: "0", col: "1", rowSpan: "2" },
+    titleSec:   { row: "0", col: "2", colSpan: "1" },
+    logSec:     { row: "1", col: "2", rowSpan: "2", colSpan: "1" },
+    btnSec:     { row: "3", col: "0", colSpan: "2" },
+};
 
 export const homeGridChildPortrait = {
-                logoSec: {
-                    row: "0",
-                    col: "0",
-                    rowSpan: "1"
-                },
-                userSec: {
-                    row: "0",
-                    col: "1",
-                    rowSpan: "1"
-                },
-                titleSec: {
-                    row: "1",
-                    col: "0",
-                    colSpan: "2"
-                },
-                logSec: {
-                    row: "2",
-                    col: "0",
-                    rowSpan: "2",
-                    colSpan: "2"
-                },
-                btnSec: {
-                    row: "3",
-                    col: "0",
-                    colSpan: "2"
-                }
-            };
+    logoSec: { row: "0", col: "0", rowSpan: "1" },
+    userSec: { row: "0", col: "1", rowSpan: "1" },
+    titleSec: { row: "1", col: "0", colSpan: "2" },
+    logSec: { row: "2", col: "0", rowSpan: "2", colSpan: "2" },
+    btnSec: { row: "3", col: "0", colSpan: "2" },
+};
 
 export const newGridChildLandscape = {
-                q1: {
-                    row: "0",
-                    col: "0",
-                },
-                a1: {
-                    row: "0",
-                    col: "1",
-                },
-                q2: {
-                    row: "1",
-                    col: "0",
-                },
-                a2: {
-                    row: "1",
-                    col: "1",
-                },
-                q3: {
-                    row: "2",
-                    col: "0",
-                },
-                a3: {
-                    row: "2",
-                    col: "1",
-                },
-                q4: {
-                    row: "3",
-                    col: "0",
-                },
-                a4: {
-                    row: "3",
-                    col: "1",
-                }
-            };
+    q1: { row: "0", col: "0", },
+    a1: { row: "0", col: "1", },
+    q2: { row: "1", col: "0", },
+    a2: { row: "1", col: "1", },
+    q3: { row: "2", col: "0", },
+    a3: { row: "2", col: "1", },
+    q4: { row: "3", col: "0", },
+    a4: { row: "3", col: "1", },
+};
 
 export const newGridChildPortrait = {
-                q1: {
-                    row: "0",
-                    col: "0",
-                },
-                a1: {
-                    row: "1",
-                    col: "0",
-                },
-                q2: {
-                    row: "2",
-                    col: "0",
-                },
-                a2: {
-                    row: "3",
-                    col: "0",
-                },
-                q3: {
-                    row: "4",
-                    col: "0",
-                },
-                a3: {
-                    row: "5",
-                    col: "0",
-                },
-                q4: {
-                    row: "6",
-                    col: "0",
-                },
-                a4: {
-                    row: "7",
-                    col: "0",
-                }
-            };
+    q1: { row: "0", col: "0", },
+    a1: { row: "1", col: "0", },
+    q2: { row: "2", col: "0", },
+    a2: { row: "3", col: "0", },
+    q3: { row: "4", col: "0", },
+    a3: { row: "5", col: "0", },
+    q4: { row: "6", col: "0", },
+    a4: { row: "7", col: "0", },
+};
+
+export const editGridChildLandscape = {
+    q1: { row: "0", col: "0", },
+    a1: { row: "0", col: "1", },
+    q2: { row: "1", col: "0", },
+    a2: { row: "1", col: "1", },
+    q3: { row: "2", col: "0", },
+    a3: { row: "2", col: "1", },
+    q4: { row: "3", col: "0", },
+    a4: { row: "3", col: "1", },
+    q5: { row: "4", col: "0", },
+    a5: { row: "4", col: "1", },
+};
+
+export const editGridChildPortrait = {
+    q1: { row: "0", col: "0", },
+    a1: { row: "1", col: "0", },
+    q2: { row: "2", col: "0", },
+    a2: { row: "3", col: "0", },
+    q3: { row: "4", col: "0", },
+    a3: { row: "5", col: "0", },
+    q4: { row: "6", col: "0", },
+    a4: { row: "7", col: "0", },
+    q5: { row: "8", col: "0", },
+    a5: { row: "9", col: "0", },
+};
 
 export const dialogLogDelete = async (id) => {
     let willDelete = false;

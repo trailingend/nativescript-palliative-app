@@ -66,7 +66,7 @@
         },
         mounted() {
             this.checkUserStatus();
-            this.loadOnlineData();
+            // this.loadOnlineData();
         },
         components: {
             Logs,

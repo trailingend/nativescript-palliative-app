@@ -8,6 +8,7 @@
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
+            <ScrollView >
             <StackLayout row="0" col="0" rowSpan="2" class="client-main-ctnr">
                 <Label class="client-title" text="client Information" ></Label>       
                 <PreviousNextView>             
@@ -22,31 +23,31 @@
                                     id="client-a1"
                                     class="client-a client-a1" 
                                     v-model="input_phone" 
-                                    hint="Firstname Lastname"
+                                    hint="(888) 888-8888"
                                     keyboardType="phone"
                                     @blur="onPhoneEntered"
-                                    editable="true" />
-                        <Label :row="gridSetting.children.q3.row" 
-                                :col="gridSetting.children.q3.col"
-                                class="client-q client-q3" 
-                                text="client's name:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a3.row" 
-                                    :col="gridSetting.children.a3.col"
-                                    id="client-a3"
-                                    class="client-a client-a3" 
-                                    v-model="c_client" 
-                                    hint="Firstname Lastname"
                                     editable="true" />
                         <Label :row="gridSetting.children.q2.row" 
                                 :col="gridSetting.children.q2.col"
                                 class="client-q client-q2" 
-                                text="Caller's name:" 
+                                text="client's name:" 
                                 textWrap="true"/>
                         <TextField :row="gridSetting.children.a2.row" 
                                     :col="gridSetting.children.a2.col"
                                     id="client-a2"
                                     class="client-a client-a2" 
+                                    v-model="c_client" 
+                                    hint="Firstname Lastname"
+                                    editable="true" />
+                        <Label :row="gridSetting.children.q3.row" 
+                                :col="gridSetting.children.q3.col"
+                                class="client-q client-q3" 
+                                text="Caller's name:" 
+                                textWrap="true"/>
+                        <TextField :row="gridSetting.children.a3.row" 
+                                    :col="gridSetting.children.a3.col"
+                                    id="client-a3"
+                                    class="client-a client-a3" 
                                     v-model="c_caller" 
                                     hint="Firstname Lastname"
                                     editable="true" />
@@ -72,16 +73,16 @@
                     
                 <StackLayout>
                     <Label class="client-t" text="General Client Information" textWrap="true"/>
-                    <TextViewWithHint v-model="c_info" 
-                                    id="client-free"
-                                    class="client-free"
-                                    hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
-                                    editable="true" />
+                    <TextViewWithHint id="client-free"
+                                      class="client-free"
+                                      @textChange="resetTextviewModel"
+                                      hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
+                                      editable="true" />
                 </StackLayout>
 
                 <Button class="form-btn client-btn" text="Next" @tap="onNextTap" />
             </StackLayout>
-
+            </ScrollView>
             <!-- <Button row="1" col="0" class="next-btn" text="Next" @tap="onNextTap" /> -->
             
         </GridLayout>
@@ -167,15 +168,8 @@
                 this.created_time = dateTime;
                 this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
             },
-            loadExistingInfo() {
-                if (this.log_id) {
-                    const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                    this.c_phone = curr_log.phone;
-                    this.c_client = curr_log.client;
-                    this.c_caller = curr_log.client;
-                    this.c_relation = curr_log.relation;
-                    this.is_consented = true;
-                }
+            resetTextviewModel(args) {
+                this.c_info = args.value;
             },
             onNextTap(args) {
                 this.recordTime(); 
@@ -192,6 +186,7 @@
                         client: client_name,
                         relation: this.c_relation,
                         info: this.c_info,
+                        nurse: '',
                         createdTime: this.created_time,
                         status: false,
                         progress: -1,
@@ -201,7 +196,7 @@
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);
-                    this.saveActiveChart(this.c_id);
+                    // this.saveActiveChart(this.c_id);
 
                     let q_ids = [];
                     this.intro_questions.forEach(elem => { q_ids.push(elem.id); });
@@ -226,14 +221,10 @@
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                const a1Textfield = layoutView.getViewById("client-a1");
-                const a2Textfield = layoutView.getViewById("client-a2");
-                const a3Textfield = layoutView.getViewById("client-a3");
-                const a4Textfield = layoutView.getViewById("client-a4");
-                a1Textfield.dismissSoftInput();
-                a2Textfield.dismissSoftInput();
-                a3Textfield.dismissSoftInput();
-                a4Textfield.dismissSoftInput();
+                for (let i = 1; i <= 4; i++) {
+                    const aTextfield = layoutView.getViewById(`client-a${i}`);
+                    aTextfield.dismissSoftInput();
+                }
             },
             onPhoneEntered() {
                 this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));

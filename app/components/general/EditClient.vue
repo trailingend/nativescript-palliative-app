@@ -5,72 +5,93 @@
                     ref="editClientGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <StackLayout row="1" col="0" class="client-main-ctnr">
-                <Label class="client-title" text="client Informtaion" ></Label>   
-                    
-                <PreviousNextView>             
-                    <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
-                        <Label :row="gridSetting.children.q1.row" 
-                                :col="gridSetting.children.q1.col"
-                                class="client-q client-q1" 
-                                text="Callback #:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a1.row" 
-                                    :col="gridSetting.children.a1.col"
-                                    id="client-a1"
-                                    class="client-a client-a1" 
-                                    v-model="input_phone" 
-                                    keyboardType="phone"
-                                    @blur="onPhoneEntered"
-                                    editable="true" />
-                        <Label :row="gridSetting.children.q2.row" 
-                                :col="gridSetting.children.q2.col"
-                                class="client-q client-q2" 
-                                text="Caller name:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a2.row" 
-                                    :col="gridSetting.children.a2.col"
-                                    id="client-a2"
-                                    class="client-a client-a2" 
-                                    v-model="c_caller" 
-                                    editable="true" />
-                        <Label :row="gridSetting.children.q3.row" 
-                                :col="gridSetting.children.q3.col"
-                                class="client-q client-q3" 
-                                text="client name:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a3.row" 
-                                    :col="gridSetting.children.a3.col"
-                                    id="client-a3"
-                                    class="client-a client-a3" 
-                                    v-model="c_client" 
-                                    editable="true" />
-                        <Label :row="gridSetting.children.q4.row" 
-                                :col="gridSetting.children.q4.col"
-                                class="client-q client-q4" 
-                                text="Relation to client:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a4.row" 
-                                    :col="gridSetting.children.a4.col"
-                                    id="client-a4"
-                                    class="client-a client-a4" 
-                                    v-model="c_relation" 
-                                    editable="true" />
-                    </GridLayout>
-                </PreviousNextView>
+            <ScrollView>
+                <StackLayout row="1" col="0" class="client-main-ctnr">
+                    <Label class="client-title" text="client Informtaion" ></Label>   
+                        
+                    <PreviousNextView>             
+                        <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
+                            <Label :row="gridSetting.children.q1.row" 
+                                    :col="gridSetting.children.q1.col"
+                                    class="client-q client-q1" 
+                                    text="Callback #:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a1.row" 
+                                        :col="gridSetting.children.a1.col"
+                                        id="client-a1"
+                                        class="client-a client-a1" 
+                                        v-model="input_phone" 
+                                        hint="(888) 888-8888"
+                                        keyboardType="phone"
+                                        @blur="onPhoneEntered"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.q2.row" 
+                                    :col="gridSetting.children.q2.col"
+                                    class="client-q client-q2" 
+                                    text="client name:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a2.row" 
+                                        :col="gridSetting.children.a2.col"
+                                        id="client-a2"
+                                        class="client-a client-a2" 
+                                        v-model="c_client" 
+                                        hint="Firstname Lastname"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.q3.row" 
+                                    :col="gridSetting.children.q3.col"
+                                    class="client-q client-q3" 
+                                    text="Caller name:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a3.row" 
+                                        :col="gridSetting.children.a3.col"
+                                        id="client-a3"
+                                        class="client-a client-a3" 
+                                        v-model="c_caller" 
+                                        hint="Firstname Lastname"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.q4.row" 
+                                    :col="gridSetting.children.q4.col"
+                                    class="client-q client-q4" 
+                                    text="Relation to client:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a4.row" 
+                                        :col="gridSetting.children.a4.col"
+                                        id="client-a4"
+                                        class="client-a client-a4" 
+                                        v-model="c_relation" 
+                                        hint="i.e. Daughter"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.q5.row" 
+                                    :col="gridSetting.children.q5.col"
+                                    class="client-q client-q5" 
+                                    text="Intake nurse ID:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a5.row" 
+                                        :col="gridSetting.children.a5.col"
+                                        id="client-a5"
+                                        class="client-a client-a5" 
+                                        v-model="c_nurse" 
+                                        hint="i.e. 888888"
+                                        editable="true" />
+                        </GridLayout>
+                    </PreviousNextView>
 
-                <StackLayout>
-                    <Label class="client-t" text="General Client Information" textWrap="true"/>
-                    <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
-                    <TextViewWithHint v-model="c_info" 
-                                    id="client-free"
-                                    class="client-free"
-                                    hint="Take notes here..."
-                                    editable="true" />
+                    <StackLayout>
+                        <Label class="client-t" text="General Client Information" textWrap="true"/>
+                        <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
+                        <TextViewWithHint v-model="c_info" 
+                                        id="client-free"
+                                        class="client-free"
+                                        hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
+                                        @textChange="resetTextviewModel"
+                                        ref="editClientRef"
+                                        editable="true" />
+                    </StackLayout>
+                    <Button class="form-btn client-btn" text="save" @tap="onSaveTap" />
                 </StackLayout>
-                <Button class="form-btn client-btn" text="save" @tap="onSaveTap" />
-            </StackLayout>
+            </ScrollView>
+
+            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
         </GridLayout>
     </Page>
 </template>
@@ -83,8 +104,8 @@
     import { dialogConsent, 
              logMonths, 
              formatPhoneNum, 
-             newGridChildPortrait, 
-             newGridChildLandscape } from '../../scripts/common';
+             editGridChildPortrait, 
+             editGridChildLandscape } from '../../scripts/common';
     
     export default {
         data() {
@@ -95,22 +116,22 @@
                 c_caller: '',
                 c_relation: '',
                 c_info: '',
-                created_time: '',
-                is_consented: false,
+                c_nurse: '',
 
                 ctnrSetting: {
                     class: "client-ctnr",
                 },
                 gridSetting: {
-                    rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
+                    rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                     columns: "*",
-                    children: newGridChildPortrait,
+                    children: editGridChildPortrait,
                 }
             }
         },
         created() {
         },
         mounted() {
+            this.loadExistingInfo();
         },
         components: {
         },
@@ -137,8 +158,7 @@
 		},
         methods: {
             ...mapActions([
-                'saveClientInfo',
-                'saveActiveChart',
+                'changeClientInfo',
             ]),
             recordTime() {
                 const today = new Date();
@@ -156,24 +176,30 @@
                     this.c_client = curr_log.client;
                     this.c_caller = curr_log.caller;
                     this.c_relation = curr_log.relation;
-                    this.is_consented = true;
+                    this.c_nurse = curr_log.nurse;
+                    this.c_info = curr_log.info;
+                    // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
             },
+            resetTextviewModel(args) {
+                this.c_info = args.value;
+                // this.$refs.editClientRef.nativeView.text = args.value;
+            },
             onSaveTap(args) {
-                const client_id = this.c_id;
                 const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                 const caller_name = (this.c_caller === '') ? 'Anonymous Nobody' : this.c_caller;
                 const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                 const entry = {
-                    id: this.c_id,
+                    id: this.log_id,
                     phone: client_phone,
                     caller: caller_name,
                     client: client_name,
                     relation: this.c_relation,
+                    nurse: this.c_nurse,
                     info: this.c_info,
                 };
                 console.log("TODO save edited")
-                // this.saveClientInfo(entry);
+                this.changeClientInfo(entry);
 
                 this.$modal.close();
             },
@@ -182,14 +208,10 @@
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                const a1Textfield = layoutView.getViewById("client-a1");
-                const a2Textfield = layoutView.getViewById("client-a2");
-                const a3Textfield = layoutView.getViewById("client-a3");
-                const a4Textfield = layoutView.getViewById("client-a4");
-                a1Textfield.dismissSoftInput();
-                a2Textfield.dismissSoftInput();
-                a3Textfield.dismissSoftInput();
-                a4Textfield.dismissSoftInput();
+                for (let i = 1; i <= 5; i++) {
+                    const aTextfield = layoutView.getViewById(`client-a${i}`);
+                    aTextfield.dismissSoftInput();
+                }
             },
             onPhoneEntered() {
                 this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));
@@ -203,16 +225,16 @@
                     if (width > 800) {
                         this.ctnrSetting.class = "client-ctnr tablet-landscape";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto",
+                            rows: "auto, auto, auto, auto, auto",
                             columns: "auto, *",
-                            children: newGridChildLandscape,
+                            children: editGridChildLandscape,
                         }
                     } else {
                         this.ctnrSetting.class = "client-ctnr";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "*",
-                            children: newGridChildPortrait,
+                            children: editGridChildPortrait,
                         }
                     }
                 }
