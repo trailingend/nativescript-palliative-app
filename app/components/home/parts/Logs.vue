@@ -1,23 +1,23 @@
 <template>
     <StackLayout>
-        <ScrollView class="patient-list" v-if="logs.length > 0">
-            <RadListView for="patient in logs" 
+        <ScrollView class="client-list" v-if="logs.length > 0">
+            <RadListView for="client in logs" 
                          ref="logListView"
                          swipeActions="true"
                          @itemTap="onEditTap"
                          @itemSwipeProgressStarted="onSwipeStarted" >
                 <v-template>
-                    <FlexboxLayout alignItems="center" class="patient-item">
-                        <Image width="50" class="user-head " v-show="!patient.status" src="~/assets/images/progress.png" stretch="aspectFit"></Image>
-                        <Image width="50" class="user-head" v-show="patient.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
+                    <FlexboxLayout alignItems="center" class="client-item">
+                        <Image width="50" class="user-head " v-show="!client.status" src="~/assets/images/progress.png" stretch="aspectFit"></Image>
+                        <Image width="50" class="user-head" v-show="client.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
                         <StackLayout flexGrow="2">
-                            <Label :text="patient.patient" class="patient-text patient-bold"/>
-                            <Label :text="`${formatPhoneNum(patient.phone)} | Caller: ${patient.caller}`" class="patient-text"/>                            
-                            <Label :text="patient.createdTime" class="patient-text patient-light" />
+                            <Label :text="client.client" class="client-text client-bold"/>
+                            <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
+                            <Label :text="client.createdTime" class="client-text client-light" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <StackLayout class="bar-ctnr"></StackLayout>
-                        <StackLayout class="facetime-ctnr" @tap="onCallTap(patient.id)">
+                        <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
                             <Image class="facetime-icon" width="30" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
                         </StackLayout>
                     </FlexboxLayout>
@@ -60,8 +60,8 @@
 		},
         methods: {
             ...mapActions([
-                'deleteLog',
-                'saveActiveLog'
+                'deleteChart',
+                'saveActiveChart'
             ]),
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
@@ -72,7 +72,7 @@
                 } else {
                     const log_idx = args.index;
                     const log = this.logs[log_idx];
-                    // this.saveActiveLog(log.id);
+                    // this.saveActiveChart(log.id);
                     // this.$navigateTo(Preview, {
                     //     animated: true,
                     //     clearHistory: true,
@@ -101,13 +101,13 @@
                 const id = args.object.bindingContext.id;
                 confirm({
                     title: "Attention",
-                    message: "Confirm you want to delete this patient log?",
+                    message: "Confirm you want to delete this client log?",
                     okButtonText: "Yes",
                     cancelButtonText: "Cancel"
                 }).then(isConfirmed => {
                     if (isConfirmed) {
-                        console.dir("=== Delete patient === " + id);
-                        this.deleteLog(id);
+                        console.dir("=== Delete client === " + id);
+                        this.deleteChart(id);
                     } else {
                         console.log("=== no delete ===");
                     }

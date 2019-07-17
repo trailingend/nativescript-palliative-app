@@ -6,11 +6,23 @@
     import * as email from "nativescript-email";
     import * as base64 from "base-64";
     import * as utf8 from "utf8";
-    import { alert }  from "tns-core-modules/ui/dialogs";
+    import { confirm, alert }  from "tns-core-modules/ui/dialogs";
 
     export default {
         methods: {
             onSubmitTap() {
+                confirm({
+                    title: "Attention",
+                    message: "Do you want send this chart via email now?",
+                    okButtonText: "Send",
+                    cancelButtonText: "Cancel",
+                }).then((result) => {
+                    if (result || result === undefined) {
+                        this.generatePDF();
+                    } 
+                });
+            },
+            generatePDF() {
                 global['window'] = {
                     'document': {
                         'createElementNS': () => { return {} }
@@ -64,8 +76,8 @@
                         okButtonText: "OK"
                     });
 
-                })
-            },
+                });
+            }
         }
     }
 </script>

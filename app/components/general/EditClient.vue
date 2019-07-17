@@ -147,7 +147,7 @@
         methods: {
             ...mapActions([
                 'saveClientInfo',
-                'saveActiveLog',
+                'saveActiveChart',
             ]),
             recordTime() {
                 const today = new Date();
@@ -192,7 +192,7 @@
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);
-                    this.saveActiveLog(this.c_id);
+                    this.saveActiveChart(this.c_id);
 
                     let q_ids = [];
                     this.intro_questions.forEach(elem => { q_ids.push(elem.id); });

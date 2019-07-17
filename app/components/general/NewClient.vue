@@ -1,81 +1,89 @@
 <template>
     <Page class="page new-client-page" @navigatingFrom="onNavigatingFrom">
-        <ActionBar>
+        <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CancelButton />
         </ActionBar>
-        <StackLayout :class="ctnrSetting.class" 
+        <GridLayout rows="*, auto" columns="*" :class="ctnrSetting.class" 
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <Label class="client-title" text="client Information" ></Label>       
-            <PreviousNextView>             
-            <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
-                <Label :row="gridSetting.children.q1.row" 
-                       :col="gridSetting.children.q1.col"
-                       class="client-q client-q1" 
-                       text="Callback #:" 
-                       textWrap="true"/>
-                <TextField :row="gridSetting.children.a1.row" 
-                           :col="gridSetting.children.a1.col"
-                           id="client-a1"
-                           class="client-a client-a1" 
-                           v-model="input_phone" 
-                           keyboardType="phone"
-                           @blur="onPhoneEntered"
-                           editable="true" />
-                <Label :row="gridSetting.children.q2.row" 
-                       :col="gridSetting.children.q2.col"
-                       class="client-q client-q2" 
-                       text="Caller name:" 
-                       textWrap="true"/>
-                <TextField :row="gridSetting.children.a2.row" 
-                           :col="gridSetting.children.a2.col"
-                           id="client-a2"
-                           class="client-a client-a2" 
-                           v-model="c_caller" 
-                           editable="true" />
-                <Label :row="gridSetting.children.q3.row" 
-                       :col="gridSetting.children.q3.col"
-                       class="client-q client-q3" 
-                       text="client name:" 
-                       textWrap="true"/>
-                <TextField :row="gridSetting.children.a3.row" 
-                           :col="gridSetting.children.a3.col"
-                           id="client-a3"
-                           class="client-a client-a3" 
-                           v-model="c_client" 
-                           editable="true" />
-                <Label :row="gridSetting.children.q4.row" 
-                       :col="gridSetting.children.q4.col"
-                       class="client-q client-q4" 
-                       text="Relation to client:" 
-                       textWrap="true"/>
-                <TextField :row="gridSetting.children.a4.row" 
-                           :col="gridSetting.children.a4.col"
-                           id="client-a4"
-                           class="client-a client-a4" 
-                           v-model="c_relation" 
-                           editable="true" />
-            </GridLayout>
-            </PreviousNextView>
+            <StackLayout row="0" col="0" class="client-main-ctnr">
+                <Label class="client-title" text="client Information" ></Label>       
+                <PreviousNextView>             
+                <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
+                    <Label :row="gridSetting.children.q1.row" 
+                            :col="gridSetting.children.q1.col"
+                            class="client-q client-q1" 
+                            text="Call-back #:" 
+                            textWrap="true"/>
+                    <TextField :row="gridSetting.children.a1.row" 
+                                :col="gridSetting.children.a1.col"
+                                id="client-a1"
+                                class="client-a client-a1" 
+                                v-model="input_phone" 
+                                hint="Firstname Lastname"
+                                keyboardType="phone"
+                                @blur="onPhoneEntered"
+                                editable="true" />
+                    <Label :row="gridSetting.children.q3.row" 
+                            :col="gridSetting.children.q3.col"
+                            class="client-q client-q3" 
+                            text="client's name:" 
+                            textWrap="true"/>
+                    <TextField :row="gridSetting.children.a3.row" 
+                                :col="gridSetting.children.a3.col"
+                                id="client-a3"
+                                class="client-a client-a3" 
+                                v-model="c_client" 
+                                hint="Firstname Lastname"
+                                editable="true" />
+                    <Label :row="gridSetting.children.q2.row" 
+                            :col="gridSetting.children.q2.col"
+                            class="client-q client-q2" 
+                            text="Caller's name:" 
+                            textWrap="true"/>
+                    <TextField :row="gridSetting.children.a2.row" 
+                                :col="gridSetting.children.a2.col"
+                                id="client-a2"
+                                class="client-a client-a2" 
+                                v-model="c_caller" 
+                                hint="Firstname Lastname"
+                                editable="true" />
+                    <Label :row="gridSetting.children.q4.row" 
+                            :col="gridSetting.children.q4.col"
+                            class="client-q client-q4" 
+                            text="Relationship to client:" 
+                            textWrap="true"/>
+                    <TextField :row="gridSetting.children.a4.row" 
+                                :col="gridSetting.children.a4.col"
+                                id="client-a4"
+                                class="client-a client-a4" 
+                                v-model="c_relation" 
+                                hint="i.e. Daughter"
+                                editable="true" />
+                </GridLayout>
+                </PreviousNextView>
 
-            <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="space-between">
-                <Label class="client-t" text="consent to have the call recorded" textWrap="true"/>
-                <Switch class="client-switch" v-model="is_consented" />
-            </FlexboxLayout>
-                
-            <StackLayout>
-                <Label class="client-t" text="General Client Information" textWrap="true"/>
-                <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
-                <TextViewWithHint v-model="c_info" 
-                                  id="client-free"
-                                  class="client-free"
-                                  hint="Take notes here..."
-                                  editable="true" />
+                <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="flex-start" justifyContent="space-between">
+                    <Label class="client-t" text="consent to have call recorded" textWrap="true"/>
+                    <Switch class="client-switch" v-model="is_consented" />
+                </FlexboxLayout>
+                    
+                <StackLayout>
+                    <Label class="client-t" text="General Client Information" textWrap="true"/>
+                    <TextViewWithHint v-model="c_info" 
+                                    id="client-free"
+                                    class="client-free"
+                                    hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
+                                    editable="true" />
+                </StackLayout>
             </StackLayout>
-            <Button class="form-btn client-btn" text="Continue" @tap="onNavigateForward" />
-        </StackLayout>
+
+            <FlexboxLayout row="1" col="0" justifyContent="flex-end">
+                <Button class="next-btn" text="Next" @tap="onNextTap" />
+            </FlexboxLayout>
+        </GridLayout>
     </Page>
 </template>
 
@@ -147,7 +155,7 @@
         methods: {
             ...mapActions([
                 'saveClientInfo',
-                'saveActiveLog',
+                'saveActiveChart',
             ]),
             recordTime() {
                 const today = new Date();
@@ -168,7 +176,7 @@
                     this.is_consented = true;
                 }
             },
-            onNavigateForward(args) {
+            onNextTap(args) {
                 this.recordTime(); 
 
                 if (this.is_consented) {
@@ -192,7 +200,7 @@
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);
-                    this.saveActiveLog(this.c_id);
+                    this.saveActiveChart(this.c_id);
 
                     let q_ids = [];
                     this.intro_questions.forEach(elem => { q_ids.push(elem.id); });

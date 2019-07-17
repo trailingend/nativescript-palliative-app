@@ -1,6 +1,6 @@
 <template>
     <Page class="page plans-page">
-        <ActionBar title="Log">
+        <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
             <!-- <NewButton /> -->

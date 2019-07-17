@@ -1,14 +1,14 @@
 <template>
-    <FlexboxLayout alignItems="center" class="patient-info-ctnr" @tap="onEditTap">
+    <FlexboxLayout alignItems="center" class="client-info-ctnr" @tap="onEditTap">
         <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image>
         <StackLayout flexGrow="2">
-            <Label :text="patient.patient" class="patient-text patient-bold"/>
-            <Label :text="`${formatted_phone}`" class="patient-text"/>                            
-            <Label :text="patient.createdTime" class="patient-text patient-light" />
+            <Label :text="client.client" class="client-text client-bold"/>
+            <Label :text="`${formatted_phone}`" class="client-text"/>                            
+            <Label :text="client.createdTime" class="client-text client-light" />
         </StackLayout>
         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
         <StackLayout class="bar-ctnr"></StackLayout>
-        <StackLayout class="facetime-ctnr" @tap="onCallTap(patient.id)">
+        <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
             <Image class="facetime-icon" width="30" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
         </StackLayout>
     </FlexboxLayout>
@@ -25,12 +25,12 @@
     export default {
         data() {
             return {
-                patient: {},
+                client: {},
                 formatted_phone: ''
             }
         },
         mounted() {
-            this.preparePatientInfo();
+            this.prepareClientInfo();
         },
         components: {
         },
@@ -48,10 +48,10 @@
         methods: {
             ...mapActions([
             ]),
-            preparePatientInfo() {
+            prepareClientInfo() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
-                    this.patient = curr_log;
+                    this.client = curr_log;
                     this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
                 }
             },

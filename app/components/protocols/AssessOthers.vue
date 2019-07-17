@@ -1,6 +1,6 @@
 <template>
     <Page class="page others-page">
-        <ActionBar title="Log">
+        <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
         </ActionBar>

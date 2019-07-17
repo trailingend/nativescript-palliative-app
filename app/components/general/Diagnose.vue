@@ -1,6 +1,6 @@
 <template>
     <Page class="page diagnose-page" @navigatingFrom="onNavigatingFrom">
-        <ActionBar title="Log">
+        <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
         </ActionBar>

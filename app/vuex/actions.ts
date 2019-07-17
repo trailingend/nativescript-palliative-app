@@ -37,16 +37,16 @@ export default {
     },
 
     saveClientInfo({commit, state}, entry) {
-        commit(types.LOG_CREATE, entry);
+        commit(types.CHART_CREATE, entry);
     },
 
     changeClientInfo({commit, state}, entry) {
-        commit(types.LOG_INFO_UPDATE, entry);
+        commit(types.CHART_INFO_UPDATE, entry);
     },
 
-    deleteLog({commit, state}, log_id) {
+    deleteChart({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
-        commit(types.LOG_DELETE, log_idx);
+        commit(types.CHART_DELETE, log_idx);
     },
 
     saveIntroProgress({commit, state}, progress_item) {
@@ -63,7 +63,7 @@ export default {
                     a: progress_item.a,
                 }
             }
-            commit(types.INTRO_LOG_UPDATE, log_item);
+            commit(types.INTRO_CHART_UPDATE, log_item);
         }
     },
 
@@ -81,7 +81,7 @@ export default {
                     a: progress_item.content,
                 }
             }
-            commit(types.ITEMS_LOG_UPDATE, log_item);
+            commit(types.ITEMS_CHART_UPDATE, log_item);
         }
     },
 
@@ -105,7 +105,7 @@ export default {
                         }]
                     }
                 }
-                commit(types.OTHERS_LOG_ADD, log_item);
+                commit(types.OTHERS_CHART_ADD, log_item);
             } else {
                 const existed_q_idx = state.logs[log_idx].others_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === progress_item.q_id; });
                 const log_item = {
@@ -119,7 +119,7 @@ export default {
                     }
                 }
                 console.log(existed_p_idx + " " + existed_q_idx)
-                commit(types.OTHERS_LOG_UPDATE, log_item);
+                commit(types.OTHERS_CHART_UPDATE, log_item);
             }
         }
     },
@@ -138,32 +138,20 @@ export default {
                     a: progress_item.a,
                 }   
             };
-            commit(types.PLANS_LOG_UPDATE, log_item);
+            commit(types.PLANS_CHART_UPDATE, log_item);
         }
     },
 
-    changeLogStatus({commit, state}, id) {
+    changeChartStatus({commit, state}, id) {
         commit(types.STATUS_UPDATE, id);
     },
 
-    saveActiveLog({commit, state}, id) {
-        commit(types.LOG_ACTIVATE, id);
+    saveActiveChart({commit, state}, id) {
+        commit(types.CHART_ACTIVATE, id);
     },
 
-    deleteActiveLog({commit, state}) {
-        commit(types.LOG_DEACTIVATE);
-    },
-
-    updateTimerValue({commit, state}, curr_time) {
-        commit(types.TIME_UPDATE, curr_time);
-    },
-    turnOnTimer({commit, state}) {
-        commit(types.TIMER_ON);
-        commit(types.TIME_UPDATE, 0);
-    },
-    turnOffTimer({commit, state}) {
-        commit(types.TIMER_OFF);
-        commit(types.TIME_UPDATE, 60);
+    deleteActiveChart({commit, state}) {
+        commit(types.CHART_DEACTIVATE);
     },
 };
 

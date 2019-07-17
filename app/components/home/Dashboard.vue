@@ -1,6 +1,5 @@
 <template>
     <Page :class="pageSetting.class">
-        <!-- <ActionBar title="Dashboard"></ActionBar> -->
         <GridLayout class="home-ctnr" :rows="gridSetting.rows" 
                                       :columns="gridSetting.columns" 
                                       ref="homeGridRef" 
@@ -82,7 +81,7 @@
             ...mapActions([
                 'loadLocalData',
                 'loadOnlineData',
-                'deleteActiveLog'
+                'deleteActiveChart'
             ]),
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
@@ -95,7 +94,7 @@
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
-                this.deleteActiveLog();
+                this.deleteActiveChart();
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

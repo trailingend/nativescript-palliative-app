@@ -1,36 +1,35 @@
 @import "variables";
 
-.patient-info-ctnr {
-    margin: 5;
-    margin-top: 0;
+.client-info-ctnr {
+    margin: 0;
     padding: 20 10;
     background: $color-temp;
 
     .user-head {
         margin: 20 30;
     }
-    .patient-item {
+    .client-item {
         position: relative;
         padding: 2 0;
         background: white;
         border-color: $log-border-color;
         border-bottom-width: 0.25;
     }
-    .patient-top {
+    .client-top {
         padding-top: 7;
     }
-    .patient-text {
+    .client-text {
         font-weight: 200;
         text-align: left;
     }
-    .patient-bold {
+    .client-bold {
         font-weight: 700;
         font-size: $list-bold-font-size;
     }
-    .patient-light {
+    .client-light {
         padding-top: 10;
     }
-    .patient-btn {
+    .client-btn {
         padding: 0 25;
         background: $color-temp;
         height: 100%;

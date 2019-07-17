@@ -27,79 +27,70 @@ export default {
         console.dir(state.users);
     },
 
-    [types.LOG_CREATE](state, entry){
+    [types.CHART_CREATE](state, entry){
         state.logs.unshift(entry); 
     },
-    [types.LOG_DELETE](state, log_idx) {
+    [types.CHART_DELETE](state, log_idx) {
         state.logs.splice(log_idx, 1);
     },
-    [types.LOG_INFO_UPDATE](state, entry) {
+    [types.CHART_INFO_UPDATE](state, entry) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == entry.id});
         state.logs[log_idx].phone = entry.phone;
         state.logs[log_idx].caller = entry.caller;
         state.logs[log_idx].patient = entry.patient;
         state.logs[log_idx].relation = entry.relation;
     },
-    [types.LOG_ACTIVATE](state, log_id) {
+    [types.CHART_ACTIVATE](state, log_id) {
         state.currLogId = log_id;
     },
-    [types.LOG_DEACTIVATE](state) {
+    [types.CHART_DEACTIVATE](state) {
         state.currLogId = null;
     },
-    [types.INTRO_LOG_UPDATE](state, log_item){
+    [types.INTRO_CHART_UPDATE](state, log_item){
         if (log_item.q_idx === -1) {
             state.logs[log_item.idx].intro_answers.push(log_item.content);
         } else {
             state.logs[log_item.idx].intro_answers[log_item.q_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation INTRO_LOG_UPDATE ===");
+        console.log("=== in mutation INTRO_CHART_UPDATE ===");
         console.dir(state.logs[log_item.idx].intro_answers);
     },
-    [types.ITEMS_LOG_UPDATE](state, log_item) {
+    [types.ITEMS_CHART_UPDATE](state, log_item) {
         if (log_item.p_idx === -1) {
             state.logs[log_item.idx].items_answers.push(log_item.content);
         } else {
             state.logs[log_item.idx].items_answers[log_item.p_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation ITEMS_LOG_UPDATE ===");
+        console.log("=== in mutation ITEMS_CHART_UPDATE ===");
         console.dir(state.logs[log_item.idx].items_answers);
     },
-    [types.OTHERS_LOG_ADD](state, log_item){
+    [types.OTHERS_CHART_ADD](state, log_item){
         state.logs[log_item.idx].others_answers.push(log_item.content);
-        console.log("=== in mutation OTHERS_LOG_ADD ===");
+        console.log("=== in mutation OTHERS_CHART_ADD ===");
         console.dir(state.logs[log_item.idx].others_answers);
     },
-    [types.OTHERS_LOG_UPDATE](state, log_item){
+    [types.OTHERS_CHART_UPDATE](state, log_item){
         if (log_item.q_idx === -1) {
             state.logs[log_item.idx].others_answers[log_item.p_idx].a.push(log_item.content);
         } else {
             state.logs[log_item.idx].others_answers[log_item.p_idx].a[log_item.q_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation OTHERS_LOG_UPDATE ===");
+        console.log("=== in mutation OTHERS_CHART_UPDATE ===");
         console.dir(state.logs[log_item.idx].others_answers);
     },
-    [types.PLANS_LOG_UPDATE](state, log_item) {
+    [types.PLANS_CHART_UPDATE](state, log_item) {
         if (log_item.p_idx === -1) {
             state.logs[log_item.idx].plans_answers.push(log_item.content);
         } else {
             state.logs[log_item.idx].plans_answers[log_item.p_idx].a = log_item.content.a;
         } 
-        console.log("=== in mutation PLANS_LOG_UPDATE ===");
+        console.log("=== in mutation PLANS_CHART_UPDATE ===");
         console.dir(state.logs[log_item.idx].plans_answers);
     },
     [types.STATUS_UPDATE](state, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         state.logs[log_idx].status = state.logs[log_idx].status ? false : true;
         console.log("in mutation status ===: " + state.logs[log_idx].status);
-    },
-    [types.TIME_UPDATE](state, t){
-        state.timer_value = t;
-    },
-    [types.TIMER_ON](state){
-        state.timer_status = true;
-    },
-    [types.TIMER_OFF](state){
-        state.timer_status = false;
     },
 
 };

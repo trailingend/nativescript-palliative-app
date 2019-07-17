@@ -36,27 +36,28 @@ Label {
     background: $color-dark-blue;
 }
 
-.back-btn, .next-btn, .new-proto-btn {
-    height: 60;
-    border-radius: 10;
+.back-btn, .next-btn {
+    width: 140;
+    height: 50;
     margin: 0 auto 25 auto;
-    font-size: 18;
+    border-radius: 25;
+    font-size: 19;
     font-weight: 500;
     letter-spacing: 0.1;
     text-transform: uppercase;
     color: white;
     background: $color-dark-blue;
 }
-.back-btn, .next-btn {
-    width: 120;
-    margin: 0 auto 25 auto;
-}
-.next-btn, 
-.resource-btn {
-    transform: translateX(10);
-}
 .back-btn {
-    transform: translateX(-10);
+    padding-left: 20; 
+    transform: translateX(-25);
+}
+.next-btn {
+    padding-right: 20; 
+    transform: translateX(25);
+}
+.resource-btn {
+    transform: translateX(25);
 }
 .resource-btn {
     width: 125;
@@ -78,8 +79,8 @@ Label {
 
 @import "styles/dashboard";
 @import "styles/user";
-@import "styles/patient";
-@import "styles/userBlock";
+@import "styles/client";
+@import "styles/clientBlock";
 @import "styles/diagnose";
 @import "styles/chooseProtocol";
 @import "styles/assessItems";
