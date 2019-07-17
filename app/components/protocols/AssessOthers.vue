@@ -12,7 +12,7 @@
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" :log_id="log_id"/>
 
-            <StackLayout row="1" col="0" rowSpan="3" class="others-main-ctnr">
+            <ScrollView row="1" col="0" rowSpan="3" class="others-main-ctnr">
                 <StackLayout class="others-q-a-ctnr" >
                     <StackLayout class="others-title-ctnr">
                         <Label class="others-title" text="Assess"></Label>
@@ -39,7 +39,7 @@
                               @textChange="onTextEntered"
                               editable="true" />
                 </StackLayout>
-            </StackLayout>
+            </ScrollView>
 
             <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" 
                              :log_id="log_id" :protocol_id="protocol_id" />

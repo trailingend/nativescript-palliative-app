@@ -3,10 +3,15 @@
 .client-info-ctnr {
     margin: 0;
     padding: 20 10;
-    background: $color-temp;
+    background: #fafafa;
+    border-color: $log-border-color;
+    border-bottom-width: 0.25;
 
     .user-head {
         margin: 20 30;
+    }
+    .client-text-ctnr {
+        margin-left: 30;
     }
     .client-item {
         position: relative;

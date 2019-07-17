@@ -73,11 +73,11 @@
                     
                 <StackLayout>
                     <Label class="client-t" text="General Client Information" textWrap="true"/>
-                    <TextViewWithHint id="client-free"
-                                      class="client-free"
-                                      @textChange="resetTextviewModel"
-                                      hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
-                                      editable="true" />
+                    <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC."/>
+                    <TextView id="client-free"
+                              class="client-free"
+                              @textChange="resetTextviewModel"
+                              editable="true" />
                 </StackLayout>
 
                 <Button class="form-btn client-btn" text="Next" @tap="onNextTap" />
@@ -177,7 +177,7 @@
                 if (this.is_consented) {
                     const client_id = this.c_id;
                     const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
-                    const caller_name = (this.c_caller === '') ? 'Anonymous Nobody' : this.c_caller;
+                    const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
                     const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                     const entry = {
                         id: this.c_id,

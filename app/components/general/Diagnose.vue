@@ -10,7 +10,7 @@
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout row="1" col="0" class="diagnose-main-ctnr">
+            <ScrollView row="1" col="0" class="diagnose-main-ctnr">
                 <StackLayout class="diagnose-q-a-ctnr" >
                     <StackLayout class="diagnose-title-ctnr">
                         <Label class="diagnose-title" text="General"></Label>
@@ -36,7 +36,7 @@
                               @textChange="onTextEntered"
                               editable="true" />
                 </StackLayout>
-            </StackLayout>
+            </ScrollView>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
                 <Button v-if="question_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 <Label v-else />

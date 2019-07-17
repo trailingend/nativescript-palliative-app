@@ -4,15 +4,19 @@
             <Label text="Client Information" class="sum-sec-title"/>
             <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
         </FlexboxLayout>
-        <GridLayout rows="auto, auto, auto, auto" columns="auto, *">
-            <Label row="0" col="0" text="Patient: " class="sum-text sum-bold"/>
-            <Label row="1" col="0" text="Caller: " class="sum-text sum-bold"/>
-            <Label row="2" col="0" text="Phone: " class="sum-text sum-bold"/>
-            <Label row="3" col="0" text="Date: " class="sum-text sum-bold"/>
-            <Label row="0" col="1" :text="patient.patient" class="sum-text"/>
-            <Label row="1" col="1" :text="patient.caller" class="sum-text"/>                            
+        <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="auto, *">
+            <Label row="0" col="0" text="Client's Name: " class="sum-text sum-bold"/>
+            <Label row="1" col="0" text="Caller's Name: " class="sum-text sum-bold"/>
+            <Label row="2" col="0" text="Call-back Number: " class="sum-text sum-bold"/>
+            <Label row="3" col="0" text="Intake Nurse " class="sum-text sum-bold"/>
+            <Label row="4" col="0" text="Intake Date: " class="sum-text sum-bold"/>
+            <Label row="5" col="0" text="Consent to recorded: " class="sum-text sum-bold"/>
+            <Label row="0" col="1" :text="client.client" class="sum-text"/>
+            <Label row="1" col="1" :text="client.caller" class="sum-text"/>                            
             <Label row="2" col="1" :text="`${formatted_phone}`" class="sum-text" />
-            <Label row="3" col="1" :text="patient.createdTime" class="sum-text" />
+            <Label row="3" col="1" :text="nurse_name" class="sum-text" />
+            <Label row="4" col="1" :text="client.createdTime" class="sum-text" />
+            <Label row="5" col="1" text="Yes" class="sum-text" />
         </GridLayout>
     </StackLayout>
 </template>
@@ -24,12 +28,13 @@
     export default {
         data() {
             return {
-                patient: {},
+                client: {},
+                nurse_name: 'Unknown',
                 formatted_phone: ''
             }
         },
         created() {
-            this.preparePatientInfo();
+            this.prepareClientInfo();
         },
         components: {
         },
@@ -42,14 +47,17 @@
         computed: {
             ...mapGetters([
                 'logs',
+                'users'
 			]),
 		},
         methods: {
-            preparePatientInfo() {
+            prepareClientInfo() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
-                    this.patient = curr_log;
+                    this.client = curr_log;
                     this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
+                    const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
+                    this.nurse_name = (curr_user) ? curr_user.name : 'Unknown';
                 }
             },
         },

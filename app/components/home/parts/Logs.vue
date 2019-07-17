@@ -13,7 +13,7 @@
                         <StackLayout flexGrow="2">
                             <Label :text="client.client" class="client-text client-bold"/>
                             <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
-                            <Label :text="client.createdTime" class="client-text client-light" />
+                            <Label :text="`${client.createdTime} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <StackLayout class="bar-ctnr"></StackLayout>
@@ -56,6 +56,7 @@
         computed: {
             ...mapGetters([
                 'logs',
+                'users'
 			])
 		},
         methods: {
@@ -65,6 +66,11 @@
             ]),
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
+            },
+            getNurseName(nurse_id) {
+                const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });
+                console.dir(nurse_id)
+                return (curr_user) ? curr_user.name : 'Unknown';
             },
             onEditTap(args) {
                 if (this.isSwipeMode) {
