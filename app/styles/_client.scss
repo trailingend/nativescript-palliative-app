@@ -74,7 +74,7 @@
                 padding: 10 0;
             }
 
-            .client-q, .client-t, .client-d {
+            .client-q {
                 margin-bottom: 25;
             }
             .client-switch-ctnr {
@@ -82,6 +82,13 @@
             }
             .client-t {
                 margin-bottom: 18;
+
+                &.client-t-info {
+                    margin-bottom: 10;
+                }
+            }
+            .client-d {
+                margin-bottom: 10;
             }
             .client-a {
                 width: 72%;

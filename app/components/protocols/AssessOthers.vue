@@ -55,7 +55,7 @@
 <script>
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import ClientBlock from '../general/parts/ClientBlock.vue';
+    import ClientBlock from '../intro/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';

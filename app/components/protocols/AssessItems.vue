@@ -62,7 +62,7 @@
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
     import AssessItem from './parts/AssessItem.vue';
-    import ClientBlock from '../general/parts/ClientBlock.vue';
+    import ClientBlock from '../intro/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';

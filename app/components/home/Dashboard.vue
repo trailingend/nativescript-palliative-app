@@ -40,7 +40,7 @@
 <script lang="ts">
     import UserBlock from './parts/UserBlock.vue';
     import Logs from './parts/Logs.vue';
-    import NewClient from '../general/NewClient.vue';
+    import NewClient from '../intro/NewClient.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';

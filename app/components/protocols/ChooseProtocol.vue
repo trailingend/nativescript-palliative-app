@@ -40,8 +40,8 @@
 <script>
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import ClientBlock from '../general/parts/ClientBlock.vue';
-    import Diagnose from '../general/Diagnose.vue';
+    import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import Diagnose from '../intro/Diagnose.vue';
     import AssessItems from './AssessItems.vue';
 
     import { mapActions } from 'vuex';

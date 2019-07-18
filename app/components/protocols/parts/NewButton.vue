@@ -1,9 +1,9 @@
 <template>
-    <ActionItem @tap="onNewTap" text="+ New Log" ios.position="right"></ActionItem>
+    <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
 </template>
 
 <script>
-    import NewClient from '../../general/NewClient.vue';
+    import NewClient from '../../intro/NewClient.vue';
     import { confirm }  from "tns-core-modules/ui/dialogs";
 
     export default {

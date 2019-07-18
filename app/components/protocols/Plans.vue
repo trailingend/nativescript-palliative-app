@@ -56,9 +56,9 @@
 <script lang="ts">
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
-    import ClientBlock from '../general/parts/ClientBlock.vue';
+    import ClientBlock from '../intro/parts/ClientBlock.vue';
     import AssessOthers from './AssessOthers.vue';
-    import Summary from '../general/Summary.vue';
+    import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';

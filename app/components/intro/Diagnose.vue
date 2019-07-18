@@ -13,7 +13,7 @@
             <ScrollView row="1" col="0" class="diagnose-main-ctnr">
                 <StackLayout class="diagnose-q-a-ctnr" >
                     <StackLayout class="diagnose-title-ctnr">
-                        <Label class="diagnose-title" text="General"></Label>
+                        <Label class="diagnose-title" text="Introduction"></Label>
                         <StackLayout class="divider-ctnr"></StackLayout>
                     </StackLayout>
                     <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
@@ -32,7 +32,7 @@
                     <TextView v-model="free_text" 
                               id="diagnose-free"
                               class="diagnose-free"
-                              hint="Take notes here..."
+                              hint="Additional notes here"
                               @textChange="onTextEntered"
                               editable="true" />
                 </StackLayout>
@@ -171,7 +171,7 @@
                 });
             },
             prepareNextStage() {
-                console.log("=== TODO Finished General ===");
+                console.log("=== TODO Finished Intro ===");
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
                     clearHistory: false,

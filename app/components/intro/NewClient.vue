@@ -72,10 +72,11 @@
                 </FlexboxLayout>
                     
                 <StackLayout>
-                    <Label class="client-t" text="General Client Information" textWrap="true"/>
+                    <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
                     <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC."/>
                     <TextView id="client-free"
                               class="client-free"
+                              hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
                               @textChange="resetTextviewModel"
                               editable="true" />
                 </StackLayout>

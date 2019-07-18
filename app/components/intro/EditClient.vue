@@ -77,7 +77,7 @@
                     </PreviousNextView>
 
                     <StackLayout>
-                        <Label class="client-t" text="General Client Information" textWrap="true"/>
+                        <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
                         <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC." textWrap="true"/>
                         <TextView v-model="c_info" 
                                   id="client-free"
