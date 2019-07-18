@@ -144,7 +144,6 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions'
             ]),
             input_phone: {
                 get: function() {                    
@@ -198,7 +197,6 @@
                     nurse: this.c_nurse,
                     info: this.c_info,
                 };
-                console.log("TODO save edited")
                 this.changeClientInfo(entry);
 
                 this.$modal.close();

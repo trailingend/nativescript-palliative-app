@@ -96,7 +96,7 @@ export default {
 
 	data_version: 1,
 
-	intro_questions: [],
+	intro: [],
 	protocols: [],
 	assessment_letters: [],
 	plans: [],

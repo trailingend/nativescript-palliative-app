@@ -137,6 +137,9 @@
                         curve: 'easeIn',
                         duration: 300
                     },
+                    props: {
+                        log_id: this.log_id,
+                    }
                 });
             },
             onLayoutUpdate() {

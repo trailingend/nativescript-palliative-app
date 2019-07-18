@@ -110,7 +110,7 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions'
+                'intro'
 			])
 		},
         methods: {
@@ -118,7 +118,7 @@
                 'saveIntroProgress',
             ]),
             retrieveQuestion(target_q_id) {
-                const q_obj = this.intro_questions.find(elem => { return elem.id == target_q_id; });
+                const q_obj = this.intro.find(elem => { return elem.id == target_q_id; });
                 if (q_obj) {
                     this.question_text = q_obj.question;
                     this.question_type = q_obj.question_type.type;
@@ -141,7 +141,6 @@
                 
                 if (saved_answers_objs) {
                     const saved_answers = saved_answers_objs.a;
-                    console.dir(saved_answers);
                     this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : [];
                     this.answers_list.forEach(ans => {
                         const search_in_saved = saved_answers.find(elem => { return elem == ans.answer; });
@@ -174,7 +173,6 @@
                 });
             },
             prepareNextStage() {
-                console.log("=== TODO Finished Intro ===");
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
                     clearHistory: false,
@@ -198,7 +196,6 @@
                 } else {
                     this.selected_answers.splice(ans_idx, 1);
                 }
-                console.dir(this.selected_answers)
             },
             changeNextText(new_text) {
                 this.next_text = new_text;
@@ -225,7 +222,7 @@
                 this.saveIntroProgress(progress);
                 
                 const next_question_idx = this.question_idx + 1;
-                if (next_question_idx < this.intro_questions.length) {
+                if (next_question_idx < this.intro.length) {
                     this.prepareAnotherQuestion(next_question_idx);
                 } else {
                     this.prepareNextStage();

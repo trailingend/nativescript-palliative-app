@@ -49,8 +49,9 @@
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
-    import Diagnose from '../intro/Diagnose.vue';
+    import Introduction from '../intro/Introduction.vue';
     import AssessItems from './AssessItems.vue';
+    import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -89,7 +90,7 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions',
+                'intro',
                 'protocols',
 			])
 		},
@@ -97,25 +98,42 @@
             ...mapActions([
             ]),
             prepareProtocols() {
-                const log_idx = this.logs.findIndex(elem => { return elem.id === this.log_id; });
             },
             preparePrevQuestion() {
-                let q_ids = [];
-                this.intro_questions.forEach(elem => { q_ids.push(elem.id); });
-                this.$navigateTo(Diagnose, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'fade',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                    props: {
-                        log_id: this.log_id,
-                        question_ids: q_ids,
-                        question_idx: q_ids.length - 1
-                    }
-                });
+                const chart = this.logs.find(elem => { return elem.id == this.log_id; });
+                if (chart.plans_answers.length === 0) {
+                    let step_ids = [];
+                    this.intro.forEach(elem => { step_ids.push(elem.id); });
+                    this.$navigateTo(Introduction, {
+                        animated: true,
+                        clearHistory: true,
+                        transition: {
+                            name: 'fade',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
+                        props: {
+                            log_id: this.log_id,
+                            step_ids: step_ids,
+                            step_idx: step_ids.length - 1
+                        }
+                    });
+                } else {
+                    this.$navigateTo(Summary, {
+                        animated: true,
+                        clearHistory: true,
+                        transition: {
+                            name: 'slideRight',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
+                        props: {
+                            log_id: this.log_id,
+                            protocol_id: chart.plans_answers[chart.plans_answers.length - 1].id,
+                            has_prev: false
+                        }
+                    });
+                }
             },
             prepareNextProtocol() {
                 this.$navigateTo(AssessItems, {

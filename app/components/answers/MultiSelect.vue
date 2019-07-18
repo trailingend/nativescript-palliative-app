@@ -2,22 +2,22 @@
     <StackLayout>
         <GridLayout :rows="answers_rows"
                     columns="*, *"
-                    class="items-a-wrapper">
+                    class="answers-a-wrapper">
             <StackLayout v-for="(answer, index) in answers_list" 
                         v-bind:key="answer.id" 
                         :row="Math.floor(index / 2)"
                         :col="index % 2" 
-                        class="items-a-select-ctnr">
-                <GridLayout class="items-a-ctnr" rows="auto" columns="auto, *" @tap="onAnswerTap(answer)">
+                        class="answers-a-select-ctnr">
+                <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *" @tap="onAnswerTap(answer)">
                     <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!answer.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
                     <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                    <Label row="0" col="1" class="items-a" textWrap="true" :text="answer.answer" />
+                    <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
                 </GridLayout>
             </StackLayout>
         </GridLayout>
         <TextView v-model="free_text" 
-                  :id="`items-free-${question_id}`"
-                  class="items-free"
+                  :id="`answers-free-${question_id}`"
+                  class="answers-free"
                   hint="Additioanl notes here"
                   @textChange="onTextEntered"
                   editable="true" />
@@ -82,7 +82,6 @@
                 return data_to_send;
             },
             retrieveSavedAnswers() {
-                console.log("TODO retrieved saved answers");
                 this.free_text = this.responses.length > 0 ? this.responses[this.responses.length - 1] : "";
                 this.answers_list.forEach(ans => {
                     const search_in_saved = this.responses.find(res => { return res == ans.answer; });

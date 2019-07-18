@@ -4,7 +4,7 @@ export default {
     [types.JSON_UPDATE](state, data){
         state.data_version = data.info.version;
 
-        state.intro_questions = data.data.intro_questions;
+        state.intro = data.data.intro;
         state.protocols = data.data.protocols;
         state.assessment_letters = data.data.assessment_letters;
         state.plans = data.data.plans;

@@ -1,8 +1,8 @@
 <template>
     <StackLayout>
         <TextView v-model="free_text" 
-                  :id="`items-free-${question_id}`"
-                  class="items-free"
+                  :id="`answers-free-${question_id}`"
+                  class="answers-free"
                   hint="Additional notes here"
                   @textChange="onTextEntered"
                   editable="true" />

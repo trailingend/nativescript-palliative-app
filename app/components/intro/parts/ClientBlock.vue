@@ -67,7 +67,6 @@
                 openUrl('facetime:' + phone_num);
             },
             onEditTap() {
-                console.log("=== TODO to open edit ===");
                 this.$showModal(EditClient, { 
                     fullscreen: true,
                     props: {

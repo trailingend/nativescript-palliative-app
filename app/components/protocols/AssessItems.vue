@@ -131,7 +131,7 @@
             ]),
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
-                filted_assessments.forEach(elem => { this.textview_ids.add(`items-free-${elem.id}`); });
+                filted_assessments.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
                 return filted_assessments;
             },
             prepareProtocol() {
@@ -211,7 +211,6 @@
                 } else {
                     this.responses[response_idx].a = data;
                 }
-                console.dir(this.responses);
             },
             onForward(args) {
                 console.log("=== Forward === ");

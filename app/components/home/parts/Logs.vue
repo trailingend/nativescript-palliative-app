@@ -69,7 +69,6 @@
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });
-                console.dir(nurse_id)
                 return (curr_user) ? curr_user.name : 'Unknown';
             },
             onEditTap(args) {

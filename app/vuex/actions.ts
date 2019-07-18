@@ -54,16 +54,18 @@ export default {
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
-            const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.id === progress_item.q_id; });
-            const log_item = {
-                idx: log_idx,
-                q_idx: existed_q_idx,
-                content: {
-                    id: progress_item.q_id,
-                    a: progress_item.a,
+            progress_item.content.forEach(respond => {
+                const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.id === respond.q_id; });
+                const log_item = {
+                    idx: log_idx,
+                    q_idx: existed_q_idx,
+                    content: {
+                        q_id: respond.q_id,
+                        a: respond.a,
+                    }
                 }
-            }
-            commit(types.INTRO_CHART_UPDATE, log_item);
+                commit(types.INTRO_CHART_UPDATE, log_item);
+            });
         }
     },
 

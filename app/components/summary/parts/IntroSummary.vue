@@ -34,7 +34,7 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions'
+                'intro'
 			]),
 		},
         methods: {

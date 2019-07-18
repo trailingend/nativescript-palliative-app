@@ -93,7 +93,7 @@
 <script>
     import CancelButton from './parts/CancelButton.vue';
     import Dashboard from '../home/Dashboard.vue';
-    import Diagnose from "./Diagnose.vue";
+    import Introduction from "./Introduction.vue";
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -143,7 +143,7 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro_questions'
+                'intro'
             ]),
             input_phone: {
                 get: function() {                    
@@ -199,9 +199,9 @@
                     this.saveClientInfo(entry);
                     // this.saveActiveChart(this.c_id);
 
-                    let q_ids = [];
-                    this.intro_questions.forEach(elem => { q_ids.push(elem.id); });
-                    this.$navigateTo(Diagnose, {
+                    let steps_ids = [];
+                    this.intro.forEach(elem => { steps_ids.push(elem.id); });
+                    this.$navigateTo(Introduction, {
                         animated: true,
                         clearHistory: true,
                         transition: {
@@ -211,8 +211,8 @@
                         },
                         props: {
                             log_id: client_id,
-                            question_ids: q_ids,
-                            question_idx: 0
+                            step_ids: steps_ids,
+                            step_idx: 0
                         }
                     });
                     console.log("=== New Client Logged ===");

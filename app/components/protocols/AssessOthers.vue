@@ -167,6 +167,9 @@
                                 this.selected_answers.push(ans.answer);
                             }
                         });
+                        if (saved_answers.length > 0) {
+                            this.changeNextText("Next");
+                        }
                     }
                 }
             },
@@ -232,7 +235,6 @@
                 } else {
                     this.selected_answers.splice(ans_idx, 1);
                 }
-                console.dir(this.selected_answers)
             },
             changeNextText(new_text) {
                 this.next_text = new_text;

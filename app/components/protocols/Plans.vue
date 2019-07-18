@@ -198,7 +198,6 @@
                     p_id: this.protocol_id, 
                     a: this.selected_plans
                 };
-                console.log("=== TODO log progress === ");
                 this.savePlansProgress(progress);
                 this.prepareNextStage();
             },
