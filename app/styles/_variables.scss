@@ -1,6 +1,6 @@
-$color-primary: #bbbbbb; //#739849;
-$color-secondary: #cccccc; // #0078AE;
-$color-tertiary: #dddddd; // #c1d82f;
+
+$color-unselected: #f5f5f5; 
+$color-selected: #e5e5e5; 
 $color-temp: #eeeeee;
 
 $color-text-light: white;
@@ -15,6 +15,7 @@ $add-top-margin-landscape: 90;
 
 $color-light-yellow: #fcebb3;
 $color-dark-yellow: #ffdd68;
+$color-light-green: #acd6b5;
 $color-dark-blue: #373C51;
 
 $q-font-size: 28;
@@ -25,10 +26,8 @@ $user-font-size: 15;
 $user-bold-font-size: 20;
 $user-begin-font-size: 24;
 $user-begin-font-size-landscape: 20;
-$list-font-size: 14;
 $list-bold-font-size: 18;
 $form-title-font-size: 24;
-$form-item-font-size: 14;
 
 $home-padding: 20 0;
 

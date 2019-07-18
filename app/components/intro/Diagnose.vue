@@ -14,12 +14,15 @@
                 <StackLayout class="diagnose-q-a-ctnr" >
                     <StackLayout class="diagnose-title-ctnr">
                         <Label class="diagnose-title" text="Introduction"></Label>
-                        <StackLayout class="divider-ctnr"></StackLayout>
+                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
-                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
+                    <StackLayout class="diagnose-q-ctnr">
+                        <Label :text="question_text" class="diagnose-q"/>
+                    </StackLayout>
+                    <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="diagnose-q-ctnr">
                         <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
                         <Label :text="question_text" class="diagnose-q"/>
-                    </FlexboxLayout>
+                    </FlexboxLayout> -->
                     <GridLayout v-for="answer in answers_list" 
                                    :key="answer.id" 
                                    class="diagnose-a-ctnr" 

@@ -5,7 +5,7 @@
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <StackLayout row="1" col="0" :class="formSetting.class">
+            <StackLayout row="0" col="0" rowSpan="2" :class="formSetting.class">
                 <Label class="add-user-title" text="Shift information" ></Label>    
                 <PreviousNextView>
                 <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*">
@@ -91,12 +91,12 @@
                 layoutView.getViewById("user-add-a2").dismissSoftInput();
             },
             onLayoutUpdate() {
-                if (this.$refs.editGridRef) {
+                if (this.$refs.addUserGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.addUserGridRef.nativeView.getMeasuredWidth() );
                     if (width > 1000) {
-                        this.formSetting.class = "edit-form-ctnr tablet-landscape";
+                        this.formSetting.class = "add-user-ctnr tablet-landscape";
                     } else {
-                        this.formSetting.class = "edit-form-ctnr";
+                        this.formSetting.class = "add-user-ctnr";
                     }
                 }
             },

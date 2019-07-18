@@ -5,18 +5,17 @@
         .diagnose-main-ctnr {
             margin: 5;
             background: white; 
-            // vertical-align: middle;
-            margin-top: 60;
         }
         .diagnose-title-ctnr {
-            vertical-align: middle;
+            margin-top: 60;
+            margin-bottom: 60; 
         }
         .diagnose-title {
             text-align: center;
             font-size: $log-title-font-size;
             font-weight: 700;
+            text-transform: uppercase;
             color: $color-text-dark;
-            margin-bottom: 20; 
         }
         .divider-ctnr {
             width: 50;
@@ -25,24 +24,30 @@
         }
         .diagnose-q-ctnr {
             width: 500;
-            margin: 0 auto;
+            margin-bottom: 20;
         }
         .diagnose-q {
+            text-align: left;
         }
         .diagnose-a-ctnr {
-            background: $color-secondary;
-            color: $color-text-light;
             width: 500;
             margin: 5 0;
             padding: 10;
+            border-radius: $border-size;
+            background: $color-unselected;
+            color: black;
+            Label {
+                font-weight: 500;
+            }
         }
         .diagnose-free {
             width: 500;
             height: $textview-height;
             margin: 15 0;
             padding: 5 8;
-            border-width: 1.5;
+            // border-width: 1.5;
             text-align: left;
+            background: $color-unselected;
             border-color: $log-border-color;
             border-radius: $border-size;
         }
@@ -51,6 +56,10 @@
         }
 
         &.tablet-landscape {
+            .diagnose-title-ctnr {
+                margin-top: 20;
+                margin-bottom: 20; 
+            }
             .q-icon {
                 margin: 10 30 10 0;
             }

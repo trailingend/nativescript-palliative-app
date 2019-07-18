@@ -12,10 +12,18 @@
             <ClientBlock row="0" col="0" :log_id="log_id"/>
             <StackLayout class="choose-main-ctnr" row="1" col="0">
                 <StackLayout class="choose-title-ctnr">
-                    <Label class="choose-title" text="What is the caller's biggest concern?"></Label>
-                    <StackLayout class="divider-ctnr"></StackLayout>
+                    <Label class="choose-title" text="Select Protocol"></Label>
+                    <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                 </StackLayout>
-                <Label :text="warning_text" class="choose-warning" textWrap="true"/>
+                <StackLayout class="choose-warning">
+                    <Label text="If the situation appears to be urgent and life-threatening,"  textWrap="false"/>
+                    <Label text="then a possible transfer to hospital might be indicated."  textWrap="false"/>
+                </StackLayout>
+                <StackLayout class="choose-d">
+                    <Label text="If client chooses to transfer to hospital, remind them to bring necessary "  textWrap="false"/>
+                    <Label text='forms (e.g. "no CPR" form, resentation agreement, advance directives, MOST, etc.).'  textWrap="false"/>
+                </StackLayout>
+                <Label :text="d_text" class="choose-d" textWrap="true"/>
                 <GridLayout class="choose-btn-ctnr" :rows="gridSetting.rows" :columns="gridSetting.columns" >
                     <Button v-for="(protocol, index) in protocols" 
                             v-bind:key="protocol.id" 
@@ -52,10 +60,9 @@
         name: 'ChooseProtocol',
         data() {
             return {
-                warning_text: 'If the situation appears to be urgent and life-threatening then a possible transfer to the hospital might be warranted',
                 show_next: false,
-                unclicked_color: '#eeeeee',
-                clicked_color: '#cccccc',
+                unclicked_color: '#f5f5f5',
+                clicked_color: '#e5e5e5',
                 protocol_id: null,
 
                 gridSetting: {

@@ -6,7 +6,7 @@
             <NewButton />
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, auto, *, auto" columns="*" 
+                    rows="auto, *, auto, auto" columns="*" 
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
@@ -17,12 +17,15 @@
                     <StackLayout class="others-title-ctnr">
                         <Label class="others-title" text="Assess"></Label>
                         <Label class="others-subtitle" text="Others"></Label>
-                        <StackLayout class="divider-ctnr"></StackLayout>
+                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
-                    <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="others-q-ctnr">
+                    <StackLayout class="others-q-ctnr">
+                        <Label :text="question_text" class="others-q"/>
+                    </StackLayout>
+                    <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="others-q-ctnr">
                         <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
                         <Label :text="question_text" class="others-q"/>
-                    </FlexboxLayout>
+                    </FlexboxLayout> -->
                     <GridLayout v-for="answer in answers_list" 
                                    :key="answer.id" 
                                    class="others-a-ctnr" 
@@ -41,7 +44,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" 
+            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
             <FlexboxLayout row="3" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">

@@ -7,8 +7,8 @@
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <StackLayout row="1" col="0" class="select-content-ctnr">
-                <Label class="select-title" text="shift infomation" ></Label>   
+            <StackLayout row="0" col="0" rowSpan="2" class="select-content-ctnr">
+                <Label class="select-title" text="user infomation" ></Label>   
                 <StackLayout v-if="users.length > 0">
                     <Label class="select-text" text="select from saved users" ></Label>   
                     <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">

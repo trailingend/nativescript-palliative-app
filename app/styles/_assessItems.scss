@@ -9,36 +9,44 @@
         }
         .items-title-ctnr {
             margin-top: 60;
+            margin-bottom: 60; 
         }
         .items-title {
-            text-align: center;
             font-size: $log-title-font-size;
             font-weight: 700;
-            color: black;
-            margin-bottom: 5; 
+            text-align: center;
+            text-transform: uppercase;
+            color: $color-text-dark;
+        }
+        .items-item-ctnr {
+            margin-bottom: 60;
+        }
+        .items-subtitle-ctnr {
+            margin-bottom: 20;
         }
         .items-subtitle {
-            margin-bottom: 20; 
+            font-size: 20;
+            font-weight: 400;
+            text-transform: uppercase;
         }
         .divider-ctnr {
             width: 50;
             height: 1;
             background: black;
         }
-        .items-d {
-            margin: 25 0;
-            font-weight: 500;
-        }
         .items-tab-ctnr {
             vertical-align: middle;
-            // margin: 15 auto 0 auto;
         }
         .items-tab {
-            padding: 10 20;
-            border-radius: 5; 
-            background: $color-temp;
             margin: 5 0;
-            transform: translateX(-5);
+            padding: 10 15 10 25;
+            font-size: 20;
+            font-weight: 700;
+            border-radius: 10; 
+            border-width: 1.5;
+            border-color: $color-dark-blue;
+            background: white;
+            transform: translateX(-10);
         }
         .items-main-ctnr {
             width: 100%;
@@ -67,19 +75,40 @@
             width: 250px;
         }
         .items-a-ctnr {
-            background: $color-secondary;
-            color: $color-text-light;
+            color: black;
             margin: 0 5 10 5;
             padding: 10;
+            border-radius: $border-size;
+            background: $color-unselected;
+            Label {
+                font-weight: 500;
+            }
         }
         .items-free {
             height: $textview-height;
-            margin: 0;
+            margin: 0 5;
             padding: 5 8;
-            border-width: 1.5;
+            // border-width: 1.5;
             text-align: left;
+            background: $color-unselected;
             border-color: $log-border-color;
             border-radius: $border-size;
+        }
+
+        &.tablet-landscape {
+            .items-title-ctnr {
+                margin-top: 20;
+                margin-bottom: 20; 
+            }
+            .items-unit-ctnr {
+                width: 700;
+            }
+            .items-a-wrapper {
+                width: 700;
+            }
+            .items-tab {
+                font-size: 17;
+            }
         }
     }
     

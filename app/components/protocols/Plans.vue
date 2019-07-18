@@ -6,13 +6,13 @@
             <NewButton />
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, *, auto" 
+                    rows="auto, *, auto, auto" 
                     columns="*" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
 
-            <StackLayout row="1" col="0" rowSpan="2" class="plans-main-ctnr">
+            <ScrollView row="1" col="0" rowSpan="3" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
                     <StackLayout class="plans-title-ctnr">
                         <Label class="plans-title" text="Select plan"></Label>
@@ -39,11 +39,12 @@
                               @textChange="onTextEntered"
                               editable="true" />
                 </StackLayout>
-            </StackLayout>
+            </ScrollView>
 
-            <!-- <NewProtocolButton row="1" col="0" /> -->
+            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
+                             :log_id="log_id" :protocol_id="protocol_id" />
 
-            <FlexboxLayout row="2" col="0"
+            <FlexboxLayout row="3" col="0"
                            orientation="horizontal" alignItems="center" justifyContent="space-between">
                 <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
@@ -57,6 +58,7 @@
     import CloseButton from './parts/CloseButton.vue';
     import NewButton from './parts/NewButton.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessOthers from './AssessOthers.vue';
     import Summary from '../summary/Summary.vue';
 
@@ -97,6 +99,7 @@
             ClientBlock,
             NewButton,
             CloseButton,
+            ResourcesButton,
         },
         computed: {
             ...mapGetters([

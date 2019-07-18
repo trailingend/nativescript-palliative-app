@@ -3,7 +3,7 @@
 .client-info-ctnr {
     margin: 0;
     padding: 20 10;
-    background: #fafafa;
+    background: white;
     border-color: $log-border-color;
     border-bottom-width: 0.25;
 
@@ -24,20 +24,17 @@
         padding-top: 7;
     }
     .client-text {
+        font-size: 14;
         font-weight: 200;
         text-align: left;
+        text-transform: uppercase;
     }
     .client-bold {
         font-weight: 700;
-        font-size: $list-bold-font-size;
+        font-size: 16;
     }
     .client-light {
         padding-top: 10;
-    }
-    .client-btn {
-        padding: 0 25;
-        background: $color-temp;
-        height: 100%;
     }
     .edit-icon {
         // margin-bottom: 10;

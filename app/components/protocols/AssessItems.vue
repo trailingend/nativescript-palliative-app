@@ -5,8 +5,8 @@
             <CloseButton />
             <NewButton />
         </ActionBar>
-        <GridLayout class="items-ctnr" 
-                    rows="auto, auto, *, auto" 
+        <GridLayout :class="formatSetting" 
+                    rows="auto, *, auto, auto" 
                     columns="auto, *" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
@@ -17,15 +17,18 @@
                         class="items-main-ctnr"
                         @scroll="onScroll" >
                 <StackLayout>
+                    <StackLayout class="items-title-ctnr">
+                        <Label class="items-title" :text="p_title"></Label>
+                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
+                    </StackLayout>
                     <StackLayout v-for="letter in assessment_letters" 
                                  :key="letter.id" 
                                  :id="`items-item-ctnr-${letter.id}`"
                                  class="items-item-ctnr">  
-                        <StackLayout class="items-title-ctnr">
-                            <Label class="items-title" text="Assess"></Label>
+                        <StackLayout class="items-subtitle-ctnr">
                             <Label class="items-subtitle" :text="letter.title"></Label>
-                            <StackLayout class="divider-ctnr"></StackLayout>
-                            <Label text="Describe what is currently happening?" class="items-d" textWrap="true"/>
+                            <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
+                            <!-- <Label text="Describe what is currently happening?" class="items-d" textWrap="true"/> -->
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
@@ -35,7 +38,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="1" col="0" rowSpan="1" colSpan="2" 
+            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
             <FlexboxLayout row="3" col="0" rowSpan="1" colSpan="2"
@@ -74,6 +77,7 @@
     export default {
         data() {
             return {
+                p_title: "Protocol",
                 is_text_setup: false,
                 textview_ids: new Set(),
                 item_anchors: [],
@@ -88,6 +92,7 @@
                     columns: "*, *",
                     denominator: 2
                 },
+                formatSetting: "items-ctnr"
 
             }
         },
@@ -130,6 +135,7 @@
                 return filted_assessments;
             },
             prepareProtocol() {
+                this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.assessments = this.protocols.find(elem => { return elem.id === this.protocol_id; }).assessment_questions;
                 this.letters = this.assessment_letters;
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
@@ -184,10 +190,10 @@
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     if (elem.id === id) {
                         // letter_view.text = elem.title;
-                        letter_view.backgroundColor = "#777777";
+                        letter_view.backgroundColor = "#e5e5e5";
                     } else {
                         // letter_view.text = elem.letter;
-                        letter_view.backgroundColor = "#cccccc";
+                        letter_view.backgroundColor = "#ffffff";
                     }
                 });
                 console.log("change of letter: " + id);
@@ -261,13 +267,15 @@
                     this.$refs.itemsGridRef.nativeView.getMeasuredWidth() 
                 );
 
-                if (width > 1000) {
+                if (width > 800) {
+                    this.formatSetting = "items-ctnr tablet-landscape";
                     this.gridSetting = {
                         rows: "*, *, *, *, *",
                         columns: "*, *, *",
                         denominator: 3
                     };
                 } else {
+                    this.formatSetting = "items-ctnr";
                     this.gridSetting = {
                         rows: "*, *, *, *, *, *, *",
                         columns: "*, *",

@@ -6,16 +6,20 @@ Page {
     font-family: 'Nunito', 'proxima-nova', sans-serif;
 }
 ActionBar {
-    background-color: white;
+    background-color: $color-unselected;
     color: black;
-    // border: none;
 }
 Label {
-    font-size: $list-font-size;
+    font-size: 17;
     text-align: center;
     letter-spacing: 0.05;
     vertical-align: middle;
-    text-transform: uppercase;
+    // text-transform: uppercase;
+}
+TextField, TextView {
+    font-size: 17;
+    text-align: left;
+    letter-spacing: 0.05;
 }
 
 .edit-icon {
@@ -63,19 +67,19 @@ Label {
     transform: translateX(25);
 }
 .resource-btn {
-    width: 130;
-    margin: 25 auto 0 auto;
+    width: 140;
     height: 50;
-    padding-right: 5; 
-    font-size: 14;
+    margin: 0 auto 25 auto;
+    padding-right: 15; 
+    font-size: 13;
     font-weight: 500;
     letter-spacing: 0.1;
     text-transform: uppercase;
-    color: $color-dark-blue;
-    border-radius: 10;
-    border-width: 3;
-    border-color: $color-dark-blue;
+    color: black;
     background: white;
+    border-width: 3;
+    border-radius: 25;
+    border-color: $color-dark-blue;
 }
 
 

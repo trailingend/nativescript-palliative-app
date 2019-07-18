@@ -5,10 +5,10 @@
         .plans-main-ctnr {
             margin: 5;
             background: white; 
-            margin-top: 60;
         }
         .plans-title-ctnr {
-            vertical-align: middle;
+            margin-top: 60;
+            margin-bottom: 60;
         }
         .plans-title {
             text-align: center;
@@ -16,6 +16,7 @@
             font-weight: 700;
             color: $color-text-dark;
             margin-bottom: 20; 
+            text-transform: uppercase;
         }
         .divider-ctnr {
             width: 50;
@@ -30,19 +31,24 @@
         .plans-q {
         }
         .plans-a-ctnr {
-            background: $color-secondary;
-            color: $color-text-light;
+            color: black;
             width: 500;
             margin: 5 0;
             padding: 10;
+            border-radius: $border-size;
+            background: $color-unselected;
+            Label {
+                font-weight: 500;
+            }
         }
         .plans-free {
             width: 500;
             height: $textview-height;
             margin: 15 0;
             padding: 5 8;
-            border-width: 1.5;
+            // border-width: 1.5;
             text-align: left;
+            background: $color-unselected;
             border-color: $log-border-color;
             border-radius: $border-size;
         }
@@ -51,6 +57,10 @@
         }
 
         &.tablet-landscape {
+            .plans-title-ctnr {
+                margin-top: 20;
+                margin-bottom: 20;
+            }
             .q-icon {
                 margin: 10 30 10 0;
             }

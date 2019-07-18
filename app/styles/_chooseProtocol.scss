@@ -12,9 +12,10 @@
             vertical-align: middle;
         }
         .choose-title {
-            text-align: center;
             font-size: $log-title-font-size;
             font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
             color: black;
             margin-bottom: 20; 
         }
@@ -24,13 +25,27 @@
             background: black;
         }
         .choose-warning {
-            margin: 25 0;
             font-weight: 700;
+            padding: 10 100;     
+            background: $color-light-yellow;
+            Label {
+                text-align: center;
+                text-transform: none;
+            }
+        }
+        .choose-d {
+            font-weight: 400;
+            padding: 10 40; 
+            Label {
+                text-align: center;
+                text-transform: none;
+            }
         }
         .choose-btn {
             color: black;
             margin: 5;
-            background: $color-secondary;
+            border-radius: $border-size;
+            background: $color-unselected;
         }
         
     }

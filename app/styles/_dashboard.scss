@@ -42,6 +42,7 @@
             line-height: auto;
             letter-spacing: 0.1;
             text-align: left;
+            text-transform: uppercase;
         }
         .user-bold {
             font-size: $user-bold-font-size;
@@ -89,9 +90,10 @@
         border-bottom-width: 0.25;
 
         .log-title {
-            text-align: center;
             font-size: 18;
             font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
             color: $color-text-dark;
         }
     }
@@ -121,12 +123,15 @@
         }
         .client-text {
             font-family: 'Nunito Sans', 'Nunito', sans-serif;
+            font-size: 14;
             font-weight: 700;
             letter-spacing: 0.05;
             text-align: left;
+            text-transform: uppercase;
         }
         .client-bold {
             font-family: 'Nunito', sans-serif;
+            font-size: 18;
             font-weight: 900;
             font-size: $list-bold-font-size;
         }
