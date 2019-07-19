@@ -3,7 +3,7 @@
         <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
-            <NewButton />
+            <!-- <NewButton /> -->
         </ActionBar>
         <GridLayout :class="formatSetting" 
                     rows="auto, *, auto, auto" 
