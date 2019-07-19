@@ -56,7 +56,15 @@
                 } 
             },
             prepareIntroResponses(curr_log) {
-
+                const q_objs = curr_log.intro_answers;
+                console.dir(curr_log.intro_answers)
+                if (q_objs) {
+                    const q_obj = q_objs.find(elem => { return elem.q_id === this.unit.id; });
+                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                } else {
+                    this.response = 'N/A';
+                }
+                if (this.response === "") this.response = 'N/A';
             },
             prepareItemsResponses(curr_log) {
                 const p_obj = curr_log.items_answers.find(elem => { return elem.id === this.protocol_id; });

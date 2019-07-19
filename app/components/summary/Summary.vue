@@ -14,7 +14,6 @@
                 <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Client Summary"></Label>
-                        <StackLayout class="divider-ctnr"></StackLayout>
                     </StackLayout>
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />

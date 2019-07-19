@@ -180,12 +180,13 @@
                     const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                     const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
                     const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
+                    const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
                         caller: caller_name,
                         client: client_name,
-                        relation: this.c_relation,
+                        relation: client_relation,
                         info: this.c_info,
                         nurse: '',
                         createdTime: this.created_time,

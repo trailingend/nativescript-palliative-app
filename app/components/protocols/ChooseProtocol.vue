@@ -23,7 +23,6 @@
                     <Label text="If client chooses to transfer to hospital, remind them to bring necessary "  textWrap="false"/>
                     <Label text='forms (e.g. "no CPR" form, resentation agreement, advance directives, MOST, etc.).'  textWrap="false"/>
                 </StackLayout>
-                <Label :text="d_text" class="choose-d" textWrap="true"/>
                 <GridLayout class="choose-btn-ctnr" :rows="gridSetting.rows" :columns="gridSetting.columns" >
                     <Button v-for="(protocol, index) in protocols" 
                             v-bind:key="protocol.id" 
