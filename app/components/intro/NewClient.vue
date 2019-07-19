@@ -97,7 +97,6 @@
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
-    import { confirm }  from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
     import { dialogConsent, 
              logMonths, 

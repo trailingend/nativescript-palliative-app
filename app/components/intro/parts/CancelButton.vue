@@ -10,10 +10,10 @@
         methods: {
             onCloseTap() {
                 confirm({
-                    title: "Closing Log",
+                    title: "Closing Chart",
                     message: "Do you want to exit without saving?",
-                    okButtonText: "Yes",
-                    cancelButtonText: "No",
+                    okButtonText: "Exit without Saving",
+                    cancelButtonText: "Stay on Current",
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.onBackToHome();

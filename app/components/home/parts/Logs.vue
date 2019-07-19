@@ -36,6 +36,8 @@
 </template>
 
 <script lang="ts">
+    import Summary from '../../summary/Summary.vue';
+
     import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
@@ -77,20 +79,19 @@
                 } else {
                     const log_idx = args.index;
                     const log = this.logs[log_idx];
-                    // this.saveActiveChart(log.id);
-                    // this.$navigateTo(Preview, {
-                    //     animated: true,
-                    //     clearHistory: true,
-                    //     transition: {
-                    //         name: 'slideTop',
-                    //         curve: 'easeIn',
-                    //         duration: 300
-                    //     },
-                    //     props: {
-                    //         log_id: log.id,
-                    //         has_prev: false
-                    //     }
-                    // });
+                    this.$navigateTo(Summary, {
+                        animated: true,
+                        clearHistory: true,
+                        transition: {
+                            name: 'slideTop',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
+                        props: {
+                            log_id: log.id,
+                            has_prev: false
+                        }
+                    });
                 }
             },
             onTouch(args) {
@@ -105,9 +106,9 @@
             onDeleteTap(args) {
                 const id = args.object.bindingContext.id;
                 confirm({
-                    title: "Attention",
-                    message: "Confirm you want to delete this client log?",
-                    okButtonText: "Yes",
+                    title: "About to Delete",
+                    message: "Confirm you want to delete this chart?",
+                    okButtonText: "Delete",
                     cancelButtonText: "Cancel"
                 }).then(isConfirmed => {
                     if (isConfirmed) {

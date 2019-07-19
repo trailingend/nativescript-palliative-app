@@ -11,10 +11,9 @@
         methods: {
             onNewTap() {
                 confirm({
-                    message: "You are currently in the middle of a log. Are you sure to create a new log?",
-                    okButtonText: "Yes",
-                    cancelButtonText: "No",
-                    // neutralButtonText: "Exit"
+                    message: "You are currently in the middle of a chart. Are you sure to create a new chart?",
+                    okButtonText: "Create New",
+                    cancelButtonText: "Stay on Current",
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.addNewLog();

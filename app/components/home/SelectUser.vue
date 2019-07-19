@@ -69,7 +69,7 @@
                 dialogs.prompt({
                     title: "Verification",
                     message: "Enter your ID:",
-                    okButtonText: "confirm",
+                    okButtonText: "Confirm",
                     cancelButtonText: "Cancel",
                     inputType: dialogs.inputType.number
                 }).then(result => {
@@ -105,7 +105,7 @@
                     });
                 } else {
                     dialogs.confirm({
-                        title: "Attention",
+                        title: "About to Delete",
                         message: "Are you sure you want to delete the user?",
                         okButtonText: "Delete",
                         cancelButtonText: "Cancel"

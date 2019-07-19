@@ -24,7 +24,7 @@
             ]),
             onSubmitTap() {
                 confirm({
-                    title: "Attention",
+                    title: "About to Send Email",
                     message: "Do you want send this chart via email now?",
                     okButtonText: "Send",
                     cancelButtonText: "Cancel",
@@ -38,6 +38,9 @@
             onEmailSent() {
                 console.log("=== Navigate Back To Home ===");
                 this.changeChartStatus(this.log_id);
+                this.backToHome();
+            },
+            backToHome() {
                 this.$navigateTo(Dashboard, {
                     animated: true,
                     clearHistory: true,
@@ -86,11 +89,17 @@
                                 mimeType: 'application/pdf'
                             }]
                         }).then(() => {
-                            alert({
-                                title: "Email Sent",
-                                okButtonText: "Back to home"
+                            confirm({
+                                title: "Confirm Email Sent",
+                                message: "Confirm that the email is sent?",
+                                okButtonText: "Confirm",
+                                cancelButtonText: "Not Sent",
                             }).then((result) => {
-                                this.onEmailSent();
+                                if (result) {
+                                    this.onEmailSent();
+                                } else {
+                                    this.backToHome();
+                                }
                             });
                         }, (error) => {
                             alert({

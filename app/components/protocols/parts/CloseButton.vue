@@ -10,8 +10,8 @@
         methods: {
             onCloseTap() {
                 confirm({
-                    title: "Closing Log",
-                    message: "Do you want to save a draft of your current progress?",
+                    title: "Closing Chart",
+                    message: "Do you want to save and close the current chart?",
                     okButtonText: "Save and Close",
                     cancelButtonText: "Cancel",
                 }).then((result) => {
