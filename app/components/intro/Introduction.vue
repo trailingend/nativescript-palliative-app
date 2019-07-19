@@ -134,9 +134,9 @@
                 }
 
                 if (data != null && data.length > 0) {
-                    this.changeNextText('Skip');
-                } else {
                     this.changeNextText('Next');
+                } else {
+                    this.changeNextText('Skip');
                 }
             },
             prepareNextStage() {
@@ -151,6 +151,7 @@
                     },
                     props: {
                         log_id: this.log_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -188,7 +189,6 @@
                 this.onForward();
             },
             onResponseFound() {
-                console.log("!!!!!!!!!!!!! on responde found")
                 this.changeNextText("Next");
             },
             clearTextfieldFocus(args) {

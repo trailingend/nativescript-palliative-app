@@ -84,7 +84,11 @@
             log_id: {
                 type: String,
                 required: true,
-            }
+            },
+            from_summary: {
+                type: Boolean,
+                required: true,
+            },
         },
         computed: {
             ...mapGetters([
@@ -99,8 +103,21 @@
             prepareProtocols() {
             },
             preparePrevQuestion() {
-                const chart = this.logs.find(elem => { return elem.id == this.log_id; });
-                if (chart.plans_answers.length === 0) {
+                if (this.from_summary) {
+                    this.$navigateTo(Summary, {
+                        animated: true,
+                        clearHistory: true,
+                        transition: {
+                            name: 'slideRight',
+                            curve: 'easeIn',
+                            duration: 300
+                        },
+                        props: {
+                            log_id: this.log_id,
+                            has_prev: false
+                        }
+                    });
+                } else {
                     let step_ids = [];
                     this.intro.forEach(elem => { step_ids.push(elem.id); });
                     this.$navigateTo(Introduction, {
@@ -115,21 +132,6 @@
                             log_id: this.log_id,
                             step_ids: step_ids,
                             step_idx: step_ids.length - 1
-                        }
-                    });
-                } else {
-                    this.$navigateTo(Summary, {
-                        animated: true,
-                        clearHistory: true,
-                        transition: {
-                            name: 'slideRight',
-                            curve: 'easeIn',
-                            duration: 300
-                        },
-                        props: {
-                            log_id: this.log_id,
-                            protocol_id: chart.plans_answers[chart.plans_answers.length - 1].id,
-                            has_prev: false
                         }
                     });
                 }
@@ -153,12 +155,18 @@
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
                 this.protocol_id = (this.protocol_id === proto.id) ? null : proto.id;
-                this.show_next = (this.protocol_id != null);
 
                 for (let i = 0; i < this.protocols.length; i++) {
                     page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
                 }
-                clicked_btn.background = (this.protocol_id === null) ? this.unclicked_color : this.clicked_color;
+                
+                if (this.protocol_id != null && proto.assessment_questions.length > 0) {
+                    this.show_next = true;
+                    clicked_btn.background = this.clicked_color;
+                } else {
+                    this.show_next = false;
+                    clicked_btn.background = this.unclicked_color;
+                }
             },
             onForward(args) {
                 if (this.protocol_id != null) {

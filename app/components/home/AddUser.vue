@@ -38,7 +38,7 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
-    import { formatShiftTime } from '../../scripts/common';
+    import { formatShiftTime, userColors } from '../../scripts/common';
 
     export default {
         data() {
@@ -57,7 +57,7 @@
         },
         components: {
         },
-        props: ['parent_modal'],
+        props: ['parent_modal', 'color_idx'],
         computed: {
             ...mapGetters([
 			]),
@@ -74,7 +74,8 @@
                     id: this.u_id,
                     name: this.u_name,
                     shift_start: formatShiftTime(this.u_shift_start),
-                    shift_end: formatShiftTime(this.u_shift_end)
+                    shift_end: formatShiftTime(this.u_shift_end),
+                    color: userColors[this.color_idx],
                 }
                 this.saveUserInfo(item);
                 this.onBackHome();

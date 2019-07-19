@@ -19,6 +19,9 @@ export default {
     [types.USER_UPDATE](state, user_idx) {
         state.curr_user_idx = user_idx;
     },
+    [types.USER_DELETE](state, user_idx) {
+        state.users.splice(user_idx, 1);
+    },
     [types.USER_ALTER](state, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         state.curr_user_idx = userIdx;

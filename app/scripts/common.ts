@@ -64,6 +64,8 @@ export const editGridChildPortrait = {
     a5: { row: "9", col: "0", },
 };
 
+export const userColors = ['#7ca8ea', '#a57ed7', '#dc9078', '#3956a0', '#007c7c'];
+
 export const dialogLogDelete = async (id) => {
     let willDelete = false;
     await confirm({

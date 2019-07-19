@@ -27,6 +27,11 @@ export default {
         commit(types.USER_UPDATE, idx);
     },
 
+    deleteUser({commit, state}, user_id) {
+        const idx = state.users.findIndex(elem => { return elem.id === user_id });
+        commit(types.USER_DELETE, idx);
+    },
+
     saveUserInfo({commit, state}, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         if (userIdx == -1) {

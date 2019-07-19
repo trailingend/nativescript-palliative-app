@@ -1,12 +1,12 @@
 <template>
-    <FlexboxLayout alignItems="center" class="client-info-ctnr" @tap="onEditTap">
+    <FlexboxLayout alignItems="center" class="client-info-ctnr" >
         <!-- <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image> -->
-        <StackLayout flexGrow="2" class="client-text-ctnr">
+        <StackLayout flexGrow="2" class="client-text-ctnr" @tap="onEditTap">
             <Label :text="client.client" class="client-text client-bold"/>
             <Label :text="`${formatted_phone} | ${client.caller}`" class="client-text"/>                            
             <Label :text="`${client.createdTime} | ${nurse_name}`" class="client-text client-light" />
         </StackLayout>
-        <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
+        <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         <StackLayout class="bar-ctnr"></StackLayout>
         <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
             <Image class="facetime-icon" width="30" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
