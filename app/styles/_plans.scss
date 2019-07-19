@@ -15,7 +15,6 @@
             font-size: $log-title-font-size;
             font-weight: 700;
             color: $color-text-dark;
-            margin-bottom: 20; 
             text-transform: uppercase;
         }
         .divider-ctnr {
@@ -29,6 +28,9 @@
             margin: 0 auto;
         }
         .plans-q {
+        }
+        .plans-a {
+            padding: 0 8;
         }
         .plans-a-ctnr {
             color: black;
@@ -69,6 +71,15 @@
             }
             .q-question-ans {
                 margin: 15 0;
+            }
+            .plans-q-ctnr {
+                width: 700;
+            }
+            .plans-a-ctnr {
+                width: 700;
+            }
+            .plans-free {
+                width: 700;
             }
         }
     }

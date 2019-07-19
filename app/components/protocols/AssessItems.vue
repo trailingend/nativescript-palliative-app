@@ -190,11 +190,11 @@
                 this.letters.forEach(elem => { 
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     if (elem.id === id) {
-                        // letter_view.text = elem.title;
-                        letter_view.backgroundColor = "#e5e5e5";
+                        letter_view.backgroundColor = "#acd6b5";
+                        letter_view.borderColor = "#acd6b5";
                     } else {
-                        // letter_view.text = elem.letter;
                         letter_view.backgroundColor = "#ffffff";
+                        letter_view.borderColor = "#e5e5e5";
                     }
                 });
                 console.log("change of letter: " + id);

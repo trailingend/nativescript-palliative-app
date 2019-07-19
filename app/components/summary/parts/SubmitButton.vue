@@ -3,13 +3,25 @@
 </template>
 
 <script lang="ts">
+    import Dashboard from '../../home/Dashboard.vue';
+
+    import { mapActions } from 'vuex';
     import * as email from "nativescript-email";
     import * as base64 from "base-64";
     import * as utf8 from "utf8";
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
 
     export default {
+        props: {
+            log_id: {
+                type: String,
+                required: true,
+            },
+        },
         methods: {
+            ...mapActions([
+                'changeChartStatus'
+            ]),
             onSubmitTap() {
                 confirm({
                     title: "Attention",
@@ -19,7 +31,21 @@
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.generatePDF();
+                        // this.onEmailSent();
                     } 
+                });
+            },
+            onEmailSent() {
+                console.log("=== Navigate Back To Home ===");
+                this.changeChartStatus(this.log_id);
+                this.$navigateTo(Dashboard, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slideBottom',
+                        curve: 'easeIn',
+                        duration: 300
+                    }
                 });
             },
             generatePDF() {
@@ -48,10 +74,10 @@
            
                 email.available().then(avaialble => {
                     if (avaialble) {
-                            email.compose({
+                        email.compose({
                             subject: "Email Template",
                             body: "This is a <strong>fake</strong> email template for a palliative chart",
-                            to: ['joshua.stuible@vch.ca'],
+                            to: ['josh.stuible@gmail.com'],
                             cc: [],
                             bcc: [],
                             attachments: [{
@@ -59,9 +85,14 @@
                                 path: doc_64,
                                 mimeType: 'application/pdf'
                             }]
-                        }).then( function() {
-                            console.log("Email composer closed");
-                        }, function(error) {
+                        }).then(() => {
+                            alert({
+                                title: "Email Sent",
+                                okButtonText: "Back to home"
+                            }).then((result) => {
+                                this.onEmailSent();
+                            });
+                        }, (error) => {
                             alert({
                                 title: "Fail to Email",
                                 message: error,

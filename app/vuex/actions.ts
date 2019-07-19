@@ -214,8 +214,9 @@ export default {
         }
     },
 
-    changeChartStatus({commit, state}, id) {
-        commit(types.CHART_STATUS_UPDATE, id);
+    changeChartStatus({commit, state}, log_id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+        commit(types.CHART_STATUS_TRUE, log_idx);
     },
 
     saveActiveChart({commit, state}, id) {

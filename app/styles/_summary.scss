@@ -16,6 +16,7 @@
             font-weight: 700;
             color: black;
             margin-bottom: 20; 
+            text-transform: uppercase;
         }
         .divider-ctnr {
             width: 50;
@@ -30,6 +31,7 @@
             font-size: 18;
             font-weight: 700;
             text-align: left;
+            text-transform: uppercase;
             margin-bottom: 10; 
             margin-bottom: 5 0 15 0;
         }
@@ -40,6 +42,7 @@
         .sum-item-title {
             font-weight: 700;
             margin-bottom: 10; 
+            text-transform: uppercase;
         }
         .sum-unit-ctnr {
             margin-bottom: 15; 
@@ -51,7 +54,7 @@
         }
         .sum-bold {
             font-weight: 700;
-            text-transform: uppercase;
+            text-transform: none;
         }
     
         .sum-btn {

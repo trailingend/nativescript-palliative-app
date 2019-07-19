@@ -8,18 +8,22 @@
         }
         .others-title-ctnr {
             margin-top: 60;
-            margin-bottom: 60; 
         }
         .others-title {
-            margin-bottom: 20; 
             font-size: $log-title-font-size;
             font-weight: 700;
             color: $color-text-dark;
             text-align: center;
             text-transform: uppercase;
         }
+        .others-subtitle-ctnr {
+            margin-top: 10;
+            margin-bottom: 40;
+        }
         .others-subtitle {
-            margin-bottom: 20; 
+            font-size: 20;
+            font-weight: 400;
+            text-transform: uppercase;
         }
         .divider-ctnr {
             width: 50;
@@ -73,6 +77,15 @@
             }
             .q-question-ans {
                 margin: 15 0;
+            }
+            .others-q-ctnr {
+                width: 700;
+            }
+            .others-a-ctnr {
+                width: 700;
+            }
+            .others-free {
+                width: 700;
             }
         }
     }

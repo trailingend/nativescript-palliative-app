@@ -29,7 +29,7 @@
                             :row="Math.floor(index / gridSetting.denominator)"
                             :col="index % gridSetting.denominator"
                             :text="protocol.name" 
-                            :background="unclicked_color"
+                            :background="checkSavedProtocols(protocol.id) ? saved_color : unclicked_color"
                             :id="`choose-btn-${index}`"
                             class="choose-btn" 
                             @tap="(args) => onBtnTap(args, protocol, index)" />
@@ -63,6 +63,7 @@
                 show_next: false,
                 unclicked_color: '#f5f5f5',
                 clicked_color: '#e5e5e5',
+                saved_color: '#acd6b5',
                 protocol_id: null,
 
                 gridSetting: {
@@ -152,21 +153,49 @@
                     }
                 });
             },
+            checkSavedProtocols(p_id) {
+                const log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const p_items = log.items_answers.find(elem => { return elem.id === p_id; });
+                const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
+                const p_plans = log.plans_answers.find(elem => { return elem.id === p_id; });
+                return p_items != undefined || p_others != undefined || p_plans != undefined;
+            },
             onBtnTap(args, proto, index) {
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
                 this.protocol_id = (this.protocol_id === proto.id) ? null : proto.id;
 
                 for (let i = 0; i < this.protocols.length; i++) {
-                    page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
-                }
-                
-                if (this.protocol_id != null && proto.assessment_questions.length > 0) {
-                    this.show_next = true;
-                    clicked_btn.background = this.clicked_color;
-                } else {
-                    this.show_next = false;
-                    clicked_btn.background = this.unclicked_color;
+                    const p_id_to_check = this.protocols[i].id;
+                    if (this.checkSavedProtocols(p_id_to_check)) {
+                        if (i === index) {
+                            this.$navigateTo(Summary, {
+                                animated: true,
+                                clearHistory: true,
+                                transition: {
+                                    name: 'slideRight',
+                                    curve: 'easeIn',
+                                    duration: 300
+                                },
+                                props: {
+                                    log_id: this.log_id,
+                                    has_prev: false
+                                }
+                            });
+                        }
+                    } else {
+                        if (i === index) {
+                            if (this.protocol_id != null && proto.assessment_questions.length > 0) {
+                                this.show_next = true;
+                                clicked_btn.background = this.clicked_color;
+                            } else {
+                                this.show_next = false;
+                                clicked_btn.background = this.unclicked_color;
+                            }
+                        } else {
+                            page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
+                        }
+                    }
                 }
             },
             onForward(args) {

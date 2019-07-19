@@ -15,9 +15,10 @@
             <ScrollView row="1" col="0" rowSpan="3" class="others-main-ctnr">
                 <StackLayout class="others-q-a-ctnr" >
                     <StackLayout class="others-title-ctnr">
-                        <Label class="others-title" text="Assess"></Label>
+                        <Label class="others-title" :text="p_title"></Label>                        
+                    </StackLayout>
+                    <StackLayout class="others-subtitle-ctnr">
                         <Label class="others-subtitle" text="Others"></Label>
-                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
                     <StackLayout class="others-q-ctnr">
                         <Label :text="question_text"  textWrap="true" class="others-q"/>
@@ -71,6 +72,7 @@
         name: 'AssessOthers',
         data() {
             return {
+                p_title: 'Protocol',
                 question_type: 'free_form',
                 question_id: 0,
                 question_text: '?',
@@ -175,6 +177,7 @@
                 }
             },
             prepareCurrentQuestion() {
+                this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.question_id = this.question_ids[this.question_idx];
                 this.retrieveQuestion(this.question_id);
             },

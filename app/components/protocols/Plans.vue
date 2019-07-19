@@ -16,21 +16,21 @@
                 <StackLayout class="plans-q-a-ctnr" >
                     <StackLayout class="plans-title-ctnr">
                         <Label class="plans-title" text="Select plan"></Label>
-                        <StackLayout class="divider-ctnr"></StackLayout>
+                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
                     <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="plans-q-ctnr">
                         <Label text="description placeholder" class="plans-q"/>
                     </FlexboxLayout> -->
                     <StackLayout>
-                    <GridLayout v-for="plan in plans_list" 
-                                :key="plan.unique" 
-                                class="plans-a-ctnr" 
-                                rows="auto" columns="auto, *"
-                                @tap="onAnswerTap(plan)" > 
-                        <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
-                        <Image row="0" col="0" width="30" class="ans-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                        <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
-                    </GridLayout>
+                        <GridLayout v-for="plan in plans_list" 
+                                    :key="plan.unique" 
+                                    class="plans-a-ctnr" 
+                                    rows="auto" columns="auto, *"
+                                    @tap="onAnswerTap(plan)" > 
+                            <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
+                            <Image row="0" col="0" width="30" class="ans-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                            <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
+                        </GridLayout>
                     </StackLayout>
                     <TextView v-model="free_text" 
                               id="plans-free"

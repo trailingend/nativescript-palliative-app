@@ -46,9 +46,8 @@ export default {
     [types.CHART_DEACTIVATE](state) {
         state.currLogId = null;
     },
-    [types.CHART_STATUS_UPDATE](state, chart_id) {
-        const chart_idx = state.logs.findIndex((elem) => {return elem.id == chart_id});
-        state.logs[chart_idx].status = state.logs[chart_idx].status ? false : true;
+    [types.CHART_STATUS_TRUE](state, chart_idx) {
+        state.logs[chart_idx].status = true;
         console.log("in mutation status ===: " + state.logs[chart_idx].status);
     },
 

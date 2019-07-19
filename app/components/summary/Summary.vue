@@ -23,7 +23,7 @@
                                      :protocol_id="p_id" />
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
-                        <SubmitButton />
+                        <SubmitButton :log_id="log_id" />
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
