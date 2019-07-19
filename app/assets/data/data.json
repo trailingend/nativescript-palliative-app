@@ -1,7 +1,6 @@
 {
     "info": {
-        "id": 1,
-        "version": 1
+        "version": 3
     },
     "data": {
         "intro": [
@@ -22,7 +21,7 @@
                     },
                     {
                         "id": 5,
-                        "question": "Are there any secondary concerns?",
+                        "question": "Are there any secondary concerns?\nIf yes, explain.",
                         "question_type": {
                             "id": 5,
                             "type": "boolean"
@@ -39,7 +38,7 @@
                 "questions": [
                     {
                         "id": 6,
-                        "question": "Is the wish to stay at home?",
+                        "question": "Is the wish to stay at home?\nIf no, explain.",
                         "question_type": {
                             "id": 5,
                             "type": "boolean"
@@ -83,8 +82,534 @@
         ],
         "protocols": [
             {
+                "id": 4,
+                "name": "Caregiver Distress",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 5,
+                "name": "Confusion \/ Delirium",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 6,
+                "name": "Constipation",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 7,
+                "name": "Death",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 8,
+                "name": "Dyspnea",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 9,
+                "name": "Equipment Wounds and Other",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 10,
+                "name": "Falls",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 11,
+                "name": "Last Days and Hours",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 3,
+                "name": "Nausea \/ Vomiting",
+                "additional_questions": [
+                    {
+                        "id": 3,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "Who is present and capable of managing care meds and potential urgency of situation for the next 24hrs or longer if necessary?",
+                        "answers": []
+                    },
+                    {
+                        "id": 4,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is the client safe?\nIf no, explain.\n",
+                        "answers": []
+                    },
+                    {
+                        "id": 5,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is the client awake and responding?\nIf no, explain.\n",
+                        "answers": []
+                    },
+                    {
+                        "id": 6,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "Is the client still eating\/drinking? Are there signs of dehydration?",
+                        "answers": []
+                    },
+                    {
+                        "id": 7,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "When the last time client saw GP\/NP\/oncologist etc.?",
+                        "answers": []
+                    },
+                    {
+                        "id": 8,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "When the last time client saw home care nurse?",
+                        "answers": []
+                    },
+                    {
+                        "id": 9,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is the client still able to swallow medications? \nIf no, explain.\n",
+                        "answers": []
+                    },
+                    {
+                        "id": 10,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Are there adequate medications in the home?",
+                        "answers": []
+                    },
+                    {
+                        "id": 11,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is there a care plan in place for managing nausea and\/or vomiting? If yes, explain.",
+                        "answers": []
+                    },
+                    {
+                        "id": 12,
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is there any other equipment, drains, wounds etc.? \nIf yes, explain.",
+                        "answers": []
+                    }
+                ],
+                "assessment_questions": [
+                    {
+                        "id": 10,
+                        "question": "When did it begin? \nHow long does it last? \nHow often does it occur?",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 12,
+                                "answer": "Yes \u2013 new symptom",
+                                "question": 10
+                            },
+                            {
+                                "id": 13,
+                                "answer": "No \u2013 not new",
+                                "question": 10
+                            }
+                        ]
+                    },
+                    {
+                        "id": 11,
+                        "question": "What brings it on?\nWhat makes it better?\nWhat makes it worse?",
+                        "assessment_letter": {
+                            "id": 2
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 12,
+                        "question": "What does it feel like? Describe it? \nDoes it change when changing position? \nNumber of vomits in past 24 hours? \nIs it clear, or another color?\nIs the nausea worse with food intake",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 14,
+                                "answer": "Yes \u2013 vomit",
+                                "question": 12
+                            },
+                            {
+                                "id": 15,
+                                "answer": "No  \u2013 no vomit",
+                                "question": 12
+                            }
+                        ]
+                    },
+                    {
+                        "id": 13,
+                        "question": "Thrush present? \nAny headaches? \nIs the nausea worse with movement?",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 16,
+                                "answer": "Yes - nausea",
+                                "question": 13
+                            },
+                            {
+                                "id": 17,
+                                "answer": "No \u2013 no nausea",
+                                "question": 13
+                            }
+                        ]
+                    },
+                    {
+                        "id": 14,
+                        "question": "Constipation present? \nWhen was last bowel movement?",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 18,
+                                "answer": "Yes \u2013 constipated",
+                                "question": 14
+                            },
+                            {
+                                "id": 19,
+                                "answer": "No \u2013 not constipated",
+                                "question": 14
+                            }
+                        ]
+                    },
+                    {
+                        "id": 15,
+                        "question": "Any new medications that can cause nausea? \nAny signs of confusion?",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 16,
+                        "question": "How severe is this symptom?\n0 (no pain) \u2013 10 (severe)",
+                        "assessment_letter": {
+                            "id": 5
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 4,
+                            "type": "scale"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 17,
+                        "question": "Right now? At worst? On average? \nHow distressing is the symptom?",
+                        "assessment_letter": {
+                            "id": 5
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 18,
+                        "question": "Current medications\/treatments? \nMedications taken in the past 24hrs?\nHow effective are these? \nWhat have you tried in the past?",
+                        "assessment_letter": {
+                            "id": 6
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 19,
+                        "question": "Are non-prescription treatments, herbal remedies, or traditional healing practices being used? \nHow effective are these? \nAny side effects? \nWhat was tried in the past? \nAny concerns about side effects or cost?",
+                        "assessment_letter": {
+                            "id": 6
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 20,
+                        "question": "Caller\u2019s thoughts on cause for what is happening? \nWhat is most concerning?\nHow is it affecting family?",
+                        "assessment_letter": {
+                            "id": 7
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 21,
+                        "question": "Overall goals to keep in mind while managing this symptom? \nAcceptable level for this symptom (0-10)? \nAre there any beliefs, views or feelings about this symptom that are important to keep in mind?",
+                        "assessment_letter": {
+                            "id": 8
+                        },
+                        "protocol": {
+                            "id": 3
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    }
+                ],
+                "plans": [
+                    {
+                        "plan": 1
+                    },
+                    {
+                        "plan": 2
+                    },
+                    {
+                        "plan": 3
+                    },
+                    {
+                        "plan": 4
+                    },
+                    {
+                        "plan": 5
+                    }
+                ],
+                "recommendations": [
+                    {
+                        "id": 2,
+                        "protocol": 3,
+                        "content": "<p> Goals of Care: If symptom cannot be managed, would the client\/family consider going to hospital for further investigation and\/or treatment?<\/p><p>It is important to try and identify the possible underlying etiology prior to making any recommendations. <\/p><p>Depending on the type of nausea, different anti-emetics are used. Refer to BC Palliative Symptom Practice guidelines.  <\/p><p>Nausea\/vomiting can be broken into five groups:<\/p><ul><li>Gut causes<\/li><li>Chemical causes (this includes medications and electrolytes)<\/li><li>Raised intracranial pressure<\/li><li>Motion induced<\/li><li>Anxiety<\/li><\/ul><div><p>Emergency situations that may require a transfer to acute care: <\/p><p>Gross hematemesis, fecal odor, severe abdominal pain with ascites, sudden change in LOC, seizure activity. <\/p><p>Interventions<\/p><ul><li>Ice chips<\/li><li>Clear fluids <\/li><li>Ginger ale<\/li><li>Dry toast or crackers<\/li><li>Meticulous attention to oral care<\/li><li>Keep air and room fresh; eliminate strong odors<\/li><\/ul><\/div>",
+                        "title": "NON-PHARMACEUTICAL INTERVENTIONS"
+                    },
+                    {
+                        "id": 3,
+                        "protocol": 3,
+                        "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p>",
+                        "title": "PHARMACEUTICAL INTERVENTIONS"
+                    }
+                ],
+                "related_protocols": [
+                    {
+                        "related_to": 12
+                    },
+                    {
+                        "related_to": 8
+                    }
+                ],
+                "resources": [
+                    {
+                        "id": 4,
+                        "title": "BC Centre for Palliative Care Guideline",
+                        "url": "http:\/\/google.com",
+                        "protocol": 3
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "name": "Pain",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 13,
+                "name": "Restlessness \/ Anxiety \/ Agitation",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 14,
+                "name": "Seizures",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [
+                    {
+                        "id": 4,
+                        "protocol": 14,
+                        "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p><p>Myoclonus\/twitching <\/p><ul><li>Opioid-induced myoclonus is often misinterpreted as seizure activity<\/li><li>Impaired excretion of opioids <\/li><li>Most prevalent in renal impairment with morphine, codeine, meperidine and, to a lesser extent, hydromorphone. <\/li><li>Liver impairment <\/li><li>Possible drug causes and\/or interactions<\/li><li>Dehydration may be a contributing factor<\/li><\/ul>",
+                        "title": "PHARMACEUTICAL INTERVENTIONS\u00ac"
+                    }
+                ],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
+                "id": 15,
+                "name": "Severe Bleeding",
+                "additional_questions": [],
+                "assessment_questions": [],
+                "plans": [],
+                "recommendations": [],
+                "related_protocols": [],
+                "resources": []
+            },
+            {
                 "id": 1,
-                "name": "First Protocol",
+                "name": "zJosh Protocol",
                 "additional_questions": [
                     {
                         "id": 1,
@@ -302,6 +827,12 @@
                         "protocol": 1,
                         "content": "<ul><li>Dyspnea may not be due to hypoxia. Use other methods to provide fresh air when O2 levels are satisfactory such as opening windows and\/or turning on fan<\/li><li>Focus on relaxation and other non-pharmacological techniques  such as deep breathing, massage, therapeutic touch, mindfulness meditation, relaxing music<\/li><li>Sit upright to allow for chest expansion or prop up on pillows if lying in bed<\/li><li>Gentle reassurance to reduce anxiety<\/li><\/ul><div><h2>Potential Causes of Dyspnea to keep in mind:<\/h2><div><ul><li><b>Pulmonary:<\/b> Airway obstruction, COPD\/asthma, damage from chemotherapy, radiation or surgery, emboli, fibrosis, effusion, primary or metastatic tumour.<\/li><li><b>Cardiac:<\/b> CHF, CAD, arrhythmias, pericardial effusion.<\/li><li><b>Neuromuscular:<\/b> ALS, CVA, poliomyelitis, myasthenia gravis<\/li><li><b>Other:<\/b> Anxiety, fatigue\/deconditioning, weakness, pain, severe anemia, infection, carcinomatosis, hepatomegaly, phrenic nerve lesion, peritoneal effusion<\/li><li><b>Superior Vena Cava (SVC) obstruction<\/b> (This is an emergency and requires prompt intervention) **might be a good place to put a link to this emergency Breathing Pattern Change?<\/li><\/ul><div><p><b>Goals of Care:<\/b>  If symptom cannot be managed, is client and family open to going to hospital for further investigation and treatment of symptom?<br><\/p><\/div><p><br><\/p><\/div><\/div>",
                         "title": "NON-PHARMACEUTICAL INTERVENTIONS"
+                    },
+                    {
+                        "id": 5,
+                        "protocol": 1,
+                        "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p><p>Myoclonus\/twitching <\/p><ul><li>Opioid-induced myoclonus is often misinterpreted as seizure activity<\/li><li>Impaired excretion of opioids <\/li><li>Most prevalent in renal impairment with morphine, codeine, meperidine and, to a lesser extent, hydromorphone. <\/li><li>Liver impairment <\/li><li>Possible drug causes and\/or interactions<\/li><li>Dehydration may be a contributing factor<\/li><\/ul>",
+                        "title": "ANOTHER LOINGISH THING"
                     }
                 ],
                 "related_protocols": [
@@ -329,16 +860,6 @@
                         "protocol": 1
                     }
                 ]
-            },
-            {
-                "id": 2,
-                "name": "Fake Protocol \/ Don't Click",
-                "additional_questions": [],
-                "assessment_questions": [],
-                "plans": [],
-                "recommendations": [],
-                "related_protocols": [],
-                "resources": []
             }
         ],
         "assessment_letters": [

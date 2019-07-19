@@ -76,7 +76,7 @@ export const dialogLogDelete = async (id) => {
     }).then(isConfirmed => {
         willDelete = isConfirmed;
         if (isConfirmed) {
-            console.dir("=== Delete patient === " + id);
+            console.log("=== Delete patient === " + id);
         }
     });
     return willDelete;

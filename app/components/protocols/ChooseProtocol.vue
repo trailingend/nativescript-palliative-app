@@ -99,6 +99,7 @@
 		},
         methods: {
             ...mapActions([
+                'saveProtoProgress'
             ]),
             prepareProtocols() {
             },
@@ -170,6 +171,11 @@
             },
             onForward(args) {
                 if (this.protocol_id != null) {
+                    const progress = {
+                        log_id: this.log_id,
+                        p_id: this.protocol_id,
+                    }
+                    this.saveProtoProgress(progress);
                     this.prepareNextProtocol();
                 } else {
                     console.log("=== TODO navigate to summary and submit ===");

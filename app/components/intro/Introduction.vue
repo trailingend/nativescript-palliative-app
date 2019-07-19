@@ -95,6 +95,7 @@
 		},
         methods: {
             ...mapActions([
+                'saveIntroUpdate',
                 'saveIntroProgress',
             ]),
             prepareIntro() {
@@ -160,10 +161,15 @@
             },
             onForward(args) {
                 console.log("=== Forward === ");
-                const progress = {
+                const update = {
                     log_id: this.log_id,
                     content: this.responses,
                 };
+                const progress = {
+                    log_id: this.log_id,
+                    s_id: this.step_ids[this.step_idx],
+                }
+                this.saveIntroUpdate(update);
                 this.saveIntroProgress(progress);
                 
                 const next_step_idx = this.step_idx + 1;

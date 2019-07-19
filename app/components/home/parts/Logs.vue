@@ -111,7 +111,7 @@
                     cancelButtonText: "Cancel"
                 }).then(isConfirmed => {
                     if (isConfirmed) {
-                        console.dir("=== Delete client === " + id);
+                        console.log("=== Delete client === " + id);
                         this.deleteChart(id);
                     } else {
                         console.log("=== no delete ===");

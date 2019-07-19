@@ -110,6 +110,7 @@
         },
         methods: {
             ...mapActions([
+                'savePlansUpdate',
                 'savePlansProgress'
             ]),
             retrieveSavedPlans() {
@@ -193,12 +194,18 @@
             onForward() {
                 console.log("=== Forward === ");
                 this.selected_plans.push(this.free_text);
-                const progress = {
+                const update = {
                     log_id: this.log_id,
                     p_id: this.protocol_id, 
                     a: this.selected_plans
                 };
+                const progress = {
+                    log_id: this.log_id,
+                    has_plan: 1,
+                }
+                this.savePlansUpdate(update);
                 this.savePlansProgress(progress);
+
                 this.prepareNextStage();
             },
             onBackward() {

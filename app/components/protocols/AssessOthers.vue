@@ -20,7 +20,7 @@
                         <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
                     <StackLayout class="others-q-ctnr">
-                        <Label :text="question_text" class="others-q"/>
+                        <Label :text="question_text"  textWrap="true" class="others-q"/>
                     </StackLayout>
                     <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="others-q-ctnr">
                         <Image width="50" class="q-icon" src="~/assets/images/q-icon.png" stretch="aspectFit"></Image>
@@ -130,7 +130,8 @@
         },
         methods: {
             ...mapActions([
-                'saveOthersProgress'
+                'saveOthersUpdate',
+                'saveOthersProgress',
             ]),
             retrieveQuestion(target_q_id) {
                 const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });
@@ -175,7 +176,6 @@
             },
             prepareCurrentQuestion() {
                 this.question_id = this.question_ids[this.question_idx];
-                console.log(this.question_idx+"    id "+this.question_id)
                 this.retrieveQuestion(this.question_id);
             },
             prepareAnotherQuestion(q_idx) {
@@ -253,13 +253,18 @@
             onForward() {
                 console.log("=== Forward === ");
                 this.selected_answers.push(this.free_text);
-                const progress = {
+                const update = {
                     log_id: this.log_id,
                     p_id: this.protocol_id,
                     q_id: this.question_id, 
                     q_type: this.question_type,
                     a: this.selected_answers
                 };
+                const progress = {
+                    log_id: this.log_id,
+                    q_id: this.question_ids[this.question_idx],
+                }
+                this.saveOthersUpdate(update);
                 this.saveOthersProgress(progress);
                 
                 const p_idx = this.protocols.findIndex(elem => { return elem.id === this.protocol_id; });

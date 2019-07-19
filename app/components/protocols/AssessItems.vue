@@ -127,7 +127,7 @@
 		},
         methods: {
             ...mapActions([
-                'saveItemsProgress',
+                'saveItemsUpdate',
             ]),
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
@@ -220,7 +220,7 @@
                     p_id: this.protocol_id, 
                     content: this.responses,
                 };
-                this.saveItemsProgress(progress);
+                this.saveItemsUpdate(progress);
                 this.prepareNextPage();
             },
             onBackward(args) {

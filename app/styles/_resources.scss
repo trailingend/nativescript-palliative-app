@@ -12,15 +12,17 @@
     }  
     .resources-main-ctnr {
         margin: auto;
-        margin: 0 25;
+        padding: 0 25;
     }
     .resources-title-ctnr {
         margin-top: 25;
     }
     .resources-title {
-        text-align: center;
+        
         font-size: $log-title-font-size;
         font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
         color: black;
         margin-bottom: 5; 
     }

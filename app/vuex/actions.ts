@@ -54,12 +54,12 @@ export default {
         commit(types.CHART_DELETE, log_idx);
     },
 
-    saveIntroProgress({commit, state}, progress_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
+    saveIntroUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
-            progress_item.content.forEach(respond => {
+            update_item.content.forEach(respond => {
                 const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.id === respond.q_id; });
                 const log_item = {
                     idx: log_idx,
@@ -69,88 +69,153 @@ export default {
                         a: respond.a,
                     }
                 }
-                commit(types.INTRO_CHART_UPDATE, log_item);
+                commit(types.CHART_INTRO_UPDATE, log_item);
             });
         }
     },
 
-    saveItemsProgress({commit, state}, progress_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
+    saveItemsUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
-            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(elem => { return elem.id === progress_item.p_id; });
+            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(elem => { return elem.id === update_item.p_id; });
             const log_item = {
                 idx: log_idx,
                 p_idx: existed_p_idx,
                 content: {
-                    id: progress_item.p_id,
-                    a: progress_item.content,
+                    id: update_item.p_id,
+                    a: update_item.content,
                 }
             }
-            commit(types.ITEMS_CHART_UPDATE, log_item);
+            commit(types.CHART_ITEMS_UPDATE, log_item);
         }
     },
 
-    saveOthersProgress({commit, state}, progress_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
+    saveOthersUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
             console.log("=== In others log update: OH NO !!! ===");
         } else {
-            console.log(progress_item.p_id + " " + progress_item.q_id )
-            const existed_p_idx = state.logs[log_idx].others_answers.findIndex(p_ans => { return p_ans.id === progress_item.p_id; });
-            console.log(progress_item.p_id + " " + progress_item.q_id + " " + existed_p_idx)
+            console.log(update_item.p_id + " " + update_item.q_id )
+            const existed_p_idx = state.logs[log_idx].others_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
+            console.log(update_item.p_id + " " + update_item.q_id + " " + existed_p_idx)
             if (existed_p_idx === -1) {
                 const log_item = {
                     idx: log_idx,
                     content: {
-                        id: progress_item.p_id,
+                        id: update_item.p_id,
                         a: [{
-                            q_id: progress_item.q_id,
-                            q_type: progress_item.q_type,
-                            a: progress_item.a,
+                            q_id: update_item.q_id,
+                            q_type: update_item.q_type,
+                            a: update_item.a,
                         }]
                     }
                 }
-                commit(types.OTHERS_CHART_ADD, log_item);
+                commit(types.CHART_OTHERS_ADD, log_item);
             } else {
-                const existed_q_idx = state.logs[log_idx].others_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === progress_item.q_id; });
+                const existed_q_idx = state.logs[log_idx].others_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === update_item.q_id; });
                 const log_item = {
                     idx: log_idx,
                     p_idx: existed_p_idx,
                     q_idx: existed_q_idx,
                     content: {
-                        q_id: progress_item.q_id,
-                        q_type: progress_item.q_type,
-                        a: progress_item.a,
+                        q_id: update_item.q_id,
+                        q_type: update_item.q_type,
+                        a: update_item.a,
                     }
                 }
                 console.log(existed_p_idx + " " + existed_q_idx)
-                commit(types.OTHERS_CHART_UPDATE, log_item);
+                commit(types.CHART_OTHERS_UPDATE, log_item);
             }
         }
     },
 
-    savePlansProgress({commit, state}, progress_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress_item.log_id});
+    savePlansUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
             console.log("=== In others log update: OH NO !!! ===");
         } else {
-            const existed_p_idx = state.logs[log_idx].plans_answers.findIndex(p_ans => { return p_ans.id === progress_item.p_id; });
+            const existed_p_idx = state.logs[log_idx].plans_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
             const log_item = {
                 idx: log_idx,
                 p_idx: existed_p_idx,
                 content: {
-                    id: progress_item.p_id,
-                    a: progress_item.a,
+                    id: update_item.p_id,
+                    a: update_item.a,
                 }   
             };
-            commit(types.PLANS_CHART_UPDATE, log_item);
+            commit(types.CHART_PLANS_UPDATE, log_item);
+        }
+    },
+
+    saveIntroProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                s_id: input_item.s_id,
+            };
+            commit(types.CHART_INTRO_PROGRESS, progress_item);
+        }
+    },
+
+    saveProtoProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In proto progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                p_id: input_item.p_id,
+            };
+            commit(types.CHART_PROTO_PROGRESS, progress_item);
+        }
+    },
+
+    saveItemsProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In items progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                l_id: input_item.l_id,
+            };
+            commit(types.CHART_ITEMS_PROGRESS, progress_item);
+        }
+    },
+
+    saveOthersProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In others progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                q_id: input_item.q_id,
+            };
+            commit(types.CHART_OTHERS_PROGRESS, progress_item);
+        }
+    },
+
+    savePlansProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In plans progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                has_plan: input_item.has_plan,
+            };
+            commit(types.CHART_PLANS_PROGRESS, progress_item);
         }
     },
 
     changeChartStatus({commit, state}, id) {
-        commit(types.STATUS_UPDATE, id);
+        commit(types.CHART_STATUS_UPDATE, id);
     },
 
     saveActiveChart({commit, state}, id) {

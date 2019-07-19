@@ -57,7 +57,6 @@
             },
             prepareIntroResponses(curr_log) {
                 const q_objs = curr_log.intro_answers;
-                console.dir(curr_log.intro_answers)
                 if (q_objs) {
                     const q_obj = q_objs.find(elem => { return elem.q_id === this.unit.id; });
                     this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';

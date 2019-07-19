@@ -12,7 +12,7 @@ export default {
 		shift_end: '5:00PM',
 		color: '#7ca8ea',
 	}, {
-		id: '477567',
+		id: '777777',
 		name: 'Ruby Chen',
 		shift_start: '8:00AM',
 		shift_end: '6:00PM',
@@ -30,7 +30,7 @@ export default {
 	// 	nurse: '888888',
     //     createdTime: '5:45 | JAN / 05 / 2019',
 	// 	status: true,
-	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
 	// 	intro_answers: [{
 	// 		id: 1,
 	// 		a: ["Yes", "Terrible"]
@@ -54,7 +54,7 @@ export default {
 	// 	nurse: '888888',
     //     createdTime: '1:45 | DEC / 05 / 2018',
 	// 	status: false,
-	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
 	// 	intro_answers: [{
 	// 		id: 1,
 	// 		a: ["Yes", "Terrible"]
@@ -78,7 +78,7 @@ export default {
 	// 	nurse: '477567',
     //     createdTime: '5:05 | DEC / 08 /2017',
 	// 	status: false,
-	// 	progress: 0, // progress: 0 - intro, 1 - protocol, 2 - summary, 3 - submit
+	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
 	// 	intro_answers: [{
 	// 		id: 1,
 	// 		a: ["No", "Terrible"]

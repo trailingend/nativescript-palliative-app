@@ -101,7 +101,7 @@
             onUserLongPress(user) {
                 if (this.curr_user_idx === this.users.findIndex(elem => { return elem.id === user.id })) {
                     dialogs.alert('This is the current user. Cannot delete. Please log out first.').then(() => {
-                        console.log("=== cannot delete user ===");
+                        console.log("=== in Select User - cannot delete user ===");
                     });
                 } else {
                     dialogs.confirm({
@@ -111,7 +111,7 @@
                         cancelButtonText: "Cancel"
                     }).then(isConfirmed => {
                         if (isConfirmed) {
-                            console.dir("=== Delete user === " + user.id);
+                            console.log("=== in Select User - delete user === " + user.id);
                             this.deleteUser(user.id);
                         }
                     });

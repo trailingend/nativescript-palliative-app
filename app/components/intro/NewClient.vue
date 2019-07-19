@@ -191,7 +191,7 @@
                         nurse: '',
                         createdTime: this.created_time,
                         status: false,
-                        progress: -1,
+                        progress: [-1, -1, -1, -1, 0], // s_id, p_id, l_id, q_id, plan_boolean
                         intro_answers: [],
                         items_answers: [],
                         others_answers: [],
