@@ -1,0 +1,32 @@
+@import "variables";
+
+.answers-a-wrapper {
+    width: 500;
+}
+
+.answers-a-select-ctnr {
+    width: 50%;
+}
+.answers-a-select{
+    width: 250;
+}
+.answers-a-ctnr {
+    color: black;
+    margin: 0 5 10 5;
+    padding: 10;
+    border-radius: $border-size;
+    background: $color-unselected;
+    Label {
+        font-weight: 500;
+    }
+}
+.answers-free {
+    height: $textview-height;
+    margin: 0 5;
+    padding: 5 8;
+    // border-width: 1.5;
+    text-align: left;
+    background: $color-unselected;
+    border-color: $log-border-color;
+    border-radius: $border-size;
+}

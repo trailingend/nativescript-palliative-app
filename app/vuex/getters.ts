@@ -1,13 +1,13 @@
 export default {
-    currUserIdx: state => state.currUserIdx,
-    currLogIndex: state => state.currLogIndex,
+    curr_user_idx: state => state.curr_user_idx,
+    curr_log_id: state => state.curr_log_id,
+    timer_value: state => state.timer_value,
+    timer_status: state => state.timer_status,
     logs: state => state.logs,
     users: state => state.users,
 
-    intro_question_id: state => state.intro_question_id,
-    questions: state => state.questions,
-    answers: state => state.answers,
-    branches: state => state.branches,
-    intro_outcomes: state => state.intro_outcomes,
-    protocols: state => state.protocols
+    intro: state => state.intro,
+    protocols: state => state.protocols,
+    assessment_letters: state => state.assessment_letters,
+    plans: state => state.plans,
 };

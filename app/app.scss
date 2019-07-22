@@ -3,18 +3,28 @@
 Page {
     background: white;
     font-size: 16px;
-    font-family: 'proxima-nova', 'Calibri', sans-serif;
+    font-family: 'Nunito', 'proxima-nova', sans-serif;
 }
 ActionBar {
-    background-color: $color-primary;
-    color: $color-text-light;
-    height: 80;
+    background-color: $color-unselected;
+    color: black;
 }
 Label {
-    font-size: $list-font-size;
+    font-size: 17;
     text-align: center;
+    letter-spacing: 0.05;
     vertical-align: middle;
-    text-transform: uppercase;
+    // text-transform: uppercase;
+}
+TextField, TextView {
+    font-size: 17;
+    text-align: left;
+    letter-spacing: 0.05;
+}
+Button {
+    font-size: 17;
+    text-align: center;
+    letter-spacing: 0.05;
 }
 
 .edit-icon {
@@ -22,9 +32,74 @@ Label {
     horizontal-align: right;
 }
 
+
+.form-btn {
+    width: 200;
+    height: 60;
+    border-radius: 30;
+    margin: 0 auto;
+    font-size: 18;
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    color: white;
+    background: $color-dark-blue;
+}
+
+.back-btn, .next-btn {
+    width: 140;
+    height: 50;
+    margin: 0 auto 25 auto;
+    font-size: 19;
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    color: white;
+    background: $color-dark-blue;
+    border-width: 3;
+    border-radius: 25;
+    border-color: $color-dark-blue;
+}
+.back-btn {
+    padding-left: 20; 
+    transform: translateX(-25);
+}
+.next-btn {
+    padding-right: 20; 
+    transform: translateX(25);
+}
+.resource-btn {
+    transform: translateX(25);
+}
+.resource-btn {
+    width: 140;
+    height: 50;
+    margin: 0 auto 25 auto;
+    padding-right: 15; 
+    font-size: 13;
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
+    color: black;
+    background: white;
+    border-width: 3;
+    border-radius: 25;
+    border-color: $color-dark-blue;
+}
+
+
+
 @import "styles/dashboard";
-@import "styles/newPatient";
-@import "styles/question";
-@import "styles/protocol";
-@import "styles/result";
-@import "styles/settings";
+@import "styles/user";
+@import "styles/client";
+@import "styles/clientBlock";
+@import "styles/introduction";
+@import "styles/answers";
+@import "styles/chooseProtocol";
+@import "styles/assessItems";
+@import "styles/assessOthers";
+@import "styles/resources";
+@import "styles/plans";
+@import "styles/summary";
+
+

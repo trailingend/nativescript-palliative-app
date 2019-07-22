@@ -9,144 +9,238 @@
         width: 100%;
         height: 100%;
         margin: 0;
+        background-image: url("~/assets/images/cap.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: contain;
     }
     .home-logo-ctnr {
-        background: $color-temp;
-        margin: 5;
+        background: transparent;
+        margin: 0 5;
 
         .home-logo {
             width: 200;
             horizontal-align: left;
-            margin: 25;
+            margin: 75 50 25 50;
         }
     }
 
     .home-user-ctnr {
-        background: $color-temp;
-        margin: 5;
+        background: white;
+        margin: 50 0 0 0;
+        border-color: $color-light-yellow;
+        border-width: 3;
+        border-right-width: 0;
+        border-radius: 25;
+        transform: translateX(25);
 
         .user-ctnr {
             margin: 25 25;
-            .user-head {
-                width: 80;
-            }
         }
-        .user-q {
+        .user-item {
             font-size: $user-font-size;
             line-height: auto;
             letter-spacing: 0.1;
-            margin: 2.5 10 2.5 0;
             text-align: left;
+            text-transform: uppercase;
         }
-        .user-a {
-            width: 100%;
-            height: 25;
-            font-size: $user-font-size;
-            line-height: 10;
-            letter-spacing: 0.1;
-            // text-align: left;
-            // border-bottom: 2 solid black;
-            border-bottom-width: 0;
-            border-bottom-color: black;
+        .user-bold {
+            font-size: $user-bold-font-size;
+            font-weight: 700;
+            margin-bottom: 5;
         }
-        .user-q3 {
-            margin: 15 0 10 0;
+        .user-shift {
+            margin-top: 15;
         }
-        .user-a3 {
-            width: 150;
-            font-weight: 500;
-            font-size: 32;
-            text-align: left;
-            vertical-align: left;
-            letter-spacing: 0;
-            border-bottom-width: 0;
+        .edit-ctnr {
+            padding-right: 25; 
         }
         .edit-icon {
             width: 20;
         }
-    }
 
-    .log-title-ctnr {
-        background: $color-tertiary;
-        margin: 5;
-        padding: 10 25;
+        &.home-user-begin-ctnr {
+            width: 300;
+            background: $color-dark-yellow;
+            border-color: white;
+            transform: translateX(68);
 
-        .log-title {
-            text-align: right;
-            font-size: 18;
-            font-weight: 700;
-            color: $color-text-light;
-        }
-    }
-    
-    .home-log-ctnr {
-        margin: 0 5;
-
-        .user-head {
-            margin: 20 30;
-        }
-        .patient-item {
-            padding: 2 0;
-            background: white;
-            border-color: #2b2b2b;
-            border-bottom-width: 0.25;
-        }
-        .patient-top {
-            padding-top: 7;
-        }
-        .patient-name {
-            font-weight: 200;
-            text-align: left;
-        }
-        .patient-phone {
-            font-weight: 700;
-            font-size: $list-bold-font-size;
-            text-align: left;
-        }
-        .patient-time {
-            padding-top: 5;
-            text-align: left;
-        }
-        .patient-btn {
-            padding: 0 25;
-            background: $color-temp;
-            height: 100%;
-        }
-        .edit-icon {
-            margin-bottom: 10;
-            margin-right: 15;
-        }
-        .facetime-ctnr {
-            padding: 0 25;
-            background: $color-temp;
-        }
-        .facetime-icon {
-            height: 100%;
-        }
-        .swipe-ctnr {
-            background: white;
-            border-color: #2b2b2b;
-            border-bottom-width: 0.25;
-        }
-    }
-
-    .home-btn-ctnr {
-        margin: 5;
-        background: $color-secondary;
-
-        .home-add {
-            width: 150;
-            height: 150;
-            // vertical-align: center;
-            margin: 50;
-        }
-
-        &.tablet-landscape {
-            .home-add {
-                margin: 150;
+            .user-ctnr {
+                margin: 35 25;
+            }
+            .user-begin-text {
+                font-size: $user-begin-font-size;
+                font-weight: 700;
+                line-height: 00%;
+                text-align: right;
+            }
+            .edit-icon {
+                width: 30;
+                margin: auto 25;
             }
         }
     }
 
+    .log-title-ctnr {
+        background: white;
+        margin: 5;
+        padding: 50 0 25 0;
+        margin: 0 $log-border 0 $log-border;
+        border-color: $log-border-color;
+        border-bottom-width: 0.25;
+
+        .log-title {
+            font-size: 18;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            color: $color-text-dark;
+        }
+    }
     
+    .home-log-ctnr {
+        margin: 0 $log-border;
+
+        .home-log-null {
+            font-family: 'Nunito', sans-serif;
+            color: #777777;
+            margin-top: 50;
+            font-size: 18;
+            font-weight: 200;
+            letter-spacing: 0.05;
+            text-transform: uppercase;
+        }
+
+        .user-head {
+            margin: 20 30;
+        }
+        .client-item {
+            position: relative;
+            padding: 2 0;
+            background: white;
+            border-color: $log-border-color;
+            border-bottom-width: 0.25;
+        }
+        .client-text {
+            font-family: 'Nunito Sans', 'Nunito', sans-serif;
+            font-size: 14;
+            font-weight: 700;
+            letter-spacing: 0.05;
+            text-align: left;
+            text-transform: uppercase;
+        }
+        .client-bold {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18;
+            font-weight: 900;
+            font-size: $list-bold-font-size;
+        }
+        .client-light {
+            padding-top: 10;
+            font-weight: 200;
+        }
+
+        .edit-icon {
+            // margin-bottom: 10;
+            margin-right: 25;
+        }
+        .bar-ctnr {
+            width: 0.25;
+            height: 50;
+            background: $log-border-color;
+        }
+        .facetime-ctnr {
+            position: relative;
+            height: 100%;
+            padding: 0 25;
+
+        }
+        .facetime-icon {
+            position: relative;
+            height: 100%;
+        }
+        .swipe-ctnr {
+            background: white;
+            border-color: $log-border-color;
+            border-bottom-width: 0.25;
+        }
+        .delete-btn {
+            padding: 0 18;
+            background: white;
+            color: red;
+            height: 100%;
+        }
+    }
+
+    .home-btn-ctnr {
+        background-image: url('~/assets/images/add-background.png');
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+        width: 100%;
+
+        .home-add {
+            width: 240;
+            height: 70;
+            border-radius: 50;
+            margin: 0 auto;
+            margin-top: $add-top-margin;
+            font-size: 25;
+            font-weight: 500;
+            letter-spacing: 0.1;
+            color: white;
+            background: $color-dark-blue;
+            text-transform: uppercase;
+        }
+    }
+
+    &.tablet-landscape {
+        // .log-title-ctnr {
+        //     margin: 5 5 5 0;
+        // }
+        // .home-log-ctnr {
+        //     margin: 5 5 5 0;
+        // }
+        // .home-btn-ctnr {
+        //     .home-add {
+        //         margin: 150;
+        //     }
+        // }
+        .home-ctnr {
+            background-image: url("~/assets/images/cap-landscape.png");
+        }
+        .home-logo-ctnr {
+            .home-logo {
+                margin: 40 0 30 50;
+            }
+        }
+        .home-user-ctnr {
+            transform: translateX(50);
+            margin: 20;
+
+            &.home-user-begin-ctnr {
+                transform: translateX(140);                
+
+                .user-ctnr {
+                    margin: 30 20;
+                }
+                .user-begin-text {
+                    font-size: $user-begin-font-size-landscape;
+                }
+                .edit-icon {
+                    width: 30;
+                    margin: auto 25;
+                }
+            }
+        }
+        .log-title-ctnr {
+            padding: 10 0 25 0;
+        }
+        .home-btn-ctnr {
+            background-image: url('~/assets/images/add-background-landscape.png');
+            .home-add {
+                margin-top: $add-top-margin-landscape;
+            }
+        }
+    }
 }

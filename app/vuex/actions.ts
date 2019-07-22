@@ -1,81 +1,230 @@
 let Vue = require('vue');
 
 import * as types from './mutation-types';
-import { knownFolders, Folder, File } from "tns-core-modules/file-system";
+// import { knownFolders, Folder, File } from "tns-core-modules/file-system";
 
 export default {
-    loadData({commit, state}){
+    loadLocalData({commit, state}, data) {
+        console.log("=== in local load === ");
+        commit(types.JSON_UPDATE, data); 
+    },
+
+    loadOnlineData({commit, state}){
         let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
         fetch(url)
             .then(response => response.json())
-            .then(data => {
-                const version_not_match = (state.data_version != data.data.main.version);
-                console.log("=== in load data === version match found? - " + version_not_match);
+            .then(input => {
+                const version_not_match = (state.data_version != input.info.version);
+                console.log("=== in load online data === version match found? - " + version_not_match);
                 if (version_not_match) {
-                    commit(types.JSON_UPDATE, data.data); 
+                    commit(types.JSON_UPDATE, input); 
                 }
             });
+    },
+
+    activateUser({commit, state}, user) {
+        const idx = state.users.findIndex(elem => { return elem.id === user.id });
+        commit(types.USER_UPDATE, idx);
+    },
+
+    deleteUser({commit, state}, user_id) {
+        const idx = state.users.findIndex(elem => { return elem.id === user_id });
+        commit(types.USER_DELETE, idx);
     },
 
     saveUserInfo({commit, state}, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         if (userIdx == -1) {
-            commit(types.NEW_USER, user);
+            commit(types.USER_CREATE, user);
         } else {
-            commit(types.USER_UPDATE, userIdx);
+            commit(types.USER_ALTER, user);
         }
     },
 
     saveClientInfo({commit, state}, entry) {
-        commit(types.NEW_LOG, entry);
+        commit(types.CHART_CREATE, entry);
     },
 
-    deleteLog({commit, state}, log_id) {
+    changeClientInfo({commit, state}, entry) {
+        commit(types.CHART_INFO_UPDATE, entry);
+    },
+
+    deleteChart({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
-        commit(types.DELETE_LOG, log_idx);
+        commit(types.CHART_DELETE, log_idx);
     },
 
-    saveIntroProgress({commit, state}, progress) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == progress.log_id});
+    saveIntroUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
+            update_item.content.forEach(respond => {
+                const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.id === respond.q_id; });
+                const log_item = {
+                    idx: log_idx,
+                    q_idx: existed_q_idx,
+                    content: {
+                        q_id: respond.q_id,
+                        a: respond.a,
+                    }
+                }
+                commit(types.CHART_INTRO_UPDATE, log_item);
+            });
+        }
+    },
+
+    saveItemsUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro log update: OH NO !!! ===");
+        } else {
+            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(elem => { return elem.id === update_item.p_id; });
             const log_item = {
                 idx: log_idx,
-                q_and_a: [progress.q_id, progress.a_id]
+                p_idx: existed_p_idx,
+                content: {
+                    id: update_item.p_id,
+                    a: update_item.content,
+                }
             }
-            commit(types.INTRO_LOG_UPDATE, log_item);
+            commit(types.CHART_ITEMS_UPDATE, log_item);
         }
     },
 
-    revertIntroProgress({commit, state}, log_id) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+    saveOthersUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
-            console.log("=== In revert log update: OH NO !!! ===");
+            console.log("=== In others log update: OH NO !!! ===");
         } else {
-            commit(types.INTRO_LOG_REVERT, log_idx);
+            console.log(update_item.p_id + " " + update_item.q_id )
+            const existed_p_idx = state.logs[log_idx].others_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
+            console.log(update_item.p_id + " " + update_item.q_id + " " + existed_p_idx)
+            if (existed_p_idx === -1) {
+                const log_item = {
+                    idx: log_idx,
+                    content: {
+                        id: update_item.p_id,
+                        a: [{
+                            q_id: update_item.q_id,
+                            q_type: update_item.q_type,
+                            a: update_item.a,
+                        }]
+                    }
+                }
+                commit(types.CHART_OTHERS_ADD, log_item);
+            } else {
+                const existed_q_idx = state.logs[log_idx].others_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === update_item.q_id; });
+                const log_item = {
+                    idx: log_idx,
+                    p_idx: existed_p_idx,
+                    q_idx: existed_q_idx,
+                    content: {
+                        q_id: update_item.q_id,
+                        q_type: update_item.q_type,
+                        a: update_item.a,
+                    }
+                }
+                console.log(existed_p_idx + " " + existed_q_idx)
+                commit(types.CHART_OTHERS_UPDATE, log_item);
+            }
         }
     },
 
-    saveIntroOutcome({commit, state}, out_item) {
-        const log_idx = state.logs.findIndex((elem) => {return elem.id == out_item.log_id});
+    savePlansUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
-            console.log("=== In intro outcome update: OH NO !!! ===");
+            console.log("=== In others log update: OH NO !!! ===");
         } else {
-            const outcome = {
+            const existed_p_idx = state.logs[log_idx].plans_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
+            const log_item = {
                 idx: log_idx,
-                id: out_item.id
-            }
-            commit(types.INTRO_OUTCOME, outcome);
+                p_idx: existed_p_idx,
+                content: {
+                    id: update_item.p_id,
+                    a: update_item.a,
+                }   
+            };
+            commit(types.CHART_PLANS_UPDATE, log_item);
         }
     },
 
-    changeLogStatus({commit, state}, id) {
-        commit(types.STATUS_UPDATE, id);
+    saveIntroProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In intro progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                s_id: input_item.s_id,
+            };
+            commit(types.CHART_INTRO_PROGRESS, progress_item);
+        }
     },
 
-    updateTimer({commit, state}, t) {
-        commit(types.TIME_UPDATE, t);
+    saveProtoProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In proto progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                p_id: input_item.p_id,
+            };
+            commit(types.CHART_PROTO_PROGRESS, progress_item);
+        }
+    },
+
+    saveItemsProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In items progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                l_id: input_item.l_id,
+            };
+            commit(types.CHART_ITEMS_PROGRESS, progress_item);
+        }
+    },
+
+    saveOthersProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In others progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                q_id: input_item.q_id,
+            };
+            commit(types.CHART_OTHERS_PROGRESS, progress_item);
+        }
+    },
+
+    savePlansProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In plans progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                has_plan: input_item.has_plan,
+            };
+            commit(types.CHART_PLANS_PROGRESS, progress_item);
+        }
+    },
+
+    changeChartStatus({commit, state}, log_id) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
+        commit(types.CHART_STATUS_TRUE, log_idx);
+    },
+
+    saveActiveChart({commit, state}, id) {
+        commit(types.CHART_ACTIVATE, id);
+    },
+
+    deleteActiveChart({commit, state}) {
+        commit(types.CHART_DEACTIVATE);
     },
 };
 

@@ -1,0 +1,76 @@
+@import "variables";
+
+.resources-ctnr {
+    background: #cccccc;
+
+    .resources-main-ctnr {
+        vertical-align: middle;
+    }
+    .close-btn {
+        margin: 25;
+        horizontal-align: right;
+    }  
+    .resources-main-ctnr {
+        margin: auto;
+        padding: 0 25;
+    }
+    .resources-title-ctnr {
+        margin-top: 25;
+    }
+    .resources-title {
+        
+        font-size: $log-title-font-size;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        color: black;
+        margin-bottom: 5; 
+    }
+    .resources-subtitle {
+        margin-bottom: 20; 
+    }
+    .divider-ctnr {
+        width: 50;
+        height: 1;
+        background: black;
+    }
+    .resources-tab-ctnr {
+        margin: 10 0;
+    }
+    .resources-tab {
+        padding: 0 10;
+        border-radius: 5;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: black;
+        background: white;
+    }
+    .resources-text {
+        text-align: left;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+    }
+    .resources-sec-title {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .resources-item-ctnr {
+        padding: 0;
+        margin: 25 0;
+        & .resources-reco-ctnr {
+            margin: 0;
+        }
+    }
+    .resources-item {
+        padding: 0;
+        margin: 0;
+    }
+    .resources-item-title {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .resources-url {
+        text-decoration: underline;
+    }
+}

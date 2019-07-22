@@ -1,0 +1,58 @@
+@import "variables";
+
+.client-info-ctnr {
+    margin: 0;
+    padding: 20 10;
+    background: white;
+    border-color: $log-border-color;
+    border-bottom-width: 0.25;
+
+    .user-head {
+        margin: 20 30;
+    }
+    .client-text-ctnr {
+        margin-left: 30;
+    }
+    .client-item {
+        position: relative;
+        padding: 2 0;
+        background: white;
+        border-color: $log-border-color;
+        border-bottom-width: 0.25;
+    }
+    .client-top {
+        padding-top: 7;
+    }
+    .client-text {
+        font-size: 14;
+        font-weight: 200;
+        text-align: left;
+        text-transform: uppercase;
+    }
+    .client-bold {
+        font-weight: 700;
+        font-size: 16;
+    }
+    .client-light {
+        padding-top: 10;
+    }
+    .edit-icon {
+        // margin-bottom: 10;
+        margin-right: 20;
+    }
+    .bar-ctnr {
+        width: 0.25;
+        height: 50;
+        background: $log-border-color;
+    }
+    .facetime-ctnr {
+        position: relative;
+        height: 100%;
+        padding: 0 25;
+
+    }
+    .facetime-icon {
+        position: relative;
+        height: 100%;
+    }
+}

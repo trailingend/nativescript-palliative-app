@@ -1,0 +1,53 @@
+@import "variables";
+
+.choose-page {
+    .choose-ctnr {
+        .choose-main-ctnr {
+            margin: 5;
+            margin-top: 0;
+            padding: 25;
+            background: white;
+        }
+        .choose-title-ctnr {
+            vertical-align: middle;
+        }
+        .choose-title {
+            font-size: $log-title-font-size;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            color: black;
+            margin-bottom: 20; 
+        }
+        .divider-ctnr {
+            width: 50;
+            height: 1;
+            background: black;
+        }
+        .choose-warning {
+            font-weight: 700;
+            padding: 10 100;     
+            background: $color-light-yellow;
+            Label {
+                text-align: center;
+                text-transform: none;
+            }
+        }
+        .choose-d {
+            font-weight: 400;
+            padding: 10 40; 
+            Label {
+                font-size: 15;
+                text-align: center;
+                text-transform: none;
+            }
+        }
+        .choose-btn {
+            color: black;
+            margin: 5;
+            border-radius: $border-size;
+            background: $color-unselected;
+        }
+        
+    }
+}
