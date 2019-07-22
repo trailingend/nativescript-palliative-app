@@ -7,10 +7,10 @@
   "nativescript": {
     "id": "ca.vchdesign.palliativepractice",
     "tns-ios": {
-      "version": "6.0.1"
+      "version": "5.0.0"
     },
     "tns-android": {
-      "version": "6.0.0"
+      "version": "5.0.0"
     }
   },
   "dependencies": {
@@ -20,13 +20,12 @@
     "nativescript-email": "^1.5.3",
     "nativescript-iqkeyboardmanager": "^1.5.1",
     "nativescript-localstorage": "^2.0.0",
-    "nativescript-masked-text-field": "^4.0.2",
     "nativescript-socketio": "^3.2.1",
     "nativescript-toasty": "^1.3.0",
-    "nativescript-ui-listview": "7.0.0",
+    "nativescript-ui-listview": "^6.3.0",
     "nativescript-vue": "^2.0.0",
     "nativescript-vue-devtools": "^1.2.0",
-    "tns-core-modules": "6.0.1",
+    "tns-core-modules": "^5.0.2",
     "utf8": "^3.0.0",
     "vuex": "^3.0.1"
   },
@@ -47,7 +46,7 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
     "terser-webpack-plugin": "^1.1.0",
-    "tns-platform-declarations": "6.0.1",
+    "tns-platform-declarations": "^5.1.2",
     "typescript": "^3.2.4",
     "vue": "^2.5.22",
     "vue-loader": "^15.2.6",

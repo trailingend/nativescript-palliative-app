@@ -18,15 +18,16 @@
                                 class="client-q client-q1" 
                                 text="Call-back #:" 
                                 textWrap="true"/>
-                        <TextField :row="gridSetting.children.a1.row" 
+                        <MaskedTextField
+                                    :row="gridSetting.children.a1.row" 
                                     :col="gridSetting.children.a1.col"
                                     id="client-a1"
                                     class="client-a client-a1" 
-                                    v-model="input_phone" 
+                                    v-model="input_phone"
+                                    mask="999-999-9999"
                                     hint="(888) 888-8888"
                                     keyboardType="phone"
-                                    @blur="onPhoneEntered"
-                                    editable="true" />
+                                />
                         <Label :row="gridSetting.children.q2.row" 
                                 :col="gridSetting.children.q2.col"
                                 class="client-q client-q2" 
@@ -145,15 +146,20 @@
                 'intro'
             ]),
             input_phone: {
-                get: function() {                    
-                    return formatPhoneNum(this.c_phone);
+                get() {                    
+                    return this.c_phone;
                 },
-                set: function (new_input) {
-                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
-                    return formatPhoneNum(this.c_phone);
+                set(new_input) {
+                    this.c_phone = new_input;
                 }
             }
-		},
+        },
+        watch: {
+            // input_phone(){
+            //     // this.c_phone = new_input.replace(/\D/g, '');
+            //     console.log('input phone was changed (detected by watcher)')
+            // }
+        },
         methods: {
             ...mapActions([
                 'saveClientInfo',
@@ -222,7 +228,7 @@
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                for (let i = 1; i <= 4; i++) {
+                for (let i = 2; i <= 4; i++) {
                     const aTextfield = layoutView.getViewById(`client-a${i}`);
                     aTextfield.dismissSoftInput();
                 }
