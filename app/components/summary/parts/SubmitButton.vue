@@ -24,8 +24,8 @@
             ]),
             onSubmitTap() {
                 confirm({
-                    title: "About to Send Email",
-                    message: "Do you want send this chart via email now?",
+                    title: "Send Chart",
+                    message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
                     okButtonText: "Send",
                     cancelButtonText: "Cancel",
                 }).then((result) => {

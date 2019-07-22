@@ -106,8 +106,8 @@
             onDeleteTap(args) {
                 const id = args.object.bindingContext.id;
                 confirm({
-                    title: "About to Delete",
-                    message: "Confirm you want to delete this chart?",
+                    title: "Delete Chart",
+                    message: "This chart and its contents will be removed from the app. This action is not reversible.",
                     okButtonText: "Delete",
                     cancelButtonText: "Cancel"
                 }).then(isConfirmed => {

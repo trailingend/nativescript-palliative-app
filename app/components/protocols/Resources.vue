@@ -5,29 +5,30 @@
                      rows="auto, auto, auto, *" columns="*"
                      ref="resourcesGridRef" 
                      @layoutChanged="onLayoutUpdate">
-
-            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+            <StackLayout row="0" col="0" class="resources-close-ctnr">
+                <Image width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+            </StackLayout>
 
             <StackLayout row="1" col="0" class="resources-title-ctnr">
-                <Label class="resources-title" text="Resources" />
-                <Label class="resources-subtitle" :text="protocol_name" />
-                <StackLayout class="divider-ctnr"></StackLayout>
+                <Label class="resources-title" :text="protocol_name" />
+                <Label class="resources-subtitle" text="Recommend" />
             </StackLayout>
 
             <FlexboxLayout row="2" col="0" flexDirect="row" alignItems="center" justifyContent="space-around" class="resources-tab-ctnr">
-                <Button class="resources-tab" text="resources" textWrap="true" />
-                <Button v-for="recommendation in recommendations_list" 
-                        :key="recommendation.id"
-                        :text="recommendation.title"
+                <Button v-for="(title, index) in button_list" 
+                        :key="index"
+                        :text="title"
                         class="resources-tab"
                         textWrap="true" />
-                <Button text="related protocols" class="resources-tab" textWrap="true"/>
             </FlexboxLayout>
 
-            <ScrollView row="3" col="0" class="resources-main-ctnr">
-                <StackLayout>
+            <ScrollView row="3" col="0" >
+                <StackLayout class="resources-main-ctnr">
                     <StackLayout class="resources-item-ctnr resources-resc-ctnr">
-                        <Label class="resources-text resources-sec-title" text="resources" />
+                        <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
+                            <StackLayout class="divider"/>
+                            <Label class="resources-text resources-sec-title" text="resources" />
+                        </FlexboxLayout>
                         <StackLayout v-for="resource in resources_list" 
                                     :key="resource.id" 
                                     class="resources-item resources-res-item" > 
@@ -35,7 +36,10 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout class="resources-item-ctnr resources-resc-ctnr">
-                        <Label class="resources-text resources-sec-title" text="Related Protocols"></Label>
+                        <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
+                            <StackLayout class="divider"/>
+                            <Label class="resources-text resources-sec-title" text="Related Protocols"></Label>
+                        </FlexboxLayout>
                         <StackLayout v-for="related in related_list" 
                                     :key="related.id" 
                                     class="resources-item resources-rela-item" > 
@@ -45,9 +49,14 @@
                     <StackLayout class="resources-item-ctnr resources-reco-ctnr">
                         <StackLayout v-for="recommendation in recommendations_list" 
                                     :key="recommendation.id" 
-                                    class="resources-item resources-reco-item" > 
-                            <Label class="resources-text resources-sec-title" :text="recommendation.title" />
-                            <HtmlView class="resources-text resources-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
+                                    class="resources-reco-item" > 
+                            <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
+                                <StackLayout class="divider"/>
+                                <Label class="resources-text resources-sec-title" :text="recommendation.title" />
+                            </FlexboxLayout>
+                            <StackLayout class="resources-item">
+                                <HtmlView class="resources-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -72,6 +81,7 @@
                 resources_list: [],
                 recommendations_list: [],
                 related_list: [],
+                button_list: [],
 
                 ctnrSetting: "resources-ctnr",
             }
@@ -105,6 +115,11 @@
                 this.protocol_name = protocol_obj.name;
                 this.resources_list = protocol_obj.resources;
                 this.recommendations_list = protocol_obj.recommendations;
+
+                this.button_list.push("resources");
+                this.button_list.push("related protocols");
+                this.recommendations_list.forEach(elem=> { this.button_list.push(elem.title); });
+
                 protocol_obj.related_protocols.forEach(elem => { 
                     const related_p_obj = this.protocols.find(p => { return p.id == elem.related_to; });
                     if (related_p_obj != undefined) {

@@ -67,8 +67,7 @@
             ]),
             onUserTap(user) {
                 dialogs.prompt({
-                    title: "Verification",
-                    message: "Enter your ID:",
+                    title: "Enter Employee ID",
                     okButtonText: "Confirm",
                     cancelButtonText: "Cancel",
                     inputType: dialogs.inputType.number

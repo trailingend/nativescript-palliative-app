@@ -11,9 +11,10 @@
         methods: {
             onCloseTap() {
                 confirm({
-                    title: "Closing Log",
-                    message: "Do you want to save a draft of your current progress?",
+                    title: "Close Chart",
+                    message: "Your current progress will be saved in your Chart History.",
                     okButtonText: "Save and Close",
+                    neutralButtonText: "Close without Saving",
                     cancelButtonText: "Cancel",
                 }).then((result) => {
                     if (result || result === undefined) {

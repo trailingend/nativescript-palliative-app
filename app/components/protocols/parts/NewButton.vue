@@ -11,9 +11,10 @@
         methods: {
             onNewTap() {
                 confirm({
-                    message: "You are currently in the middle of a chart. Are you sure to create a new chart?",
-                    okButtonText: "Create New",
-                    cancelButtonText: "Stay on Current",
+                    title: "Create New Chart",
+                    message: "Your current progress will be saved in your Chart History.",
+                    okButtonText: "Create New Chart",
+                    cancelButtonText: "Cancel",
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.addNewLog();

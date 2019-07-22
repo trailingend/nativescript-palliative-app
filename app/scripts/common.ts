@@ -66,31 +66,10 @@ export const editGridChildPortrait = {
 
 export const userColors = ['#7ca8ea', '#a57ed7', '#dc9078', '#3956a0', '#007c7c'];
 
-export const dialogLogDelete = async (id) => {
-    let willDelete = false;
-    await confirm({
-        title: "Attention",
-        message: "Confirm you want to delete this patient log?",
-        okButtonText: "Yes",
-        cancelButtonText: "Cancel"
-    }).then(isConfirmed => {
-        willDelete = isConfirmed;
-        if (isConfirmed) {
-            console.log("=== Delete patient === " + id);
-        }
-    });
-    return willDelete;
-    // alert({
-    //     title: "Attention",
-    //     message: "Confirm you want to delete this patient log?",
-    //     okButtonText: "OK"
-    // });
-};
-
 export const dialogConsent = () => {
     alert({
-        title: "Attention",
-        message: "Please agree to the terms first.",
+        title: "Confirm Consent",
+        message: "The caller must consent to have their call recorded first before continuing.",
         okButtonText: "OK"
     });
 };
