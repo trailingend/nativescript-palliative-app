@@ -109,7 +109,7 @@ export const formatPhoneNum = (phone_unformatted) => {
     if (len > 2) {
         const area_code = input.substring(0, Math.min(3, input.length));
         const first_part = input.substring(3, Math.min(6, input.length));
-        const second_part = input.substring(6, Math.min(9, input.length));
+        const second_part = input.substring(6, Math.min(10, input.length));
         const hasSecond = second_part != '';
         formatted_input = hasSecond ? `(${area_code}) ${first_part}-${second_part}` : `(${area_code}) ${first_part}`;
     }
