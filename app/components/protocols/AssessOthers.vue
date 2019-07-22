@@ -6,13 +6,13 @@
             <!-- <NewButton /> -->
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, *, auto, auto" columns="*" 
+                    rows="auto, *, auto, auto" columns="auto, *, auto" 
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" class="others-main-ctnr">
+            <ScrollView row="1" col="0" rowSpan="3" colSpan="3" class="others-main-ctnr">
                 <StackLayout class="others-q-a-ctnr" >
                     <StackLayout class="others-title-ctnr">
                         <Label class="others-title" :text="p_title"></Label>                        
@@ -45,13 +45,12 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
+            <ResourcesButton row="2" col="2" rowSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <FlexboxLayout row="3" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
-            </FlexboxLayout>
+            <Button row="3" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+
+            <Button row="3" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
         </GridLayout>
     </Page>
 </template>

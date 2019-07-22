@@ -150,7 +150,6 @@
                 },
                 set: function (new_input) {
                     this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
-                    return formatPhoneNum(this.c_phone);
                 }
             }
 		},

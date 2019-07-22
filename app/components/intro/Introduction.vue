@@ -6,12 +6,12 @@
         </ActionBar>
         <GridLayout :class="formatSetting" 
                     rows="auto, *, auto" 
-                    columns="*" ref="introGridRef" 
+                    columns="auto, *, auto" ref="introGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="2" class="intro-main-ctnr">
+            <ScrollView row="1" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
                 <StackLayout>
                     <StackLayout class="intro-title-ctnr">
                         <Label class="intro-title" text="Introduction"></Label>
@@ -26,11 +26,9 @@
                 </StackLayout>
             </ScrollView>
 
-            <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button v-if="step_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Label v-else />
-                <Button class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
-            </FlexboxLayout>
+            <Button row="2" col="0" v-if="step_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+
+            <Button row="2" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
         </GridLayout>
         </Page>
 </template>

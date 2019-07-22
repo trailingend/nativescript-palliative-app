@@ -1,7 +1,7 @@
 <template>
-    <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="flex-end">
+    <!-- <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="flex-end"> -->
         <Button class="resource-btn" text="references" @tap="onBtnTap" ></Button>
-    </FlexboxLayout>
+    <!-- </FlexboxLayout> -->
 </template>
 
 <script lang="ts">

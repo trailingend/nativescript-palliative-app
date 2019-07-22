@@ -7,12 +7,12 @@
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
                     rows="auto, *, auto, auto" 
-                    columns="*" ref="plansGridRef" 
+                    columns="auto, *, auto" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" class="plans-main-ctnr">
+            <ScrollView row="1" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
                     <StackLayout class="plans-title-ctnr">
                         <Label class="plans-title" text="Select plan"></Label>
@@ -41,14 +41,12 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
+            <ResourcesButton row="2" col="2" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <FlexboxLayout row="3" col="0"
-                           orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
-            </FlexboxLayout>
+            <Button row="3" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+                
+            <Button row="3" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
         </GridLayout>
     </Page>

@@ -63,12 +63,15 @@ Button {
 .back-btn {
     padding-left: 20; 
     transform: translateX(-25);
+    horizontal-align: left;
 }
 .next-btn {
     padding-right: 20; 
     transform: translateX(25);
+    horizontal-align: right;
 }
 .resource-btn {
+    horizontal-align: right;
     transform: translateX(25);
 }
 .resource-btn {

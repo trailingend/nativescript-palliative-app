@@ -7,12 +7,12 @@
         </ActionBar>
         <GridLayout :class="formatSetting" 
                     rows="auto, *, auto, auto" 
-                    columns="auto, *" ref="itemsGridRef" 
+                    columns="auto, auto *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" colSpan="2" 
+            <ScrollView row="1" col="0" rowSpan="3" colSpan="3" 
                         id="items-main-ctnr"
                         class="items-main-ctnr"
                         @scroll="onScroll" >
@@ -38,14 +38,12 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="2" 
+            <ResourcesButton row="2" col="0" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <FlexboxLayout row="3" col="0" rowSpan="1" colSpan="2"
-                           orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button class="next-btn" text="Next" @tap="onNextTap" ></Button>
-            </FlexboxLayout>
+            <Button row="3" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            
+            <Button row="3" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
             <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
