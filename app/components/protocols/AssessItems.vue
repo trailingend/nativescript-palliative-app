@@ -4,6 +4,7 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
             <!-- <NewButton /> -->
+            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout :class="formatSetting" 
                     rows="auto, *, auto, auto" 
@@ -21,18 +22,19 @@
                         <Label class="items-title" :text="p_title"></Label>
                         <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
-                    <StackLayout v-for="letter in assessment_letters" 
+                    <StackLayout v-for="letter in filtered_letters" 
                                  :key="letter.id" 
                                  :id="`items-item-ctnr-${letter.id}`"
                                  class="items-item-ctnr">  
                         <StackLayout class="items-subtitle-ctnr">
                             <Label class="items-subtitle" :text="letter.title"></Label>
                             <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
-                            <!-- <Label text="Describe what is currently happening?" class="items-d" textWrap="true"/> -->
+                            <Label :v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" @answerChange="(data) => { recordResponse(question, data); }" /> 
+                                <StackLayout v-if="question.assessment_letter.id === 8" class="items-spacer"></StackLayout>
                         </StackLayout>
                     </StackLayout>                            
                 </StackLayout>
@@ -61,7 +63,8 @@
 
 <script>
     import CloseButton from './parts/CloseButton.vue';
-    import NewButton from './parts/NewButton.vue';
+    // import NewButton from './parts/NewButton.vue';
+    import NewClient from '../intro/NewClient.vue';
     import AssessItem from './parts/AssessItem.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
@@ -70,6 +73,7 @@
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import { confirm }  from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -84,6 +88,7 @@
                 letters: [],
                 assessments: [],
                 responses:[],
+                existing_letters: new Set(),
 
                 gridSetting: {
                     rows: "*, *, *, *, *, *, *",
@@ -101,7 +106,7 @@
         },
         components: {
             CloseButton,
-            NewButton,
+            // NewButton,
             ClientBlock,
             AssessItem,
             ResourcesButton
@@ -122,6 +127,9 @@
                 'protocols',
                 'assessment_letters'
             ]), 
+            filtered_letters: function() {
+                return this.assessment_letters.filter(elem => { return this.existing_letters.has(elem.id); });
+            }
 		},
         methods: {
             ...mapActions([
@@ -135,8 +143,10 @@
             prepareProtocol() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.assessments = this.protocols.find(elem => { return elem.id === this.protocol_id; }).assessment_questions;
-                this.letters = this.assessment_letters;
+                this.assessments.forEach(elem => this.existing_letters.add(elem.assessment_letter.id));
+                this.letters = this.filtered_letters;
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
+                
             },
             preparePrevPage() {
                 this.$navigateTo(ChooseProtocol, {
@@ -176,7 +186,7 @@
             setupAnchors(args) {
                 const page = args.object.page;
                 const scrollView = args.object.page.getViewById("items-main-ctnr");
-                this.assessment_letters.forEach(elem => {
+                this.filtered_letters.forEach(elem => {
                     const view = page.getViewById(`items-item-ctnr-${elem.id}`);
                     this.item_anchors.push({
                         id: elem.id,
@@ -239,9 +249,9 @@
             onScroll(args) {
                 let id = 1;
                 for (let i = 1; i < this.item_anchors.length; i++) {
-                    const prev_y = this.item_anchors[i - 1].y;
+                    const prev_y = this.item_anchors[i].y;
                     if (args.scrollY >= prev_y) {
-                        id = this.item_anchors[i - 1].id;
+                        id = this.item_anchors[i].id;
                     }
                 }
                 if (this.curr_letter_id != id) {
@@ -280,6 +290,30 @@
                         denominator: 2
                     };
                 }
+            },
+
+            onNewTap() {
+                confirm({
+                    title: "Create New Chart",
+                    message: "Your current progress will be saved in your Chart History.",
+                    okButtonText: "Create New Chart",
+                    cancelButtonText: "Cancel",
+                }).then((result) => {
+                    if (result || result === undefined) {
+                        this.addNewLog();
+                    } 
+                });
+            },
+            addNewLog(args) {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
         }
         

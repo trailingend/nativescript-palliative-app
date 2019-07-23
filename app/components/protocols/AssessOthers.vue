@@ -4,6 +4,7 @@
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
             <!-- <NewButton /> -->
+            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
                     rows="auto, *, auto, auto" columns="auto, *, auto" 
@@ -57,7 +58,8 @@
 
 <script>
     import CloseButton from './parts/CloseButton.vue';
-    import NewButton from './parts/NewButton.vue';
+    // import NewButton from './parts/NewButton.vue';
+    import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
@@ -65,6 +67,7 @@
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import { confirm }  from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -101,7 +104,7 @@
         },
         components: {
             CloseButton,
-            NewButton,
+            // NewButton,
             ClientBlock,
             ResourcesButton
         },
@@ -330,7 +333,31 @@
                         class: "others-ctnr"
                     };
                 }
-            }
+            },
+
+            onNewTap() {
+                confirm({
+                    title: "Create New Chart",
+                    message: "Your current progress will be saved in your Chart History.",
+                    okButtonText: "Create New Chart",
+                    cancelButtonText: "Cancel",
+                }).then((result) => {
+                    if (result || result === undefined) {
+                        this.addNewLog();
+                    } 
+                });
+            },
+            addNewLog(args) {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
+            },
         }
     }
 </script>

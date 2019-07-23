@@ -3,7 +3,8 @@
         <ActionBar title="Chart">
             <NavigationButton visibility="hidden" ></NavigationButton>
             <CloseButton />
-            <NewButton />
+            <!-- <NewButton /> -->
+            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout class="choose-ctnr" 
                     rows="auto, *, auto" 
@@ -58,15 +59,18 @@
 
 <script>
     import CloseButton from './parts/CloseButton.vue';
-    import NewButton from './parts/NewButton.vue';
+    // import NewButton from './parts/NewButton.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
     import Introduction from '../intro/Introduction.vue';
+    import NewClient from '../intro/NewClient.vue';
     import AssessItems from './AssessItems.vue';
     import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+
+    import { confirm }  from "tns-core-modules/ui/dialogs";
 
     export default {
         name: 'ChooseProtocol',
@@ -89,7 +93,7 @@
         mounted() {
         },
         components: {
-            NewButton,
+            // NewButton,
             CloseButton,
             ClientBlock
         },
@@ -249,6 +253,30 @@
                         denominator: 2
                     };
                 }
+            },
+
+            onNewTap() {
+                confirm({
+                    title: "Create New Chart",
+                    message: "Your current progress will be saved in your Chart History.",
+                    okButtonText: "Create New Chart",
+                    cancelButtonText: "Cancel",
+                }).then((result) => {
+                    if (result || result === undefined) {
+                        this.addNewLog();
+                    } 
+                });
+            },
+            addNewLog(args) {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
         }
         
