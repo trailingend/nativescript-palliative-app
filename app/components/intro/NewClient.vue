@@ -185,8 +185,12 @@
                     const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                     const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
                     let client_phone = '8888888888';
-                    if (this.$refs.phoneFieldRef && this.$refs.phoneFieldRef.nativeView.text != '') {
-                        client_phone = this.$refs.phoneFieldRef.nativeView.text.replace(/\D/g, '').substring(0, 10);
+                    if (this.$refs.phoneFieldRef) {
+                        if (this.$refs.phoneFieldRef.nativeView.text != null 
+                            && this.$refs.phoneFieldRef.nativeView.text != '') {
+                            const curr_val = this.$refs.phoneFieldRef.nativeView.text;
+                            client_phone = curr_val.replace(/\D/g, '').substring(0, 10);
+                        }
                     }
                     
                     console.log("phone!!!!!!!!! to save " + client_phone);
