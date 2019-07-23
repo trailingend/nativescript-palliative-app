@@ -18,7 +18,7 @@
                                 class="client-q client-q1" 
                                 text="Call-back #:" 
                                 textWrap="true"/>
-                        <TextField :row="gridSetting.children.a1.row" 
+                        <!-- <TextField :row="gridSetting.children.a1.row" 
                                     :col="gridSetting.children.a1.col"
                                     id="client-a1"
                                     class="client-a client-a1" 
@@ -26,7 +26,16 @@
                                     hint="(888) 888-8888"
                                     keyboardType="phone"
                                     @blur="onPhoneEntered"
-                                    editable="true" />
+                                    editable="true" /> -->
+                        <MaskedTextField :row="gridSetting.children.a1.row" 
+                                         :col="gridSetting.children.a1.col"
+                                         id="client-a1"
+                                         class="client-a client-a1" 
+                                         v-model="c_phone"
+                                         ref="phoneFieldRef"
+                                         mask="(000) 000-0000"
+                                         hint="(888) 888-8888"
+                                         keyboardType="phone" />
                         <Label :row="gridSetting.children.q2.row" 
                                 :col="gridSetting.children.q2.col"
                                 class="client-q client-q2" 
@@ -139,19 +148,16 @@
                 required: false,
             }
         },
+        watch: {
+            c_phone(val) {
+                console.log("=== in watch === " + val)
+            }
+        },
         computed: {
             ...mapGetters([
                 'logs',
                 'intro'
             ]),
-            input_phone: {
-                get: function() {                    
-                    return formatPhoneNum(this.c_phone);
-                },
-                set: function (new_input) {
-                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
-                }
-            }
 		},
         methods: {
             ...mapActions([
@@ -175,10 +181,16 @@
 
                 if (this.is_consented) {
                     const client_id = this.c_id;
-                    const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
                     const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
                     const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                     const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
+                    let client_phone = '8888888888';
+                    if (this.$refs.phoneFieldRef && this.$refs.phoneFieldRef.nativeView.text != '') {
+                        client_phone = this.$refs.phoneFieldRef.nativeView.text.replace(/\D/g, '').substring(0, 10);
+                    }
+                    
+                    console.log("phone!!!!!!!!! to save " + client_phone);
+                    
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
@@ -226,9 +238,9 @@
                     aTextfield.dismissSoftInput();
                 }
             },
-            onPhoneEntered() {
-                this.input_phone = formatPhoneNum(this.c_phone);
-            },
+            // onPhoneEntered() {
+            //     this.input_phone = formatPhoneNum(this.c_phone);
+            // },
             onBackToHome(args) {
                 console.log("=== Navigate Back To Home ===");
                 this.$navigateTo(Dashboard, {

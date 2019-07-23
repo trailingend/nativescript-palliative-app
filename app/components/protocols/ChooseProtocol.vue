@@ -33,6 +33,18 @@
                             :id="`choose-btn-${index}`"
                             class="choose-btn" 
                             @tap="(args) => onBtnTap(args, protocol, index)" />
+                    <!-- <GridLayout v-for="(protocol, index) in protocols" 
+                                v-bind:key="protocol.id" 
+                                :row="Math.floor(index / gridSetting.denominator)"
+                                :col="index % gridSetting.denominator"
+                                :text="protocol.name" 
+                                :background="checkSavedProtocols(protocol.id) ? saved_color : unclicked_color"
+                                :id="`choose-btn-${index}`"
+                                class="choose-btn" 
+                                @tap="(args) => onBtnTap(args, protocol, index)">
+                        <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                        <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
+                    </GridLayout> -->
                 </GridLayout>
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
