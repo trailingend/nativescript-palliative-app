@@ -10,7 +10,7 @@
                     columns="auto, *" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="2" :log_id="log_id" ref="clientBlock"/>
 
             <ScrollView row="1" col="0" rowSpan="3" colSpan="2" 
                         id="items-main-ctnr"
@@ -21,10 +21,11 @@
                         <Label class="items-title" :text="p_title"></Label>
                         <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
                     </StackLayout>
-                    <StackLayout v-for="letter in assessment_letters" 
+                    <StackLayout v-for="(letter, index) in assessment_letters" 
                                  :key="letter.id" 
                                  :id="`items-item-ctnr-${letter.id}`"
-                                 class="items-item-ctnr">  
+                                 class="items-item-ctnr" 
+                                 ref="assessment_letters"> 
                         <StackLayout class="items-subtitle-ctnr">
                             <Label class="items-subtitle" :text="letter.title"></Label>
                             <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
@@ -33,8 +34,10 @@
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" @answerChange="(data) => { recordResponse(question, data); }" /> 
+                                
                         </StackLayout>
-                    </StackLayout>                            
+                    </StackLayout>   
+                    <StackLayout :height="bottom_padding" id="bottom-spacer"/>                         
                 </StackLayout>
             </ScrollView>
 
@@ -69,6 +72,7 @@
     import ResourcesButton from './parts/ResourcesButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';
+    import {screen} from "tns-core-modules/platform/platform"
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -82,6 +86,8 @@
                 textview_ids: new Set(),
                 item_anchors: [],
                 curr_letter_id: 1,
+
+                bottom_padding: 0,
                 
                 letters: [],
                 assessments: [],
@@ -100,6 +106,7 @@
             this.prepareProtocol();
         },
         mounted() {
+            this.calculateBottomPadding();
         },
         components: {
             CloseButton,
@@ -123,7 +130,7 @@
                 'logs',
                 'protocols',
                 'assessment_letters'
-            ]), 
+            ])
 		},
         methods: {
             ...mapActions([
@@ -282,11 +289,22 @@
                         denominator: 2
                     };
                 }
-            },
+            }, 
+            calculateBottomPadding(){
+                console.log('CALCULATING BOTTOM PADDING');
+                let padding = screen.mainScreen.heightPixels;
+                // padding = padding - this.$refs.client_block.effectiveHeight;
+                console.dir(this.$refs.clientBlock);
+                this.bottom_padding = padding;
+            }
+            
         }
         
     };
 </script>
 
 <style>
+#bottom-spacer {
+    border: solid red 5px;
+}
 </style>
