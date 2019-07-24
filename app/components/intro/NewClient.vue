@@ -76,7 +76,7 @@
                 </PreviousNextView>
 
                 <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="flex-start" justifyContent="space-between">
-                    <Label class="client-t" text="consent to have call recorded" textWrap="true"/>
+                    <Label class="client-t" text="consent to have call documented" textWrap="true"/>
                     <Switch class="client-switch" v-model="is_consented" />
                 </FlexboxLayout>
                     

@@ -25,17 +25,20 @@
         }
     }
 
+    .home-setting {
+        width: 25;
+    }
     .home-user-ctnr {
-        background: white;
         margin: 50 0 0 0;
-        border-color: $color-light-yellow;
-        border-width: 3;
-        border-right-width: 0;
-        border-radius: 25;
-        transform: translateX(25);
-
+        
         .user-ctnr {
-            margin: 25 25;
+            padding: 25 25;
+            border-color: $color-light-yellow;
+            border-width: 3;
+            border-right-width: 0;
+            border-radius: 25;
+            background: white;
+            transform: translateX(25);
         }
         .user-item {
             font-size: $user-font-size;
@@ -43,6 +46,13 @@
             letter-spacing: 0.1;
             text-align: left;
             text-transform: uppercase;
+        }
+        .user-head {
+            width: 30;
+            height: 30;
+            border-radius: 25;
+            margin-top: 5;
+            margin-right: 10;
         }
         .user-bold {
             font-size: $user-bold-font-size;
@@ -61,12 +71,12 @@
 
         &.home-user-begin-ctnr {
             width: 300;
-            background: $color-dark-yellow;
-            border-color: white;
-            transform: translateX(68);
-
+            
             .user-ctnr {
-                margin: 35 25;
+                background: $color-dark-yellow;
+                border-color: white;
+                transform: translateX(25);
+                padding: 35 25;
             }
             .user-begin-text {
                 font-size: $user-begin-font-size;
@@ -141,7 +151,6 @@
         }
 
         .edit-icon {
-            // margin-bottom: 10;
             margin-right: 25;
         }
         .bar-ctnr {
@@ -195,17 +204,6 @@
     }
 
     &.tablet-landscape {
-        // .log-title-ctnr {
-        //     margin: 5 5 5 0;
-        // }
-        // .home-log-ctnr {
-        //     margin: 5 5 5 0;
-        // }
-        // .home-btn-ctnr {
-        //     .home-add {
-        //         margin: 150;
-        //     }
-        // }
         .home-ctnr {
             background-image: url("~/assets/images/cap-landscape.png");
         }
@@ -215,14 +213,14 @@
             }
         }
         .home-user-ctnr {
-            transform: translateX(50);
-            margin: 20;
+            margin: 20 0 0 0;
 
             &.home-user-begin-ctnr {
-                transform: translateX(140);                
 
                 .user-ctnr {
-                    margin: 30 20;
+                    transform: translateX(40);
+                    padding: 30 45;
+                    height: 120;
                 }
                 .user-begin-text {
                     font-size: $user-begin-font-size-landscape;

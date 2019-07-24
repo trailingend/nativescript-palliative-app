@@ -1,6 +1,7 @@
 <template>
     <StackLayout class="user-ctnr" @tap="onEditTap">
         <FlexboxLayout justifyContent="space-between" alignItems="flex-start" v-show="has_user">
+            <StackLayout class="user-head" :background="user.color" @tap="onDotTap"></StackLayout>
             <StackLayout>
                 <Label class="user-item user-bold" :text="user.name" />
                 <Label class="user-item" :text="`ID #: ${user.id}`" />
@@ -57,6 +58,9 @@
                 } else {
                      this.has_user = false;
                 }
+            },
+            onDotTap() {
+
             },
             onEditTap() {
                 this.$showModal(SelectUser, { 
