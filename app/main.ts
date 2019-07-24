@@ -11,8 +11,8 @@ import RadListView from 'nativescript-ui-listview/vue';
 // 	Vue.use(VueDevtools);
 // }
 Vue.use(RadListView);
-Vue.registerElement("PreviousNextView", () => require("nativescript-iqkeyboardmanager").PreviousNextView);
-Vue.registerElement("TextViewWithHint", () => require("nativescript-iqkeyboardmanager").TextViewWithHint);
+// Vue.registerElement("PreviousNextView", () => require("nativescript-iqkeyboardmanager").PreviousNextView);
+// Vue.registerElement("TextViewWithHint", () => require("nativescript-iqkeyboardmanager").TextViewWithHint);
 Vue.registerElement('MaskedTextField', () => require('nativescript-masked-text-field').MaskedTextField);
 
 // Prints Vue logs when --env.production is *NOT* set while building

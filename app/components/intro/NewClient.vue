@@ -11,7 +11,7 @@
             <ScrollView >
             <StackLayout row="0" col="0" rowSpan="2" class="client-main-ctnr">
                 <Label class="client-title" text="client Information" ></Label>       
-                <PreviousNextView>             
+                <!-- <PreviousNextView>              -->
                     <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
                         <Label :row="gridSetting.children.q1.row" 
                                 :col="gridSetting.children.q1.col"
@@ -73,7 +73,7 @@
                                     hint="i.e. Daughter"
                                     editable="true" />
                     </GridLayout>
-                </PreviousNextView>
+                <!-- </PreviousNextView> -->
 
                 <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="flex-start" justifyContent="space-between">
                     <Label class="client-t" text="consent to have call documented" textWrap="true"/>
