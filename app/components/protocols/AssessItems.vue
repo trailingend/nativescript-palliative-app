@@ -29,7 +29,7 @@
                         <StackLayout class="items-subtitle-ctnr">
                             <Label class="items-subtitle" :text="letter.title"></Label>
                             <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
-                            <Label :v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
+                            <Label v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
@@ -248,7 +248,7 @@
             },
             onScroll(args) {
                 let id = 1;
-                for (let i = 1; i < this.item_anchors.length; i++) {
+                for (let i = 0; i < this.item_anchors.length; i++) {
                     const prev_y = this.item_anchors[i].y;
                     if (args.scrollY >= prev_y) {
                         id = this.item_anchors[i].id;

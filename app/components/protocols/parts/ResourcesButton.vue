@@ -1,6 +1,6 @@
 <template>
     <!-- <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="flex-end"> -->
-        <Button class="resource-btn" text="references" @tap="onBtnTap" ></Button>
+        <Button class="resource-btn" text="recommend" @tap="onBtnTap" ></Button>
     <!-- </FlexboxLayout> -->
 </template>
 
