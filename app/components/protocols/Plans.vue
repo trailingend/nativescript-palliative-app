@@ -26,19 +26,20 @@
                         <GridLayout v-for="plan in plans_list" 
                                     :key="plan.unique" 
                                     class="plans-a-ctnr" 
+                                    :backgroundColor="plan.status ? color_checked : color_unchecked"
                                     rows="auto" columns="auto, *"
                                     @tap="onAnswerTap(plan)" > 
-                            <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
-                            <Image row="0" col="0" width="30" class="ans-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                            <Image row="0" col="0" width="30" class="plan-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
+                            <Image row="0" col="0" width="30" class="plan-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
                             <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
                         </GridLayout>
                     </StackLayout>
-                    <TextView v-model="free_text" 
+                    <!-- <TextView v-model="free_text" 
                               id="plans-free"
                               class="plans-free"
                               hint="Take notes here..."
                               @textChange="onTextEntered"
-                              editable="true" />
+                              editable="true" /> -->
                 </StackLayout>
             </ScrollView>
 
@@ -77,6 +78,9 @@
 
                 selected_plans: [],
                 free_text: '',
+
+                color_checked: '#acd6b5',
+                color_unchecked: '#f5f5f5',
 
                 ctnrSetting: {
                     class: "plans-ctnr"
@@ -119,7 +123,7 @@
                 const p_obj = log.plans_answers.find(elem => { return elem.id === this.protocol_id; });
                 if (p_obj) {
                     const saved_answers = p_obj.a;
-                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
+                    // this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
                     this.plans_list.forEach(plan => {
                         const search_in_saved = saved_answers.find(elem => { return elem == plan.plan; });
                         if (search_in_saved) {
@@ -188,13 +192,13 @@
                 }
             },
             clearTextfieldFocus(args) {
-                const layoutView = args.object;
-                const freeTextfield = layoutView.getViewById("plans-free");
-                freeTextfield.dismissSoftInput();
+                // const layoutView = args.object;
+                // const freeTextfield = layoutView.getViewById("plans-free");
+                // freeTextfield.dismissSoftInput();
             },
             onForward() {
                 console.log("=== Forward === ");
-                this.selected_plans.push(this.free_text);
+                // this.selected_plans.push(this.free_text);
                 const update = {
                     log_id: this.log_id,
                     p_id: this.protocol_id, 
@@ -226,7 +230,7 @@
                 console.log("=== Answer tapped === " + this.selected_plans);
             },
             onTextEntered() {
-                console.log("=== Answer enterred === " + this.free_text);
+                // console.log("=== Answer enterred === " + this.free_text);
             },
             onNavigatingFrom() {
             },

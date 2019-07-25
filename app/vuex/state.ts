@@ -8,14 +8,14 @@ export default {
 	[{
 		id: '888888',
 		name: 'Lesie Simon',
-		shift_start: '7:00AM',
-		shift_end: '5:00PM',
+		shift_start: '9:00', //'7:00AM',
+		shift_end: '17:00', // '5:00PM',
 		color: '#7ca8ea',
 	}, {
 		id: '777777',
 		name: 'Ruby Chen',
-		shift_start: '8:00AM',
-		shift_end: '6:00PM',
+		shift_start: '10:00',//'8:00AM',
+		shift_end: '18:00', //'6:00PM',
 		color: '#a57ed7'
 	}],
 

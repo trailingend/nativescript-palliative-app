@@ -24,8 +24,10 @@
             text-align: left;
             margin-bottom: 10;
         }
-        .client-switch-ctnr {
-            margin-bottom: 25;
+        .client-switch-error {
+            border-top-width: 1.5;
+            border-color: $color-red;
+            margin-bottom: 15;
         }
         .client-d {
             font-weight: 200;
@@ -48,14 +50,24 @@
             border-color: $log-border-color;
             border-width: 1.5;
             border-radius: 8;
-            margin-bottom: 20;
+        }
+        .client-e {
+            font-size: 13;
+            font-weight: 200;
+            margin-top: 2;
+            margin-bottom: 3;
+            horizontal-align: right;
+            color: $color-red;
+        }
+        .client-t-consent {
+            margin-top: 3;
         }
         .client-free {
             font-weight: 300;
             letter-spacing: 0.1;
             text-align: left;
             width: 100%;
-            height: 120;
+            height: 100;
             padding: 5 8;
             background: white;
             border-width: 1.5;
@@ -74,36 +86,39 @@
             }
 
             .client-title {
-                padding: 10 0;
+                padding: 10 0 0 0;
             }
 
             .client-q {
-                margin-bottom: 25;
+                margin-top: 10;
+                margin-bottom: 0;
             }
-            .client-switch-ctnr {
-                margin: 10 0 10 0;
+            .client-switch-error {
+                margin: 0;
             }
-            .client-t {
-                margin-bottom: 10;
-
-                &.client-t-info {
-                    margin-bottom: 5;
-                }
+            .client-t-info {
+                margin-bottom: 5;
+            }
+            .client-t-consent {
+                margin-top: 3;
             }
             .client-d {
-                margin-bottom: 10;
+                margin-bottom: 5;
             }
             .client-a {
-                width: 72%;
-                height: 48;
+                width: 580;
+                height: 45;
                 margin-left: 30;
-                margin-bottom: 10;
+            }
+            .client-e {
+                padding: 0;
+                margin-bottom: 0;
             }
             .client-btn {
                 margin: 15 0;
             }
             .client-free {
-                height: 120;
+                height: 80;
             }
         }
     }
@@ -119,6 +134,10 @@
         &.tablet-landscape {
             .client-main-ctnr {
                 padding: 10 80 0 80;
+            }
+
+            .client-a {
+                width: 620;
             }
         }
     }

@@ -1,48 +1,45 @@
 @import "variables";
 
-.plans-page {
-    .plans-ctnr {
-        .plans-main-ctnr {
+.others-page {
+    .others-ctnr {
+        .others-main-ctnr {
             margin: 5;
             background: white; 
         }
-        .plans-title-ctnr {
+        .others-title-ctnr {
             margin-top: 60;
-            margin-bottom: 60;
         }
-        .plans-title {
-            text-align: center;
+        .others-title {
             font-size: $log-title-font-size;
             font-weight: 700;
             color: $color-text-dark;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .others-subtitle-ctnr {
+            margin-top: 10;
+            margin-bottom: 40;
+        }
+        .others-subtitle {
+            font-size: 20;
+            font-weight: 400;
             text-transform: uppercase;
         }
         .divider-ctnr {
             width: 50;
             height: 1;
             background: black;
-            margin-bottom: 20; 
         }
-        .plans-q-ctnr {
-            width: 600;
-            margin: 0 auto;
+        .others-q-ctnr {
+            width: 500;
+            margin-bottom: 20;
         }
-        .plans-q {
-        }
-        .plan-status-icon {
-            margin-left: 15;
-            margin-right: 15;
-        }
-        .plans-a {
-            font-family: 'Nunito Sans', 'Nunito', sans-serif;
-            padding: 0 8;
-            font-size: 16;
-            font-weight: 200;
+        .others-q {
             text-align: left;
         }
-        .plans-a-ctnr {
+        .others-a-ctnr {
             color: black;
-            width: 600;
+            width: 500;
             margin: 5 0;
             padding: 10;
             border-radius: $border-size;
@@ -51,7 +48,7 @@
                 font-weight: 500;
             }
         }
-        .plans-free {
+        .others-free {
             width: 500;
             height: $textview-height;
             margin: 15 0;
@@ -62,14 +59,15 @@
             border-color: $log-border-color;
             border-radius: $border-size;
         }
+
         .q-icon {
             margin: 20 30 20 0;
         }
 
         &.tablet-landscape {
-            .plans-title-ctnr {
+            .others-title-ctnr {
                 margin-top: 20;
-                margin-bottom: 20;
+                margin-bottom: 20; 
             }
             .q-icon {
                 margin: 10 30 10 0;
@@ -80,13 +78,13 @@
             .q-question-ans {
                 margin: 15 0;
             }
-            .plans-q-ctnr {
+            .others-q-ctnr {
                 width: 700;
             }
-            .plans-a-ctnr {
+            .others-a-ctnr {
                 width: 700;
             }
-            .plans-free {
+            .others-free {
                 width: 700;
             }
         }

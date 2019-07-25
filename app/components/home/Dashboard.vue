@@ -26,6 +26,7 @@
     import UserBlock from './parts/UserBlock.vue';
     import Logs from './parts/Logs.vue';
     import NewClient from '../intro/NewClient.vue';
+    import Notes from '../intro/Notes.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -85,7 +86,15 @@
                 });
             },
             onSettingTap() {
-
+                let ShowModalOptions = {
+                    context: "context",
+                    closeCallback: () => console.log("home page modal page closed"),
+                    fullscreen: false,
+                    ios: {
+                        presentationStyle: UIModalPresentationStyle.Popover
+                    },
+                };
+                this.$showModal(Notes, ShowModalOptions);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.homeGridRef.nativeView.getMeasuredWidth() );

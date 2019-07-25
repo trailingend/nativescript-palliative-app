@@ -8,10 +8,15 @@
                         :row="Math.floor(index / 2)"
                         :col="index % 2" 
                         class="answers-a-select-ctnr">
-                <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *" @tap="onAnswerTap(answer)">
-                    <Image row="0" col="0" width="30" class="ans-status-icon " v-show="!answer.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
-                    <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *, auto" 
+                            :backgroundColor="answer.status ? color_checked : color_unchecked"  
+                            @tap="onAnswerTap(answer)">
+                    <Image row="0" col="0" width="30" 
+                           class="ans-status-icon" 
+                           :opacity="answer.status ? 1 : 0" 
+                           src="~/assets/images/checked.png" stretch="aspectFit"></Image>
                     <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
+                    <StackLayout row="0" col="2" width="30" ></StackLayout>
                 </GridLayout>
             </StackLayout>
         </GridLayout>
@@ -32,7 +37,10 @@
             return {
                 free_text: '',
                 answers_list: [],
-                selected_answers: []
+                selected_answers: [],
+
+                color_checked: '#acd6b5',
+                color_unchecked: '#e3e3e3',
             }
         },
         mounted() {

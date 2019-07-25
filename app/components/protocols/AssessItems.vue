@@ -132,9 +132,7 @@
             }
 		},
         methods: {
-            ...mapActions([
-                'saveItemsUpdate',
-            ]),
+            
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
                 filted_assessments.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
@@ -223,12 +221,12 @@
             },
             onForward(args) {
                 console.log("=== Forward === ");
-                const progress = {
-                    log_id: this.log_id,
-                    p_id: this.protocol_id, 
-                    content: this.responses,
-                };
-                this.saveItemsUpdate(progress);
+                // const progress = {
+                //     log_id: this.log_id,
+                //     p_id: this.protocol_id, 
+                //     content: this.responses,
+                // };
+                // this.saveItemsUpdate(progress);
                 this.prepareNextPage();
             },
             onBackward(args) {
@@ -250,7 +248,7 @@
                 let id = 1;
                 for (let i = 0; i < this.item_anchors.length; i++) {
                     const prev_y = this.item_anchors[i].y;
-                    if (args.scrollY >= prev_y) {
+                    if (args.scrollY + 100 >= prev_y) {
                         id = this.item_anchors[i].id;
                     }
                 }

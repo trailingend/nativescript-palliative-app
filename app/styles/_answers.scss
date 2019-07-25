@@ -1,7 +1,7 @@
 @import "variables";
 
 .answers-a-wrapper {
-    width: 500;
+    width: 540;
 }
 
 .answers-a-select-ctnr {
@@ -15,7 +15,6 @@
     margin: 0 5 10 5;
     padding: 10;
     border-radius: $border-size;
-    background: $color-unselected;
     Label {
         font-weight: 500;
     }

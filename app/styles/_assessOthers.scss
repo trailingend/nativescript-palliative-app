@@ -30,34 +30,14 @@
             height: 1;
             background: black;
         }
-        .others-q-ctnr {
-            width: 500;
-            margin-bottom: 20;
+        .others-unit-ctnr {
+            width: 540;
+            margin-bottom: 30;
         }
         .others-q {
             text-align: left;
-        }
-        .others-a-ctnr {
-            color: black;
-            width: 500;
-            margin: 5 0;
-            padding: 10;
-            border-radius: $border-size;
-            background: $color-unselected;
-            Label {
-                font-weight: 500;
-            }
-        }
-        .others-free {
-            width: 500;
-            height: $textview-height;
-            margin: 15 0;
-            padding: 5 8;
-            // border-width: 1.5;
-            text-align: left;
-            background: $color-unselected;
-            border-color: $log-border-color;
-            border-radius: $border-size;
+            margin-left: 5;
+            margin-bottom: 20;
         }
 
         .q-icon {
@@ -79,12 +59,6 @@
                 margin: 15 0;
             }
             .others-q-ctnr {
-                width: 700;
-            }
-            .others-a-ctnr {
-                width: 700;
-            }
-            .others-free {
                 width: 700;
             }
         }

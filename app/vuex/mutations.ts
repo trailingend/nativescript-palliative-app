@@ -69,11 +69,16 @@ export default {
         console.log("=== in mutation CHART_INTRO_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].intro_answers);
     },
+    [types.CHART_ITEMS_ADD](state, chart_item) {
+        state.logs[chart_item.idx].items_answers.push(chart_item.content);
+        console.log("=== in mutation CHART_ITEMS_ADD ===");
+        // console.dir(state.logs[chart_item.idx].items_answers);
+    },
     [types.CHART_ITEMS_UPDATE](state, chart_item) {
-        if (chart_item.p_idx === -1) {
-            state.logs[chart_item.idx].items_answers.push(chart_item.content);
+        if (chart_item.q_idx === -1) {
+            state.logs[chart_item.idx].items_answers[chart_item.p_idx].a.push(chart_item.content);
         } else {
-            state.logs[chart_item.idx].items_answers[chart_item.p_idx].a = chart_item.content.a;
+            state.logs[chart_item.idx].items_answers[chart_item.p_idx].a[chart_item.q_idx].a = chart_item.content.a;
         } 
         console.log("=== in mutation CHART_ITEMS_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].items_answers);

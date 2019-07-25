@@ -606,6 +606,260 @@
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
+            },
+            {
+                "id": 1,
+                "name": "zJosh Protocol",
+                "additional_questions": [
+                    {
+                        "id": 1,
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "How do you feel about even more questions?",
+                        "answers": []
+                    },
+                    {
+                        "id": 2,
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Do you like it that there are more questions?",
+                        "answers": []
+                    }
+                ],
+                "assessment_questions": [
+                    {
+                        "id": 1,
+                        "question": "How many Octopusses are under the ocean?",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 1,
+                                "answer": "Lots",
+                                "question": 1
+                            },
+                            {
+                                "id": 2,
+                                "answer": "Few",
+                                "question": 1
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "question": "What do you think of pointsettas? ",
+                        "assessment_letter": {
+                            "id": 2
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 3,
+                        "question": "Question marks are the best marks, right?",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 4,
+                        "question": "Really try to relate to me:",
+                        "assessment_letter": {
+                            "id": 4
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 5,
+                        "question": "On a scale from 1 to 10, how great is the last name \"Stuible\"?",
+                        "assessment_letter": {
+                            "id": 5
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 4,
+                            "type": "scale"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 6,
+                        "question": "Was that last question a Travesty?",
+                        "assessment_letter": {
+                            "id": 6
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 7,
+                        "question": "Now tell me about U!?",
+                        "assessment_letter": {
+                            "id": 7
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 8,
+                        "question": "That was VERY hard, write whatever you want here:",
+                        "assessment_letter": {
+                            "id": 8
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 9,
+                        "question": "Select all the emotions you are feeling now that you know there is REALLY another \"R\" Question:",
+                        "assessment_letter": {
+                            "id": 4
+                        },
+                        "protocol": {
+                            "id": 1
+                        },
+                        "question_type": {
+                            "id": 3,
+                            "type": "multiple_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 7,
+                                "answer": "Happiness",
+                                "question": 9
+                            },
+                            {
+                                "id": 8,
+                                "answer": "Sadness",
+                                "question": 9
+                            },
+                            {
+                                "id": 9,
+                                "answer": "Anger",
+                                "question": 9
+                            },
+                            {
+                                "id": 10,
+                                "answer": "Dispair",
+                                "question": 9
+                            },
+                            {
+                                "id": 11,
+                                "answer": "Meloncholy",
+                                "question": 9
+                            }
+                        ]
+                    }
+                ],
+                "plans": [
+                    {
+                        "plan": 1
+                    },
+                    {
+                        "plan": 2
+                    },
+                    {
+                        "plan": 3
+                    }
+                ],
+                "recommendations": [
+                    {
+                        "id": 1,
+                        "protocol": 1,
+                        "content": "<ul><li>Dyspnea may not be due to hypoxia. Use other methods to provide fresh air when O2 levels are satisfactory such as opening windows and\/or turning on fan<\/li><li>Focus on relaxation and other non-pharmacological techniques  such as deep breathing, massage, therapeutic touch, mindfulness meditation, relaxing music<\/li><li>Sit upright to allow for chest expansion or prop up on pillows if lying in bed<\/li><li>Gentle reassurance to reduce anxiety<\/li><\/ul><div><h2>Potential Causes of Dyspnea to keep in mind:<\/h2><div><ul><li><b>Pulmonary:<\/b> Airway obstruction, COPD\/asthma, damage from chemotherapy, radiation or surgery, emboli, fibrosis, effusion, primary or metastatic tumour.<\/li><li><b>Cardiac:<\/b> CHF, CAD, arrhythmias, pericardial effusion.<\/li><li><b>Neuromuscular:<\/b> ALS, CVA, poliomyelitis, myasthenia gravis<\/li><li><b>Other:<\/b> Anxiety, fatigue\/deconditioning, weakness, pain, severe anemia, infection, carcinomatosis, hepatomegaly, phrenic nerve lesion, peritoneal effusion<\/li><li><b>Superior Vena Cava (SVC) obstruction<\/b> (This is an emergency and requires prompt intervention) **might be a good place to put a link to this emergency Breathing Pattern Change?<\/li><\/ul><div><p><b>Goals of Care:<\/b>  If symptom cannot be managed, is client and family open to going to hospital for further investigation and treatment of symptom?<br><\/p><\/div><p><br><\/p><\/div><\/div>",
+                        "title": "NON-PHARMACEUTICAL INTERVENTIONS"
+                    },
+                    {
+                        "id": 5,
+                        "protocol": 1,
+                        "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p><p>Myoclonus\/twitching <\/p><ul><li>Opioid-induced myoclonus is often misinterpreted as seizure activity<\/li><li>Impaired excretion of opioids <\/li><li>Most prevalent in renal impairment with morphine, codeine, meperidine and, to a lesser extent, hydromorphone. <\/li><li>Liver impairment <\/li><li>Possible drug causes and\/or interactions<\/li><li>Dehydration may be a contributing factor<\/li><\/ul>",
+                        "title": "ANOTHER LOINGISH THING"
+                    }
+                ],
+                "related_protocols": [
+                    {
+                        "related_to": 2
+                    }
+                ],
+                "resources": [
+                    {
+                        "id": 1,
+                        "title": "Josh's Portfolio",
+                        "url": "https:\/\/stuible.com",
+                        "protocol": 1
+                    },
+                    {
+                        "id": 2,
+                        "title": "Google",
+                        "url": "https:\/\/google.com",
+                        "protocol": 1
+                    },
+                    {
+                        "id": 3,
+                        "title": "BC Centre for Palliative Care Guideline",
+                        "url": "https:\/\/www.bc-cpc.ca\/cpc\/symptom-management-guidelines\/",
+                        "protocol": 1
+                    }
+                ]
             }
         ],
         "assessment_letters": [

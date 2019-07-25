@@ -1,21 +1,25 @@
 <template>
     <FlexboxLayout alignItems="center" class="client-info-ctnr" >
-        <!-- <Image width="50" class="user-head" src="~/assets/images/head2.png" stretch="aspectFit"></Image> -->
+        <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
+            <Image class="facetime-icon" width="30" src="~/assets/images/darkfacetime.png" stretch="aspectFit"></Image>
+        </StackLayout>
+        <!-- <StackLayout class="bar-ctnr"></StackLayout> -->
         <StackLayout flexGrow="2" class="client-text-ctnr" @tap="onEditTap">
             <Label :text="client.client" class="client-text client-bold"/>
             <Label :text="`${formatted_phone} | ${client.caller}`" class="client-text"/>                            
             <Label :text="`${client.createdTime} | ${nurse_name}`" class="client-text client-light" />
         </StackLayout>
-        <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap"></Image>
+        <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         <StackLayout class="bar-ctnr"></StackLayout>
-        <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
-            <Image class="facetime-icon" width="30" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
+        <StackLayout class="notes-ctnr" @tap="onNotesTap">
+            <Image class="notes-icon" width="30" src="~/assets/images/notes.png" stretch="aspectFit"></Image>
         </StackLayout>
     </FlexboxLayout>
 </template>
 
 <script lang="ts">
     import EditClient from '../EditClient.vue';
+    import Notes from '../Notes.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -61,9 +65,9 @@
                 }
             },
             onCallTap(id) {
-                const log = this.logs.find(elem => { return elem.id === id; });
-                const phone_num = log.phone.replace(/-/g, "");
-                console.log("=== facetime === " + log.phone);
+                const curr_log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const phone_num = curr_log.phone.replace(/-/g, "");
+                console.log("=== facetime === " + curr_log.phone);
                 openUrl('facetime:' + phone_num);
             },
             onEditTap() {
@@ -72,8 +76,28 @@
                     props: {
                         log_id: this.log_id,
                     }
+                }).then(() => {
+                    const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                    if (curr_log) {
+                        this.client = curr_log;
+                        this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
+                    }
                 });
-            }
+            },
+            onNotesTap(id) {
+                let ShowModalOptions = {
+                    context: "context",
+                    closeCallback: () => console.log("home page modal page closed"),
+                    fullscreen: false,
+                    ios: {
+                        presentationStyle: UIModalPresentationStyle.Popover
+                    },
+                    props: {
+                        log_id: this.log_id,
+                    }
+                };
+                this.$showModal(Notes, ShowModalOptions);
+            },
         },
         
     };

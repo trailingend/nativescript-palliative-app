@@ -49,6 +49,10 @@ export default {
         commit(types.CHART_INFO_UPDATE, entry);
     },
 
+    changeClientNotes({commit, state}, entry) {
+        // commit(types.CHART_INFO_UPDATE, entry);
+    },
+
     deleteChart({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         commit(types.CHART_DELETE, log_idx);
@@ -77,18 +81,39 @@ export default {
     saveItemsUpdate({commit, state}, update_item) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
-            console.log("=== In intro log update: OH NO !!! ===");
+            console.log("=== In items log update: OH NO !!! ===");
         } else {
-            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(elem => { return elem.id === update_item.p_id; });
-            const log_item = {
-                idx: log_idx,
-                p_idx: existed_p_idx,
-                content: {
-                    id: update_item.p_id,
-                    a: update_item.content,
+            console.log(update_item.p_id + " " + update_item.q_id )
+            const existed_p_idx = state.logs[log_idx].items_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
+            console.log(update_item.p_id + " " + update_item.q_id + " " + existed_p_idx)
+            if (existed_p_idx === -1) {
+                const log_item = {
+                    idx: log_idx,
+                    content: {
+                        id: update_item.p_id,
+                        a: [{
+                            q_id: update_item.q_id,
+                            q_type: update_item.q_type,
+                            a: update_item.a,
+                        }]
+                    }
                 }
+                commit(types.CHART_ITEMS_ADD, log_item);
+            } else {
+                const existed_q_idx = state.logs[log_idx].items_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === update_item.q_id; });
+                const log_item = {
+                    idx: log_idx,
+                    p_idx: existed_p_idx,
+                    q_idx: existed_q_idx,
+                    content: {
+                        q_id: update_item.q_id,
+                        q_type: update_item.q_type,
+                        a: update_item.a,
+                    }
+                }
+                console.log(existed_p_idx + " " + existed_q_idx)
+                commit(types.CHART_ITEMS_UPDATE, log_item);
             }
-            commit(types.CHART_ITEMS_UPDATE, log_item);
         }
     },
 
@@ -97,9 +122,7 @@ export default {
         if (log_idx === -1) {
             console.log("=== In others log update: OH NO !!! ===");
         } else {
-            console.log(update_item.p_id + " " + update_item.q_id )
             const existed_p_idx = state.logs[log_idx].others_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
-            console.log(update_item.p_id + " " + update_item.q_id + " " + existed_p_idx)
             if (existed_p_idx === -1) {
                 const log_item = {
                     idx: log_idx,
@@ -125,7 +148,6 @@ export default {
                         a: update_item.a,
                     }
                 }
-                console.log(existed_p_idx + " " + existed_q_idx)
                 commit(types.CHART_OTHERS_UPDATE, log_item);
             }
         }

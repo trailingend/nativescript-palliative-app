@@ -44,7 +44,7 @@
             font-weight: 700;
             border-radius: 10; 
             border-width: 1.5;
-            border-color: $color-dark-blue;
+            border-color: $color-unselected;
             background: white;
             transform: translateX(-10);
         }
@@ -52,7 +52,7 @@
             width: 100%;
         }
         .items-unit-ctnr {
-            width: 500;
+            width: 540;
             margin-bottom: 30;
         }
         .items-q, .items-a {
@@ -61,6 +61,7 @@
         .items-q {
             text-align: left;
             margin-bottom: 20;
+            margin-left: 5;
         }
         .items-spacer {
             width: 10;

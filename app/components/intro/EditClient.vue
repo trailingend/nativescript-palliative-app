@@ -25,6 +25,12 @@
                                         keyboardType="phone"
                                         @blur="onPhoneEntered"
                                         editable="true" />
+                            <Label :row="gridSetting.children.e1.row" 
+                                   :col="gridSetting.children.e1.col"
+                                   :colSpan="gridSetting.children.e1.colSpan"
+                                   class="client-e client-e1" 
+                                   text="Please enter a callback number" 
+                                   opacity="0" />
                             <Label :row="gridSetting.children.q2.row" 
                                     :col="gridSetting.children.q2.col"
                                     class="client-q client-q2" 
@@ -37,6 +43,12 @@
                                         v-model="c_client" 
                                         hint="Firstname Lastname"
                                         editable="true" />
+                            <Label :row="gridSetting.children.e2.row" 
+                                    :col="gridSetting.children.e2.col"
+                                    :colSpan="gridSetting.children.e2.colSpan"
+                                    class="client-e client-e2" 
+                                    text="Please enter a client name" 
+                                    opacity="0" />
                             <Label :row="gridSetting.children.q3.row" 
                                     :col="gridSetting.children.q3.col"
                                     class="client-q client-q3" 
@@ -49,6 +61,12 @@
                                         v-model="c_caller" 
                                         hint="Firstname Lastname"
                                         editable="true" />
+                            <Label :row="gridSetting.children.e3.row" 
+                                    :col="gridSetting.children.e3.col"
+                                    :colSpan="gridSetting.children.e3.colSpan"
+                                    class="client-e client-e3" 
+                                    text="Please enter a caller name" 
+                                    opacity="0" />
                             <Label :row="gridSetting.children.q4.row" 
                                     :col="gridSetting.children.q4.col"
                                     class="client-q client-q4" 
@@ -61,6 +79,12 @@
                                         v-model="c_relation" 
                                         hint="i.e. Daughter"
                                         editable="true" />
+                            <Label :row="gridSetting.children.e4.row" 
+                                    :col="gridSetting.children.e4.col"
+                                    :colSpan="gridSetting.children.e4.colSpan"
+                                    class="client-e client-e4" 
+                                    text="Please enter a relationship" 
+                                    opacity="0" />
                             <Label :row="gridSetting.children.q5.row" 
                                     :col="gridSetting.children.q5.col"
                                     class="client-q client-q5" 
@@ -73,6 +97,12 @@
                                         v-model="c_nurse" 
                                         hint="i.e. 888888"
                                         editable="true" />
+                            <Label :row="gridSetting.children.e5.row" 
+                                    :col="gridSetting.children.e5.col"
+                                    :colSpan="gridSetting.children.e5.colSpan"
+                                    class="client-e client-e5" 
+                                    text="Please enter your work ID" 
+                                    opacity="0" />
                         </GridLayout>
                     </PreviousNextView>
 
@@ -121,7 +151,7 @@
                     class: "client-ctnr",
                 },
                 gridSetting: {
-                    rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
+                    rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                     columns: "*",
                     children: editGridChildPortrait,
                 }
@@ -223,14 +253,14 @@
                     if (width > 800) {
                         this.ctnrSetting.class = "client-ctnr tablet-landscape";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto, auto",
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "auto, *",
                             children: editGridChildLandscape,
                         }
                     } else {
                         this.ctnrSetting.class = "client-ctnr";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "*",
                             children: editGridChildPortrait,
                         }

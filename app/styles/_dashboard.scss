@@ -29,15 +29,20 @@
         width: 25;
     }
     .home-user-ctnr {
+        width: 400;
         margin: 50 0 0 0;
         
         .user-ctnr {
+            width: 336;
             padding: 25 25;
             border-color: $color-light-yellow;
             border-width: 3;
             border-right-width: 0;
             border-radius: 25;
             background: white;
+            transform: translateX(50);
+        }
+        .home-setting {
             transform: translateX(25);
         }
         .user-item {
@@ -52,7 +57,7 @@
             height: 30;
             border-radius: 25;
             margin-top: 5;
-            margin-right: 10;
+            margin-right: 5;
         }
         .user-bold {
             font-size: $user-bold-font-size;
@@ -73,10 +78,14 @@
             width: 300;
             
             .user-ctnr {
+                width: auto;
                 background: $color-dark-yellow;
                 border-color: white;
                 transform: translateX(25);
                 padding: 35 25;
+            }
+            .home-setting {
+                transform: translateX(0);
             }
             .user-begin-text {
                 font-size: $user-begin-font-size;
@@ -216,11 +225,13 @@
             margin: 20 0 0 0;
 
             &.home-user-begin-ctnr {
-
                 .user-ctnr {
                     transform: translateX(40);
                     padding: 30 45;
                     height: 120;
+                }
+                .home-setting {
+                    transform: translateX(25);
                 }
                 .user-begin-text {
                     font-size: $user-begin-font-size-landscape;

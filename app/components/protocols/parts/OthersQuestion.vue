@@ -1,6 +1,6 @@
 <template>
-    <StackLayout class="items-unit-ctnr">
-        <Label :text="unit.question" textWrap="true" class="items-q"/>
+    <StackLayout class="others-unit-ctnr">
+        <Label :text="unit.question" textWrap="true" class="others-q"/>
         <MultiSelect v-if="unit.question_type.type === 'multiple_select'"
                     :question_id="unit.id"
                     :answers="unit.answers"
@@ -61,8 +61,8 @@
         },
         methods: {
             ...mapActions([
-                'saveItemsUpdate',
-                'saveItemsProgress'
+                'saveOthersUpdate',
+                'saveOthersProgress',
             ]),
             retrieveSavedResponses(unit) {
                 const p_id = unit.protocol.id;
@@ -70,7 +70,7 @@
                 const q_type = unit.question_type.type;
 
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
-                const p_obj = log.items_answers.find(elem => { return elem.id === p_id; });
+                const p_obj = log.others_answers.find(elem => { return elem.id === p_id; });
                 if (p_obj) {
                     const q_objs = p_obj.a.find(elem => { return elem.q_id === q_id; });
                     if (q_objs) {
@@ -92,11 +92,10 @@
                 };
                 const progress = {
                     log_id: this.log_id,
-                    l_id: this.unit.assessment_letter.id,
                     q_id: this.unit.id, 
                 }
-                this.saveItemsUpdate(update);
-                this.saveItemsProgress(progress);
+                this.saveOthersUpdate(update);
+                this.saveOthersProgress(progress);
             },
         }
     }

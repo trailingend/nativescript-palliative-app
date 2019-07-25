@@ -21,49 +21,67 @@ export const homeGridChildPortrait = {
 export const newGridChildLandscape = {
     q1: { row: "0", col: "0", },
     a1: { row: "0", col: "1", },
-    q2: { row: "1", col: "0", },
-    a2: { row: "1", col: "1", },
-    q3: { row: "2", col: "0", },
-    a3: { row: "2", col: "1", },
-    q4: { row: "3", col: "0", },
-    a4: { row: "3", col: "1", },
+    e1: { row: "1", col: "0", colSpan: "2"},
+    q2: { row: "2", col: "0", },
+    a2: { row: "2", col: "1", },
+    e2: { row: "3", col: "0", colSpan: "2"},
+    q3: { row: "4", col: "0", },
+    a3: { row: "4", col: "1", },
+    e3: { row: "5", col: "0", colSpan: "2"},
+    q4: { row: "6", col: "0", },
+    a4: { row: "6", col: "1", },
+    e4: { row: "7", col: "0", colSpan: "2"},
 };
 
 export const newGridChildPortrait = {
     q1: { row: "0", col: "0", },
     a1: { row: "1", col: "0", },
-    q2: { row: "2", col: "0", },
-    a2: { row: "3", col: "0", },
-    q3: { row: "4", col: "0", },
-    a3: { row: "5", col: "0", },
-    q4: { row: "6", col: "0", },
-    a4: { row: "7", col: "0", },
+    e1: { row: "2", col: "0", colSpan: "1"},
+    q2: { row: "3", col: "0", },
+    a2: { row: "4", col: "0", },
+    e2: { row: "5", col: "0", colSpan: "1"},
+    q3: { row: "6", col: "0", },
+    a3: { row: "7", col: "0", },
+    e3: { row: "8", col: "0", colSpan: "1"},
+    q4: { row: "9", col: "0", },
+    a4: { row: "10", col: "0", },
+    e4: { row: "11", col: "0", colSpan: "1"},
 };
 
 export const editGridChildLandscape = {
     q1: { row: "0", col: "0", },
     a1: { row: "0", col: "1", },
-    q2: { row: "1", col: "0", },
-    a2: { row: "1", col: "1", },
-    q3: { row: "2", col: "0", },
-    a3: { row: "2", col: "1", },
-    q4: { row: "3", col: "0", },
-    a4: { row: "3", col: "1", },
-    q5: { row: "4", col: "0", },
-    a5: { row: "4", col: "1", },
+    e1: { row: "1", col: "0", colSpan: "2"},
+    q2: { row: "2", col: "0", },
+    a2: { row: "2", col: "1", },
+    e2: { row: "3", col: "0", colSpan: "2"},
+    q3: { row: "4", col: "0", },
+    a3: { row: "4", col: "1", },
+    e3: { row: "5", col: "0", colSpan: "2"},
+    q4: { row: "6", col: "0", },
+    a4: { row: "6", col: "1", },
+    e4: { row: "7", col: "0", colSpan: "2"},
+    q5: { row: "8", col: "0", },
+    a5: { row: "8", col: "1", },
+    e5: { row: "9", col: "0", colSpan: "2"},
 };
 
 export const editGridChildPortrait = {
     q1: { row: "0", col: "0", },
     a1: { row: "1", col: "0", },
-    q2: { row: "2", col: "0", },
-    a2: { row: "3", col: "0", },
-    q3: { row: "4", col: "0", },
-    a3: { row: "5", col: "0", },
-    q4: { row: "6", col: "0", },
-    a4: { row: "7", col: "0", },
-    q5: { row: "8", col: "0", },
-    a5: { row: "9", col: "0", },
+    e1: { row: "2", col: "0", colSpan: "1"},
+    q2: { row: "3", col: "0", },
+    a2: { row: "4", col: "0", },
+    e2: { row: "5", col: "0", colSpan: "1"},
+    q3: { row: "6", col: "0", },
+    a3: { row: "7", col: "0", },
+    e3: { row: "8", col: "0", colSpan: "1"},
+    q4: { row: "9", col: "0", },
+    a4: { row: "10", col: "0", },
+    e4: { row: "11", col: "0", colSpan: "1"},
+    q5: { row: "12", col: "0", },
+    a5: { row: "13", col: "0", },
+    e5: { row: "14", col: "0", colSpan: "1"},
 };
 
 export const userColors = ['#7ca8ea', '#a57ed7', '#dc9078', '#3956a0', '#007c7c'];
@@ -108,5 +126,6 @@ export const formatShiftTime = (input) => {
     const hours = time.split(':')[0];
     const minutes = time.split(':')[1];
     const suffix = hours >= 12 ? "PM":"AM"; 
-    return `${((hours + 11) % 12 + 1)}:${minutes}${suffix}`; 
+    // return `${((hours + 11) % 12 + 1)}:${minutes}${suffix}`; 
+    return `${hours}:${minutes}`;
 };

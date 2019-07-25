@@ -25,27 +25,21 @@
                     <Label text='forms (e.g. "no CPR" form, resentation agreement, advance directives, MOST, etc.).'  textWrap="false"/>
                 </StackLayout>
                 <GridLayout class="choose-btn-ctnr" :rows="gridSetting.rows" :columns="gridSetting.columns" >
-                    <Button v-for="(protocol, index) in protocols" 
-                            v-bind:key="protocol.id" 
-                            :row="Math.floor(index / gridSetting.denominator)"
-                            :col="index % gridSetting.denominator"
-                            :text="protocol.name" 
-                            :background="checkSavedProtocols(protocol.id) ? saved_color : unclicked_color"
-                            :id="`choose-btn-${index}`"
-                            class="choose-btn" 
-                            @tap="(args) => onBtnTap(args, protocol, index)" />
-                    <!-- <GridLayout v-for="(protocol, index) in protocols" 
+                    <GridLayout v-for="(protocol, index) in protocols" 
                                 v-bind:key="protocol.id" 
                                 :row="Math.floor(index / gridSetting.denominator)"
                                 :col="index % gridSetting.denominator"
+                                rows="*" columns="auto, *"
                                 :text="protocol.name" 
-                                :background="checkSavedProtocols(protocol.id) ? saved_color : unclicked_color"
+                                :color="checkSavedProtocols(protocol.id) ? saved_color : black_color"
+                                :borderColor="checkSavedProtocols(protocol.id) ? clicked_color : unclicked_color"
+                                :background="checkSavedProtocols(protocol.id) ? white_color : unclicked_color"
                                 :id="`choose-btn-${index}`"
                                 class="choose-btn" 
                                 @tap="(args) => onBtnTap(args, protocol, index)">
-                        <Image row="0" col="0" width="30" class="ans-status-icon" v-show="answer.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                        <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
-                    </GridLayout> -->
+                        <Image row="0" col="0" width="30" class="choose-status-icon" v-show="checkSavedProtocols(protocol.id)" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
+                        <Label row="0" col="1" class="answers-a" textWrap="true" :text="protocol.name" />
+                    </GridLayout>
                 </GridLayout>
             </StackLayout>
             <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
@@ -78,8 +72,10 @@
             return {
                 show_next: false,
                 unclicked_color: '#f5f5f5',
-                clicked_color: '#e5e5e5',
-                saved_color: '#acd6b5',
+                clicked_color: '#acd6b5',
+                saved_color: '#a1ccaa',
+                white_color: '#ffffff',
+                black_color: '#000000',
                 protocol_id: null,
 
                 gridSetting: {
@@ -185,31 +181,33 @@
                     const p_id_to_check = this.protocols[i].id;
                     if (this.checkSavedProtocols(p_id_to_check)) {
                         if (i === index) {
-                            this.$navigateTo(Summary, {
-                                animated: true,
-                                clearHistory: true,
-                                transition: {
-                                    name: 'slideRight',
-                                    curve: 'easeIn',
-                                    duration: 300
-                                },
-                                props: {
-                                    log_id: this.log_id,
-                                    has_prev: false
-                                }
-                            });
+                            if (this.protocol_id != null) {
+                                this.show_next = true;
+                                clicked_btn.color = this.black_color;
+                                clicked_btn.background = this.clicked_color;
+                            } else {
+                                this.show_next = false;
+                                clicked_btn.color = this.saved_color;
+                                clicked_btn.background = this.white_color;
+                            }
+                        } else {
+                            page.getViewById(`choose-btn-${i}`).color = this.saved_color;
+                            page.getViewById(`choose-btn-${i}`).background = this.white_color;
                         }
                     } else {
                         if (i === index) {
                             if (this.protocol_id != null && proto.assessment_questions.length > 0) {
                                 this.show_next = true;
                                 clicked_btn.background = this.clicked_color;
+                                clicked_btn.borderColor = this.clicked_color;
                             } else {
                                 this.show_next = false;
                                 clicked_btn.background = this.unclicked_color;
+                                clicked_btn.borderColor = this.unclicked_color;
                             }
                         } else {
                             page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;
+                            page.getViewById(`choose-btn-${i}`).borderColor = this.unclicked_color;
                         }
                     }
                 }

@@ -27,7 +27,7 @@
         .choose-warning {
             font-weight: 700;
             padding: 10 100;     
-            background: $color-light-yellow;
+            background: $color-baby-yellow;
             Label {
                 text-align: center;
                 text-transform: none;
@@ -42,10 +42,16 @@
                 text-transform: none;
             }
         }
+        .choose-status-icon {
+            margin: auto 10;
+        }
         .choose-btn {
+            font-size: 18;
+            font-weight: 700;
             color: black;
             margin: 5;
             border-radius: $border-size;
+            border-width: 3;
             background: $color-unselected;
         }
         
