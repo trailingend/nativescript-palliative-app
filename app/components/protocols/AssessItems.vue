@@ -33,7 +33,9 @@
                         </StackLayout>                       
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
-                                <AssessItem :unit="question" :log_id="log_id" @answerChange="(data) => { recordResponse(question, data); }" /> 
+                                <AssessItem :unit="question" :log_id="log_id" 
+                                            @foundResponse="(l_id) => { onResponseFound(l_id); }"
+                                            @answerChange="(l_id) => { onResponseEntered(l_id); }" /> 
                                 <StackLayout v-if="question.assessment_letter.id === 8" class="items-spacer"></StackLayout>
                         </StackLayout>
                     </StackLayout>                            
@@ -45,7 +47,7 @@
 
             <Button row="3" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="3" col="3" colSpan="1" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="3" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
 
             <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
@@ -80,15 +82,18 @@
         data() {
             return {
                 p_title: "Protocol",
+                next_text: 'Skip',
                 is_text_setup: false,
                 textview_ids: new Set(),
                 item_anchors: [],
                 curr_letter_id: 1,
                 
+                page: null,
                 letters: [],
                 assessments: [],
                 responses:[],
                 existing_letters: new Set(),
+                complete_letter_ids: new Set(),
 
                 gridSetting: {
                     rows: "*, *, *, *, *, *, *",
@@ -132,7 +137,6 @@
             }
 		},
         methods: {
-            
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
                 filted_assessments.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
@@ -205,28 +209,29 @@
                 });
                 console.log("change of letter: " + id);
             },
-            recordResponse(q, data) {
-                const response_item = {
-                    log_id: this.log_id,
-                    q_id: q.id, 
-                    q_type: q.question_type.type,
-                    a: data,
-                };
-                const response_idx = this.responses.findIndex( elem => { return elem.q_id === q.id; });
-                if (response_idx === -1) {
-                    this.responses.push(response_item);
-                } else {
-                    this.responses[response_idx].a = data;
-                }
+            setTabMarks(page) {
+                const complete_ids_arr = Array.from(this.complete_letter_ids);
+                complete_ids_arr.forEach(l_id => { 
+                    const letter_view = page.getViewById(`items-tab-${l_id}`);
+                    console.log("TODO change style of tab : " + l_id);
+                });
+            },
+            changeNextText(new_text) {
+                this.next_text = new_text;
+            },
+            markAsComplete(l_id) {
+                this.complete_letter_ids.add(l_id);
+            },
+            onResponseEntered(l_id) {
+                this.changeNextText("Next");
+                this.markAsComplete(l_id);
+            },
+            onResponseFound(l_id) {
+                this.changeNextText("Next");
+                this.markAsComplete(l_id);
             },
             onForward(args) {
                 console.log("=== Forward === ");
-                // const progress = {
-                //     log_id: this.log_id,
-                //     p_id: this.protocol_id, 
-                //     content: this.responses,
-                // };
-                // this.saveItemsUpdate(progress);
                 this.prepareNextPage();
             },
             onBackward(args) {
@@ -267,6 +272,7 @@
             onNavigatedTo(args) {
                 this.setupAnchors(args);
                 this.setTabText(1, args.object.page);
+                this.setTabMarks(args.object.page);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 

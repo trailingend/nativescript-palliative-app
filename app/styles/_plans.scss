@@ -8,7 +8,6 @@
         }
         .plans-title-ctnr {
             margin-top: 60;
-            margin-bottom: 60;
         }
         .plans-title {
             text-align: center;
@@ -23,8 +22,17 @@
             background: black;
             margin-bottom: 20; 
         }
+        .plans-subtitle-ctnr {
+            margin-top: 10;
+            margin-bottom: 40;
+        }
+        .plans-subtitle {
+            font-size: 20;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
         .plans-q-ctnr {
-            width: 600;
+            width: 540;
             margin: 0 auto;
         }
         .plans-q {
@@ -42,7 +50,7 @@
         }
         .plans-a-ctnr {
             color: black;
-            width: 600;
+            width: 540;
             margin: 5 0;
             padding: 10;
             border-radius: $border-size;
@@ -52,7 +60,7 @@
             }
         }
         .plans-free {
-            width: 500;
+            width: 540;
             height: $textview-height;
             margin: 15 0;
             padding: 5 8;

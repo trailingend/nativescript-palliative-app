@@ -25,7 +25,7 @@
                                 :key="question.id">
                         <OthersQuestion :unit="question" :log_id="log_id" 
                                         @foundResponse="changeNextText('Next')"
-                                        @answerChange="(data) => { recordResponse(question, data); }" /> 
+                                        @answerChange="onResponseEntered" /> 
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
@@ -138,7 +138,7 @@
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
-            recordResponse(q, data) {
+            onResponseEntered() {
                 this.changeNextText("Next");
             },
             onForward() {
@@ -163,7 +163,7 @@
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.othersGridRef.nativeView.getMeasuredWidth() );
 
-                if (width > 1000) {
+                if (width > 800) {
                     this.ctnrSetting = {
                         class: "others-ctnr tablet-landscape"
                     };

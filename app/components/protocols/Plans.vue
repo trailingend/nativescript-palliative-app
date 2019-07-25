@@ -16,12 +16,11 @@
             <ScrollView row="1" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
                     <StackLayout class="plans-title-ctnr">
-                        <Label class="plans-title" text="Select plan"></Label>
-                        <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
+                        <Label class="plans-title" :text="p_title"></Label>                        
                     </StackLayout>
-                    <!-- <FlexboxLayout orientation="horizontal" alignItems="align" justifyContent="flex-start" class="plans-q-ctnr">
-                        <Label text="description placeholder" class="plans-q"/>
-                    </FlexboxLayout> -->
+                    <StackLayout class="plans-subtitle-ctnr">
+                        <Label class="plans-subtitle" text="Plan"></Label>
+                    </StackLayout>
                     <StackLayout>
                         <GridLayout v-for="plan in plans_list" 
                                     :key="plan.unique" 
@@ -34,12 +33,12 @@
                             <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
                         </GridLayout>
                     </StackLayout>
-                    <!-- <TextView v-model="free_text" 
+                    <TextView v-model="free_text" 
                               id="plans-free"
                               class="plans-free"
                               hint="Take notes here..."
                               @textChange="onTextEntered"
-                              editable="true" /> -->
+                              editable="true" />
                 </StackLayout>
             </ScrollView>
 
@@ -73,6 +72,7 @@
     export default {
         data() {
             return {
+                p_title: 'Protocol',
                 plans_list: [],
                 status_list: [],
 
@@ -123,7 +123,7 @@
                 const p_obj = log.plans_answers.find(elem => { return elem.id === this.protocol_id; });
                 if (p_obj) {
                     const saved_answers = p_obj.a;
-                    // this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
+                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
                     this.plans_list.forEach(plan => {
                         const search_in_saved = saved_answers.find(elem => { return elem == plan.plan; });
                         if (search_in_saved) {
@@ -137,6 +137,7 @@
             preparePlans() {
                 const plan_id_objs = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans;
                 const plan_ids = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans.map(plan => plan.plan);
+                this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.plans_list = this.plans.filter(elem => { return plan_ids.includes(elem.id); });
                 this.preparePlansStatus();
                 this.retrieveSavedPlans();
@@ -192,13 +193,13 @@
                 }
             },
             clearTextfieldFocus(args) {
-                // const layoutView = args.object;
-                // const freeTextfield = layoutView.getViewById("plans-free");
-                // freeTextfield.dismissSoftInput();
+                const layoutView = args.object;
+                const freeTextfield = layoutView.getViewById("plans-free");
+                freeTextfield.dismissSoftInput();
             },
             onForward() {
                 console.log("=== Forward === ");
-                // this.selected_plans.push(this.free_text);
+                this.selected_plans.push(this.free_text);
                 const update = {
                     log_id: this.log_id,
                     p_id: this.protocol_id, 
@@ -230,7 +231,7 @@
                 console.log("=== Answer tapped === " + this.selected_plans);
             },
             onTextEntered() {
-                // console.log("=== Answer enterred === " + this.free_text);
+                console.log("=== Answer enterred === " + this.free_text);
             },
             onNavigatingFrom() {
             },

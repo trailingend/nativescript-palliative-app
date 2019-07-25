@@ -75,19 +75,21 @@
                     const q_objs = p_obj.a.find(elem => { return elem.q_id === q_id; });
                     if (q_objs) {
                         const saved_answers = q_objs.a;
-                        this.$emit("foundResponse");
+                        const l_id = q_objs.l_id;
+                        this.$emit("foundResponse", l_id);
                         return saved_answers;
                     }
                 }
                 return [];
             },
             onAnswerChange(data) {
-                this.$emit("answerChange", data);
+                this.$emit("answerChange", this.unit.assessment_letter.id);
                 const update = {
                     log_id: this.log_id,
                     p_id: this.unit.protocol.id,
                     q_id: this.unit.id, 
                     q_type: this.unit.question_type.type,
+                    l_id: this.unit.assessment_letter.id,
                     a: data
                 };
                 const progress = {

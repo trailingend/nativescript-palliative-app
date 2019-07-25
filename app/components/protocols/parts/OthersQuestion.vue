@@ -82,7 +82,7 @@
                 return [];
             },
             onAnswerChange(data) {
-                this.$emit("answerChange", data);
+                this.$emit("answerChange");
                 const update = {
                     log_id: this.log_id,
                     p_id: this.unit.protocol.id,

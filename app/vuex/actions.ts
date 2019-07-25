@@ -83,9 +83,7 @@ export default {
         if (log_idx === -1) {
             console.log("=== In items log update: OH NO !!! ===");
         } else {
-            console.log(update_item.p_id + " " + update_item.q_id )
             const existed_p_idx = state.logs[log_idx].items_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
-            console.log(update_item.p_id + " " + update_item.q_id + " " + existed_p_idx)
             if (existed_p_idx === -1) {
                 const log_item = {
                     idx: log_idx,
@@ -94,6 +92,7 @@ export default {
                         a: [{
                             q_id: update_item.q_id,
                             q_type: update_item.q_type,
+                            l_id: update_item.l_id,
                             a: update_item.a,
                         }]
                     }
@@ -108,10 +107,10 @@ export default {
                     content: {
                         q_id: update_item.q_id,
                         q_type: update_item.q_type,
+                        l_id: update_item.l_id,
                         a: update_item.a,
                     }
                 }
-                console.log(existed_p_idx + " " + existed_q_idx)
                 commit(types.CHART_ITEMS_UPDATE, log_item);
             }
         }
