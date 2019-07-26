@@ -7,7 +7,7 @@
             background: white; 
         }
         .plans-title-ctnr {
-            margin-top: $page-top-margin;
+            margin-top: 25;
         }
         .plans-title {
             text-align: center;
@@ -15,10 +15,6 @@
             font-weight: 700;
             color: black;
             text-transform: uppercase;
-        }
-        .plans-subtitle-ctnr {
-            margin-top: 10;
-            margin-bottom: 40;
         }
         .plans-subtitle {
             font-size: 20;
@@ -68,7 +64,7 @@
 
         &.tablet-landscape {
             .plans-title-ctnr {
-                margin-top: $page-top-margin-landscape;
+                margin-top: 25;
             }
             .q-icon {
                 margin: 10 30 10 0;

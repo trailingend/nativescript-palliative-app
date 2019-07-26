@@ -7,7 +7,7 @@
             background: white; 
         }
         .others-title-ctnr {
-            margin-top: $page-top-margin;
+            margin-top: 25;
         }
         .others-title {
             font-size: $page-title-font-size;
@@ -15,10 +15,6 @@
             color: black;
             text-align: center;
             text-transform: uppercase;
-        }
-        .others-subtitle-ctnr {
-            margin-top: 10;
-            margin-bottom: 40;
         }
         .others-subtitle {
             font-size: 20;
@@ -41,7 +37,7 @@
 
         &.tablet-landscape {
             .others-title-ctnr {
-                margin-top: $page-top-margin-landscape;
+                margin-top: 25;
             }
             .others-unit-ctnr {
                 width: $content-width-landscape;

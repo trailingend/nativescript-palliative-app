@@ -7,20 +7,21 @@
             <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, *, auto, auto" 
+                    rows="auto, auto, *, auto, auto" 
                     columns="auto, *, auto" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
+            <StackLayout row="1" col="0" colSpan="3" class="plans-title-ctnr" >
+                <Label class="plans-title" :text="p_title"></Label> 
+                <Label class="plans-subtitle" text="Plan"></Label>
+                <StackLayout class="divider-ctnr"></StackLayout>
+            </StackLayout>
+
+            <ScrollView row="2" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
-                    <StackLayout class="plans-title-ctnr">
-                        <Label class="plans-title" :text="p_title"></Label>                        
-                    </StackLayout>
-                    <StackLayout class="plans-subtitle-ctnr">
-                        <Label class="plans-subtitle" text="Plan"></Label>
-                    </StackLayout>
+                    <StackLayout class="spacer-ctnr"></StackLayout>
                     <StackLayout>
                         <GridLayout v-for="plan in plans_list" 
                                     :key="plan.unique" 
@@ -42,12 +43,12 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="2" rowSpan="1" colSpan="1" 
+            <ResourcesButton row="3" col="2" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="3" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="4" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 
-            <Button row="3" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="4" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
         </GridLayout>
     </Page>

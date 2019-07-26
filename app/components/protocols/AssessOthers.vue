@@ -7,20 +7,21 @@
             <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, *, auto, auto" columns="auto, *, auto" 
+                    rows="auto, auto, *, auto, auto" columns="auto, *, auto" 
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" colSpan="3" class="others-main-ctnr">
+            <StackLayout row="1" col="0" colSpan="3" class="others-title-ctnr">
+                <Label class="others-title" :text="p_title"></Label> 
+                <Label class="others-subtitle" text="Others"></Label>
+                <StackLayout class="divider-ctnr"></StackLayout>
+            </StackLayout>
+
+            <ScrollView row="2" col="0" rowSpan="3" colSpan="3" class="others-main-ctnr">
                 <StackLayout>
-                    <StackLayout class="others-title-ctnr">
-                        <Label class="others-title" :text="p_title"></Label>                        
-                    </StackLayout>
-                    <StackLayout class="others-subtitle-ctnr">
-                        <Label class="others-subtitle" text="Others"></Label>
-                    </StackLayout>
+                    <StackLayout class="spacer-ctnr"></StackLayout>
                     <StackLayout v-for="question in others_questions"
                                 :key="question.id">
                         <OthersQuestion :unit="question" :log_id="log_id" 
@@ -30,12 +31,12 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="2" rowSpan="1" 
+            <ResourcesButton row="3" col="2"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="3" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="4" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
 
-            <Button row="3" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="4" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
         </GridLayout>
     </Page>
 </template>
