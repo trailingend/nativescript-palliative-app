@@ -119,6 +119,13 @@ export const formatPhoneForDisplay = (input) => {
     return `${input.substring(0, 3)}-${input.substring(3, 6)}-${input.substring(6, input.length)}`;
 };
 
+export const formatUsernameForDisplay = (input) => {
+    const name_segments = input.trim().split(' ');
+    const firstname = name_segments[0];
+    const lastname = name_segments[name_segments.length - 1];
+    return `${firstname} ${lastname.substring(0, 1)}.`
+};
+
 export const formatShiftTime = (input) => {
     console.log(" input ====" + input)
     const millitary = input.toString().split(" ");

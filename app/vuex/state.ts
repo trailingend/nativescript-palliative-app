@@ -7,13 +7,13 @@ export default {
 	users: 
 	[{
 		id: '888888',
-		name: 'Lesie Simon',
+		name: 'Lesie S.',
 		shift_start: '9:00', //'7:00AM',
 		shift_end: '17:00', // '5:00PM',
 		color: '#7ca8ea',
 	}, {
 		id: '777777',
-		name: 'Ruby Chen',
+		name: 'Ruby C.',
 		shift_start: '10:00',//'8:00AM',
 		shift_end: '18:00', //'6:00PM',
 		color: '#a57ed7'
