@@ -49,8 +49,13 @@ export default {
         commit(types.CHART_INFO_UPDATE, entry);
     },
 
-    changeClientNotes({commit, state}, entry) {
-        // commit(types.CHART_INFO_UPDATE, entry);
+    changeClientNotes({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
+        const log_item = {
+            idx: log_idx,
+            content: update_item.content
+        };
+        commit(types.CHART_NOTE_UPDATE, log_item);
     },
 
     deleteChart({commit, state}, log_id) {

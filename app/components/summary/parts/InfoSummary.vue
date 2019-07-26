@@ -73,6 +73,12 @@
                     props: {
                         log_id: this.log_id,
                     }
+                }).then(() => {
+                    const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                    if (curr_log) {
+                        this.client = curr_log;
+                        this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
+                    }
                 });
             },
         },

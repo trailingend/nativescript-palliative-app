@@ -9,7 +9,7 @@
                 <StackLayout row="1" col="0" class="notes-main-ctnr">
                     <Label class="notes-title" text="Additioanl Notes" ></Label>   
                     <StackLayout>
-                        <TextView v-model="c_info" 
+                        <TextView v-model="c_notes" 
                                   id="notes-free"
                                   class="notes-free"
                                   hint="Additional Notes."
@@ -67,7 +67,7 @@
             loadExistingNote() {
                 if (this.log_id) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                    this.c_notes = curr_log.info;
+                    this.c_notes = curr_log.notes;
                 }
             },
             resetTextviewModel(args) {
@@ -75,8 +75,8 @@
             },
             onSaveTap(args) {
                 const entry = {
-                    id: this.log_id,
-                    notes: this.c_notes
+                    log_id: this.log_id,
+                    content: this.c_notes
                 };
                 this.changeClientNotes(entry);
 

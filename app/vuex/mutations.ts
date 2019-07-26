@@ -60,18 +60,23 @@ export default {
         state.logs[chart_idx].nurse = entry.nurse;
         state.logs[chart_idx].info = entry.info;
     },
+    [types.CHART_NOTE_UPDATE](state, chart_item){
+        state.logs[chart_item.idx].notes = chart_item.content;
+        // console.log("=== in mutation CHART_NOTE_UPDATE ===");
+        // console.dir(state.logs[chart_item.idx].notes);
+    },
     [types.CHART_INTRO_UPDATE](state, chart_item){
         if (chart_item.q_idx === -1) {
             state.logs[chart_item.idx].intro_answers.push(chart_item.content);
         } else {
             state.logs[chart_item.idx].intro_answers[chart_item.q_idx].a = chart_item.content.a;
         } 
-        console.log("=== in mutation CHART_INTRO_UPDATE ===");
+        // console.log("=== in mutation CHART_INTRO_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].intro_answers);
     },
     [types.CHART_ITEMS_ADD](state, chart_item) {
         state.logs[chart_item.idx].items_answers.push(chart_item.content);
-        console.log("=== in mutation CHART_ITEMS_ADD ===");
+        // console.log("=== in mutation CHART_ITEMS_ADD ===");
         // console.dir(state.logs[chart_item.idx].items_answers);
     },
     [types.CHART_ITEMS_UPDATE](state, chart_item) {
@@ -80,12 +85,12 @@ export default {
         } else {
             state.logs[chart_item.idx].items_answers[chart_item.p_idx].a[chart_item.q_idx].a = chart_item.content.a;
         } 
-        console.log("=== in mutation CHART_ITEMS_UPDATE ===");
+        // console.log("=== in mutation CHART_ITEMS_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].items_answers);
     },
     [types.CHART_OTHERS_ADD](state, chart_item){
         state.logs[chart_item.idx].others_answers.push(chart_item.content);
-        console.log("=== in mutation CHART_OTHERS_ADD ===");
+        // console.log("=== in mutation CHART_OTHERS_ADD ===");
         // console.dir(state.logs[chart_item.idx].others_answers);
     },
     [types.CHART_OTHERS_UPDATE](state, chart_item){
@@ -94,7 +99,7 @@ export default {
         } else {
             state.logs[chart_item.idx].others_answers[chart_item.p_idx].a[chart_item.q_idx].a = chart_item.content.a;
         } 
-        console.log("=== in mutation CHART_OTHERS_UPDATE ===");
+        // console.log("=== in mutation CHART_OTHERS_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].others_answers);
     },
     [types.CHART_PLANS_UPDATE](state, chart_item) {
@@ -103,7 +108,7 @@ export default {
         } else {
             state.logs[chart_item.idx].plans_answers[chart_item.p_idx].a = chart_item.content.a;
         } 
-        console.log("=== in mutation CHART_PLANS_UPDATE ===");
+        // console.log("=== in mutation CHART_PLANS_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].plans_answers);
     },
     

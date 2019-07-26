@@ -86,15 +86,6 @@
                 });
             },
             onSettingTap() {
-                let ShowModalOptions = {
-                    context: "context",
-                    closeCallback: () => console.log("home page modal page closed"),
-                    fullscreen: false,
-                    ios: {
-                        presentationStyle: UIModalPresentationStyle.Popover
-                    },
-                };
-                this.$showModal(Notes, ShowModalOptions);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.homeGridRef.nativeView.getMeasuredWidth() );

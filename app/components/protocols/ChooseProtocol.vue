@@ -8,10 +8,12 @@
         </ActionBar>
         <GridLayout class="choose-ctnr" 
                     rows="auto, *, auto" 
-                    columns="*" ref="chooseGridRef" 
+                    columns="auto, *, auto" ref="chooseGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" :log_id="log_id"/>
-            <StackLayout class="choose-main-ctnr" row="1" col="0">
+
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
+
+            <StackLayout class="choose-main-ctnr" row="1" col="0" colSpan="3">
                 <StackLayout class="choose-title-ctnr">
                     <Label class="choose-title" text="Select Protocol"></Label>
                     <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
@@ -42,11 +44,11 @@
                     </GridLayout>
                 </GridLayout>
             </StackLayout>
-            <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between">
-                <Button class="back-btn" text="Back" @tap="onBackTap" ></Button>
-                <Button v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
-                <Label v-else />
-            </FlexboxLayout>
+            <!-- <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between"> -->
+            <Button row="2" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            
+            <Button row="2" col="2" v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <!-- </FlexboxLayout> -->
         </GridLayout>
     </Page>
 </template>

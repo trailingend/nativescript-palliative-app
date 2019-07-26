@@ -90,7 +90,7 @@
                     </GridLayout>
                 </PreviousNextView>
 
-                <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="flex-start" justifyContent="space-between">
+                <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
                     <Label class="client-t client-t-consent" text="consent to have call documented" textWrap="true"/>
                     <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" />
                 </FlexboxLayout>
@@ -234,6 +234,7 @@
                         client: client_name,
                         relation: client_relation,
                         info: this.c_info,
+                        notes: '',
                         nurse: '',
                         createdTime: this.created_time,
                         status: false,

@@ -7,10 +7,10 @@
         </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
                     rows="*, auto" 
-                    columns="*" ref="summaryGridRef" 
+                    columns="auto, *" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
 
-            <ScrollView row="0" col="0" rowSpan="2">
+            <ScrollView row="0" col="0" rowSpan="2" colSpan="2">
                 <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Client Summary"></Label>
@@ -28,9 +28,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <FlexboxLayout row="1" col="0" orientation="horizontal" alignItems="center" justifyContent="flex-start">
-                <Button v-show="has_prev" class="back-btn" text="Back" @tap="onBackTap" ></Button>
-            </FlexboxLayout>
+            <Button row="1" col="0" v-show="has_prev" class="back-btn" text="Back" @tap="onBackTap" ></Button>
         </GridLayout>
     </Page>
 </template>

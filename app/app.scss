@@ -49,7 +49,7 @@ Button {
 .back-btn, .next-btn {
     width: 140;
     height: 50;
-    margin: 0 auto 25 auto;
+    margin: 0 auto 40 auto;
     font-size: 18;
     font-weight: 500;
     letter-spacing: 0.1;
@@ -79,10 +79,10 @@ Button {
     height: 50;
     margin: 0 auto 25 auto;
     padding-right: 15; 
-    font-size: 13;
+    font-size: 16;
     font-weight: 500;
-    letter-spacing: 0.1;
-    text-transform: uppercase;
+    letter-spacing: 0;
+    text-transform: capitalize;
     color: black;
     background: white;
     border-width: 3;
