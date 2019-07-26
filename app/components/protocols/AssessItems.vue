@@ -51,12 +51,25 @@
 
             <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
+                        rows="auto" columns="*"
                         textWrap="true"
                         v-for="letter in letters"
                         v-bind:key="letter.unique"
                         :id="`items-tab-${letter.id}`"
-                        :text="letter.letter"
-                        @tap="(args) => { onTabTap(args, letter); }" />
+                        @tap="(args) => { onTabTap(args, letter); }" 
+                        :text="letter.letter"></Label>
+            </StackLayout>
+            <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
+                <StackLayout class="items-icon" 
+                        rows="auto" columns="*"
+                        textWrap="true"
+                        v-for="letter in letters"
+                        v-bind:key="letter.unique" 
+                        @tap="(args) => { onTabTap(args, letter); }" >
+                    <Image width="15" height="15" opacity="0" 
+                            :id="`items-icon-${letter.id}`" 
+                            src="~/assets/images/complete.png" stretch="aspectFill"/>
+                </StackLayout>
             </StackLayout>
 
         </GridLayout>
@@ -83,12 +96,16 @@
             return {
                 p_title: "Protocol",
                 next_text: 'Skip',
+                color_uncomplete: '#e3e3e3',
+                color_complete: '#acd6b5',
+                color_white: '#ffffff',
+                color_black: '#000000',
                 is_text_setup: false,
                 textview_ids: new Set(),
                 item_anchors: [],
                 curr_letter_id: 1,
                 
-                page: null,
+                pageView: null,
                 letters: [],
                 assessments: [],
                 responses:[],
@@ -199,21 +216,44 @@
             setTabText(id, page) {
                 this.letters.forEach(elem => { 
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
+                    const mark_view = page.getViewById(`items-icon-${elem.id}`);
                     if (elem.id === id) {
-                        letter_view.backgroundColor = "#acd6b5";
-                        letter_view.borderColor = "#acd6b5";
+                        mark_view.opacity = (this.complete_letter_ids.has(elem.id)) ? 1 : 0;
+                        letter_view.color = this.color_black;
+                        letter_view.backgroundColor = this.color_complete;
+                        letter_view.borderColor = this.color_complete;
                     } else {
-                        letter_view.backgroundColor = "#ffffff";
-                        letter_view.borderColor = "#e5e5e5";
+                        if (this.complete_letter_ids.has(elem.id)) {
+                            mark_view.opacity = 1;
+                            letter_view.color = this.color_complete;
+                            letter_view.background = this.color_white;
+                            letter_view.borderColor = this.color_complete;
+                        } else {
+                            mark_view.opacity = 0;
+                            letter_view.color = this.color_black;
+                            letter_view.backgroundColor = this.color_white;
+                            letter_view.borderColor = this.color_uncomplete;
+                        }
+                        
                     }
                 });
                 console.log("change of letter: " + id);
             },
             setTabMarks(page) {
-                const complete_ids_arr = Array.from(this.complete_letter_ids);
-                complete_ids_arr.forEach(l_id => { 
-                    const letter_view = page.getViewById(`items-tab-${l_id}`);
-                    console.log("TODO change style of tab : " + l_id);
+                this.letters.forEach(elem => { 
+                    const letter_view = page.getViewById(`items-tab-${elem.id}`);
+                    const mark_view = page.getViewById(`items-icon-${elem.id}`);
+                    if (this.complete_letter_ids.has(elem.id)) {
+                        mark_view.opacity = 1;
+                        letter_view.color = this.color_complete;
+                        letter_view.background = this.color_white;
+                        letter_view.borderColor = this.color_complete;
+                    } else {
+                        mark_view.opacity = 0;
+                        letter_view.color = this.color_black;
+                        letter_view.background = this.color_white;
+                        letter_view.borderColor = this.color_uncomplete;
+                    }
                 });
             },
             changeNextText(new_text) {
@@ -271,8 +311,8 @@
             },
             onNavigatedTo(args) {
                 this.setupAnchors(args);
-                this.setTabText(1, args.object.page);
                 this.setTabMarks(args.object.page);
+                this.setTabText(1, args.object.page);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
