@@ -129,3 +129,24 @@ export const formatShiftTime = (input) => {
     // return `${((hours + 11) % 12 + 1)}:${minutes}${suffix}`; 
     return `${hours}:${minutes}`;
 };
+
+export const animateSubTitle = function(elem, new_title) {
+    elem.animate({
+        translate: { x: 0, y: -5 },
+        duration: 100,
+        opacity: 0
+    }).then(() => {
+        elem.text = new_title;
+        return elem.animate({
+            translate: { x: 0, y: 5 },
+            duration: 0,
+            opacity: 0
+        })
+    }).then(() => {
+        return elem.animate({
+            translate: { x: 0, y: 0 },
+            duration: 100,
+            opacity: 1
+        })
+    });
+};

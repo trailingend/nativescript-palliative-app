@@ -17,17 +17,17 @@
             text-transform: uppercase;
             color: black;
         }
-        .items-item-ctnr {
-            margin-bottom: 40;
-        }
-        .items-subtitle-ctnr {
-            margin-top: 10;
-            margin-bottom: 40;
-        }
         .items-subtitle {
             font-size: 20;
             font-weight: 900;
             text-transform: uppercase;
+        }
+        .items-item-ctnr {
+            margin-bottom: 40;
+        }
+        
+        .spacer-ctnr {
+            margin-bottom: 20;
         }
         .items-tab-ctnr {
             vertical-align: middle;
@@ -55,7 +55,7 @@
         }
         .items-unit-ctnr {
             width: $content-width;
-            margin-bottom: 30;
+            margin-bottom: 40;
         }
         .items-q, .items-a {
             text-transform: none;
@@ -67,12 +67,15 @@
         }
         .items-spacer {
             width: 10;
-            height: 420;
+            height: 440;
         }
 
         &.tablet-landscape {
             .items-title-ctnr {
                 margin-top: 25;
+            }
+            .divider-ctnr {
+                width: $content-width-landscape;
             }
             .items-unit-ctnr {
                 width: $content-width-landscape;

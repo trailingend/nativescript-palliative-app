@@ -7,29 +7,33 @@
             <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
         </ActionBar>
         <GridLayout :class="formatSetting" 
-                    rows="auto, *, auto, auto" 
+                    rows="auto, auto, *, auto, auto" 
                     columns="auto, auto, *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <ClientBlock row="0" col="0" colSpan="4" :log_id="log_id"/>
 
-            <ScrollView row="1" col="0" rowSpan="3" colSpan="4" 
+            <StackLayout row="1" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr">
+                <Label class="items-title" :text="p_title"></Label>
+                <Label class="items-subtitle" :text="l_title" ref="subtitleRef"></Label>
+                <StackLayout class="divider-ctnr"></StackLayout>
+            </StackLayout>
+
+            <ScrollView row="2" col="0" rowSpan="3" colSpan="4" 
                         id="items-main-ctnr"
                         class="items-main-ctnr"
                         @scroll="onScroll" >
                 <StackLayout>
-                    <StackLayout class="items-title-ctnr">
-                        <Label class="items-title" :text="p_title"></Label>
-                    </StackLayout>
-                    <StackLayout v-for="letter in filtered_letters" 
+                    <StackLayout v-for="(letter, index) in filtered_letters" 
                                  :key="letter.id" 
                                  :id="`items-item-ctnr-${letter.id}`"
                                  class="items-item-ctnr">  
-                        <StackLayout class="items-subtitle-ctnr">
+                        <StackLayout v-if="index != 0" class="items-subtitle-ctnr">
                             <Label class="items-subtitle" :text="letter.title"></Label>
                             <StackLayout class="divider-ctnr"></StackLayout>
-                            <Label v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
-                        </StackLayout>                       
+                        </StackLayout>
+                        <StackLayout class="spacer-ctnr"></StackLayout>
+                        <Label v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" 
@@ -41,14 +45,14 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="2" col="3" rowSpan="1" colSpan="1" 
+            <ResourcesButton row="3" col="3" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="3" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="4" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="3" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="4" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
 
-            <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
+            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
                         rows="auto" columns="*"
                         textWrap="true"
@@ -58,7 +62,7 @@
                         @tap="(args) => { onTabTap(args, letter); }" 
                         :text="letter.letter"></Label>
             </StackLayout>
-            <StackLayout row="1" col="0" rowSpan="2" colSpan="1" class="items-tab-ctnr">
+            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
                 <StackLayout class="items-icon" 
                         rows="auto" columns="*"
                         textWrap="true"
@@ -89,11 +93,13 @@
     import { mapGetters } from 'vuex';
     import { confirm }  from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
+    import { animateSubTitle } from '../../scripts/common';
 
     export default {
         data() {
             return {
                 p_title: "Protocol",
+                l_title: "Onset",
                 next_text: 'Skip',
                 color_uncomplete: '#e3e3e3',
                 color_complete: '#acd6b5',
@@ -164,7 +170,6 @@
                 this.assessments.forEach(elem => this.existing_letters.add(elem.assessment_letter.id));
                 this.letters = this.filtered_letters;
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
-                
             },
             preparePrevPage() {
                 this.$navigateTo(ChooseProtocol, {
@@ -212,11 +217,15 @@
                     });
                 });
             },
-            setTabText(id, page) {
+            setTabText(id, page, init=false) {
                 this.letters.forEach(elem => { 
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     const mark_view = page.getViewById(`items-icon-${elem.id}`);
                     if (elem.id === id) {
+                        if (!init) {
+                            const subtitle = this.$refs.subtitleRef.nativeView;
+                            animateSubTitle(subtitle, elem.title);
+                        }
                         mark_view.opacity = (this.complete_letter_ids.has(elem.id)) ? 1 : 0;
                         letter_view.color = this.color_black;
                         letter_view.backgroundColor = this.color_complete;
@@ -236,7 +245,7 @@
                         
                     }
                 });
-                console.log("change of letter: " + id);
+                // console.log("change of letter: " + id);
             },
             setTabMarks(page) {
                 this.letters.forEach(elem => { 
@@ -292,13 +301,14 @@
                 let id = 1;
                 for (let i = 0; i < this.item_anchors.length; i++) {
                     const prev_y = this.item_anchors[i].y;
-                    if (args.scrollY + 100 >= prev_y) {
+                    if (args.scrollY >= prev_y) {
                         id = this.item_anchors[i].id;
                     }
                 }
                 if (this.curr_letter_id != id) {
                     this.curr_letter_id = id;
-                    this.setTabText(id, args.object.page);
+                    const anchor_y = this.item_anchors.find(elem=>elem.id==id).y
+                    this.setTabText(id, args.object.page);                    
                 }                
             },
             clearTextfieldFocus(args) {
@@ -311,7 +321,7 @@
             onNavigatedTo(args) {
                 this.setupAnchors(args);
                 this.setTabMarks(args.object.page);
-                this.setTabText(1, args.object.page);
+                this.setTabText(1, args.object.page, true);
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
