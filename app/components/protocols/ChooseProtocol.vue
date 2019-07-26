@@ -13,7 +13,7 @@
 
             <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
 
-            <StackLayout class="choose-main-ctnr" row="1" col="0" colSpan="3">
+            <StackLayout class="choose-main-ctnr" row="1" col="0" :rowSpan="chooseSetting.rowSpan" colSpan="3">
                 <StackLayout class="choose-title-ctnr">
                     <Label class="choose-title" text="Select Protocol"></Label>
                     <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
@@ -80,6 +80,9 @@
                 black_color: '#000000',
                 protocol_id: null,
 
+                chooseSetting: {
+                    rowSpan: '1',
+                },
                 gridSetting: {
                     rows: "*, *, *, *, *, *, *",
                     columns: "*, *",
@@ -246,11 +249,17 @@
                         columns: "*, *, *",
                         denominator: 3
                     };
+                    this.chooseSetting = {
+                        rowSpan: '2',
+                    };
                 } else {
                     this.gridSetting = {
                         rows: "*, *, *, *, *, *, *",
                         columns: "*, *",
                         denominator: 2
+                    };
+                    this.chooseSetting = {
+                        rowSpan: '1',
                     };
                 }
             },

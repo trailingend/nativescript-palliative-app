@@ -1,6 +1,6 @@
 <template>
 <Frame id="resourcesFrame">
-     <Page class="page resources-page">
+     <Page class="page resources-page" @navigatedTo="onNavigatedTo">
          <GridLayout :class="ctnrSetting"
                      rows="auto, auto, auto, *" columns="*"
                      ref="resourcesGridRef" 
@@ -15,16 +15,17 @@
             </StackLayout>
 
             <FlexboxLayout row="2" col="0" flexDirect="row" alignItems="center" justifyContent="space-around" class="resources-tab-ctnr">
-                <Button v-for="(title, index) in button_list" 
+                <Button v-for="(info, index) in button_list" 
                         :key="index"
-                        :text="title"
+                        :text="info.title"
                         class="resources-tab"
-                        textWrap="true" />
+                        textWrap="true" 
+                        @tap="(args) => { onTabTap(args, info.id); }" />
             </FlexboxLayout>
 
-            <ScrollView row="3" col="0" >
-                <StackLayout class="resources-main-ctnr">
-                    <StackLayout class="resources-item-ctnr resources-resc-ctnr">
+            <ScrollView row="3" col="0" id="resources-main-ctnr" class="resources-main-ctnr">
+                <StackLayout >
+                    <StackLayout id="resources-item-ctnr-res" class="resources-item-ctnr resources-resc-ctnr">
                         <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                             <StackLayout class="divider"/>
                             <Label class="resources-text resources-sec-title" text="resources" />
@@ -35,7 +36,7 @@
                             <Label class="resources-text resources-url" :text="resource.title" @tap="onLinkTap(resource.url)" />
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout class="resources-item-ctnr resources-resc-ctnr">
+                    <StackLayout id="resources-item-ctnr-pro" class="resources-item-ctnr resources-resc-ctnr">
                         <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                             <StackLayout class="divider"/>
                             <Label class="resources-text resources-sec-title" text="Related Protocols"></Label>
@@ -49,6 +50,7 @@
                     <StackLayout class="resources-item-ctnr resources-reco-ctnr">
                         <StackLayout v-for="recommendation in recommendations_list" 
                                     :key="recommendation.id" 
+                                    :id="`resources-item-ctnr-${recommendation.id}`"
                                     class="resources-reco-item" > 
                             <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                                 <StackLayout class="divider"/>
@@ -82,6 +84,7 @@
                 recommendations_list: [],
                 related_list: [],
                 button_list: [],
+                res_anchors: [],
 
                 ctnrSetting: "resources-ctnr",
             }
@@ -116,9 +119,9 @@
                 this.resources_list = protocol_obj.resources;
                 this.recommendations_list = protocol_obj.recommendations;
 
-                this.button_list.push("resources");
-                this.button_list.push("related protocols");
-                this.recommendations_list.forEach(elem=> { this.button_list.push(elem.title); });
+                this.button_list.push({id: "res", title: "resources"});
+                this.button_list.push({id: "pro", title: "related protocols"});
+                this.recommendations_list.forEach(elem=> { this.button_list.push({id: elem.id, title: elem.title}); });
 
                 protocol_obj.related_protocols.forEach(elem => { 
                     const related_p_obj = this.protocols.find(p => { return p.id == elem.related_to; });
@@ -130,11 +133,30 @@
                     }
                 });
             },
+            setupAnchors(args) {
+                const page = args.object.page;
+                const scrollView = args.object.page.getViewById("resources-main-ctnr");
+                this.button_list.forEach(elem => {
+                    const view = page.getViewById(`resources-item-ctnr-${elem.id}`);
+                    this.res_anchors.push({
+                        id: elem.id,
+                        y: view.getLocationRelativeTo(scrollView).y
+                    });
+                });
+            },
             onLinkTap(url) {
                 utils.openUrl(url);
             },
+            onTabTap(args, curr_id) {
+                const scrollView = args.object.page.getViewById("resources-main-ctnr");
+                const y = this.res_anchors.find(elem => { return elem.id === curr_id; }).y;
+                scrollView.scrollToVerticalOffset(y, true);
+            },
             onCloseTap() {
                 this.$modal.close();
+            },
+            onNavigatedTo(args) {
+                this.setupAnchors(args);
             },
             onLayoutUpdate() {
                 if (this.$refs.editGridRef) {
