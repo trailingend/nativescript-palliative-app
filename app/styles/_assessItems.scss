@@ -8,14 +8,14 @@
             background: white;
         }
         .items-title-ctnr {
-            margin-top: 60;
+            margin-top: 25;
         }
         .items-title {
-            font-size: $log-title-font-size;
+            font-size: $page-title-font-size;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
-            color: $color-text-dark;
+            color: black;
         }
         .items-item-ctnr {
             margin-bottom: 40;
@@ -26,13 +26,8 @@
         }
         .items-subtitle {
             font-size: 20;
-            font-weight: 400;
+            font-weight: 900;
             text-transform: uppercase;
-        }
-        .divider-ctnr {
-            width: 50;
-            height: 1;
-            background: black;
         }
         .items-tab-ctnr {
             vertical-align: middle;
@@ -59,7 +54,7 @@
             width: 100%;
         }
         .items-unit-ctnr {
-            width: 540;
+            width: $content-width;
             margin-bottom: 30;
         }
         .items-q, .items-a {
@@ -77,14 +72,10 @@
 
         &.tablet-landscape {
             .items-title-ctnr {
-                margin-top: 20;
-                margin-bottom: 20; 
+                margin-top: 25;
             }
             .items-unit-ctnr {
-                width: 700;
-            }
-            .items-a-wrapper {
-                width: 700;
+                width: $content-width-landscape;
             }
             .items-tab {
                 font-size: 17;
@@ -93,7 +84,7 @@
                 padding: 21 0 21 47.5;
             }
             .answers-a-wrapper {
-                width: 700;
+                width: $content-width-landscape;
             }
             .answers-a-select-ctnr {
                 width: 50%;

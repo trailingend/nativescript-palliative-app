@@ -12,17 +12,12 @@
             vertical-align: middle;
         }
         .choose-title {
-            font-size: $log-title-font-size;
+            font-size: $page-title-font-size;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
             color: black;
             margin-bottom: 20; 
-        }
-        .divider-ctnr {
-            width: 50;
-            height: 1;
-            background: black;
         }
         .choose-warning {
             font-size: 16;

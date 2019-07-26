@@ -46,7 +46,7 @@
             transform: translateX(25);
         }
         .user-item {
-            font-size: $user-font-size;
+            font-size: 15;
             line-height: auto;
             letter-spacing: 0.1;
             text-align: left;
@@ -60,7 +60,7 @@
             margin-right: 5;
         }
         .user-bold {
-            font-size: $user-bold-font-size;
+            font-size: 20;
             font-weight: 700;
             margin-bottom: 5;
         }
@@ -113,7 +113,7 @@
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
-            color: $color-text-dark;
+            color: black;
         }
     }
     
@@ -152,7 +152,6 @@
             font-family: 'Nunito', sans-serif;
             font-size: 18;
             font-weight: 900;
-            font-size: $list-bold-font-size;
         }
         .client-light {
             padding-top: 10;

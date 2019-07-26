@@ -89,7 +89,13 @@ Button {
     border-radius: 25;
     border-color: $color-dark-blue;
 }
-
+.divider-ctnr {
+    width: $content-width;
+    height: 0.25;
+    background: black;
+    margin-top: 20;
+    margin-bottom: 20;
+}
 
 
 @import "styles/dashboard";

@@ -7,18 +7,18 @@
             background: white; 
         }
         .intro-title-ctnr {
-            margin-top: 60;
-            margin-bottom: 60; 
+            margin-top: $page-top-margin;
+            margin-bottom: 20; 
         }
         .intro-title {
             text-align: center;
-            font-size: $log-title-font-size;
+            font-size: $page-title-font-size;
             font-weight: 700;
             text-transform: uppercase;
-            color: $color-text-dark;
+            color: black;
         }
         .intro-unit-ctnr {
-            width: 540;
+            width: $content-width;
             margin-bottom: 30;
         }
         .intro-q, .intro-a {
@@ -35,7 +35,7 @@
 
         &.tablet-landscape {
             .intro-title-ctnr {
-                margin-top: 20;
+                margin-top: $page-top-margin-landscape;
                 margin-bottom: 20; 
             }
             .q-icon {

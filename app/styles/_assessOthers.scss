@@ -7,12 +7,12 @@
             background: white; 
         }
         .others-title-ctnr {
-            margin-top: 60;
+            margin-top: $page-top-margin;
         }
         .others-title {
-            font-size: $log-title-font-size;
+            font-size: $page-title-font-size;
             font-weight: 700;
-            color: $color-text-dark;
+            color: black;
             text-align: center;
             text-transform: uppercase;
         }
@@ -22,16 +22,11 @@
         }
         .others-subtitle {
             font-size: 20;
-            font-weight: 400;
+            font-weight: 900;
             text-transform: uppercase;
         }
-        .divider-ctnr {
-            width: 50;
-            height: 1;
-            background: black;
-        }
         .others-unit-ctnr {
-            width: 540;
+            width: $content-width;
             margin-bottom: 30;
         }
         .others-q {
@@ -46,14 +41,13 @@
 
         &.tablet-landscape {
             .others-title-ctnr {
-                margin-top: 20;
-                margin-bottom: 20; 
+                margin-top: $page-top-margin-landscape;
             }
             .others-unit-ctnr {
-                width: 700;
+                width: $content-width-landscape;
             }
             .answers-a-wrapper {
-                width: 700;
+                width: $content-width-landscape;
             }
             .answers-a-select-ctnr {
                 width: 50%;

@@ -7,20 +7,14 @@
             background: white; 
         }
         .plans-title-ctnr {
-            margin-top: 60;
+            margin-top: $page-top-margin;
         }
         .plans-title {
             text-align: center;
-            font-size: $log-title-font-size;
+            font-size: $page-title-font-size;
             font-weight: 700;
-            color: $color-text-dark;
+            color: black;
             text-transform: uppercase;
-        }
-        .divider-ctnr {
-            width: 50;
-            height: 1;
-            background: black;
-            margin-bottom: 20; 
         }
         .plans-subtitle-ctnr {
             margin-top: 10;
@@ -28,14 +22,12 @@
         }
         .plans-subtitle {
             font-size: 20;
-            font-weight: 400;
+            font-weight: 900;
             text-transform: uppercase;
         }
         .plans-q-ctnr {
-            width: 540;
+            width: $content-width;
             margin: 0 auto;
-        }
-        .plans-q {
         }
         .plan-status-icon {
             margin-left: 15;
@@ -50,7 +42,7 @@
         }
         .plans-a-ctnr {
             color: black;
-            width: 540;
+            width: $content-width;
             margin: 5 0;
             padding: 10;
             border-radius: $border-size;
@@ -60,7 +52,7 @@
             }
         }
         .plans-free {
-            width: 540;
+            width: $content-width;
             height: $textview-height;
             margin: 15 0;
             padding: 5 8;
@@ -76,8 +68,7 @@
 
         &.tablet-landscape {
             .plans-title-ctnr {
-                margin-top: 20;
-                margin-bottom: 20;
+                margin-top: $page-top-margin-landscape;
             }
             .q-icon {
                 margin: 10 30 10 0;
@@ -89,13 +80,13 @@
                 margin: 15 0;
             }
             .plans-q-ctnr {
-                width: 700;
+                width: $content-width-landscape;
             }
             .plans-a-ctnr {
-                width: 700;
+                width: $content-width-landscape;
             }
             .plans-free {
-                width: 700;
+                width: $content-width-landscape;
             }
         }
     }
