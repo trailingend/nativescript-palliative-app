@@ -27,7 +27,10 @@
                                     @tap="onAnswerTap(plan)" > 
                             <Image row="0" col="0" width="30" class="plan-status-icon " v-show="!plan.status" src="~/assets/images/unchecked.png" stretch="aspectFit"></Image>
                             <Image row="0" col="0" width="30" class="plan-status-icon" v-show="plan.status" src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                            <Label row="0" col="1" class="plans-a" :text="plan.plan" textWrap="true" />
+                            <StackLayout row="0" col="1" >
+                                <Label class="plans-a" :text="plan.plan" textWrap="true"/>
+                                <Label class="plans-a" v-show="plan.details != null" :text="`- ${plan.details}`" textWrap="true"/>
+                            </StackLayout>
                         </GridLayout>
                     </StackLayout>
                     <TextView v-model="free_text" 
@@ -131,10 +134,10 @@
                 }
             },
             preparePlans() {
-                const plan_id_objs = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans;
-                const plan_ids = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans.map(plan => plan.plan);
+                // const plan_ids = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans.map(plan => plan.plan);
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
-                this.plans_list = this.plans.filter(elem => { return plan_ids.includes(elem.id); });
+                // this.plans_list = this.plans.filter(elem => { return plan_ids.includes(elem.id); });
+                this.plans_list = [... this.plans];
                 this.preparePlansStatus();
                 this.retrieveSavedPlans();
             },

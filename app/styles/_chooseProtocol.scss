@@ -20,11 +20,12 @@
             margin-bottom: 20; 
         }
         .choose-warning {
-            font-size: 16;
-            font-weight: 700;
-            padding: 10 ;     
+            padding: 5;     
             background: $color-baby-yellow;
             Label {
+                font-size: 16;
+                font-weight: 700;
+                line-height: 1;
                 text-align: center;
                 text-transform: none;
             }
@@ -50,11 +51,22 @@
             border-width: 3;
             background: $color-unselected;
         }
-        
+        &.tablet-landscape {
+            .choose-main-ctnr {
+                padding: 25 25 50 25;
+            }
+        }   
     }
 }
 
 .catalogue-page {
+    .choose-ctnr {
+        &.tablet-landscape {
+            .choose-main-ctnr {
+                padding: 25;
+            }
+        }   
+    }
     .close-btn {
         margin: 25;
         horizontal-align: right;
@@ -65,9 +77,5 @@
     }
     .form-btn {
         width: 250;
-    }
-    .choose-ctnr {
-        &.tablet-landscape {
-        }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <Page class="page choose-page">
-        <GridLayout class="choose-ctnr" 
+        <GridLayout :class="ctnrSetting" 
                     rows="auto, auto, *, auto" 
                     columns="auto, *, auto" ref="chooseGridRef" 
                     @layoutChanged="onLayoutUpdate">
@@ -74,6 +74,7 @@
                 black_color: '#000000',
                 protocol_id: null,
 
+                ctnrSetting: 'choose-ctnr',
                 chooseSetting: {
                     rowSpan: '1',
                 },
@@ -262,7 +263,8 @@
                     this.$refs.chooseGridRef.nativeView.getMeasuredWidth() 
                 );
 
-                if (width > 1000) {
+                if (width > 800) {
+                    this.ctnrSetting = 'choose-ctnr tablet-landscape';
                     this.gridSetting = {
                         rows: "*, *, *, *, *",
                         columns: "*, *, *",
@@ -272,6 +274,7 @@
                         rowSpan: '2',
                     };
                 } else {
+                    this.ctnrSetting = 'choose-ctnr';
                     this.gridSetting = {
                         rows: "*, *, *, *, *, *, *",
                         columns: "*, *",

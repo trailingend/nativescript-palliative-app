@@ -13,7 +13,7 @@
                                   id="notes-free"
                                   class="notes-free"
                                   hint="Additional Notes."
-                                  @textChange="resetTextviewModel"
+                                  @textChange="saveNotes"
                                   ref="notesTextRef"
                                   editable="true" />
                     </StackLayout>
@@ -70,16 +70,14 @@
                     this.c_notes = curr_log.notes;
                 }
             },
-            resetTextviewModel(args) {
-                this.c_info = args.value;
-            },
-            onSaveTap(args) {
+            saveNotes(args) {
                 const entry = {
                     log_id: this.log_id,
-                    content: this.c_notes
+                    content: args.value
                 };
                 this.changeClientNotes(entry);
-
+            },
+            onSaveTap(args) {
                 this.$modal.close();
             },
             onCloseTap() {
