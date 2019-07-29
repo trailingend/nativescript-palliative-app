@@ -75,9 +75,15 @@
                     }
                 }).then(() => {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                    const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     if (curr_log) {
                         this.client = curr_log;
                         this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
+                        if (curr_log.nurse === '') {
+                            this.nurse_name = 'Unknown';
+                        } else {
+                            this.nurse_name = (curr_user) ? curr_user.name : curr_log.nurse;
+                        }
                     }
                 });
             },

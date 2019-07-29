@@ -293,9 +293,15 @@
                 this.onForward();
             },
             onTabTap(args, letter) {
+                const dividerOffset = 48;
                 const scrollView = args.object.page.getViewById("items-main-ctnr");
                 const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
-                scrollView.scrollToVerticalOffset(y, true);
+                if (letter.letter != 'O') {
+                    scrollView.scrollToVerticalOffset(y + dividerOffset, true);
+                } else {
+                    scrollView.scrollToVerticalOffset(y, true);
+                }
+                
             },
             onScroll(args) {
                 let id = 1;

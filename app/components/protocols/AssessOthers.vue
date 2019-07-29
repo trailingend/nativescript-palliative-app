@@ -26,7 +26,7 @@
                                 :key="question.id">
                         <OthersQuestion :unit="question" :log_id="log_id" 
                                         @foundResponse="changeNextText('Next')"
-                                        @answerChange="onResponseEntered" /> 
+                                        @answerChange="changeNextText('Next')" /> 
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
@@ -138,9 +138,6 @@
             },
             changeNextText(new_text) {
                 this.next_text = new_text;
-            },
-            onResponseEntered() {
-                this.changeNextText("Next");
             },
             onForward() {
                 this.prepareNextStage();

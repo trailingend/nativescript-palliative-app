@@ -20,7 +20,7 @@
                         <StackLayout v-for="question in questions" :key="question.id">
                             <StepQuestion :unit="question" :log_id="log_id" 
                                           @answerChange="(data) => { recordResponse(question, data); }"
-                                          @foundResponse="onResponseFound" /> 
+                                          @foundResponse="changeNextText('Next')" /> 
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -132,7 +132,14 @@
                     this.responses[response_idx].a = data;
                 }
 
-                if (data != null && data.length > 0) {
+                const update = {
+                    log_id: this.log_id,
+                    content: this.responses,
+                };
+                this.saveIntroUpdate(update);
+                
+
+                if (this.responses.length > 0) {
                     this.changeNextText('Next');
                 } else {
                     this.changeNextText('Skip');
@@ -159,17 +166,12 @@
             },
             onForward(args) {
                 console.log("=== Forward === ");
-                const update = {
-                    log_id: this.log_id,
-                    content: this.responses,
-                };
                 const progress = {
                     log_id: this.log_id,
                     s_id: this.step_ids[this.step_idx],
                 }
-                this.saveIntroUpdate(update);
                 this.saveIntroProgress(progress);
-                
+
                 const next_step_idx = this.step_idx + 1;
                 if (next_step_idx < this.intro.length) {
                     this.prepareAnotherQuestion(next_step_idx);

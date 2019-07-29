@@ -16,12 +16,20 @@
                                v-model="u_name"
                                hint="Firstname Lastname"/>
                     <Label row="2" col="0" class="add-q2 add-q" text="Employee ID #:" textWrap="true"/>
-                    <TextField row="3" col="0" 
+                    <MaskedTextField :row="3" :col="0"
+                                    id="user-add-a2"
+                                    class="add-a2 add-a" 
+                                    v-model="u_id"
+                                    ref="idFieldRef"
+                                    mask="000000"
+                                    hint="888888"
+                                    keyboardType="phone" />
+                    <!-- <TextField row="3" col="0" 
                                id="user-add-a2"
                                class="add-a2 add-a" 
                                v-model="u_id" 
                                hint="Enter your id..."
-                               @blur="onIDUpdate" />
+                               @blur="onIDUpdate" /> -->
                     <Label row="4" col="0" class="add-q3 add-q" text="Shift Ends:" textWrap="true"/>
                     <TimePicker row="5" col="0" class="add-picker" v-model="u_shift_start" />
                     <Label row="6" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true"/>
@@ -66,13 +74,22 @@
             ...mapActions([
                 'saveUserInfo'
             ]),
-            onIDUpdate(args) {
-                this.u_id = this.u_id.replace(/\D/g, '');
+            parseIDInput() {
+                let user_ID = '000000';
+                if (this.$refs.idFieldRef) {
+                    if (this.$refs.idFieldRef.nativeView.text != null 
+                        && this.$refs.idFieldRef.nativeView.text != '') {
+                        const curr_val = this.$refs.idFieldRef.nativeView.text;
+                        user_ID = curr_val.replace(/\D/g, '').substring(0, 6);
+                    }
+                }
+                return user_ID;
             },
             onSaveTap(args) {
+                const user_name = (this.u_name != '') ? this.u_name : 'Unknown';
                 const item = {
-                    id: this.u_id,
-                    name: formatUsernameForDisplay(this.u_name),
+                    id: this.parseIDInput(),
+                    name: formatUsernameForDisplay(user_name),
                     shift_start: formatShiftTime(this.u_shift_start),
                     shift_end: formatShiftTime(this.u_shift_end),
                     color: userColors[this.color_idx],

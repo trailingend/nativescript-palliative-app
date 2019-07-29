@@ -69,7 +69,8 @@ export default {
             console.log("=== In intro log update: OH NO !!! ===");
         } else {
             update_item.content.forEach(respond => {
-                const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.id === respond.q_id; });
+                const existed_q_idx = state.logs[log_idx].intro_answers.findIndex(elem => { return elem.q_id === respond.q_id; });
+                
                 const log_item = {
                     idx: log_idx,
                     q_idx: existed_q_idx,

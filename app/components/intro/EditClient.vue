@@ -204,7 +204,7 @@
                     this.c_client = curr_log.client;
                     this.c_caller = curr_log.caller;
                     this.c_relation = curr_log.relation;
-                    this.c_nurse = curr_log.nurse;
+                    this.c_nurse = curr_log.nurse.replace(/\D/g, '').substring(0, 6);
                     this.c_info = curr_log.info;
                     // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
