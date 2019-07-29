@@ -1,25 +1,21 @@
 <template>
     <Page class="page plans-page">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-            <!-- <NewButton /> -->
-            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
-        </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, auto, *, auto, auto" 
+                    rows="auto, auto, auto, *, auto, auto" 
                     columns="auto, *, auto" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
 
-            <StackLayout row="1" col="0" colSpan="3" class="plans-title-ctnr" >
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+
+            <StackLayout row="2" col="0" colSpan="3" class="plans-title-ctnr" >
                 <Label class="plans-title" :text="p_title"></Label> 
                 <Label class="plans-subtitle" text="Plan"></Label>
                 <StackLayout class="divider-ctnr"></StackLayout>
             </StackLayout>
 
-            <ScrollView row="2" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
+            <ScrollView row="3" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
                 <StackLayout class="plans-q-a-ctnr" >
                     <StackLayout class="spacer-ctnr"></StackLayout>
                     <StackLayout>
@@ -43,20 +39,19 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="3" col="2" rowSpan="1" colSpan="1" 
+            <ResourcesButton row="4" col="2" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="4" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 
-            <Button row="4" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="5" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
         </GridLayout>
     </Page>
 </template>
 
 <script lang="ts">
-    import CloseButton from './parts/CloseButton.vue';
-    // import NewButton from './parts/NewButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
@@ -103,9 +98,8 @@
             },
         },
         components: {
+            NavBar,
             ClientBlock,
-            // NewButton,
-            CloseButton,
             ResourcesButton,
         },
         computed: {
@@ -221,6 +215,17 @@
                     a: [...this.selected_plans, this.free_text],
                 };
                 this.savePlansUpdate(update);
+            },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
             onForward() {
                 console.log("=== Forward === ");

@@ -1,25 +1,21 @@
 <template>
     <Page class="page others-page">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-            <!-- <NewButton /> -->
-            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
-        </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="auto, auto, *, auto, auto" columns="auto, *, auto" 
+                    rows="auto, auto, auto, *, auto, auto" columns="auto, *, auto" 
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
 
-            <StackLayout row="1" col="0" colSpan="3" class="others-title-ctnr">
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+
+            <StackLayout row="2" col="0" colSpan="3" class="others-title-ctnr">
                 <Label class="others-title" :text="p_title"></Label> 
                 <Label class="others-subtitle" text="Others"></Label>
                 <StackLayout class="divider-ctnr"></StackLayout>
             </StackLayout>
 
-            <ScrollView row="2" col="0" rowSpan="3" colSpan="3" class="others-main-ctnr">
+            <ScrollView row="3" col="0" rowSpan="3" colSpan="3" class="others-main-ctnr">
                 <StackLayout>
                     <StackLayout class="spacer-ctnr"></StackLayout>
                     <StackLayout v-for="question in others_questions"
@@ -31,18 +27,18 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="3" col="2"
+            <ResourcesButton row="4" col="2"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="4" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
 
-            <Button row="4" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="5" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
         </GridLayout>
     </Page>
 </template>
 
 <script>
-    import CloseButton from './parts/CloseButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import OthersQuestion from './parts/OthersQuestion.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
@@ -77,7 +73,7 @@
             this.prepareQuestions();
         },
         components: {
-            CloseButton,
+            NavBar,
             OthersQuestion,
             ClientBlock,
             ResourcesButton
@@ -154,6 +150,17 @@
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
+            },
             onForward() {
                 this.prepareNextStage();
             },
@@ -185,30 +192,6 @@
                         class: "others-ctnr"
                     };
                 }
-            },
-
-            onNewTap() {
-                confirm({
-                    title: "Create New Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Create New Chart",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.addNewLog();
-                    } 
-                });
-            },
-            addNewLog(args) {
-                this.$navigateTo(NewClient, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'slide',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                });
             },
         }
     }

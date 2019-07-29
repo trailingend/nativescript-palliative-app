@@ -1,124 +1,126 @@
 <template>
     <Page class="page new-client-page" @navigatingFrom="onNavigatingFrom">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CancelButton />
-        </ActionBar>
-        <GridLayout rows="*, auto" columns="*" :class="ctnrSetting.class" 
+        <GridLayout rows="auto, *, auto" columns="*" :class="ctnrSetting.class" 
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <ScrollView >
-            <StackLayout row="0" col="0" rowSpan="2" class="client-main-ctnr">
-                <Label class="client-title" text="client Information" ></Label>       
-                <PreviousNextView>             
-                    <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
-                        <Label :row="gridSetting.children.q1.row" 
-                                :col="gridSetting.children.q1.col"
-                                class="client-q client-q1" 
-                                text="Call-back #:" 
-                                textWrap="true"/>
-                        <MaskedTextField :row="gridSetting.children.a1.row" 
-                                         :col="gridSetting.children.a1.col"
-                                         id="client-a1"
-                                         class="client-a client-a1" 
-                                         v-model="c_phone"
-                                         ref="phoneFieldRef"
-                                         mask="(000) 000-0000"
-                                         hint="(888) 888-8888"
-                                         keyboardType="phone" />
-                        <Label :row="gridSetting.children.e1.row" 
-                                :col="gridSetting.children.e1.col"
-                                :colSpan="gridSetting.children.e1.colSpan"
-                                class="client-e client-e1" 
-                                text="Please enter a callback number" 
-                                opacity="0" />
-                        <Label :row="gridSetting.children.q2.row" 
-                                :col="gridSetting.children.q2.col"
-                                class="client-q client-q2" 
-                                text="client's name:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a2.row" 
-                                    :col="gridSetting.children.a2.col"
-                                    id="client-a2"
-                                    class="client-a client-a2" 
-                                    v-model="c_client" 
-                                    hint="Firstname Lastname"
-                                    editable="true" />
-                        <Label :row="gridSetting.children.e2.row" 
-                                :col="gridSetting.children.e2.col"
-                                :colSpan="gridSetting.children.e2.colSpan"
-                                class="client-e client-e2" 
-                                text="Please enter a client name" 
-                                opacity="0" />
-                        <Label :row="gridSetting.children.q3.row" 
-                                :col="gridSetting.children.q3.col"
-                                class="client-q client-q3" 
-                                text="Caller's name:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a3.row" 
-                                    :col="gridSetting.children.a3.col"
-                                    id="client-a3"
-                                    class="client-a client-a3" 
-                                    v-model="c_caller" 
-                                    hint="Firstname Lastname"
-                                    editable="true" />
-                        <Label :row="gridSetting.children.e3.row" 
-                                :col="gridSetting.children.e3.col"
-                                :colSpan="gridSetting.children.e3.colSpan"
-                                class="client-e client-e3" 
-                                text="Please enter a caller name" 
-                                opacity="0" />
-                        <Label :row="gridSetting.children.q4.row" 
-                                :col="gridSetting.children.q4.col"
-                                class="client-q client-q4" 
-                                text="Relationship to client:" 
-                                textWrap="true"/>
-                        <TextField :row="gridSetting.children.a4.row" 
-                                    :col="gridSetting.children.a4.col"
-                                    id="client-a4"
-                                    class="client-a client-a4" 
-                                    v-model="c_relation" 
-                                    hint="i.e. Daughter"
-                                    editable="true" />
-                        <Label :row="gridSetting.children.e4.row" 
-                                :col="gridSetting.children.e4.col"
-                                :colSpan="gridSetting.children.e4.colSpan"
-                                class="client-e client-e4" 
-                                text="Please enter a relationship" 
-                                opacity="0" />
-                    </GridLayout>
-                </PreviousNextView>
+            <NavBar row="0" col="0" />
 
-                <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
-                    <Label class="client-t client-t-consent" text="consent to have call documented" textWrap="true"/>
-                    <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" />
-                </FlexboxLayout>
+            <ScrollView row="1" col="0" rowSpan="2" >
+                <StackLayout class="client-main-ctnr">
+                    <Label class="client-title" text="client Information" ></Label>       
+                    <PreviousNextView>             
+                        <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
+                            <Label :row="gridSetting.children.q1.row" 
+                                    :col="gridSetting.children.q1.col"
+                                    class="client-q client-q1" 
+                                    text="Call-back #:" 
+                                    textWrap="true"/>
+                            <MaskedTextField :row="gridSetting.children.a1.row" 
+                                            :col="gridSetting.children.a1.col"
+                                            id="client-a1"
+                                            class="client-a client-a1" 
+                                            v-model="c_phone"
+                                            ref="phoneFieldRef"
+                                            mask="(000) 000-0000"
+                                            hint="(888) 888-8888"
+                                            keyboardType="phone" />
+                            <Label :row="gridSetting.children.e1.row" 
+                                    :col="gridSetting.children.e1.col"
+                                    :colSpan="gridSetting.children.e1.colSpan"
+                                    class="client-e client-e1" 
+                                    text="Please enter a callback number" 
+                                    opacity="0" />
+                            <Label :row="gridSetting.children.q2.row" 
+                                    :col="gridSetting.children.q2.col"
+                                    class="client-q client-q2" 
+                                    text="client's name:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a2.row" 
+                                        :col="gridSetting.children.a2.col"
+                                        id="client-a2"
+                                        class="client-a client-a2" 
+                                        v-model="c_client" 
+                                        hint="Firstname Lastname"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.e2.row" 
+                                    :col="gridSetting.children.e2.col"
+                                    :colSpan="gridSetting.children.e2.colSpan"
+                                    class="client-e client-e2" 
+                                    text="Please enter a client name" 
+                                    opacity="0" />
+                            <Label :row="gridSetting.children.q3.row" 
+                                    :col="gridSetting.children.q3.col"
+                                    class="client-q client-q3" 
+                                    text="Caller's name:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a3.row" 
+                                        :col="gridSetting.children.a3.col"
+                                        id="client-a3"
+                                        class="client-a client-a3" 
+                                        v-model="c_caller" 
+                                        hint="Firstname Lastname"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.e3.row" 
+                                    :col="gridSetting.children.e3.col"
+                                    :colSpan="gridSetting.children.e3.colSpan"
+                                    class="client-e client-e3" 
+                                    text="Please enter a caller name" 
+                                    opacity="0" />
+                            <Label :row="gridSetting.children.q4.row" 
+                                    :col="gridSetting.children.q4.col"
+                                    class="client-q client-q4" 
+                                    text="Relationship to client:" 
+                                    textWrap="true"/>
+                            <TextField :row="gridSetting.children.a4.row" 
+                                        :col="gridSetting.children.a4.col"
+                                        id="client-a4"
+                                        class="client-a client-a4" 
+                                        v-model="c_relation" 
+                                        hint="i.e. Daughter"
+                                        editable="true" />
+                            <Label :row="gridSetting.children.e4.row" 
+                                    :col="gridSetting.children.e4.col"
+                                    :colSpan="gridSetting.children.e4.colSpan"
+                                    class="client-e client-e4" 
+                                    text="Please enter a relationship" 
+                                    opacity="0" />
+                        </GridLayout>
+                    </PreviousNextView>
 
-                <StackLayout class="client-switch-error" opacity="0" ref="consentErrorRef">
-                    <Label class="client-e client-e5" text="Please obtain consent" />
-                </StackLayout>                    
-                <StackLayout>
-                    <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
-                    <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC."/>
-                    <TextView id="client-free"
-                              class="client-free"
-                              hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
-                              @textChange="resetTextviewModel"
-                              editable="true" />
+                    <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
+                        <StackLayout>
+                            <Label class="client-t client-t-consent" text="consent to documente call" />
+                            <Label class="client-t client-t-consent" text="and to represent client" />
+                        </StackLayout>
+                        <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" />
+                    </FlexboxLayout>
+
+                    <StackLayout class="client-switch-error" opacity="0" ref="consentErrorRef">
+                        <Label class="client-e client-e5" text="Please obtain consent" />
+                    </StackLayout>                    
+                    <StackLayout>
+                        <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
+                        <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC."/>
+                        <TextView id="client-free"
+                                class="client-free"
+                                hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
+                                @textChange="resetTextviewModel"
+                                editable="true" />
+                    </StackLayout>
+
+                    <!-- <Button class="form-btn client-btn" text="Next" @tap="onNextTap" /> -->
                 </StackLayout>
-
-                <Button class="form-btn client-btn" text="Next" @tap="onNextTap" />
-            </StackLayout>
             </ScrollView>
-            <!-- <Button row="1" col="0" class="next-btn" text="Next" @tap="onNextTap" /> -->
+
+            <Button row="2" col="0" class="next-btn" text="Next" @tap="onNextTap" />
             
         </GridLayout>
     </Page>
 </template>
 
 <script>
-    import CancelButton from './parts/CancelButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import Dashboard from '../home/Dashboard.vue';
     import Introduction from "./Introduction.vue";
 
@@ -158,7 +160,7 @@
         mounted() {
         },
         components: {
-            CancelButton
+            NavBar
         },
         props: {
             log_id: {

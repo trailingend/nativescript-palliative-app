@@ -1,16 +1,12 @@
 <template>
     <Page class="page sum-page summary-page">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-            <NewButton />
-        </ActionBar>
         <GridLayout :class="ctnrSetting.class" 
-                    rows="*, auto" 
+                    rows="auto, *, auto" 
                     columns="auto, *" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
+            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
 
-            <ScrollView row="0" col="0" rowSpan="2" colSpan="2">
+            <ScrollView row="1" col="0" rowSpan="2" colSpan="2">
                 <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Client Summary"></Label>
@@ -28,14 +24,14 @@
                 </StackLayout>
             </ScrollView>
 
-            <Button row="1" col="0" v-show="has_prev" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="2" col="0" v-show="has_prev" class="back-btn" text="Back" @tap="onBackTap" ></Button>
         </GridLayout>
     </Page>
 </template>
 
 <script lang="ts">
-    import CloseButton from '../protocols/parts/CloseButton.vue';
-    import NewButton from '../protocols/parts/NewButton.vue';
+    import NavBar from '../protocols/parts/NavBar.vue';
+    import NewClient from '../intro/NewClient.vue';
     import SubmitButton from './parts/SubmitButton.vue';
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
@@ -75,9 +71,8 @@
             }
         },
         components: {
-            NewButton,
+            NavBar,
             SubmitButton,
-            CloseButton,
             InfoSummary,
             IntroSummary,
             ProtocolSummary
@@ -115,6 +110,17 @@
             },
             prepareNextStage() {
 
+            },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
             onBackward() {
                 this.preparePrevStage();

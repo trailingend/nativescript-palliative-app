@@ -1,17 +1,15 @@
 <template>
     <Page class="page intro-page" @navigatedTo="onNavigatedTo">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-        </ActionBar>
         <GridLayout :class="formatSetting" 
-                    rows="auto, *, auto" 
+                    rows="auto, auto, *, auto" 
                     columns="auto, *, auto" ref="introGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <NavBar row="0" col="0" colSpan="3" />
 
-            <ScrollView row="1" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+
+            <ScrollView row="2" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
                 <StackLayout>
                     <StackLayout class="intro-title-ctnr">
                         <Label class="intro-title" text="Introduction"></Label>
@@ -26,15 +24,15 @@
                 </StackLayout>
             </ScrollView>
 
-            <Button row="2" col="0" v-if="step_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="3" col="0" v-if="step_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
 
-            <Button row="2" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="3" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
         </GridLayout>
         </Page>
 </template>
 
 <script>
-    import CloseButton from './parts/CloseButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import ClientBlock from './parts/ClientBlock.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import StepQuestion from './parts/StepQuestion.vue';
@@ -67,7 +65,7 @@
             this.prepareIntro();
         },
         components: {
-            CloseButton,
+            NavBar,
             ClientBlock,
             StepQuestion,
         },

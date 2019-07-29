@@ -1,25 +1,21 @@
 <template>
     <Page class="page items-page" @navigatedTo="onNavigatedTo">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-            <!-- <NewButton /> -->
-            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
-        </ActionBar>
         <GridLayout :class="formatSetting" 
-                    rows="auto, auto, *, auto, auto" 
+                    rows="auto, auto, auto, *, auto, auto" 
                     columns="auto, auto, *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <NavBar row="0" col="0" colSpan="4" @newClient="addNewChart" />
 
-            <StackLayout row="1" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr">
+            <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+
+            <StackLayout row="2" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr">
                 <Label class="items-title" :text="p_title"></Label>
                 <Label class="items-subtitle" :text="l_title" ref="subtitleRef"></Label>
                 <StackLayout class="divider-ctnr"></StackLayout>
             </StackLayout>
 
-            <ScrollView row="2" col="0" rowSpan="3" colSpan="4" 
+            <ScrollView row="3" col="0" rowSpan="3" colSpan="4" 
                         id="items-main-ctnr"
                         class="items-main-ctnr"
                         @scroll="onScroll" >
@@ -45,14 +41,14 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="3" col="3" rowSpan="1" colSpan="1" 
+            <ResourcesButton row="4" col="3" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="4" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="4" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="5" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
 
-            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
+            <StackLayout row="2" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
                         rows="auto" columns="*"
                         textWrap="true"
@@ -62,7 +58,7 @@
                         @tap="(args) => { onTabTap(args, letter); }" 
                         :text="letter.letter"></Label>
             </StackLayout>
-            <StackLayout row="1" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
+            <StackLayout row="2" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
                 <StackLayout class="items-icon" 
                         rows="auto" columns="*"
                         textWrap="true"
@@ -80,8 +76,7 @@
 </template>
 
 <script>
-    import CloseButton from './parts/CloseButton.vue';
-    // import NewButton from './parts/NewButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import AssessItem from './parts/AssessItem.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
@@ -135,8 +130,7 @@
         mounted() {
         },
         components: {
-            CloseButton,
-            // NewButton,
+            NavBar,
             ClientBlock,
             AssessItem,
             ResourcesButton
@@ -210,7 +204,7 @@
                 });
             },
             goToNextProtocol(p_id) {
-                this.$navigateTo(AssessItems, {
+                this.$navigateTo(this.$options.components.AssessItems, {
                     animated: true,
                     clearHistory: true,
                     transition: {
@@ -287,6 +281,17 @@
             },
             markAsComplete(l_id) {
                 this.complete_letter_ids.add(l_id);
+            },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
             onResponseEntered(l_id) {
                 this.changeNextText("Next");
@@ -367,30 +372,6 @@
                         denominator: 2
                     };
                 }
-            },
-
-            onNewTap() {
-                confirm({
-                    title: "Create New Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Create New Chart",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.addNewLog();
-                    } 
-                });
-            },
-            addNewLog(args) {
-                this.$navigateTo(NewClient, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'slide',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                });
             },
         }
         

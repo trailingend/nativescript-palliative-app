@@ -89,22 +89,6 @@
                 const p_plans = log.plans_answers.find(elem => { return elem.id === p_id; });
                 return p_items != undefined || p_others != undefined || p_plans != undefined;
             },
-            // prepareNextProtocol(p_id) {
-            //     console.log("should go");
-            //     this.$navigateTo(AssessItems, {
-            //         animated: true,
-            //         clearHistory: true,
-            //         transition: {
-            //             name: 'fade',
-            //             curve: 'easeIn',
-            //             duration: 300
-            //         },
-            //         props: {
-            //             log_id: this.log_id,
-            //             protocol_id: p_id
-            //         }
-            //     });
-            // },
             onCallTap(id) {
                 const curr_log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const phone_num = curr_log.phone.replace(/-/g, "");

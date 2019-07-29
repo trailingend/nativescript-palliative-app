@@ -1,0 +1,36 @@
+@import "variables";
+
+.navigation-ctnr {
+    background: $color-unselected;
+    
+    // .nav-btn-ctnr {
+    //     background: red;
+    // }
+    .navigation-close {
+        margin: 10 100 0 30;
+        font-size: 17;
+        font-weight: 400;
+        text-transform: capitalize;
+        letter-spacing: 0.01;
+    }
+    .navigation-title {
+        margin: 10 0 5 0;
+        font-size: 18;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.01;
+        color: black;
+    }
+    .navigation-btn {
+        width: 114;
+        height: 34;
+        margin: 5 30 10 30;
+        border-radius: 30;
+        font-size: 12;
+        font-weight: 700;
+        letter-spacing: 0.05;
+        text-transform: uppercase;
+        color: white;
+        background: $color-dark-blue;
+    }
+}

@@ -1,19 +1,14 @@
 <template>
     <Page class="page choose-page">
-        <ActionBar title="Chart">
-            <NavigationButton visibility="hidden" ></NavigationButton>
-            <CloseButton />
-            <!-- <NewButton /> -->
-            <ActionItem @tap="onNewTap" text="+ New Client" ios.position="right"></ActionItem>
-        </ActionBar>
         <GridLayout class="choose-ctnr" 
-                    rows="auto, *, auto" 
+                    rows="auto, auto, *, auto" 
                     columns="auto, *, auto" ref="chooseGridRef" 
                     @layoutChanged="onLayoutUpdate">
+            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
 
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
-            <StackLayout class="choose-main-ctnr" row="1" col="0" :rowSpan="chooseSetting.rowSpan" colSpan="3">
+            <StackLayout class="choose-main-ctnr" row="2" col="0" :rowSpan="chooseSetting.rowSpan" colSpan="3">
                 <StackLayout class="choose-title-ctnr">
                     <Label class="choose-title" text="Select Protocol"></Label>
                     <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
@@ -45,17 +40,16 @@
                 </GridLayout>
             </StackLayout>
             <!-- <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between"> -->
-            <Button row="2" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="3" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="2" col="2" v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="3" col="2" v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
             <!-- </FlexboxLayout> -->
         </GridLayout>
     </Page>
 </template>
 
 <script>
-    import CloseButton from './parts/CloseButton.vue';
-    // import NewButton from './parts/NewButton.vue';
+    import NavBar from './parts/NavBar.vue';
     import ClientBlock from '../intro/parts/ClientBlock.vue';
     import Introduction from '../intro/Introduction.vue';
     import NewClient from '../intro/NewClient.vue';
@@ -94,8 +88,7 @@
         mounted() {
         },
         components: {
-            // NewButton,
-            CloseButton,
+            NavBar,
             ClientBlock
         },
         props: {
@@ -192,6 +185,17 @@
                 const p_plans = log.plans_answers.find(elem => { return elem.id === p_id; });
                 return p_items != undefined || p_others != undefined || p_plans != undefined;
             },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
+            },
             onBtnTap(args, proto, index) {
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
@@ -278,30 +282,7 @@
                     };
                 }
             },
-
-            onNewTap() {
-                confirm({
-                    title: "Create New Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Create New Chart",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.addNewLog();
-                    } 
-                });
-            },
-            addNewLog(args) {
-                this.$navigateTo(NewClient, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'slide',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                });
-            },
+            
         }
         
     };
