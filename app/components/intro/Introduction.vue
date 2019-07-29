@@ -9,7 +9,7 @@
                     columns="auto, *, auto" ref="introGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <ScrollView row="1" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
                 <StackLayout>
@@ -38,6 +38,7 @@
     import ClientBlock from './parts/ClientBlock.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import StepQuestion from './parts/StepQuestion.vue';
+    import AssessItems from '../protocols/AssessItems.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -146,10 +147,9 @@
                 }
             },
             prepareNextStage() {
-                console.log("=== Finished Intro ===");
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',
@@ -158,6 +158,22 @@
                     props: {
                         log_id: this.log_id,
                         from_summary: false,
+                    }
+                });
+            },
+            goToNextProtocol(p_id) {
+                console.log("should go");
+                this.$navigateTo(AssessItems, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        protocol_id: p_id
                     }
                 });
             },

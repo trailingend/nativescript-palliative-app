@@ -11,7 +11,7 @@
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <StackLayout row="1" col="0" colSpan="3" class="others-title-ctnr">
                 <Label class="others-title" :text="p_title"></Label> 
@@ -133,6 +133,21 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id
+                    }
+                });
+            },
+            goToNextProtocol(p_id) {
+                this.$navigateTo(AssessItems, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        protocol_id: p_id
                     }
                 });
             },

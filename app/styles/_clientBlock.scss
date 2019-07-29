@@ -2,14 +2,15 @@
 
 .client-info-ctnr {
     margin: 0;
-    padding: 20 10;
+    padding: 10 0;
     background: $color-light-yellow;
     // border-color: $color-dark-blue;
     // border-bottom-width: 0.25;
 
-    // .client-text-ctnr {
-    //     margin-left: 30;
-    // }
+    .client-text-ctnr {
+        margin-left: 20;
+        vertical-align: center;
+    }
     .client-item {
         position: relative;
         padding: 2 0;
@@ -39,28 +40,39 @@
     }
     .bar-ctnr {
         width: 0.25;
-        height: 50;
+        height: 80;
         background: $color-dark-blue;
     }
     .facetime-ctnr {
         position: relative;
         height: 100%;
-        padding: 0 25;
-
+        padding: 0 35;
     }
     .facetime-icon {
         position: relative;
         height: 100%;
     }
-    .notes-ctnr {
+    .proto-ctnr {
         position: relative;
         height: 100%;
-        padding: 0 25;
-
+        padding: 20 15 0 15;
+        vertical-align: center;
     }
-    .notes-icon {
-        position: relative;
-        height: 100%;
+    .notes-ctnr {
+        padding: 0 30;
+        vertical-align: center;
+    }
+    // .notes-icon {
+    //     position: relative;
+    //     height: 100%;
+    // }
+    .op-text {
+        font-size: 15;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: black;
+        vertical-align: center;
     }
 }
 

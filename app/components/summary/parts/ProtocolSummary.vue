@@ -95,7 +95,7 @@
             onItemsEditTap(letter_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',

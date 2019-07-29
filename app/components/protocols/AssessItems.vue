@@ -11,7 +11,7 @@
                     columns="auto, auto, *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <ClientBlock row="0" col="0" colSpan="4" :log_id="log_id"/>
+            <ClientBlock row="0" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <StackLayout row="1" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr">
                 <Label class="items-title" :text="p_title"></Label>
@@ -126,6 +126,9 @@
 
             }
         },
+        beforeCreate: function () {
+            this.$options.components.AssessItems = require('./AssessItems.vue').default;
+        },
         created() {
             this.prepareProtocol();
         },
@@ -174,7 +177,7 @@
             preparePrevPage() {
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',
@@ -192,7 +195,7 @@
                 others_questions.forEach(elem => { q_ids.push(elem.id); });
                 this.$navigateTo(AssessOthers, {
                     animated: true,
-                    clearHistory: false,
+                    clearHistory: true,
                     transition: {
                         name: 'fade',
                         curve: 'easeIn',
@@ -203,6 +206,21 @@
                         protocol_id: this.protocol_id,
                         question_ids: q_ids,
                         question_idx: 0,
+                    }
+                });
+            },
+            goToNextProtocol(p_id) {
+                this.$navigateTo(AssessItems, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        protocol_id: p_id
                     }
                 });
             },

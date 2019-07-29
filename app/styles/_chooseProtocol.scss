@@ -1,6 +1,6 @@
 @import "variables";
 
-.choose-page {
+.choose-page, .catalogue-page{
     .choose-ctnr {
         .choose-main-ctnr {
             margin: 5;
@@ -51,5 +51,23 @@
             background: $color-unselected;
         }
         
+    }
+}
+
+.catalogue-page {
+    .close-btn {
+        margin: 25;
+        horizontal-align: right;
+        vertical-align: top;
+    }  
+    .nav-btn {
+        margin-bottom: 60;
+    }
+    .form-btn {
+        width: 250;
+    }
+    .choose-ctnr {
+        &.tablet-landscape {
+        }
     }
 }
