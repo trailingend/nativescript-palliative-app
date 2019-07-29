@@ -198,19 +198,21 @@
                 const freeTextfield = layoutView.getViewById("plans-free");
                 freeTextfield.dismissSoftInput();
             },
-            onForward() {
-                console.log("=== Forward === ");
-                this.selected_plans.push(this.free_text);
+            recordResponse() {
                 const update = {
                     log_id: this.log_id,
                     p_id: this.protocol_id, 
-                    a: this.selected_plans
+                    a: [...this.selected_plans, this.free_text],
                 };
+                this.savePlansUpdate(update);
+            },
+            onForward() {
+                console.log("=== Forward === ");
+                
                 const progress = {
                     log_id: this.log_id,
                     has_plan: 1,
                 }
-                this.savePlansUpdate(update);
                 this.savePlansProgress(progress);
 
                 this.prepareNextStage();
@@ -229,10 +231,10 @@
                 this.toggleMultiPlanSelection(plan.plan);
                 plan.status = ! plan.status;
                 this.$set(plan, 'unique', plan.unique + 0.01);
-                console.log("=== Answer tapped === " + this.selected_plans);
+                this.recordResponse();
             },
             onTextEntered() {
-                console.log("=== Answer enterred === " + this.free_text);
+                this.recordResponse();
             },
             onNavigatingFrom() {
             },
