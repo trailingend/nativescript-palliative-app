@@ -8,32 +8,37 @@
             <StackLayout row="0" col="0" rowSpan="2" :class="formSetting.class">
                 <Label class="add-user-title" text="Shift information" ></Label>    
                 <PreviousNextView>
-                <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*">
+                <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto" columns="*">
                     <Label row="0" col="0" class="add-q1 add-q" text="Full name:" textWrap="true"/>
                     <TextField row="1" col="0" 
                                id="user-add-a1"
                                class="add-a1 add-a" 
+                               ref="nameFieldRef"
                                v-model="u_name"
+                               @textChange="checkNameError"
                                hint="Firstname Lastname"/>
-                    <Label row="2" col="0" class="add-q2 add-q" text="Employee ID #:" textWrap="true"/>
-                    <MaskedTextField :row="3" :col="0"
+                    <Label row="2" col="0" class="add-e add-e1" 
+                           text="Please enter your firstname and lastname" 
+                           opacity="0" 
+                           ref="nameErrorFieldRef" />
+                    <Label row="3" col="0" class="add-q2 add-q" text="Employee ID #:" textWrap="true"/>
+                    <MaskedTextField row="4" col="0"
                                     id="user-add-a2"
                                     class="add-a2 add-a" 
                                     v-model="u_id"
                                     ref="idFieldRef"
                                     mask="000000"
                                     hint="888888"
+                                    @textChange="checkIDError"
                                     keyboardType="phone" />
-                    <!-- <TextField row="3" col="0" 
-                               id="user-add-a2"
-                               class="add-a2 add-a" 
-                               v-model="u_id" 
-                               hint="Enter your id..."
-                               @blur="onIDUpdate" /> -->
-                    <Label row="4" col="0" class="add-q3 add-q" text="Shift Ends:" textWrap="true"/>
-                    <TimePicker row="5" col="0" class="add-picker" v-model="u_shift_start" />
-                    <Label row="6" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true"/>
-                    <TimePicker row="7" col="0" class="add-picker" v-model="u_shift_end" />
+                    <Label row="5" col="0" class="add-e add-e2" 
+                           text="Please enter a valid employee ID" 
+                           opacity="0" 
+                           ref="idErrorFieldRef"/>
+                    <Label row="6" col="0" class="add-q3 add-q" text="Shift Ends:" textWrap="true"/>
+                    <TimePicker row="7" col="0" class="add-picker" v-model="u_shift_start" />
+                    <Label row="8" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true"/>
+                    <TimePicker row="9" col="0" class="add-picker" v-model="u_shift_end" />
                 </GridLayout>
                 </PreviousNextView>
                 <Button class="form-btn add-user-btn" text="Save" @tap="onSaveTap" />
@@ -85,7 +90,41 @@
                 }
                 return user_ID;
             },
+            checkNameError(args) {
+                if (args.oldValue != '') {
+                    if (args.value === '') {
+                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                    }
+                } 
+                if (args.oldValue === '') {
+                    if (args.value != '') {
+                        this.$refs.nameErrorFieldRef.nativeView.opacity = 0;
+                        this.$refs.nameFieldRef.nativeView.borderColor = '#dbdbdb';
+                    }
+                } 
+            },
+            checkIDError(args) {
+                const id_to_check = this.parseIDInput();
+                if (id_to_check.length != 6) {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                } else {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
+                } 
+            },
             onSaveTap(args) {
+                if (this.u_name === '') {
+                    this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                }
+                const id_to_check = this.parseIDInput();
+                if (id_to_check.length != 6 || id_to_check == '000000') {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                }
+                if (this.u_name === '' || id_to_check.length != 6) return;
                 const user_name = (this.u_name != '') ? this.u_name : 'Unknown';
                 const item = {
                     id: this.parseIDInput(),

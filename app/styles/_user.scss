@@ -83,8 +83,15 @@
             border-color: $log-border-color;
             border-width: 1.5;
             border-radius: 10;
-            margin-bottom: 20;
-            padding: 0 8;
+            padding: 0 15;
+        }
+        .add-e {
+            font-size: 13;
+            font-weight: 200;
+            margin-top: 2;
+            margin-bottom: 10;
+            horizontal-align: right;
+            color: $color-red;
         }
         .add-picker {
             width: 60%;
