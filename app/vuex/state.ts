@@ -31,7 +31,7 @@ export default {
 		nurse: '888888',
         createdTime: '5:45 | JAN / 05 / 2019',
 		status: false,
-		progress: [1, -1, -1, 1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
 			q_id: 4,
 			a: ["Unconscious"]

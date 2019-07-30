@@ -1,6 +1,6 @@
 {
     "info": {
-        "version": 3
+        "version": 7
     },
     "data": {
         "intro": [
@@ -86,7 +86,6 @@
                 "name": "Caregiver Distress",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -96,7 +95,6 @@
                 "name": "Confusion \/ Delirium",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -106,7 +104,6 @@
                 "name": "Constipation",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -116,7 +113,6 @@
                 "name": "Death",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -126,7 +122,6 @@
                 "name": "Dyspnea",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -136,7 +131,6 @@
                 "name": "Equipment Wounds and Other",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -146,7 +140,6 @@
                 "name": "Falls",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -156,7 +149,6 @@
                 "name": "Last Days and Hours",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -186,7 +178,7 @@
                             "id": 5,
                             "type": "boolean"
                         },
-                        "question": "Is the client safe?\nIf no, explain.\n",
+                        "question": "Is the client safe?\nIf no, explain.",
                         "answers": []
                     },
                     {
@@ -198,7 +190,7 @@
                             "id": 5,
                             "type": "boolean"
                         },
-                        "question": "Is the client awake and responding?\nIf no, explain.\n",
+                        "question": "Is the client awake and responding?\nIf no, explain.",
                         "answers": []
                     },
                     {
@@ -246,7 +238,7 @@
                             "id": 5,
                             "type": "boolean"
                         },
-                        "question": "Is the client still able to swallow medications? \nIf no, explain.\n",
+                        "question": "Is the client still able to swallow medications? \nIf no, explain.",
                         "answers": []
                     },
                     {
@@ -512,35 +504,18 @@
                         "answers": []
                     }
                 ],
-                "plans": [
-                    {
-                        "plan": 1
-                    },
-                    {
-                        "plan": 2
-                    },
-                    {
-                        "plan": 3
-                    },
-                    {
-                        "plan": 4
-                    },
-                    {
-                        "plan": 5
-                    }
-                ],
                 "recommendations": [
                     {
                         "id": 2,
                         "protocol": 3,
                         "content": "<p> Goals of Care: If symptom cannot be managed, would the client\/family consider going to hospital for further investigation and\/or treatment?<\/p><p>It is important to try and identify the possible underlying etiology prior to making any recommendations. <\/p><p>Depending on the type of nausea, different anti-emetics are used. Refer to BC Palliative Symptom Practice guidelines.  <\/p><p>Nausea\/vomiting can be broken into five groups:<\/p><ul><li>Gut causes<\/li><li>Chemical causes (this includes medications and electrolytes)<\/li><li>Raised intracranial pressure<\/li><li>Motion induced<\/li><li>Anxiety<\/li><\/ul><div><p>Emergency situations that may require a transfer to acute care: <\/p><p>Gross hematemesis, fecal odor, severe abdominal pain with ascites, sudden change in LOC, seizure activity. <\/p><p>Interventions<\/p><ul><li>Ice chips<\/li><li>Clear fluids <\/li><li>Ginger ale<\/li><li>Dry toast or crackers<\/li><li>Meticulous attention to oral care<\/li><li>Keep air and room fresh; eliminate strong odors<\/li><\/ul><\/div>",
-                        "title": "NON-PHARMACEUTICAL INTERVENTIONS"
+                        "title": "Non-Pharmaceutical Interventions"
                     },
                     {
                         "id": 3,
                         "protocol": 3,
                         "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p>",
-                        "title": "PHARMACEUTICAL INTERVENTIONS"
+                        "title": "Pharmaceutical Interventions"
                     }
                 ],
                 "related_protocols": [
@@ -565,7 +540,6 @@
                 "name": "Pain",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -575,7 +549,6 @@
                 "name": "Restlessness \/ Anxiety \/ Agitation",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -585,13 +558,12 @@
                 "name": "Seizures",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [
                     {
                         "id": 4,
                         "protocol": 14,
                         "content": "<p>Review medications with caregiver. Advise which medications to give based on current orders.<\/p><p>Myoclonus\/twitching <\/p><ul><li>Opioid-induced myoclonus is often misinterpreted as seizure activity<\/li><li>Impaired excretion of opioids <\/li><li>Most prevalent in renal impairment with morphine, codeine, meperidine and, to a lesser extent, hydromorphone. <\/li><li>Liver impairment <\/li><li>Possible drug causes and\/or interactions<\/li><li>Dehydration may be a contributing factor<\/li><\/ul>",
-                        "title": "PHARMACEUTICAL INTERVENTIONS\u00ac"
+                        "title": "Pharmaceutical Interventions"
                     }
                 ],
                 "related_protocols": [],
@@ -602,7 +574,6 @@
                 "name": "Severe Bleeding",
                 "additional_questions": [],
                 "assessment_questions": [],
-                "plans": [],
                 "recommendations": [],
                 "related_protocols": [],
                 "resources": []
@@ -665,7 +636,7 @@
                     },
                     {
                         "id": 2,
-                        "question": "What do you think of pointsettas? ",
+                        "question": "What do you think of pointsettas?",
                         "assessment_letter": {
                             "id": 2
                         },
@@ -810,23 +781,12 @@
                         ]
                     }
                 ],
-                "plans": [
-                    {
-                        "plan": 1
-                    },
-                    {
-                        "plan": 2
-                    },
-                    {
-                        "plan": 3
-                    }
-                ],
                 "recommendations": [
                     {
                         "id": 1,
                         "protocol": 1,
                         "content": "<ul><li>Dyspnea may not be due to hypoxia. Use other methods to provide fresh air when O2 levels are satisfactory such as opening windows and\/or turning on fan<\/li><li>Focus on relaxation and other non-pharmacological techniques  such as deep breathing, massage, therapeutic touch, mindfulness meditation, relaxing music<\/li><li>Sit upright to allow for chest expansion or prop up on pillows if lying in bed<\/li><li>Gentle reassurance to reduce anxiety<\/li><\/ul><div><h2>Potential Causes of Dyspnea to keep in mind:<\/h2><div><ul><li><b>Pulmonary:<\/b> Airway obstruction, COPD\/asthma, damage from chemotherapy, radiation or surgery, emboli, fibrosis, effusion, primary or metastatic tumour.<\/li><li><b>Cardiac:<\/b> CHF, CAD, arrhythmias, pericardial effusion.<\/li><li><b>Neuromuscular:<\/b> ALS, CVA, poliomyelitis, myasthenia gravis<\/li><li><b>Other:<\/b> Anxiety, fatigue\/deconditioning, weakness, pain, severe anemia, infection, carcinomatosis, hepatomegaly, phrenic nerve lesion, peritoneal effusion<\/li><li><b>Superior Vena Cava (SVC) obstruction<\/b> (This is an emergency and requires prompt intervention) **might be a good place to put a link to this emergency Breathing Pattern Change?<\/li><\/ul><div><p><b>Goals of Care:<\/b>  If symptom cannot be managed, is client and family open to going to hospital for further investigation and treatment of symptom?<br><\/p><\/div><p><br><\/p><\/div><\/div>",
-                        "title": "NON-PHARMACEUTICAL INTERVENTIONS"
+                        "title": "Non-Pharmaceutical Interventions"
                     },
                     {
                         "id": 5,

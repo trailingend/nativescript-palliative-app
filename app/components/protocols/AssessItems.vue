@@ -5,11 +5,11 @@
                     columns="auto, auto, *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="4" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="4" @newClient="addNewChart" ref="navRef" />
 
-            <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)" ref="clientBlockRef"/>
 
-            <StackLayout row="2" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr">
+            <StackLayout row="2" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr" ref="titleRef">
                 <Label class="items-title" :text="p_title"></Label>
                 <Label class="items-subtitle" :text="l_title" ref="subtitleRef"></Label>
                 <StackLayout class="divider-ctnr"></StackLayout>
@@ -35,8 +35,8 @@
                                 <AssessItem :unit="question" :log_id="log_id" 
                                             @foundResponse="(l_id) => { onResponseFound(l_id); }"
                                             @answerChange="(l_id, args) => { onResponseEntered(l_id, args); }" /> 
-                                <StackLayout v-if="question.assessment_letter.id === 8" class="items-spacer"></StackLayout>
                         </StackLayout>
+                        <StackLayout v-if="index === filtered_letters.length - 1" :height="end_spacer_height" class="items-spacer"></StackLayout>
                     </StackLayout>                            
                 </StackLayout>
             </ScrollView>
@@ -104,6 +104,8 @@
                 textview_ids: new Set(),
                 item_anchors: [],
                 curr_letter_id: 1,
+                end_spacer_height: 0,
+                thingsHeight: 0,
                 
                 letters: [],
                 assessments: [],
@@ -387,7 +389,9 @@
                     this.goToTab(args.object.page, preset_letter);
                 }
             },
-            onLayoutUpdate() {
+            onLayoutUpdate(args) {
+                let extra_for_landscape = 0;
+
                 const width = utils.layout.toDeviceIndependentPixels( 
                     this.$refs.itemsGridRef.nativeView.getMeasuredWidth() 
                 );
@@ -399,6 +403,7 @@
                         columns: "*, *, *",
                         denominator: 3
                     };
+                    extra_for_landscape = 20;
                 } else {
                     this.formatSetting = "items-ctnr";
                     this.gridSetting = {
@@ -406,6 +411,23 @@
                         columns: "*, *",
                         denominator: 2
                     };
+                    extra_for_landscape = 0;
+                }
+
+                const last_letter_id = this.filtered_letters[this.filtered_letters.length - 1].id;
+                const pageHeight = utils.layout.toDeviceIndependentPixels( 
+                    this.$refs.itemsGridRef.nativeView.getMeasuredHeight() 
+                );
+                if (this.thingsHeight) {
+                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + extra_for_landscape : 0;
+                } else {
+                    this.thingsHeight = utils.layout.toDeviceIndependentPixels( 
+                        this.$refs.navRef.nativeView.getMeasuredHeight() 
+                        + this.$refs.clientBlockRef.nativeView.getMeasuredHeight() 
+                        + this.$refs.titleRef.nativeView.getMeasuredHeight() 
+                        + args.object.page.getViewById(`items-item-ctnr-${last_letter_id}`).getMeasuredHeight() 
+                    );
+                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + extra_for_landscape : 0;
                 }
             },
         }

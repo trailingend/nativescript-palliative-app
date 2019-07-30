@@ -108,7 +108,7 @@
         padding: 50 0 25 0;
         margin: 0 $log-border 0 $log-border;
         border-color: $log-border-color;
-        border-bottom-width: 0.25;
+        border-bottom-width: 0.5;
 
         .log-title {
             font-size: 18;
@@ -140,7 +140,7 @@
             padding: 2 0;
             background: white;
             border-color: $log-border-color;
-            border-bottom-width: 0.25;
+            border-bottom-width: 0.5;
         }
         .client-text {
             font-family: 'Nunito Sans', 'Nunito', sans-serif;

@@ -18,7 +18,7 @@
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <StackLayout class="bar-ctnr"></StackLayout>
                         <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
-                            <Image class="facetime-icon" width="30" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
+                            <Image class="facetime-icon" width="35" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
                         </StackLayout>
                     </FlexboxLayout>
                 </v-template>
