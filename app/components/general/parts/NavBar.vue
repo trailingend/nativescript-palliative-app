@@ -3,7 +3,7 @@
         <StackLayout class="nav-btn-ctnr">
             <Button class="navigation-close" text="Close" @tap="onCloseTap"></Button>
         </StackLayout>
-        <StackLayout flexGrow="2" class="client-text-ctnr" @tap="onEditTap">
+        <StackLayout flexGrow="2" class="client-text-ctnr">
             <Label class="navigation-title" text="chart" />
         </StackLayout>
         <StackLayout class="nav-btn-ctnr">

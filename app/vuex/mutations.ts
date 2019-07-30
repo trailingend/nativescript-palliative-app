@@ -103,11 +103,7 @@ export default {
         // console.dir(state.logs[chart_item.idx].others_answers);
     },
     [types.CHART_PLANS_UPDATE](state, chart_item) {
-        if (chart_item.p_idx === -1) {
-            state.logs[chart_item.idx].plans_answers.push(chart_item.content);
-        } else {
-            state.logs[chart_item.idx].plans_answers[chart_item.p_idx].a = chart_item.content.a;
-        } 
+        state.logs[chart_item.idx].plans_answers = chart_item.content;
         // console.log("=== in mutation CHART_PLANS_UPDATE ===");
         // console.dir(state.logs[chart_item.idx].plans_answers);
     },

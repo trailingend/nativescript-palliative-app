@@ -76,10 +76,10 @@
 </template>
 
 <script>
-    import NavBar from './parts/NavBar.vue';
+    import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import AssessItem from './parts/AssessItem.vue';
-    import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';

@@ -609,7 +609,7 @@
             },
             {
                 "id": 1,
-                "name": "Restlessmess / Anxiety / Agitation",
+                "name": "zJosh Protocol",
                 "additional_questions": [
                     {
                         "id": 1,
@@ -928,11 +928,6 @@
             {
                 "id": 5,
                 "plan": "Recommend calling 911 or going to emergency department if unable to manage symptoms at home and within client\u2019s goals of care",
-                "details": null
-            },
-            {
-                "id": 6,
-                "plan": "After hours nurse to follow-up in 30 to 60 minutes if symptom management",
                 "details": null
             }
         ]

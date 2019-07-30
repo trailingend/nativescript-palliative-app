@@ -49,8 +49,8 @@
 </template>
 
 <script>
-    import NavBar from './parts/NavBar.vue';
-    import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import NavBar from '../general/parts/NavBar.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import Introduction from '../intro/Introduction.vue';
     import NewClient from '../intro/NewClient.vue';
     import AssessItems from './AssessItems.vue';
@@ -183,8 +183,7 @@
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const p_items = log.items_answers.find(elem => { return elem.id === p_id; });
                 const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
-                const p_plans = log.plans_answers.find(elem => { return elem.id === p_id; });
-                return p_items != undefined || p_others != undefined || p_plans != undefined;
+                return p_items != undefined || p_others != undefined;
             },
             addNewChart() {
                 this.$navigateTo(NewClient, {

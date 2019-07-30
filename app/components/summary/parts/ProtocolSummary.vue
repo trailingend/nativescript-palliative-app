@@ -26,25 +26,13 @@
             </StackLayout>
         </StackLayout>  
 
-        <StackLayout class="sum-pseudo-item-ctnr">
-            <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-                <Label class="sum-item-title" text="Plans" />
-                <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onPlansEditTap"></Image>
-            </FlexboxLayout>                    
-            <StackLayout>
-                <PlanSummary :log_id="log_id" :protocol_id="protocol_id" /> 
-            </StackLayout>
-        </StackLayout>
-
     </StackLayout>
 </template>
 
 <script lang="ts">
     import QuestionSummary from './QuestionSummary.vue';
-    import PlanSummary from './PlanSummary.vue';
     import AssessItems from '../../protocols/AssessItems.vue';
     import AssessOthers from '../../protocols/AssessOthers.vue';
-    import Plans from '../../protocols/Plans.vue';
     
     import { mapGetters } from 'vuex';
 
@@ -62,7 +50,6 @@
         },
         components: {
             QuestionSummary,
-            PlanSummary
         },
         props: {
             log_id: {
@@ -126,21 +113,7 @@
                     }
                 });
             },
-            onPlansEditTap() {
-                this.$navigateTo(Plans, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'fade',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                    props: {
-                        log_id: this.log_id,
-                        protocol_id: this.protocol_id
-                    }
-                });
-            },
+            
         },
         
     };

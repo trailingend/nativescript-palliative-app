@@ -32,8 +32,8 @@
 </template>
 
 <script>
-    import NavBar from './parts/NavBar.vue';
-    import ClientBlock from './parts/ClientBlock.vue';
+    import NavBar from '../general/parts/NavBar.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import StepQuestion from './parts/StepQuestion.vue';
     import AssessItems from '../protocols/AssessItems.vue';

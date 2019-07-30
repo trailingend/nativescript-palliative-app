@@ -10,9 +10,9 @@
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <StackLayout row="2" col="0" colSpan="3" class="plans-title-ctnr" >
-                <Label class="plans-title" :text="p_title"></Label> 
-                <Label class="plans-subtitle" text="Plan"></Label>
-                <StackLayout class="divider-ctnr"></StackLayout>
+                <Label class="plans-title" text="Select plan(s)"></Label> 
+                <!-- <Label class="plans-subtitle" text="Plan"></Label> -->
+                <!-- <StackLayout class="divider-ctnr"></StackLayout> -->
             </StackLayout>
 
             <ScrollView row="3" col="0" rowSpan="3" colSpan="3" class="plans-main-ctnr">
@@ -43,9 +43,11 @@
             </ScrollView>
 
             <ResourcesButton row="4" col="2" rowSpan="1" colSpan="1" 
+                             v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" 
+                    v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"></Button>
                 
             <Button row="5" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
@@ -54,9 +56,9 @@
 </template>
 
 <script lang="ts">
-    import NavBar from './parts/NavBar.vue';
+    import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
-    import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessOthers from './AssessOthers.vue';
     import AssessItems from './AssessItems.vue';
@@ -72,7 +74,6 @@
     export default {
         data() {
             return {
-                p_title: 'Protocol',
                 plans_list: [],
                 status_list: [],
 
@@ -97,7 +98,7 @@
             },
             protocol_id: {
                 type: Number,
-                required: true,
+                required: false,
             },
         },
         components: {
@@ -119,24 +120,18 @@
             ]),
             retrieveSavedPlans() {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
-                const p_obj = log.plans_answers.find(elem => { return elem.id === this.protocol_id; });
-                if (p_obj) {
-                    const saved_answers = p_obj.a;
-                    this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
-                    this.plans_list.forEach(plan => {
-                        const search_in_saved = saved_answers.find(elem => { return elem == plan.plan; });
-                        if (search_in_saved) {
-                            plan.status = true;
-                            plan.unique = plan.unique + Math.random() * 0.01;
-                            this.selected_plans.push(plan.plan);
-                        }
-                    });
-                }
+                const saved_answers = log.plans_answers;
+                this.free_text = saved_answers.length > 0 ? saved_answers[saved_answers.length - 1] : "";
+                this.plans_list.forEach(plan => {
+                    const search_in_saved = saved_answers.find(elem => { return elem == plan.plan; });
+                    if (search_in_saved) {
+                        plan.status = true;
+                        plan.unique = plan.unique + Math.random() * 0.01;
+                        this.selected_plans.push(plan.plan);
+                    }
+                });
             },
             preparePlans() {
-                // const plan_ids = this.protocols.find(elem => { return elem.id == this.protocol_id; }).plans.map(plan => plan.plan);
-                this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
-                // this.plans_list = this.plans.filter(elem => { return plan_ids.includes(elem.id); });
                 this.plans_list = [... this.plans];
                 this.preparePlansStatus();
                 this.retrieveSavedPlans();
@@ -214,8 +209,7 @@
             recordResponse() {
                 const update = {
                     log_id: this.log_id,
-                    p_id: this.protocol_id, 
-                    a: [...this.selected_plans, this.free_text],
+                    content: [...this.selected_plans, this.free_text],
                 };
                 this.savePlansUpdate(update);
             },

@@ -120,7 +120,7 @@
 </template>
 
 <script>
-    import NavBar from './parts/NavBar.vue';
+    import NavBar from '../general/parts/NavBar.vue';
     import Dashboard from '../home/Dashboard.vue';
     import Introduction from "./Introduction.vue";
 

@@ -17,6 +17,7 @@
                                      :key="p_id"
                                      :log_id="log_id" 
                                      :protocol_id="p_id" />
+                    <PlanSummary :log_id="log_id" /> 
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
                         <SubmitButton :log_id="log_id" />
@@ -30,12 +31,13 @@
 </template>
 
 <script lang="ts">
-    import NavBar from '../protocols/parts/NavBar.vue';
+    import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import SubmitButton from './parts/SubmitButton.vue';
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
+    import PlanSummary from './parts/PlanSummary.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import Plans from '../protocols/Plans.vue';
 
@@ -75,7 +77,8 @@
             SubmitButton,
             InfoSummary,
             IntroSummary,
-            ProtocolSummary
+            ProtocolSummary,
+            PlanSummary
         },
         computed: {
             ...mapGetters([
@@ -90,7 +93,10 @@
             prepareSummary() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
-                    curr_log.items_answers.forEach(elem => { this.protocol_ids.push(elem.id) });
+                    let p_id_set = new Set();
+                    curr_log.items_answers.forEach(elem => { p_id_set.add(elem.id) });
+                    curr_log.others_answers.forEach(elem => { p_id_set.add(elem.id) });
+                    this.protocol_ids = Array.from(p_id_set);
                 }
             },
             preparePrevStage() {

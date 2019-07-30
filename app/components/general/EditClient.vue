@@ -180,7 +180,6 @@
                 },
                 set: function (new_input) {
                     this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
-                    console.log("in setter " + this.c_phone);
                 }
             }
 		},

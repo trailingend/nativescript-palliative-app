@@ -86,8 +86,7 @@
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const p_items = log.items_answers.find(elem => { return elem.id === p_id; });
                 const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
-                const p_plans = log.plans_answers.find(elem => { return elem.id === p_id; });
-                return p_items != undefined || p_others != undefined || p_plans != undefined;
+                return p_items != undefined || p_others != undefined;
             },
             onCallTap(id) {
                 const curr_log = this.logs.find(elem => { return elem.id === this.log_id; });

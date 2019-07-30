@@ -77,6 +77,11 @@
                         this.$modal.close();
                         console.log("=== User Selected ===");
                     } else {
+                        dialogs.confirm({
+                            title: "ID not match",
+                            message: "The ID you entered does not match our record.",
+                            okButtonText: "OK",
+                        });
                         console.log("=== User Not found ===");
                     }
                 });

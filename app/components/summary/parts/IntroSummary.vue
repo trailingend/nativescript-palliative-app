@@ -11,7 +11,7 @@
                     <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap(index)" ></Image>
                 </FlexboxLayout>                    
                 <StackLayout v-for="question in item.questions" :key="question.id">
-                    <QuestionSummary :log_id="log_id" protocol_id="null" :unit="question" section="intro" /> 
+                    <QuestionSummary :log_id="log_id" :protocol_id="-1" :unit="question" section="intro" /> 
                 </StackLayout>
             </StackLayout>   
         </StackLayout>  

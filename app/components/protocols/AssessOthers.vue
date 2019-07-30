@@ -38,10 +38,10 @@
 </template>
 
 <script>
-    import NavBar from './parts/NavBar.vue';
+    import NavBar from '../general/parts/NavBar.vue';
     import OthersQuestion from './parts/OthersQuestion.vue';
     import NewClient from '../intro/NewClient.vue';
-    import ClientBlock from '../intro/parts/ClientBlock.vue';
+    import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';

@@ -163,14 +163,9 @@ export default {
         if (log_idx === -1) {
             console.log("=== In others log update: OH NO !!! ===");
         } else {
-            const existed_p_idx = state.logs[log_idx].plans_answers.findIndex(p_ans => { return p_ans.id === update_item.p_id; });
             const log_item = {
                 idx: log_idx,
-                p_idx: existed_p_idx,
-                content: {
-                    id: update_item.p_id,
-                    a: update_item.a,
-                }   
+                content: update_item.content,
             };
             commit(types.CHART_PLANS_UPDATE, log_item);
         }

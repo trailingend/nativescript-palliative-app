@@ -1,10 +1,18 @@
 <template>
-    <StackLayout class="sum-unit-ctnr">
-        <Label :text="response" textWrap="true" class="sum-text"/>
+    <StackLayout class="sum-pseudo-item-ctnr">
+        <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
+            <Label class="sum-item-title" text="Plans" />
+            <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onPlansEditTap"></Image>
+        </FlexboxLayout>                    
+        <StackLayout class="sum-unit-ctnr">
+            <Label :text="response" textWrap="true" class="sum-text"/>
+        </StackLayout>
     </StackLayout>
 </template>
 
 <script lang="ts">    
+    import Plans from '../../protocols/Plans.vue';
+    
     import { mapGetters } from 'vuex';
 
     export default {
@@ -23,10 +31,6 @@
                 type: String,
                 required: true,
             },
-            protocol_id: {
-                type: Number,
-                required: true,
-            }
         },
         computed: {
             ...mapGetters([
@@ -35,10 +39,23 @@
 		},
         methods: {
             prepareSummary() {
-                const curr_log = this.logs.find(elem => { return elem.id === this.log_id; });
-                const p_obj = curr_log.plans_answers.find(elem => { return elem.id === this.protocol_id; });
-                this.response = (p_obj) ? p_obj.a.join('\n') : 'N/A';
+                const plans_answers = this.logs.find(elem => { return elem.id === this.log_id; }).plans_answers;
+                this.response = (plans_answers != []) ? plans_answers.join('\n') : 'N/A';
                 if (this.response === "") this.response = 'N/A';
+            },
+            onPlansEditTap() {
+                this.$navigateTo(Plans, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                    }
+                });
             },
         },
         
