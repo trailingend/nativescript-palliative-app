@@ -23,7 +23,7 @@
                                             v-model="c_phone"
                                             ref="phoneFieldRef"
                                             mask="(000) 000-0000"
-                                            hint="(888) 888-8888"
+                                            hint="(###) ###-####"
                                             keyboardType="phone" />
                             <Label :row="gridSetting.children.e1.row" 
                                     :col="gridSetting.children.e1.col"
@@ -283,7 +283,6 @@
             //     this.input_phone = formatPhoneNum(this.c_phone);
             // },
             onBackToHome(args) {
-                console.log("=== Navigate Back To Home ===");
                 this.$navigateTo(Dashboard, {
                     animated: true,
                     clearHistory: true,

@@ -59,7 +59,7 @@
                 const q_objs = curr_log.intro_answers;
                 if (q_objs) {
                     const q_obj = q_objs.find(elem => { return elem.q_id === this.unit.id; });
-                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                    this.response = (q_obj) ? q_obj.a.filter(elem => elem != "").join('\n') : 'N/A';
                 } else {
                     this.response = 'N/A';
                 }
@@ -69,16 +69,17 @@
                 const p_obj = curr_log.items_answers.find(elem => { return elem.id === this.protocol_id; });
                 if (p_obj) {
                     const q_obj = p_obj.a.find(elem => { return elem.q_id === this.unit.id; });
-                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                    this.response = (q_obj) ? q_obj.a.filter(elem => elem != "").join('\n') : 'N/A';
                 } else {
                     this.response = 'N/A';
                 }
+                if (this.response === "") this.response = 'N/A';
             },
             prepareOthersResponses(curr_log) {
                 const p_obj = curr_log.others_answers.find(elem => { return elem.id === this.protocol_id; });
                 if (p_obj) {
                     const q_obj = p_obj.a.find(elem => { return elem.q_id === this.unit.id; });
-                    this.response = (q_obj) ? q_obj.a.join('\n') : 'N/A';
+                    this.response = (q_obj) ? q_obj.a.filter(elem => elem != "").join('\n') : 'N/A';
                 } else {
                     this.response = 'N/A';
                 }

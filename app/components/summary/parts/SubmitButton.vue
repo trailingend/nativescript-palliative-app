@@ -11,6 +11,7 @@
     import * as base64 from "base-64";
     import * as utf8 from "utf8";
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
+    import { logMonths } from '../../../scripts/common';
 
     export default {
         data() {
@@ -40,7 +41,16 @@
                 const status = this.logs.find(elem => { return elem.id === this.log_id; }).status;
                 this.submit_text = status ? 'Re-submit' : 'Submit';
             },
+            recordTime() {
+                const today = new Date();
+                const date = today.getDate() + ' / ' + logMonths(today.getMonth()) + ' / ' + today.getFullYear();
+                const time = today.getHours() + ':' + today.getMinutes();
+                const dateTime = time + ' | ' + date;
+                return dateTime
+            },
             onSubmitTap() {
+                const submit_time = this.recordTime();
+                console.log("TODO load submit time into pdf " + submit_time);
                 confirm({
                     title: "Send Chart",
                     message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
@@ -49,12 +59,11 @@
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.generatePDF();
-                        // this.onEmailSent();
+                        this.onEmailSent();
                     } 
                 });
             },
             onEmailSent() {
-                console.log("=== Navigate Back To Home ===");
                 this.changeChartStatus(this.log_id);
                 this.backToHome();
             },

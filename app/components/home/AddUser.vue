@@ -28,7 +28,7 @@
                                     v-model="u_id"
                                     ref="idFieldRef"
                                     mask="000000"
-                                    hint="888888"
+                                    hint="######"
                                     @textChange="checkIDError"
                                     keyboardType="phone" />
                     <Label row="5" col="0" class="add-e add-e2" 

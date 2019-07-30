@@ -131,7 +131,6 @@ export const formatUsernameForDisplay = (input) => {
 };
 
 export const formatShiftTime = (input) => {
-    console.log(" input ====" + input)
     const millitary = input.toString().split(" ");
     const time = millitary[4];
     const hours = time.split(':')[0];

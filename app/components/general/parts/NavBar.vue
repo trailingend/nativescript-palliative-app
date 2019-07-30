@@ -44,7 +44,6 @@
                 });
             },
             onBackToHome(args) {
-                console.log("=== Navigate Back To Home ===");
                 this.$navigateTo(Dashboard, {
                     animated: true,
                     clearHistory: true,
