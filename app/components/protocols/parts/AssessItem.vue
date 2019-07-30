@@ -95,8 +95,8 @@
                 const progress = {
                     log_id: this.log_id,
                     l_id: this.unit.assessment_letter.id,
-                    q_id: this.unit.id, 
-                }
+                };
+                
                 this.saveItemsUpdate(update);
                 this.saveItemsProgress(progress);
             },

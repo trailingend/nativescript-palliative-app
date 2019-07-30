@@ -159,6 +159,10 @@
             }
 		},
         methods: {
+            ...mapActions([
+                'saveItemsProgress',
+                'saveOthersProgress'
+            ]),
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
                 filted_assessments.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
@@ -332,6 +336,11 @@
             },
             onForward(args) {
                 console.log("=== Forward === ");
+                const progress = {
+                    log_id: this.log_id,
+                    in_others: 0,
+                }
+                this.saveOthersProgress(progress);
                 this.prepareNextPage();
             },
             onBackward(args) {

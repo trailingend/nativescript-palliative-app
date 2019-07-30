@@ -217,7 +217,7 @@ export default {
         } else {
             const progress_item = {
                 idx: log_idx,
-                q_id: input_item.q_id,
+                in_others: input_item.in_others
             };
             commit(types.CHART_OTHERS_PROGRESS, progress_item);
         }

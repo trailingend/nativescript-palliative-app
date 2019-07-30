@@ -124,7 +124,7 @@ export default {
         console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_OTHERS_PROGRESS](state, item) {
-        state.logs[item.idx].progress[3] = item.q_id;
+        state.logs[item.idx].progress[3] = item.in_others;
         console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_PLANS_PROGRESS](state, item) {

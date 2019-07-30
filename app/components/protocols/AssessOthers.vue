@@ -98,6 +98,9 @@
             }
         },
         methods: {
+            ...mapActions([
+                'saveOthersProgress',
+            ]),
             prepareQuestions() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.others_questions.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
@@ -162,6 +165,11 @@
                 });
             },
             onForward() {
+                const progress = {
+                    log_id: this.log_id,
+                    in_others: 1,
+                }
+                this.saveOthersProgress(progress);
                 this.prepareNextStage();
             },
             onBackward() {

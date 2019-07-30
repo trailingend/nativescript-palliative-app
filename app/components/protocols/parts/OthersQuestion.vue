@@ -62,7 +62,6 @@
         methods: {
             ...mapActions([
                 'saveOthersUpdate',
-                'saveOthersProgress',
             ]),
             retrieveSavedResponses(unit) {
                 const p_id = unit.protocol.id;
@@ -90,12 +89,8 @@
                     q_type: this.unit.question_type.type,
                     a: data
                 };
-                const progress = {
-                    log_id: this.log_id,
-                    q_id: this.unit.id, 
-                }
+                
                 this.saveOthersUpdate(update);
-                this.saveOthersProgress(progress);
             },
         }
     }

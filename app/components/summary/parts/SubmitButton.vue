@@ -1,10 +1,11 @@
 <template>
-    <Button class="form-btn sum-btn submit-btn" text="Submit" @tap="onSubmitTap" ></Button>
+    <Button class="form-btn sum-btn submit-btn" :text="submit_text" @tap="onSubmitTap" ></Button>
 </template>
 
 <script lang="ts">
     import Dashboard from '../../home/Dashboard.vue';
 
+    import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
     import * as email from "nativescript-email";
     import * as base64 from "base-64";
@@ -12,16 +13,33 @@
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
 
     export default {
+        data() {
+            return {
+                submit_text: 'Submit'
+            }
+        },
+        mounted() {
+            this.prepareText();
+        },
         props: {
             log_id: {
                 type: String,
                 required: true,
             },
         },
+        computed: {
+            ...mapGetters([
+                'logs',
+			])
+		},
         methods: {
             ...mapActions([
                 'changeChartStatus'
             ]),
+            prepareText() {
+                const status = this.logs.find(elem => { return elem.id === this.log_id; }).status;
+                this.submit_text = status ? 'Re-submit' : 'Submit';
+            },
             onSubmitTap() {
                 confirm({
                     title: "Send Chart",

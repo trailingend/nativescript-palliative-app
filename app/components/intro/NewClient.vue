@@ -240,7 +240,7 @@
                         nurse: '',
                         createdTime: this.created_time,
                         status: false,
-                        progress: [-1, -1, -1, -1, 0], // s_id, p_id, l_id, q_id, plan_boolean
+                        progress: [-1, -1, -1, -1, 0], // intro[step id], proto[protocol id], items[letter id], others[Tri-state], plans[Bool]
                         intro_answers: [],
                         items_answers: [],
                         others_answers: [],

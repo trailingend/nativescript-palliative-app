@@ -31,7 +31,7 @@ export default {
 		nurse: '888888',
         createdTime: '5:45 | JAN / 05 / 2019',
 		status: true,
-		progress: [2, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
+		progress: [3, 3, -1, 1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
 			id: 1,
 			a: ["Yes", "Terrible"]
@@ -56,7 +56,7 @@ export default {
 		nurse: '888888',
         createdTime: '1:45 | DEC / 05 / 2018',
 		status: false,
-		progress: [3, 3, -1, 4, 0], // progress: intro, proto, items, others, plans
+		progress: [3, 3, -1, 0, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
 			id: 1,
 			a: ["Yes", "Terrible"]
@@ -81,7 +81,7 @@ export default {
 		nurse: '477567',
         createdTime: '5:05 | DEC / 08 /2017',
 		status: false,
-		progress: [3, 3, -1, 4, 1], // progress: intro, proto, items, others, plans
+		progress: [3, 3, -1, -1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
 			id: 1,
 			a: ["No", "Terrible"]

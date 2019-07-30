@@ -37,6 +37,7 @@
 
 <script lang="ts">
     import Introduction from '../../intro/Introduction.vue';
+    import ChooseProtocol from '../../protocols/ChooseProtocol.vue';
     import AssessItems from '../../protocols/AssessItems.vue';
     import AssessOthers from '../../protocols/AssessOthers.vue';
     import Plans from '../../protocols/Plans.vue';
@@ -128,12 +129,44 @@
             },
             triage(log_idx) {
                 const log = this.logs[log_idx];
-
-                
+                const status = log.status;
+                const progress = log.progress;
+                if (status) {
+                    this.prepareSummary(log.id);
+                } else {
+                    if (progress[4] === 1) { // if plans filled
+                        this.prepareSummary(log.id);
+                    } else {
+                        if (progress[1] != -1) { // if protocol selected
+                            if (progress[3] === 1) { // if others filled, go to plans
+                                this.preparePlans(log.id);
+                            } else if (progress[3] === 0) { // if items filled, go to others
+                                this.prepareOthers(log.id, progress[1]);
+                            } else if (progress[2] != -1) { // if items in progress, go to items
+                                this.prepareItems(log.id, progress[1]);
+                            } else { // if protocol choosed, go to items
+                                this.prepareItems(log.id, progress[1]);
+                            }
+                        } else {
+                            let steps_ids = [];
+                            this.intro.forEach(elem => { steps_ids.push(elem.id); });
+                            if (progress[0] != -1) {
+                                const curr_idx = steps_ids.findIndex(elem => elem === progress[0]);
+                                if (curr_idx + 1 < steps_ids.length) {
+                                    this.prepareIntro(log.id, steps_ids, curr_idx + 1);
+                                } else { // if intro filled, go to choose protocol
+                                    this.prepareChoose(log.id);
+                                }
+                            } else {
+                                const curr_idx = 0;
+                                this.prepareIntro(log.id, steps_ids, curr_idx);
+                            }
+                        }
+                        
+                    }
+                }
             },
-            prepareIntro(log_id, curr_idx) {
-                let steps_ids = [];
-                this.intro.forEach(elem => { steps_ids.push(elem.id); });
+            prepareIntro(log_id, steps_ids, curr_idx) {
                 this.$navigateTo(Introduction, {
                     animated: true,
                     clearHistory: true,
@@ -146,6 +179,21 @@
                         log_id: log_id,
                         step_ids: steps_ids,
                         step_idx: curr_idx
+                    }
+                });
+            },
+            prepareChoose(log_id) {
+                this.$navigateTo(ChooseProtocol, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                        from_summary: false,
                     }
                 });
             },
