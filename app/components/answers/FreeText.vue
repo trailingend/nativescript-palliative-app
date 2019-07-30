@@ -51,7 +51,7 @@
                 this.free_text = this.responses.length > 0 ? this.responses[this.responses.length - 1] : "";
             },
             onTextEntered(args) {
-                this.$emit("answerChange", this.prepareResponseToSend());
+                this.$emit("answerChange", this.prepareResponseToSend(), args);
             },
         }
     }

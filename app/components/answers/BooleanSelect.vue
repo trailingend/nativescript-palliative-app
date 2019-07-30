@@ -9,7 +9,7 @@
                          class="answers-a-select-ctnr">
                 <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *, auto" 
                             :backgroundColor="answer.status ? color_checked : color_unchecked"  
-                            @tap="onAnswerTap(answer)">
+                            @tap="(args) => onAnswerTap(answer, args)">
                     <Image row="0" col="0" width="30" 
                            class="ans-status-icon" 
                            :opacity="answer.status ? 1 : 0" 
@@ -93,7 +93,7 @@
                     }
                 });
             },
-            onAnswerTap(ans) {
+            onAnswerTap(ans, args) {
                 const prev_status = ans.status; 
                 this.answers_list.forEach((elem, elem_idx) => { 
                     elem.status = false;
@@ -102,10 +102,10 @@
                 ans.status = ! prev_status;
                 ans.id = ans.id + Math.random() * 0.01;
                 
-                this.$emit('answerChange', this.prepareResponseToSend());
+                this.$emit('answerChange', this.prepareResponseToSend(), args);
             },
             onTextEntered(args) {
-                this.$emit("answerChange", this.prepareResponseToSend());
+                this.$emit("answerChange", this.prepareResponseToSend(), args);
             },
         }
     }

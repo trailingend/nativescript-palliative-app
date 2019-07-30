@@ -10,7 +10,7 @@
                         class="answers-a-select-ctnr">
                 <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *, auto" 
                             :backgroundColor="answer.status ? color_checked : color_unchecked"  
-                            @tap="onAnswerTap(answer)">
+                            @tap="(args) => { onAnswerTap(answer, args); }">
                     <Image row="0" col="0" width="30" 
                            class="ans-status-icon" 
                            :opacity="answer.status ? 1 : 0" 
@@ -108,16 +108,16 @@
                     this.selected_answers.splice(ans_idx, 1);
                 }
             },
-            onAnswerTap(ans) {
+            onAnswerTap(ans, args) {
                 const ans_idx = this.answers_list.findIndex( elem => { return elem.id === ans.id; });
                 this.toggleMultiAnswerSelection(ans.answer);
                 ans.status = ! ans.status;
                 ans.id = ans.id + Math.random() * 0.01;
                 
-                this.$emit('answerChange', this.prepareResponseToSend());
+                this.$emit('answerChange', this.prepareResponseToSend(), args);
             },
             onTextEntered(args) {
-                this.$emit("answerChange", this.prepareResponseToSend());
+                this.$emit("answerChange", this.prepareResponseToSend(), args);
             },
         }
     }

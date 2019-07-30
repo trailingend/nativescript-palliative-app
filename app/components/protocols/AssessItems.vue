@@ -34,7 +34,7 @@
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" 
                                             @foundResponse="(l_id) => { onResponseFound(l_id); }"
-                                            @answerChange="(l_id) => { onResponseEntered(l_id); }" /> 
+                                            @answerChange="(l_id, args) => { onResponseEntered(l_id, args); }" /> 
                                 <StackLayout v-if="question.assessment_letter.id === 8" class="items-spacer"></StackLayout>
                         </StackLayout>
                     </StackLayout>                            
@@ -105,7 +105,6 @@
                 item_anchors: [],
                 curr_letter_id: 1,
                 
-                pageView: null,
                 letters: [],
                 assessments: [],
                 responses:[],
@@ -219,44 +218,48 @@
                 });
             },
             setupAnchors(args) {
-                const page = args.object.page;
-                const scrollView = args.object.page.getViewById("items-main-ctnr");
-                this.filtered_letters.forEach(elem => {
-                    const view = page.getViewById(`items-item-ctnr-${elem.id}`);
-                    this.item_anchors.push({
-                        id: elem.id,
-                        y: view.getLocationRelativeTo(scrollView).y
+                if (args.object.page) {
+                    const page = args.object.page;
+                    const scrollView = args.object.page.getViewById("items-main-ctnr");
+                    this.filtered_letters.forEach(elem => {
+                        const view = page.getViewById(`items-item-ctnr-${elem.id}`);
+                        this.item_anchors.push({
+                            id: elem.id,
+                            y: view.getLocationRelativeTo(scrollView).y
+                        });
                     });
-                });
+                }
             },
             setTabText(id, page, init=false) {
-                this.letters.forEach(elem => { 
-                    const letter_view = page.getViewById(`items-tab-${elem.id}`);
-                    const mark_view = page.getViewById(`items-icon-${elem.id}`);
-                    if (elem.id === id) {
-                        if (!init) {
-                            const subtitle = this.$refs.subtitleRef.nativeView;
-                            animateSubTitle(subtitle, elem.title);
-                        }
-                        mark_view.opacity = (this.complete_letter_ids.has(elem.id)) ? 1 : 0;
-                        letter_view.color = this.color_black;
-                        letter_view.backgroundColor = this.color_complete;
-                        letter_view.borderColor = this.color_complete;
-                    } else {
-                        if (this.complete_letter_ids.has(elem.id)) {
-                            mark_view.opacity = 1;
-                            letter_view.color = this.color_complete;
-                            letter_view.background = this.color_white;
+                if (page) {
+                    this.letters.forEach(elem => { 
+                        const letter_view = page.getViewById(`items-tab-${elem.id}`);
+                        const mark_view = page.getViewById(`items-icon-${elem.id}`);
+                        if (elem.id === id) {
+                            if (!init) {
+                                const subtitle = this.$refs.subtitleRef.nativeView;
+                                animateSubTitle(subtitle, elem.title);
+                            }
+                            mark_view.opacity = (this.complete_letter_ids.has(elem.id)) ? 1 : 0;
+                            letter_view.color = this.color_black;
+                            letter_view.backgroundColor = this.color_complete;
                             letter_view.borderColor = this.color_complete;
                         } else {
-                            mark_view.opacity = 0;
-                            letter_view.color = this.color_black;
-                            letter_view.backgroundColor = this.color_white;
-                            letter_view.borderColor = this.color_uncomplete;
+                            if (this.complete_letter_ids.has(elem.id)) {
+                                mark_view.opacity = 1;
+                                letter_view.color = this.color_complete;
+                                letter_view.background = this.color_white;
+                                letter_view.borderColor = this.color_complete;
+                            } else {
+                                mark_view.opacity = 0;
+                                letter_view.color = this.color_black;
+                                letter_view.backgroundColor = this.color_white;
+                                letter_view.borderColor = this.color_uncomplete;
+                            }
+                            
                         }
-                        
-                    }
-                });
+                    });
+                }
                 // console.log("change of letter: " + id);
             },
             setTabMarks(page) {
@@ -293,9 +296,19 @@
                     },
                 });
             },
-            onResponseEntered(l_id) {
+            onResponseEntered(l_id, args) {
                 this.changeNextText("Next");
                 this.markAsComplete(l_id);
+                if (args.object.page) {
+                    const letter_view = args.object.page.getViewById(`items-tab-${l_id}`);
+                    const mark_view = args.object.page.getViewById(`items-icon-${l_id}`);
+                    mark_view.opacity = 1;
+                    if (this.curr_letter_id != l_id) {
+                        letter_view.color = this.color_complete;
+                        letter_view.background = this.color_white;
+                        letter_view.borderColor = this.color_complete;
+                    }
+                }
             },
             onResponseFound(l_id) {
                 this.changeNextText("Next");
@@ -316,15 +329,16 @@
                 this.onForward();
             },
             onTabTap(args, letter) {
-                const dividerOffset = 48;
-                const scrollView = args.object.page.getViewById("items-main-ctnr");
-                const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
-                if (letter.letter != 'O') {
-                    scrollView.scrollToVerticalOffset(y + dividerOffset, true);
-                } else {
-                    scrollView.scrollToVerticalOffset(y, true);
+                if (args.object.page) {
+                    const dividerOffset = 48;
+                    const scrollView = args.object.page.getViewById("items-main-ctnr");
+                    const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
+                    if (letter.letter != 'O') {
+                        scrollView.scrollToVerticalOffset(y + dividerOffset, true);
+                    } else {
+                        scrollView.scrollToVerticalOffset(y, true);
+                    }
                 }
-                
             },
             onScroll(args) {
                 let id = 1;

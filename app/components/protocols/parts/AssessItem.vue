@@ -14,7 +14,7 @@
         <BooleanSelect v-else-if="unit.question_type.type === 'boolean'"
                        :question_id="unit.id"
                        :responses="retrieveSavedResponses(unit)"
-                       @answerChange="onAnswerChange" />
+                       @answerChange="(data, args) => onAnswerChange(data, args)" />
         <FreeText v-else
                   :question_id="unit.id"
                   :responses="retrieveSavedResponses(unit)"
@@ -82,8 +82,8 @@
                 }
                 return [];
             },
-            onAnswerChange(data) {
-                this.$emit("answerChange", this.unit.assessment_letter.id);
+            onAnswerChange(data, args) {
+                this.$emit("answerChange", this.unit.assessment_letter.id, args);
                 const update = {
                     log_id: this.log_id,
                     p_id: this.unit.protocol.id,
