@@ -46,8 +46,7 @@
                              v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" 
-                    v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"></Button>
+            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 
             <Button row="5" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
@@ -60,6 +59,7 @@
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
+    import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';
     import AssessItems from './AssessItems.vue';
     import Summary from '../summary/Summary.vue';
@@ -178,6 +178,21 @@
                     }
                 });
             },
+            prepareChooseProto() {
+                this.$navigateTo(ChooseProtocol, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        from_summary: false,
+                    }
+                });
+            },
             goToNextProtocol(p_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -236,7 +251,11 @@
                 this.prepareNextStage();
             },
             onBackward() {
-                this.preparePrevStage();
+                if (this.protocol_id != null && this.protocol_id != undefined && this.protocol_id != -1) {
+                    this.preparePrevStage();
+                } else {
+                    this.prepareChooseProto();
+                }
             },
             onBackTap() {
                 this.onBackward();

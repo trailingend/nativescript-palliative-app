@@ -19,83 +19,83 @@ export default {
 		color: '#a57ed7'
 	}],
 
-	logs: [],
-	// [{
-	// 	id: '201915545',
-	// 	phone: '7788095547',
-    //     caller: 'Jihyun Lee',
-    //     client: 'Apple Pasta',
-	// 	relation: 'Friend',
-	// 	info: '27, no history',
-	//	notes: 'notes here hhhh',
-	// 	nurse: '888888',
-    //     createdTime: '5:45 | JAN / 05 / 2019',
-	// 	status: true,
-	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
-	// 	intro_answers: [{
-	// 		id: 1,
-	// 		a: ["Yes", "Terrible"]
-	// 	}, {
-	// 		id: 2,
-	// 		a: ["Lots"]
-	// 	}, {
-	// 		id: 3,
-	// 		a: []
-	// 	}],
-	// 	items_answers: [],
-	// 	others_answers: [],
-	// 	plans_answers: [],
-    // }, {
-	// 	id: '2018125145',
-	// 	phone: '6045128638',
-    //     caller: 'Ahssan Moshref',
-    //     client: 'Melon Pizza',
-	// 	relation: 'Friend',
-	// 	info: '88, no history',
-	//	notes: 'random notes',
-	// 	nurse: '888888',
-    //     createdTime: '1:45 | DEC / 05 / 2018',
-	// 	status: false,
-	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
-	// 	intro_answers: [{
-	// 		id: 1,
-	// 		a: ["Yes", "Terrible"]
-	// 	}, {
-	// 		id: 2,
-	// 		a: ["Lots"]
-	// 	}, {
-	// 		id: 3,
-	// 		a: []
-	// 	}],
-	// 	items_answers: [],
-	// 	others_answers: [],
-	// 	plans_answers: [],
-    // }, {
-	// 	id: '201712855',
-	// 	phone: '7788836996',
-    //     caller: 'Jayleen Zhou',
-    //     client: 'Orange Chicken',
-	// 	relation: 'Friend',
-	// 	info: '77, no history',
-	//	notes: '???',
-	// 	nurse: '477567',
-    //     createdTime: '5:05 | DEC / 08 /2017',
-	// 	status: false,
-	// 	progress: [-1, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
-	// 	intro_answers: [{
-	// 		id: 1,
-	// 		a: ["No", "Terrible"]
-	// 	}, {
-	// 		id: 2,
-	// 		a: ["Lots"]
-	// 	}, {
-	// 		id: 3,
-	// 		a: []
-	// 	}],
-	// 	items_answers: [],
-	// 	others_answers: [],
-	// 	plans_answers: [],
-    // }],
+	logs: //[],
+	[{
+		id: '201915545',
+		phone: '7788095547',
+        caller: 'Jihyun Lee',
+        client: 'Apple Pasta',
+		relation: 'Friend',
+		info: '27, no history',
+		notes: 'notes here hhhh',
+		nurse: '888888',
+        createdTime: '5:45 | JAN / 05 / 2019',
+		status: true,
+		progress: [2, -1, -1, -1, 0], // progress: intro, proto, items, others, plans
+		intro_answers: [{
+			id: 1,
+			a: ["Yes", "Terrible"]
+		}, {
+			id: 2,
+			a: ["Lots"]
+		}, {
+			id: 3,
+			a: []
+		}],
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
+    }, {
+		id: '2018125145',
+		phone: '6045128638',
+        caller: 'Ahssan Moshref',
+        client: 'Melon Pizza',
+		relation: 'Friend',
+		info: '88, no history',
+		notes: 'random notes',
+		nurse: '888888',
+        createdTime: '1:45 | DEC / 05 / 2018',
+		status: false,
+		progress: [3, 3, -1, 4, 0], // progress: intro, proto, items, others, plans
+		intro_answers: [{
+			id: 1,
+			a: ["Yes", "Terrible"]
+		}, {
+			id: 2,
+			a: ["Lots"]
+		}, {
+			id: 3,
+			a: []
+		}],
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
+    }, {
+		id: '201712855',
+		phone: '7788836996',
+        caller: 'Jayleen Zhou',
+        client: 'Orange Chicken',
+		relation: 'Friend',
+		info: '77, no history',
+		notes: '???',
+		nurse: '477567',
+        createdTime: '5:05 | DEC / 08 /2017',
+		status: false,
+		progress: [3, 3, -1, 4, 1], // progress: intro, proto, items, others, plans
+		intro_answers: [{
+			id: 1,
+			a: ["No", "Terrible"]
+		}, {
+			id: 2,
+			a: ["Lots"]
+		}, {
+			id: 3,
+			a: []
+		}],
+		items_answers: [],
+		others_answers: [],
+		plans_answers: [],
+    }],
 
 
 

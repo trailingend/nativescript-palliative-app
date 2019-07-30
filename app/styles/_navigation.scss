@@ -7,14 +7,15 @@
     //     background: red;
     // }
     .navigation-close {
-        margin: 10 100 0 30;
-        font-size: 17;
+        margin: 10 96 8 30;
+        font-size: 18;
         font-weight: 400;
+        font-family: sans-serif;
         text-transform: capitalize;
         letter-spacing: 0.01;
     }
     .navigation-title {
-        margin: 10 0 5 0;
+        margin: 10 0 11 0;
         font-size: 18;
         font-weight: 400;
         text-transform: uppercase;
@@ -24,7 +25,7 @@
     .navigation-btn {
         width: 114;
         height: 34;
-        margin: 5 30 10 30;
+        margin: 10 30 10 30;
         border-radius: 30;
         font-size: 12;
         font-weight: 700;

@@ -36,6 +36,10 @@
 </template>
 
 <script lang="ts">
+    import Introduction from '../../intro/Introduction.vue';
+    import AssessItems from '../../protocols/AssessItems.vue';
+    import AssessOthers from '../../protocols/AssessOthers.vue';
+    import Plans from '../../protocols/Plans.vue';
     import Summary from '../../summary/Summary.vue';
 
     import { mapGetters } from 'vuex';
@@ -58,7 +62,8 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'users'
+                'users',
+                'intro'
 			])
 		},
         methods: {
@@ -77,21 +82,7 @@
                 if (this.isSwipeMode) {
                     this.isSwipeMode = false;
                 } else {
-                    const log_idx = args.index;
-                    const log = this.logs[log_idx];
-                    this.$navigateTo(Summary, {
-                        animated: true,
-                        clearHistory: true,
-                        transition: {
-                            name: 'slideTop',
-                            curve: 'easeIn',
-                            duration: 300
-                        },
-                        props: {
-                            log_id: log.id,
-                            has_prev: false
-                        }
-                    });
+                    this.triage(args.index);
                 }
             },
             onTouch(args) {
@@ -134,6 +125,89 @@
                 swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
                 this.$refs.logListView.notifySwipeToExecuteFinished();
                 this.isSwipeMode = true;
+            },
+            triage(log_idx) {
+                const log = this.logs[log_idx];
+
+                
+            },
+            prepareIntro(log_id, curr_idx) {
+                let steps_ids = [];
+                this.intro.forEach(elem => { steps_ids.push(elem.id); });
+                this.$navigateTo(Introduction, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                        step_ids: steps_ids,
+                        step_idx: curr_idx
+                    }
+                });
+            },
+            prepareItems(log_id, protocol_id, letter_id) {
+                this.$navigateTo(AssessItems, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                        protocol_id: protocol_id,
+                        preset_letter_id: letter_id
+                    }
+                });
+            },
+            prepareOthers(log_id, protocol_id) {
+                this.$navigateTo(AssessOthers, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                        protocol_id: protocol_id,
+                    }
+                });
+            },
+            preparePlans(log_id) {
+                this.$navigateTo(Plans, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                    }
+                });
+            },
+            prepareSummary(log_id) {
+                this.$navigateTo(Summary, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slideTop',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
+                        has_prev: false
+                    }
+                });
             },
         },
         

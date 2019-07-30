@@ -90,13 +90,12 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        preset_letter_id: letter_id
                     }
                 });
             },
             onOthersEditTap() {
-                let q_ids = [];
-                this.others_questions.forEach(elem => { q_ids.push(elem.id); });
                 this.$navigateTo(AssessOthers, {
                     animated: true,
                     clearHistory: true,
@@ -108,8 +107,6 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id,
-                        question_ids: q_ids,
-                        question_idx: 0,
                     }
                 });
             },

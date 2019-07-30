@@ -142,7 +142,11 @@
             protocol_id: {
                 type: Number,
                 required: true,
-            }
+            },
+            preset_letter_id: {
+                type: Number,
+                required: false,
+            },
         },
         computed: {
             ...mapGetters([
@@ -279,6 +283,18 @@
                     }
                 });
             },
+            goToTab(page, letter) {
+                if (page) {
+                    const dividerOffset = 48;
+                    const scrollView = page.getViewById("items-main-ctnr");
+                    const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
+                    if (letter.letter != 'O') {
+                        scrollView.scrollToVerticalOffset(y + dividerOffset, true);
+                    } else {
+                        scrollView.scrollToVerticalOffset(y, true);
+                    }
+                }
+            },
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
@@ -329,16 +345,7 @@
                 this.onForward();
             },
             onTabTap(args, letter) {
-                if (args.object.page) {
-                    const dividerOffset = 48;
-                    const scrollView = args.object.page.getViewById("items-main-ctnr");
-                    const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
-                    if (letter.letter != 'O') {
-                        scrollView.scrollToVerticalOffset(y + dividerOffset, true);
-                    } else {
-                        scrollView.scrollToVerticalOffset(y, true);
-                    }
-                }
+                this.goToTab(args.object.page, letter)
             },
             onScroll(args) {
                 let id = 1;
@@ -364,7 +371,12 @@
             onNavigatedTo(args) {
                 this.setupAnchors(args);
                 this.setTabMarks(args.object.page);
-                this.setTabText(1, args.object.page, true);
+                if (this.preset_letter_id === undefined) {
+                    this.setTabText(1, args.object.page, true);
+                } else {
+                    const preset_letter = this.letters.find(elem => elem.id === this.preset_letter_id);
+                    this.goToTab(args.object.page, preset_letter);
+                }
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
