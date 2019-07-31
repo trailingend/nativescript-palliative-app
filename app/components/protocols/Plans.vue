@@ -33,12 +33,14 @@
                             </StackLayout>
                         </GridLayout>
                     </StackLayout>
-                    <TextView v-model="free_text" 
-                              id="plans-free"
-                              class="plans-free"
-                              hint="Take notes here..."
-                              @textChange="onTextEntered"
-                              editable="true" />
+                    <StackLayout class="plans-free-ctnr">
+                        <TextView v-model="free_text" 
+                                id="plans-free"
+                                class="plans-free"
+                                hint="Take notes here..."
+                                @textChange="onTextEntered"
+                                editable="true" />
+                    </StackLayout>
                 </StackLayout>
             </ScrollView>
 

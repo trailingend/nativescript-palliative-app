@@ -67,20 +67,20 @@
             border-color: $color-red;
             margin-bottom: 0;
         }
-        .client-free {
-            font-weight: 400;
-            letter-spacing: 0.1;
-            text-align: left;
-            width: 100%;
-            height: 100;
+        .client-free-ctnr {
             padding: 5 8;
             background: white;
             border-width: 1.5;
-            text-align: left;
             border-color: $log-border-color;
             border-radius: $border-size;
         }
-        
+        .client-free {
+            height: 100;
+            font-weight: 400;
+            letter-spacing: 0.1;
+            text-align: left;            
+            background: white;
+        }
         .client-btn {
             margin: 30 auto;
         }

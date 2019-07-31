@@ -19,13 +19,15 @@
         font-weight: 500;
     }
 }
-.answers-free {
-    height: $textview-height;
-    margin: 0 5;
+.answers-free-ctnr {
     padding: 5 8;
-    // border-width: 1.5;
-    text-align: left;
     background: $color-unselected;
     border-color: $log-border-color;
     border-radius: $border-size;
+}
+.answers-free {
+    height: $textview-height;
+    margin: 0 5;
+    text-align: left;
+    background: $color-unselected;
 }

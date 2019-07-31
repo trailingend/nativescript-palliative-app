@@ -9,7 +9,7 @@
             <ScrollView row="1" col="0" rowSpan="2" >
                 <StackLayout class="client-main-ctnr">
                     <Label class="client-title" text="client Information" ></Label>       
-                    <PreviousNextView>             
+                    <!-- <PreviousNextView>              -->
                         <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns" >
                             <Label :row="gridSetting.children.q1.row" 
                                     :col="gridSetting.children.q1.col"
@@ -86,7 +86,7 @@
                                     text="Please enter a relationship" 
                                     opacity="0" />
                         </GridLayout>
-                    </PreviousNextView>
+                    <!-- </PreviousNextView> -->
 
                     <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
                         <StackLayout>
@@ -102,11 +102,13 @@
                     <StackLayout>
                         <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
                         <Label class="client-d" text="Ex. age, diagnosis, history, medical profile, care plan, GOC."/>
-                        <TextView id="client-free"
-                                class="client-free"
-                                hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
-                                @textChange="resetTextviewModel"
-                                editable="true" />
+                        <StackLayout class="client-free-ctnr">
+                            <TextView id="client-free"
+                                    class="client-free"
+                                    hint="Ex. age, diagnosis, history, medical profile, care plan, GOC."
+                                    @textChange="resetTextviewModel"
+                                    editable="true" />
+                        </StackLayout>
                     </StackLayout>
 
                     <!-- <Button class="form-btn client-btn" text="Next" @tap="onNextTap" /> -->

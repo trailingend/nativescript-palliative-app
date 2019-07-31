@@ -13,12 +13,14 @@
             <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
             <StackLayout row="0" col="2" width="30" ></StackLayout>
         </GridLayout>
-        <TextView v-model="free_text" 
-                  :id="`answers-free-${question_id}`"
-                  class="answers-free"
-                  hint="Additional notes here"
-                  @textChange="onTextEntered"
-                  editable="true" />
+        <StackLayout class="answers-free-ctnr">
+            <TextView v-model="free_text" 
+                    :id="`answers-free-${question_id}`"
+                    class="answers-free"
+                    hint="Additional notes here"
+                    @textChange="onTextEntered"
+                    editable="true" />
+        </StackLayout>
     </StackLayout>
 </template>
 

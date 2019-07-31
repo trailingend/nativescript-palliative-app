@@ -7,8 +7,8 @@
                     @layoutChanged="onLayoutUpdate">
             <ScrollView>
                 <StackLayout row="1" col="0" class="notes-main-ctnr">
-                    <Label class="notes-title" text="Additioanl Notes" ></Label>   
-                    <StackLayout>
+                    <Label class="notes-title" text="Additional Notes" ></Label>   
+                    <StackLayout class="notes-free-ctnr">
                         <TextView v-model="c_notes" 
                                   id="notes-free"
                                   class="notes-free"

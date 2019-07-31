@@ -59,7 +59,6 @@
                 }).then((result) => {
                     if (result || result === undefined) {
                         this.generatePDF();
-                        this.onEmailSent();
                     } 
                 });
             },

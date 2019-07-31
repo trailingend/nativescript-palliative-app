@@ -48,16 +48,18 @@
                 font-weight: 400;
             }
         }
-        .plans-free {
+        .plans-free-ctnr {
             width: $content-width;
-            height: $textview-height;
             margin: 15 0;
             padding: 5 8;
-            // border-width: 1.5;
-            text-align: left;
             background: $color-unselected;
             border-color: $log-border-color;
             border-radius: $border-size;
+        }
+        .plans-free {
+            height: $textview-height;
+            text-align: left;
+            background: $color-unselected;
         }
         .q-icon {
             margin: 20 30 20 0;
