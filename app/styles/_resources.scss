@@ -6,12 +6,10 @@
     .resources-main-ctnr {
         vertical-align: middle;
     }
-    .resources-close-ctnr {
-        background: $color-light-yellow;
-    }
     .close-btn {
-        margin: 25 25 0 0;
+        margin: 25 ;
         horizontal-align: right;
+        vertical-align: top;
     }  
     .resources-main-ctnr {
         margin: auto;
@@ -39,7 +37,7 @@
         text-transform: uppercase;
     }
     .resources-tab-ctnr {
-        padding: 10 0 20 0;
+        padding: 10 0 30 0;
         background: $color-light-yellow;
     }
     .resources-tab {

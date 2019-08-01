@@ -4,14 +4,15 @@
             <Label text="Client Information" class="sum-sec-title"/>
             <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         </FlexboxLayout>
-        <GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="*, *">
+        <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*, *">
             <Label row="0" col="0" text="Client's Name: " class="sum-text sum-bold"/>
             <Label row="1" col="0" text="Call-back Number: " class="sum-text sum-bold"/>
             <Label row="2" col="0" text="Caller's Name: " class="sum-text sum-bold"/>
-            <Label row="3" col="0" text="Relationship to client: " class="sum-text sum-bold"/>
-            <Label row="4" col="0" text="Consent to recorded: " class="sum-text sum-bold"/>
-            <Label row="5" col="0" text="Intake Nurse " class="sum-text sum-bold"/>
-            <Label row="6" col="0" text="Intake Date: " class="sum-text sum-bold"/>
+            <Label row="3" col="0" text="Caller's relationship to client: " class="sum-text sum-bold"/>
+            <Label row="4" col="0" text="Consent to documente call " class="sum-text sum-bold"/>
+            <Label row="5" col="0" text="and to represent client " class="sum-text sum-bold"/>
+            <Label row="6" col="0" text="Intake Nurse " class="sum-text sum-bold"/>
+            <Label row="7" col="0" text="Intake Date: " class="sum-text sum-bold"/>
             
 
             <Label row="0" col="1" :text="client.client" class="sum-text"/>
@@ -19,8 +20,8 @@
             <Label row="2" col="1" :text="client.caller" class="sum-text"/>  
             <Label row="3" col="1" :text="client.relation" class="sum-text"/> 
             <Label row="4" col="1" text="Yes" class="sum-text" />                       
-            <Label row="5" col="1" :text="nurse_name" class="sum-text" />
-            <Label row="6" col="1" :text="client.createdTime" class="sum-text" />
+            <Label row="6" col="1" :text="nurse_name" class="sum-text" />
+            <Label row="7" col="1" :text="client.createdTime" class="sum-text" />
             
         </GridLayout>
     </StackLayout>

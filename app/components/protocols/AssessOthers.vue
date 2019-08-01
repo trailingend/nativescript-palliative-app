@@ -11,7 +11,7 @@
 
             <StackLayout row="2" col="0" colSpan="3" class="others-title-ctnr">
                 <Label class="others-title" :text="p_title"></Label> 
-                <Label class="others-subtitle" text="Others"></Label>
+                <Label class="others-subtitle" text="Other"></Label>
                 <StackLayout class="divider-ctnr"></StackLayout>
             </StackLayout>
 

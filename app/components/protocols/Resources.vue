@@ -2,19 +2,19 @@
 <Frame id="resourcesFrame">
      <Page class="page resources-page" @navigatedTo="onNavigatedTo">
          <GridLayout :class="ctnrSetting"
-                     rows="auto, auto, auto, *" columns="*"
+                     rows="auto, auto, *" columns="*"
                      ref="resourcesGridRef" 
                      @layoutChanged="onLayoutUpdate">
-            <StackLayout row="0" col="0" class="resources-close-ctnr">
-                <Image width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            </StackLayout>
+            
 
-            <StackLayout row="1" col="0" class="resources-title-ctnr">
+            <StackLayout row="0" col="0" class="resources-title-ctnr">
                 <Label class="resources-title" :text="protocol_name" />
                 <Label class="resources-subtitle" text="Recommend" />
             </StackLayout>
+                
+            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
 
-            <FlexboxLayout row="2" col="0" flexDirect="row" alignItems="center" justifyContent="space-around" class="resources-tab-ctnr">
+            <FlexboxLayout row="1" col="0" flexDirect="row" alignItems="center" justifyContent="space-around" class="resources-tab-ctnr">
                 <Button v-for="(info, index) in button_list" 
                         :key="index"
                         :text="info.title"
@@ -23,7 +23,7 @@
                         @tap="(args) => { onTabTap(args, info.id); }" />
             </FlexboxLayout>
 
-            <ScrollView row="3" col="0" id="resources-main-ctnr" class="resources-main-ctnr">
+            <ScrollView row="2" col="0" id="resources-main-ctnr" class="resources-main-ctnr">
                 <StackLayout >
                     <StackLayout id="resources-item-ctnr-res" class="resources-item-ctnr resources-resc-ctnr">
                         <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">

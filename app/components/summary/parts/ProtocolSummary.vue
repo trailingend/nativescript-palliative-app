@@ -18,7 +18,7 @@
 
         <StackLayout class="sum-pseudo-item-ctnr">
             <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-                <Label class="sum-item-title" text="Others" />
+                <Label class="sum-item-title" text="Other" />
                 <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onOthersEditTap()"></Image>
             </FlexboxLayout>                    
             <StackLayout v-for="question in others_questions" :key="question.id">

@@ -16,10 +16,10 @@
                             <Label :text="`${client.createdTime} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
-                        <StackLayout class="bar-ctnr"></StackLayout>
+                        <!-- <StackLayout class="bar-ctnr"></StackLayout>
                         <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
                             <Image class="facetime-icon" width="35" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
-                        </StackLayout>
+                        </StackLayout> -->
                     </FlexboxLayout>
                 </v-template>
 
@@ -89,12 +89,12 @@
             onTouch(args) {
                 console.log("=== Log touched === " + args.action);
             },
-            onCallTap(id) {
-                const log = this.logs.find(elem => { return elem.id === id; });
-                const phone_num = log.phone.replace(/-/g, "");
-                console.log("=== facetime === " + log.phone);
-                openUrl('facetime:' + phone_num);
-            },
+            // onCallTap(id) {
+            //     const log = this.logs.find(elem => { return elem.id === id; });
+            //     const phone_num = log.phone.replace(/-/g, "");
+            //     console.log("=== facetime === " + log.phone);
+            //     openUrl('facetime:' + phone_num);
+            // },
             onDeleteTap(args) {
                 const id = args.object.bindingContext.id;
                 confirm({
