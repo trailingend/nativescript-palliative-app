@@ -11,28 +11,28 @@ export default {
     },
 
     [types.USER_CREATE](state, user) {
-        state.curr_user_idx = state.users.length;
+        state.curr_user_id = user.id;
         state.users.push(user);
         console.log("=== in mutation USER_CREATE ===");
         // console.dir(state.users);
     },
-    [types.USER_UPDATE](state, user_idx) {
-        state.curr_user_idx = user_idx;
+    [types.USER_UPDATE](state, user_id) {
+        state.curr_user_id = user_id;
     },
     [types.USER_DELETE](state, user_idx) {
         state.users.splice(user_idx, 1);
     },
     [types.USER_ALTER](state, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
-        state.curr_user_idx = userIdx;
+        state.curr_user_id = user.id;
         state.users[userIdx] = user;
         console.log("=== in mutation USER_ALTER ===");
         // console.dir(state.users);
     },
 
     [types.CHART_CREATE](state, entry){
-        if (state.curr_user_idx != -1) {
-            entry.nurse = state.users[state.curr_user_idx].id;
+        if (state.curr_user_id != -1) {
+            entry.nurse = state.curr_user_id;
         }
         state.logs.unshift(entry); 
         console.log("=== in mutation CHART_CREATE ===")

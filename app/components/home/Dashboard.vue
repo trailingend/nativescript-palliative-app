@@ -25,7 +25,7 @@
             <Image row="3" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/mask-l.png" stretch="aspectFill"></Image>
             <Image row="4" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/pad-l.png" stretch="aspectFill"></Image>
 
-            <StackLayout row="4" col="0" colSpan="3" class="home-btn-ctnr" >
+            <StackLayout row="3" col="0" rowSpan="2" colSpan="3" class="home-btn-ctnr" >
                 <Button class="home-add" text="NEW CLIENT" @tap="onNewTap"></Button>
             </StackLayout>
         </GridLayout>
@@ -65,7 +65,7 @@
         },
         computed: {
             ...mapGetters([
-                'curr_user_idx',
+                'curr_user_id',
 			])
 		},
         methods: {
@@ -81,7 +81,7 @@
                 }
             },
             checkUserStatus() {
-                this.userSetting = (this.curr_user_idx == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr"
+                this.userSetting = (this.curr_user_id == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr"
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");

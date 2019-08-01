@@ -1,29 +1,38 @@
 <template>
 <Frame id="userFrame">
      <Page class="page select-user-page">
-         <GridLayout :class="ctnrSetting"
-                     rows="auto, *" columns="*"
+         <GridLayout rows="auto, auto, *, auto" columns="*"
                      ref="userSelectGridRef" 
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <StackLayout row="0" col="0" rowSpan="2" class="select-content-ctnr">
-                <Label class="select-title" text="user infomation" ></Label>   
-                <StackLayout v-if="users.length > 0">
+            <Label row="1" col="0" class="select-title" text="user infomation" ></Label>   
+            <StackLayout row="2" col="0" rowSpan="1" :class="ctnrSetting">
+                <StackLayout v-if="users.length > 0" class="select-content-ctnr">
                     <Label class="select-text" text="select from saved users" ></Label>   
-                    <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">
-                        <StackLayout v-for="user in users" 
-                                    :key="user.id" 
-                                    class="select-ppl" 
-                                    :width="widthSetting"
-                                    @tap="onUserTap(user)"
-                                    @longPress="onUserLongPress(user)" > 
-                                    <StackLayout class="select-head" :background="user.color"></StackLayout>
-                                    <Label class="select-text select-name" :text="user.name"></Label>
+                    <ScrollView class="select-scroll">
+                        <StackLayout>
+                            <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">
+                                <StackLayout v-for="user in users" 
+                                            :key="user.id" 
+                                            class="select-ppl" 
+                                            :width="widthSetting"
+                                            @tap="onUserTap(user)"
+                                            @longPress="onUserLongPress(user)" > 
+                                            <StackLayout class="select-head" :background="user.color"></StackLayout>
+                                            <Label class="select-text select-name" :text="user.name" textWrap="true"></Label>
+                                </StackLayout>
+                            </FlexboxLayout>
                         </StackLayout>
-                    </FlexboxLayout>
-                    <Label class="select-text" text="or" ></Label> 
+                    </ScrollView>
                 </StackLayout>
-                <Label v-else text="No Currently saved user" class="user-null" />
+
+                <StackLayout v-if="users.length <= 0" class="select-content-ctnr">
+                    <Label  text="No Currently saved user" class="user-null" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout row="3" col="0" >
+                <Label class="select-text" text="or" ></Label> 
                 <Button class="form-btn select-add-btn" text="Add new user" @tap="onAddTap" />
             </StackLayout>
         </GridLayout>
@@ -57,7 +66,7 @@
             ...mapGetters([
                 'users',
                 'logs',
-                'curr_user_idx'
+                'curr_user_id'
 			]),
 		},
         methods: {
@@ -72,18 +81,19 @@
                     cancelButtonText: "Cancel",
                     inputType: dialogs.inputType.number
                 }).then(result => {
-                    if (result.text == user.id) {
-                        this.activateUser(user);
-                        this.$modal.close();
-                        console.log("=== User Selected ===");
-                    } else {
-                        dialogs.confirm({
-                            title: "ID not match",
-                            message: "The ID you entered does not match our record.",
-                            okButtonText: "OK",
-                        });
-                        console.log("=== User Not found ===");
+                    if (result.result) {
+                        if (result.text == user.id) {
+                            this.activateUser(user);
+                            this.$modal.close();
+                        } else {
+                            dialogs.confirm({
+                                title: "ID not match",
+                                message: "The ID you entered does not match our record.",
+                                okButtonText: "OK",
+                            });
+                        }
                     }
+                    
                 });
             },
             onAddTap() {
@@ -103,7 +113,7 @@
                 });
             },
             onUserLongPress(user) {
-                if (this.curr_user_idx === this.users.findIndex(elem => { return elem.id === user.id })) {
+                if (this.curr_user_id === user.id) {
                     dialogs.alert('This is the current user. Cannot delete. Please log out first.').then(() => {
                         console.log("=== in Select User - cannot delete user ===");
                     });

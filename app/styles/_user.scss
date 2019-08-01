@@ -1,10 +1,6 @@
 @import "variables";
 
-.select-user-ctnr {
-    
-    .select-content-ctnr {
-        vertical-align: middle;
-    }
+.select-user-page {
     .close-btn {
         margin: 25;
         horizontal-align: right;
@@ -14,38 +10,52 @@
         font-weight: 500;
         letter-spacing: 0.1;
         text-transform: uppercase;
-        margin-bottom: 60;
+        margin-bottom: 40;
+    }
+    .select-add-btn {
+        width: 220;
+        margin-bottom: 80;
     }
     .select-text {
         font-weight: 700;
         text-transform: uppercase;
+        margin-bottom: 40;
     }
-    .select-ppl-ctnr {
-        margin: 80 auto;
+
+    .select-user-ctnr {
+        vertical-align: middle;
+                
+        .select-scroll {
+            padding: 20 0;
+        }
+        .select-content-ctnr {
+        }
+        
+        .select-ppl-ctnr {
+            margin-bottom: 80;
+        }
+        .select-ppl {
+            margin: 10 25;
+        }
+        .select-head {
+            width: 80;
+            height: 80;
+            border-radius: 50;
+        }
+        .select-name {
+            margin-top: 15;
+        }
+        
+        .user-null {
+            font-family: 'Nunito', sans-serif;
+            color: #777777;
+            font-size: 18;
+            font-weight: 200;
+            letter-spacing: 0.05;
+            text-transform: uppercase;
+        }
     }
-    .select-ppl {
-        margin: 20 25;
-    }
-    .select-head {
-        width: 80;
-        height: 80;
-        border-radius: 50;
-    }
-    .select-name {
-        margin-top: 15;
-    }
-    .select-add-btn {
-        width: 220;
-        margin-top: 40;
-    }
-    .user-null {
-        font-family: 'Nunito', sans-serif;
-        color: #777777;
-        font-size: 18;
-        font-weight: 200;
-        letter-spacing: 0.05;
-        text-transform: uppercase;
-    }
+
 }
 
 
@@ -55,8 +65,8 @@
         horizontal-align: right;
     }  
     .add-user-ctnr {
-        vertical-align: middle;
-        margin: 0 80;
+        margin-top: 80;
+        margin-bottom: 80;
         background-color: white;
        
         .add-user-title {

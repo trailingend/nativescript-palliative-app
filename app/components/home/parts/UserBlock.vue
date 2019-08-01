@@ -45,15 +45,15 @@
         },
         computed: {
             ...mapGetters([
-                'curr_user_idx',
+                'curr_user_id',
                 'users'
 			]),
 		},
         methods: {
             prepareUser() {
-                if (this.curr_user_idx != -1) {
+                if (this.curr_user_id != -1) {
                     this.has_user = true;
-                    this.user = this.users[this.curr_user_idx];
+                    this.user = this.users.find((user)=> {return user.id === this.curr_user_id; });
                     this.$emit("userChange");
                 } else {
                      this.has_user = false;

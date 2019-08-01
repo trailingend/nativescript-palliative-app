@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import localStorage from 'nativescript-localstorage';
+import localStorage from 'nativescript-localstorage';
 
 import state from './state';
 import getters from './getters';

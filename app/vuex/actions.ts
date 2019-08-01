@@ -23,8 +23,7 @@ export default {
     },
 
     activateUser({commit, state}, user) {
-        const idx = state.users.findIndex(elem => { return elem.id === user.id });
-        commit(types.USER_UPDATE, idx);
+        commit(types.USER_UPDATE, user.id);
     },
 
     deleteUser({commit, state}, user_id) {

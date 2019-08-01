@@ -6,7 +6,7 @@
                     @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <StackLayout row="0" col="0" rowSpan="2" :class="formSetting.class">
-                <Label class="add-user-title" text="Shift information" ></Label>    
+                <Label class="add-user-title" text="user information" ></Label>    
                 <!-- <PreviousNextView> -->
                 <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto" columns="*">
                     <Label row="0" col="0" class="add-q1 add-q" text="Full name:" textWrap="true"/>

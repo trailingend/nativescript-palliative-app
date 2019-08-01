@@ -1,5 +1,5 @@
 export default {
-	curr_user_idx: -1,
+	curr_user_id: -1,
 	curr_log_id: null,
 	timer_value: 0,
 	timer_status: false,
