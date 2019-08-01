@@ -39,7 +39,7 @@
         .plans-a-ctnr {
             color: black;
             width: $content-width;
-            margin: 5 0;
+            margin: 5 5;
             padding: 10;
             border-radius: $border-size;
             background: $color-unselected;
@@ -50,7 +50,7 @@
         }
         .plans-free-ctnr {
             width: $content-width;
-            margin: 15 0;
+            margin: 15 5;
             padding: 5 8;
             background: $color-unselected;
             border-color: $log-border-color;
@@ -84,7 +84,7 @@
             .plans-a-ctnr {
                 width: $content-width-landscape;
             }
-            .plans-free {
+            .plans-free-ctnr {
                 width: $content-width-landscape;
             }
         }

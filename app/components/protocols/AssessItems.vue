@@ -291,7 +291,7 @@
             },
             goToTab(page, letter) {
                 if (page) {
-                    const dividerOffset = 48;
+                    const dividerOffset = 72;
                     const scrollView = page.getViewById("items-main-ctnr");
                     const y = this.item_anchors.find(elem => { return elem.id === letter.id; }).y;
                     if (letter.letter != 'O') {
@@ -403,7 +403,7 @@
                         columns: "*, *, *",
                         denominator: 3
                     };
-                    extra_for_landscape = 20;
+                    extra_for_landscape = 25;
                 } else {
                     this.formatSetting = "items-ctnr";
                     this.gridSetting = {
@@ -419,7 +419,7 @@
                     this.$refs.itemsGridRef.nativeView.getMeasuredHeight() 
                 );
                 if (this.thingsHeight) {
-                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + extra_for_landscape : 0;
+                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
                 } else {
                     this.thingsHeight = utils.layout.toDeviceIndependentPixels( 
                         this.$refs.navRef.nativeView.getMeasuredHeight() 
@@ -427,7 +427,7 @@
                         + this.$refs.titleRef.nativeView.getMeasuredHeight() 
                         + args.object.page.getViewById(`items-item-ctnr-${last_letter_id}`).getMeasuredHeight() 
                     );
-                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + extra_for_landscape : 0;
+                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
                 }
             },
         }

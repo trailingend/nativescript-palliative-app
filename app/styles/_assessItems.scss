@@ -18,7 +18,8 @@
             color: black;
         }
         .items-subtitle {
-            font-size: 20;
+            margin-top: 15;
+            font-size: 22;
             font-weight: 900;
             text-transform: uppercase;
         }
@@ -34,13 +35,13 @@
             font-size: 20;
             font-weight: 700;
             border-radius: 10; 
-            border-width: 3;
+            border-width: 2;
             border-color: $color-tab-border;
             background: white;
             transform: translateX(-10);
         }
         .items-icon {
-            padding: 23 0 23 47.5;
+            padding: 22 0 22 47.5;
             background: transparent;
         }
         .items-complete-icon {
@@ -79,7 +80,7 @@
                 font-size: 17;
             }
             .items-icon {
-                padding: 21 0 21 47.5;
+                padding: 20 0 20 47.5;
             }
             .answers-a-wrapper {
                 width: $content-width-landscape;
