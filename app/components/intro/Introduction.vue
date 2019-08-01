@@ -5,7 +5,7 @@
                     columns="auto, *, auto" ref="introGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="false" @goToProtocol="(data) => goToNextProtocol(data)"/>
 

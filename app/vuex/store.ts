@@ -9,22 +9,22 @@ import actions from './actions';
 
 Vue.use(Vuex);
 
-// const NSVuexPersistent = store => {
-//     let storageStr = localStorage.getItem('ns-vuex-persistent');
+const NSVuexPersistent = store => {
+    let storageStr = localStorage.getItem('ns-vuex-persistent');
 
-//     if (storageStr) {
-//         store.replaceState(JSON.parse(storageStr));
-//     }
+    if (storageStr) {
+        store.replaceState(JSON.parse(storageStr));
+    }
 
-//     store.subscribe((mutation, state) => {
-//         localStorage.setItem('ns-vuex-persistent', JSON.stringify(state));
-//     })
-// };
+    store.subscribe((mutation, state) => {
+        localStorage.setItem('ns-vuex-persistent', JSON.stringify(state));
+    })
+};
 
 export default new Vuex.Store({
     state,
     getters,
     mutations,
     actions,
-    // plugins: [NSVuexPersistent]
+    plugins: [NSVuexPersistent]
 });

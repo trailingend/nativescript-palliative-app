@@ -17,19 +17,41 @@
     import { confirm }  from "tns-core-modules/ui/dialogs";
 
     export default {
+        data() {
+            return {
+            }
+        },
+        props: {
+            is_close: {
+                type: Boolean,
+                required: true,
+            }
+        },
         methods: {
             onCloseTap() {
-                confirm({
-                    title: "Close Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Save and Close",
-                    neutralButtonText: "Close without Saving",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.onBackToHome();
-                    } 
-                });
+                if (this.is_close) {
+                    confirm({
+                        title: "Close Chart",
+                        message: "Your current progress will be saved in your Chart History.",
+                        okButtonText: "Save and Close",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result) {
+                            this.onBackToHome();
+                        } 
+                    });
+                } else {
+                    confirm({
+                        title: "Cancel Create Chart",
+                        message: "This client will not be charted.",
+                        okButtonText: "Close without Saving",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result || result === undefined) {
+                            this.onBackToHome();
+                        } 
+                    });
+                }
             },
             onNewTap() {
                 confirm({

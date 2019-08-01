@@ -5,7 +5,7 @@
                      ref="userSelectGridRef" 
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <Label row="1" col="0" class="select-title" text="user infomation" ></Label>   
+            <Label row="1" col="0" class="select-title" text="user information" ></Label>   
             <StackLayout row="2" col="0" rowSpan="1" :class="ctnrSetting">
                 <StackLayout v-if="users.length > 0" class="select-content-ctnr">
                     <Label class="select-text" text="select from saved users" ></Label>   
@@ -32,7 +32,7 @@
             </StackLayout>
 
             <StackLayout row="3" col="0" >
-                <Label class="select-text" text="or" ></Label> 
+                <Label class="select-text select-or" text="or" ></Label> 
                 <Button class="form-btn select-add-btn" text="Add new user" @tap="onAddTap" />
             </StackLayout>
         </GridLayout>

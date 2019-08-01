@@ -4,7 +4,7 @@
                     rows="auto, *, auto" 
                     columns="auto, *" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
 
             <ScrollView row="1" col="0" rowSpan="2" colSpan="2">
                 <StackLayout class="summary-main-ctnr">

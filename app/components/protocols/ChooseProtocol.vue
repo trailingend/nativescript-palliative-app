@@ -4,7 +4,7 @@
                     rows="auto, auto, *, auto" 
                     columns="auto, *, auto" ref="chooseGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)"/>
 

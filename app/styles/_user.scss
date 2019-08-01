@@ -14,19 +14,21 @@
     }
     .select-add-btn {
         width: 220;
-        margin-bottom: 80;
+        margin-bottom: 110;
     }
     .select-text {
         font-weight: 700;
         text-transform: uppercase;
         margin-bottom: 40;
     }
+    .select-or {
+        margin-top: 40;
+    }
 
     .select-user-ctnr {
         vertical-align: middle;
                 
         .select-scroll {
-            padding: 20 0;
         }
         .select-content-ctnr {
         }
@@ -65,8 +67,7 @@
         horizontal-align: right;
     }  
     .add-user-ctnr {
-        margin-top: 80;
-        margin-bottom: 80;
+        margin: 80;
         background-color: white;
        
         .add-user-title {

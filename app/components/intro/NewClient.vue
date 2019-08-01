@@ -4,7 +4,7 @@
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"
                      @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" />
+            <NavBar row="0" col="0" :is_close="false"/>
 
             <ScrollView row="1" col="0" rowSpan="2" >
                 <StackLayout class="client-main-ctnr">
@@ -14,7 +14,7 @@
                             <Label :row="gridSetting.children.q1.row" 
                                     :col="gridSetting.children.q1.col"
                                     class="client-q client-q1" 
-                                    text="Call-back #:" 
+                                    text="Call-back Number:" 
                                     textWrap="true"/>
                             <MaskedTextField :row="gridSetting.children.a1.row" 
                                             :col="gridSetting.children.a1.col"
@@ -70,7 +70,7 @@
                             <Label :row="gridSetting.children.q4.row" 
                                     :col="gridSetting.children.q4.col"
                                     class="client-q client-q4" 
-                                    text="Relationship to client:" 
+                                    text="Caller's relationship to client:" 
                                     textWrap="true"/>
                             <TextField :row="gridSetting.children.a4.row" 
                                         :col="gridSetting.children.a4.col"

@@ -6,7 +6,7 @@
         <StackLayout class="bar-ctnr"></StackLayout>
         <StackLayout flexGrow="2" class="client-text-ctnr" @tap="onEditTap">
             <Label :text="client.client" class="client-text client-bold"/>
-            <Label :text="`${formatted_phone} | ${client.caller}`" class="client-text"/>                            
+            <Label :text="`${formatted_phone} | CALLER: ${client.caller}`" class="client-text"/>                            
             <Label :text="`${client.createdTime} | ${nurse_name}`" class="client-text client-light" />
         </StackLayout>
         <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap"></Image>
