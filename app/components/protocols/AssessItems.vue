@@ -7,7 +7,7 @@
                     @layoutChanged="onLayoutUpdate">
             <NavBar row="0" col="0" colSpan="4" @newClient="addNewChart" ref="navRef" />
 
-            <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)" ref="clientBlockRef"/>
+            <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)" ref="clientBlockRef"/>
 
             <StackLayout row="2" col="0" rowSpan="1" colSpan="4" class="items-title-ctnr" ref="titleRef">
                 <Label class="items-title" :text="p_title"></Label>

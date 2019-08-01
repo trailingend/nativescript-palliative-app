@@ -15,11 +15,10 @@
         background-size: contain;
     }
     .home-logo-ctnr {
-        background: transparent;
         margin: 0 5;
 
         .home-logo {
-            width: 200;
+            width: 230;
             horizontal-align: left;
             margin: 75 50 25 50;
         }
@@ -34,7 +33,8 @@
         
         .user-ctnr {
             width: 336;
-            padding: 25 25;
+            padding: 15 25;
+            margin: 15 0;
             border-color: $color-light-yellow;
             border-width: 3;
             border-right-width: 0;
@@ -53,18 +53,21 @@
             text-transform: uppercase;
         }
         .user-head {
-            width: 30;
-            height: 30;
+            width: 35;
+            height: 35;
             border-radius: 25;
-            margin-top: 5;
-            margin-right: 5;
+            margin-top: 10;
+            margin-right: 0;
         }
         .user-bold {
             font-size: 24;
-            font-weight: 700;
+            font-weight: 400;
+            line-height: 0;
             text-transform: capitalize;
             letter-spacing: 0.02;
-            margin-bottom: 5;
+        }
+        .user-text {
+            line-height: 0;
         }
         .user-shift {
             margin-top: 15;
@@ -83,16 +86,17 @@
                 width: auto;
                 background: $color-dark-yellow;
                 border-color: white;
-                transform: translateX(25);
-                padding: 35 25;
+                transform: translateX(50);
+                padding: 25 25;
+                margin: 25 0;
             }
             .home-setting {
-                transform: translateX(0);
+                transform: translateX(30);
             }
             .user-begin-text {
                 font-size: $user-begin-font-size;
                 font-weight: 700;
-                line-height: 00%;
+                line-height: 0;
                 text-align: right;
             }
             .edit-icon {
@@ -185,18 +189,15 @@
         }
         .delete-btn {
             padding: 0 18;
-            background: white;
-            color: red;
+            font-weight: 700;
+            background: $color-delete;
+            color: white;
             height: 100%;
         }
     }
 
     .home-btn-ctnr {
-        background-image: url('~/assets/images/add-background.png');
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-        width: 100%;
+        vertical-align: top;
 
         .home-add {
             width: 240;
@@ -219,17 +220,18 @@
         }
         .home-logo-ctnr {
             .home-logo {
-                margin: 40 0 30 50;
+                margin: 40 0 0 50;
             }
         }
         .home-user-ctnr {
-            margin: 20 0 0 0;
+            margin: 15 0 0 0;
+            
 
             &.home-user-begin-ctnr {
                 .user-ctnr {
                     transform: translateX(40);
-                    padding: 30 45;
-                    height: 120;
+                    padding: 20 45;
+                    margin: 30 0;
                 }
                 .home-setting {
                     transform: translateX(25);
@@ -247,7 +249,6 @@
             padding: 10 0 25 0;
         }
         .home-btn-ctnr {
-            background-image: url('~/assets/images/add-background-landscape.png');
             .home-add {
                 margin-top: $add-top-margin-landscape;
             }

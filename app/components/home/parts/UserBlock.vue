@@ -4,7 +4,7 @@
             <StackLayout class="user-head" :background="user.color" @tap="onDotTap"></StackLayout>
             <StackLayout>
                 <Label class="user-item user-bold" :text="user.name" />
-                <Label class="user-item" :text="`ID #: ${user.id}`" />
+                <Label class="user-item user-text" :text="`ID #: ${user.id}`" />
                 <Label class="user-item user-shift" :text="`Shift: ${user.shift_start} - ${user.shift_end}`" />
             </StackLayout>
             <StackLayout class="edit-ctnr">

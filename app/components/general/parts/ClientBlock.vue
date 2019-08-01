@@ -10,8 +10,8 @@
             <Label :text="`${client.createdTime} | ${nurse_name}`" class="client-text client-light" />
         </StackLayout>
         <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap"></Image>
-        <StackLayout class="bar-ctnr"></StackLayout>
-        <StackLayout class="op-ctnr proto-ctnr" @tap="onProtoTap">
+        <StackLayout v-show="has_proto" class="bar-ctnr"></StackLayout>
+        <StackLayout v-show="has_proto" class="op-ctnr proto-ctnr" @tap="onProtoTap">
             <Label class="op-text" text="protocols"></Label>
             <Label class="op-text" :text="`(${count_protocols})`"></Label>
         </StackLayout>
@@ -50,6 +50,10 @@
         props: {
             log_id: {
                 type: String,
+                required: true,
+            },
+            has_proto: {
+                type: Boolean,
                 required: true,
             }
         },

@@ -7,8 +7,8 @@ $color-tab-border: #e3e3e3;
 $border-size: 8;
 $log-border: 25;
 $log-border-color: #dbdbdb;
-$add-top-margin: 60;
-$add-top-margin-landscape: 90;
+$add-top-margin: -35;
+$add-top-margin-landscape: -35;
 $page-top-margin: 20;
 $page-top-margin-landscape: 20;
 $textview-height: 150;
@@ -21,9 +21,10 @@ $color-dark-yellow: #ffdd68;
 $color-light-green: #acd6b5;
 $color-dark-blue: #373C51; 
 $color-red: #ff1f00;
+$color-delete: #ff6e5a;
 
 $page-title-font-size: 20;
 $form-title-font-size: 24;
-$user-begin-font-size: 24;
+$user-begin-font-size: 20;
 $user-begin-font-size-landscape: 20;
 

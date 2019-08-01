@@ -1,21 +1,31 @@
 <template>
     <Page :class="pageSetting.class">
-        <GridLayout class="home-ctnr" rows="auto, auto, *, 250" 
+        <GridLayout class="home-ctnr" rows="auto, auto, *, auto, auto" 
                                       columns="*, auto" 
                                       ref="homeGridRef" 
                                       @layoutChanged="onLayoutUpdate">
             <StackLayout row="0" col="0" class="home-logo-ctnr">
                 <Image class="home-logo" src="~/assets/images/logo.png" stretch="aspectFill" ></Image>
             </StackLayout>
+
             <StackLayout row="0" col="1" :class="userSetting" orientation="horizontal">
                 <Image class="home-setting" width="35" height="35" src="~/assets/images/union.png" stretch="aspectFill" @tap="onSettingTap"></Image>
                 <UserBlock @userChange="checkUserStatus" />
             </StackLayout>
+
             <StackLayout row="1" col="0" colSpan="3" class="log-title-ctnr">
                 <Label class="log-title" text="charts" />
             </StackLayout>
+
             <Logs row="2" col="0" rowSpan="2" colSpan="3" class="home-log-ctnr" />
-            <StackLayout row="3" col="0" colSpan="3" class="home-btn-ctnr" >
+
+            <Image row="3" col="0" colSpan="3" v-show="is_vertical" src="~/assets/images/mask-p.png" stretch="aspectFill"></Image>
+            <Image row="4" col="0" colSpan="3" v-show="is_vertical" src="~/assets/images/pad-p.png" stretch="aspectFill"></Image>
+
+            <Image row="3" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/mask-l.png" stretch="aspectFill"></Image>
+            <Image row="4" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/pad-l.png" stretch="aspectFill"></Image>
+
+            <StackLayout row="4" col="0" colSpan="3" class="home-btn-ctnr" >
                 <Button class="home-add" text="NEW CLIENT" @tap="onNewTap"></Button>
             </StackLayout>
         </GridLayout>
@@ -35,6 +45,7 @@
     export default {
         data() {
             return {
+                is_vertical: true,
                 pageSetting: {
                     class: "page home-page"
                 },
@@ -92,10 +103,12 @@
                 const half_width = width / 2;
                 const quater_width = width / 4;
                 if (width > 1000) {
+                    this.is_vertical = false;
                     this.pageSetting = {
                         class: "page home-page tablet-landscape"
                     }
                 } else {
+                    this.is_vertical = true;
                     this.pageSetting = {
                         class: "page home-page"
                     }

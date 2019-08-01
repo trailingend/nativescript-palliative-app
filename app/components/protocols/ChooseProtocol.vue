@@ -6,7 +6,7 @@
                     @layoutChanged="onLayoutUpdate">
             <NavBar row="0" col="0" colSpan="3" @newClient="addNewChart" />
 
-            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <StackLayout class="choose-main-ctnr" row="2" col="0" :rowSpan="chooseSetting.rowSpan" colSpan="3">
                 <StackLayout class="choose-title-ctnr">

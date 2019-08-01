@@ -7,7 +7,7 @@
                     @layoutChanged="onLayoutUpdate">
             <NavBar row="0" col="0" colSpan="3" />
 
-            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="false" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
             <ScrollView row="2" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
                 <StackLayout>

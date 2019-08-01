@@ -7,7 +7,7 @@ export default {
 	users: 
 	[{
 		id: '888888',
-		name: 'Lesie S.',
+		name: 'Leslie S.',
 		shift_start: '9:00', //'7:00AM',
 		shift_end: '17:00', // '5:00PM',
 		color: '#7ca8ea',
