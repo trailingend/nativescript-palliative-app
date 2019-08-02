@@ -4,7 +4,7 @@
                     ref="addUserGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+            <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <StackLayout row="0" col="0" rowSpan="2" :class="formSetting.class">
                 <Label class="add-user-title" text="user information" ></Label>    
                 <!-- <PreviousNextView> -->
@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts">
+    import Tutorial from '../tutorials/Tutorial.vue';
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -79,6 +80,16 @@
             ...mapActions([
                 'saveUserInfo'
             ]),
+            prepareTutorial() {
+                console.log("go to tutorial")
+                this.$showModal(Tutorial, { 
+                    fullscreen: true,
+                    props: {
+                        is_first_time: true,
+                        parent_modal: this.parent_modal,
+                    }
+                })
+            },
             parseIDInput() {
                 let user_ID = '000000';
                 if (this.$refs.idFieldRef) {
@@ -134,7 +145,8 @@
                     color: userColors[this.color_idx],
                 }
                 this.saveUserInfo(item);
-                this.onBackHome();
+
+                this.prepareTutorial();
             },
             onCloseTap() {
                 this.onBackHome();

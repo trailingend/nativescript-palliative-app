@@ -212,6 +212,34 @@ export default {
 
 
 
+	tutorials: [{
+			title: 'Charting a New Client',
+			video: 'history',
+			desc: 'Tap on “New Chart” on the bottom of the Dashboard screen to start charting. If another client calls, you can pause your current documentation to answer the new call. To chart on the new call, tap “New Chart”. Unfinished documentation will be saved in Chart History.'
+		}, {
+			title: 'Accessing Chart History',
+			video: 'new',
+			desc: 'Access the Chart History on the homescreen. A checkmark indicates charting is complete. The Arrow with semi-circle indicates incomplete charting. Tap the chart to open where you left off and continue documenting.'
+		}, {
+			title: 'Charting',
+			video: 'charting',
+			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The Recommend section is to support you with more info.'
+		}, {
+			title: 'Summary Screen',
+			video: 'summary',
+			desc: 'This screen is a final review of your documentation before completion of charting. Tap the pencil icon to access any section of the chart.'
+		}, {
+			title: 'Uploading to PARIS',
+			video: 'history',
+			desc: 'When finished charting, a PDF will be emailed to you. This PDF can be uploaded to PARIS. Sign charting “signed charting/electronic signature” _______ to indicate documentation complete. The completed charting will be saved in PDF format.'
+		}, {
+			title: 'Send and Delete',
+			video: 'history',
+			desc: 'Completed documentation must be uploaded to PARIS ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
+	}],
+
+
+
 	data_version: 1,
 
 	intro: [],

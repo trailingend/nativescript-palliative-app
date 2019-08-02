@@ -1,0 +1,69 @@
+@import "variables";
+
+.tutorial-page {
+    .close-btn {
+        margin: 25;
+        horizontal-align: right;
+    }  
+    .tutorial-title {
+        font-size: $form-title-font-size;
+        font-weight: 700;
+        letter-spacing: 0.1;
+        text-transform: uppercase;
+        margin-top: 28;
+    }
+    .video-ctnr {
+        margin-top: 40;
+        margin-bottom: 30;
+    }
+    
+    .tutorial-subtitle {
+        font-size: 28;
+        font-weight: 700;
+        letter-spacing: 0;
+        margin-bottom: 30;
+    }
+    .tutorial-text-ctnr {
+        margin-bottom: 40;
+        width: $content-width;
+    }
+    .tutorial-progress {
+        padding-top: 15; 
+    }
+    .first-time-save-btn {
+        margin-bottom: 10;
+    }
+    .first-time-skip-btn {
+        height: 60;
+        font-size: 18;
+        font-weight: 500;
+        letter-spacing: 0.1;
+        text-transform: uppercase;
+        color: black;
+    }
+
+    .first-time-ctnr {
+        &.tablet-landscape {
+            .first-time-main-ctnr {
+                margin: 20 40 20 40;
+            }
+            .desc-ctnr {
+                vertical-align: middle;
+            }
+            .tutorial-text-ctnr {
+                margin-bottom: 40;
+                width: 380;
+            }
+        }
+    }
+
+    .tutorial-ctnr {
+        &.tablet-landscape {
+            .tutorial-text-ctnr {
+                margin-bottom: 40;
+                width: 380;
+            }
+        }
+    }
+}
+

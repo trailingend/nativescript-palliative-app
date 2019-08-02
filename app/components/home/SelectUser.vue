@@ -4,7 +4,7 @@
          <GridLayout rows="auto, auto, *, auto" columns="*"
                      ref="userSelectGridRef" 
                      @layoutChanged="onLayoutUpdate">
-            <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+            <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <Label row="1" col="0" class="select-title" text="user information" ></Label>   
             <StackLayout row="2" col="0" rowSpan="1" :class="ctnrSetting">
                 <StackLayout v-if="users.length > 0" class="select-content-ctnr">
@@ -96,7 +96,9 @@
                     
                 });
             },
-            onAddTap() {
+            onAddTap(args) {
+                // const page = args.object.page;
+
                 this.$navigateTo(AddUser, {
                     frame: 'userFrame',
                     animated: true,

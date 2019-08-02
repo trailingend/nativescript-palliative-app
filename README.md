@@ -28,9 +28,9 @@ npm install base-64 --save
 npm install utf8 --save
 npm install nativescript-masked-text-field
 npm install nativescript-iqkeyboardmanager
+npm install nativescript-videoplayer
 
 tns plugin add nativescript-ui-listview
 tns plugin add nativescript-email
 tns plugin add nativescript-localstorage
-tns plugin add nativescript-videoplayer
 ```
