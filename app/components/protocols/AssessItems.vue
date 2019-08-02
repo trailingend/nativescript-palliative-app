@@ -34,7 +34,7 @@
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" 
                                             @foundResponse="(l_id) => { onResponseFound(l_id); }"
-                                            @answerChange="(l_id, args) => { onResponseEntered(l_id, args); }" /> 
+                                            @answerChange="(l_id, args, checkNotEmpty) => { onResponseEntered(l_id, args, checkNotEmpty); }" /> 
                         </StackLayout>
                         <StackLayout v-if="index === filtered_letters.length - 1" :height="end_spacer_height" class="items-spacer"></StackLayout>
                     </StackLayout>                            
@@ -333,6 +333,13 @@
             markAsComplete(l_id) {
                 this.complete_letter_ids.add(l_id);
             },
+            markAsIncomplete(l_id) {
+                this.complete_letter_ids.forEach(id => { 
+                    if (id === l_id) {
+                        this.complete_letter_ids.delete(id);
+                    }
+                });
+            },
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -344,21 +351,29 @@
                     },
                 });
             },
-            onResponseEntered(l_id, args) {
-                this.changeNextText("Next");
-                this.markAsComplete(l_id);
+            
+            onResponseEntered(l_id, args, checkNotEmpty) {
                 if (args.object.page) {
                     const letter_view = args.object.page.getViewById(`items-tab-${l_id}`);
                     const mark_view = args.object.page.getViewById(`items-icon-${l_id}`);
-                    mark_view.opacity = 1;
-                    if (this.curr_letter_id != l_id) {
-                        letter_view.color = this.color_complete;
-                        letter_view.background = this.color_white;
-                        letter_view.borderColor = this.color_complete;
+                    if (checkNotEmpty) {
+                        mark_view.opacity = 1;
+                        if (this.curr_letter_id != l_id) {
+                            letter_view.color = this.color_complete;
+                            letter_view.background = this.color_white;
+                            letter_view.borderColor = this.color_complete;
+                        }
+                    } else {
+                        mark_view.opacity = 0;
+                        if (this.curr_letter_id != l_id) {
+                            letter_view.color = this.color_black;
+                            letter_view.background = this.color_white;
+                            letter_view.borderColor = this.color_uncomplete;
+                        }
                     }
                 }
             },
-            onResponseFound(l_id) {
+            onResponseFound(l_id, checkNotEmpty) {
                 this.changeNextText("Next");
                 this.markAsComplete(l_id);
             },

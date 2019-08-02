@@ -82,8 +82,22 @@
                 }
                 return [];
             },
+            checkEmptyResponsesForLetter(l_id) {
+                const log = this.logs.find(elem => { return elem.id === this.log_id; });
+                const p_obj = log.items_answers.find(elem => { return elem.id === this.unit.protocol.id; });
+                if (p_obj) {
+                    const q_objs = p_obj.a.filter(elem => { return elem.l_id === l_id; });
+                    if (q_objs && q_objs.length > 0) {
+                        let test_empty_response = '';
+                        q_objs.forEach(r => { test_empty_response = test_empty_response + r.a.join(); });
+                        return (q_objs.length > 0 && test_empty_response.trim() != '');
+                    } else {    
+                        return false;
+                    }
+                }
+            },
             onAnswerChange(data, args) {
-                this.$emit("answerChange", this.unit.assessment_letter.id, args);
+                
                 const update = {
                     log_id: this.log_id,
                     p_id: this.unit.protocol.id,
@@ -99,6 +113,8 @@
                 
                 this.saveItemsUpdate(update);
                 this.saveItemsProgress(progress);
+                const checkNotEmpty = this.checkEmptyResponsesForLetter(this.unit.assessment_letter.id);
+                this.$emit("answerChange", this.unit.assessment_letter.id, args, checkNotEmpty);
             },
         }
     }
