@@ -44,7 +44,7 @@
             <ResourcesButton row="4" col="3" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" colSpan="2" v-if="!from_summary" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" colSpan="2" v-if="!from_summary" class="back-btn" text="Intro" @tap="onBackTap" ></Button>
             
             <Button row="5" col="3" colSpan="1" v-if="!from_summary" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
 
@@ -85,7 +85,7 @@
     import AssessItem from './parts/AssessItem.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
-    import ChooseProtocol from './ChooseProtocol.vue';
+    import Introduction from '../intro/Introduction.vue';
     import AssessOthers from './AssessOthers.vue';
     import Summary from '../summary/Summary.vue';
 
@@ -162,6 +162,7 @@
         computed: {
             ...mapGetters([
                 'logs',
+                'intro',
                 'protocols',
                 'assessment_letters'
             ]), 
@@ -187,7 +188,9 @@
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
             },
             preparePrevPage() {
-                this.$navigateTo(ChooseProtocol, {
+                let steps_ids = [];
+                this.intro.forEach(elem => { steps_ids.push(elem.id); });
+                this.$navigateTo(Introduction, {
                     animated: true,
                     clearHistory: true,
                     transition: {
@@ -197,7 +200,9 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        from_summary: false,
+                        step_ids: steps_ids,
+                        step_idx: steps_ids.length - 1,
+                        from_summary: false
                     }
                 });
             },

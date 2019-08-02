@@ -29,9 +29,6 @@
                     </GridLayout>
                 </GridLayout>
             </StackLayout>
-
-            <Button row="2" col="0" class="form-btn nav-btn" text="" opacity="0" />
-            <Button row="2" col="0" class="form-btn nav-btn" v-show="show_next" text="Go To Protocol" @tap="onForwardTap" />
         </GridLayout>
     </Page>
 </Frame>
@@ -131,16 +128,7 @@
                         }
                     }
                 }
-            },
-            onForward(args) {
-                if (this.protocol_id != null) {
-                    const progress = {
-                        log_id: this.log_id,
-                        p_id: this.protocol_id,
-                    }
-                    this.saveProtoProgress(progress);
-                } else {
-                }
+                this.onForwardTap();
             },
             onCloseTap() {
                 this.$modal.close(-1);

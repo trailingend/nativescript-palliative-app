@@ -32,4 +32,5 @@ npm install nativescript-iqkeyboardmanager
 tns plugin add nativescript-ui-listview
 tns plugin add nativescript-email
 tns plugin add nativescript-localstorage
+tns plugin add nativescript-videoplayer
 ```

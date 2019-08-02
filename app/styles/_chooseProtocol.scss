@@ -61,9 +61,18 @@
 
 .catalogue-page {
     .choose-ctnr {
+        .choose-btn-ctnr {
+            margin-top: 60;
+            margin-bottom: 60;
+        }
+
         &.tablet-landscape {
             .choose-main-ctnr {
                 padding: 25;
+            }
+            .choose-btn-ctnr {
+                margin-top: 20;
+                margin-bottom: 20;
             }
         }   
     }
