@@ -178,7 +178,8 @@
                     props: {
                         log_id: log_id,
                         step_ids: steps_ids,
-                        step_idx: curr_idx
+                        step_idx: curr_idx,
+                        from_summary: false,
                     }
                 });
             },
@@ -209,7 +210,8 @@
                     props: {
                         log_id: log_id,
                         protocol_id: protocol_id,
-                        preset_letter_id: letter_id
+                        preset_letter_id: letter_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -225,6 +227,7 @@
                     props: {
                         log_id: log_id,
                         protocol_id: protocol_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -239,6 +242,7 @@
                     },
                     props: {
                         log_id: log_id,
+                        from_summary: false,
                     }
                 });
             },

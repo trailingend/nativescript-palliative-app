@@ -48,10 +48,11 @@
                              v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" v-if="!from_summary" class="back-btn" text="Back" @tap="onBackTap" ></Button>
                 
-            <Button row="5" col="2" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="5" col="2" v-if="!from_summary" class="next-btn" text="Next" @tap="onNextTap" ></Button>
 
+            <Button row="5" col="2" v-if="from_summary" class="save-btn" text="save" @tap="onSummaryTap" ></Button>
         </GridLayout>
     </Page>
 </template>
@@ -102,6 +103,10 @@
                 type: Number,
                 required: false,
             },
+            from_summary: {
+                type: Boolean,
+                required: true,
+            }
         },
         components: {
             NavBar,
@@ -161,6 +166,7 @@
                         protocol_id: this.protocol_id,
                         question_ids: q_ids,
                         question_idx: q_ids.length - 1,
+                        from_summary: false,
                     }
                 });
             },
@@ -206,7 +212,23 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: p_id
+                        protocol_id: p_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            goToSummary() {
+                this.$navigateTo(Summary, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'slide',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        has_prev: false
                     }
                 });
             },
@@ -264,6 +286,9 @@
             },
             onNextTap() {
                 this.onForward();
+            },
+            onSummaryTap() {
+                this.goToSummary();
             },
             onAnswerTap(plan) {
                 const plan_idx = this.plans_list.findIndex( elem => { return elem.id === plan.id; });

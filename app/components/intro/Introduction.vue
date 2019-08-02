@@ -18,15 +18,17 @@
                         <StackLayout v-for="question in questions" :key="question.id">
                             <StepQuestion :unit="question" :log_id="log_id" 
                                           @answerChange="(data) => { recordResponse(question, data); }"
-                                          @foundResponse="changeNextText('Next')" /> 
+                                          @foundResponse="onResponseChange" /> 
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
 
-            <Button row="3" col="0" v-if="step_idx != 0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="3" col="0" v-if="step_idx != 0 && !from_summary" class="back-btn" text="Back" @tap="onBackTap" ></Button>
 
-            <Button row="3" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="3" col="2" v-if="!from_summary" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+
+            <Button row="3" col="2" v-if="from_summary" class="save-btn" text="save" @tap="onSummaryTap" ></Button>
         </GridLayout>
         </Page>
 </template>
@@ -37,6 +39,7 @@
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import StepQuestion from './parts/StepQuestion.vue';
     import AssessItems from '../protocols/AssessItems.vue';
+    import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -82,6 +85,10 @@
                 type: Number,
                 required: true,
             },
+            from_summary: {
+                type: Boolean,
+                required: true,
+            }
         },
         computed: {
             ...mapGetters([
@@ -115,7 +122,8 @@
                     props: {
                         log_id: this.log_id,
                         step_ids: this.step_ids,
-                        step_idx: step_idx
+                        step_idx: step_idx,
+                        from_summary: false,
                     }
                 });
             },
@@ -137,12 +145,7 @@
                 };
                 this.saveIntroUpdate(update);
                 
-
-                if (this.responses.length > 0) {
-                    this.changeNextText('Next');
-                } else {
-                    this.changeNextText('Skip');
-                }
+                this.onResponseChange();
             },
             prepareNextStage() {
                 this.$navigateTo(ChooseProtocol, {
@@ -160,7 +163,6 @@
                 });
             },
             goToNextProtocol(p_id) {
-                console.log("should go");
                 this.$navigateTo(AssessItems, {
                     animated: true,
                     clearHistory: true,
@@ -171,7 +173,23 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: p_id
+                        protocol_id: p_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            goToSummary() {
+                this.$navigateTo(Summary, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'slide',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        has_prev: false
                     }
                 });
             },
@@ -208,8 +226,18 @@
             onNextTap() {
                 this.onForward();
             },
-            onResponseFound() {
-                this.changeNextText("Next");
+            onSummaryTap() {
+                this.goToSummary();
+            },
+            onResponseChange() {
+                let test_empty_response = '';
+                this.responses.forEach(r => { test_empty_response = test_empty_response + r.a.join(); });
+
+                if (this.responses.length > 0 && test_empty_response.trim() != '') {
+                    this.changeNextText('Next');
+                } else {
+                    this.changeNextText('Skip');
+                }
             },
             clearTextfieldFocus(args) {
                 const page = args.object.page;

@@ -44,9 +44,13 @@
             <ResourcesButton row="4" col="3" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" colSpan="2" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" colSpan="2" v-if="!from_summary" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="5" col="3" colSpan="1" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="5" col="3" colSpan="1" v-if="!from_summary" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+
+            <Button row="5" col="0" colSpan="2" v-if="from_summary" class="back-btn" text="Back" opacity="0" ></Button>
+
+            <Button row="5" col="3" colSpan="1" v-if="from_summary" class="save-btn" text="save" @tap="onSummaryTap" ></Button>
 
             <StackLayout row="2" col="0" rowSpan="3" colSpan="1" class="items-tab-ctnr">
                 <Label class="items-tab" 
@@ -83,6 +87,7 @@
     import ResourcesButton from './parts/ResourcesButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';
+    import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -149,6 +154,10 @@
                 type: Number,
                 required: false,
             },
+            from_summary: {
+                type: Boolean,
+                required: true,
+            }
         },
         computed: {
             ...mapGetters([
@@ -209,6 +218,7 @@
                         protocol_id: this.protocol_id,
                         question_ids: q_ids,
                         question_idx: 0,
+                        from_summary: false,
                     }
                 });
             },
@@ -223,7 +233,23 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: p_id
+                        protocol_id: p_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            goToSummary() {
+                this.$navigateTo(Summary, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'slide',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        has_prev: false
                     }
                 });
             },
@@ -337,7 +363,6 @@
                 this.markAsComplete(l_id);
             },
             onForward(args) {
-                console.log("=== Forward === ");
                 const progress = {
                     log_id: this.log_id,
                     in_others: 0,
@@ -346,7 +371,6 @@
                 this.prepareNextPage();
             },
             onBackward(args) {
-                console.log("=== Backward === ");
                 this.preparePrevPage();
             },
             onBackTap() {
@@ -354,6 +378,9 @@
             },
             onNextTap() {
                 this.onForward();
+            },
+            onSummaryTap() {
+                this.goToSummary();
             },
             onTabTap(args, letter) {
                 this.goToTab(args.object.page, letter)

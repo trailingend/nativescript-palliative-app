@@ -91,7 +91,8 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id,
-                        preset_letter_id: letter_id
+                        preset_letter_id: letter_id,
+                        from_summary: true,
                     }
                 });
             },
@@ -107,6 +108,7 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id,
+                        from_summary: true,
                     }
                 });
             },

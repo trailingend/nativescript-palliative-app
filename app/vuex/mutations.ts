@@ -13,7 +13,7 @@ export default {
     [types.USER_CREATE](state, user) {
         state.curr_user_id = user.id;
         state.users.push(user);
-        console.log("=== in mutation USER_CREATE ===");
+        // console.log("=== in mutation USER_CREATE ===");
         // console.dir(state.users);
     },
     [types.USER_UPDATE](state, user_id) {
@@ -26,7 +26,7 @@ export default {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         state.curr_user_id = user.id;
         state.users[userIdx] = user;
-        console.log("=== in mutation USER_ALTER ===");
+        // console.log("=== in mutation USER_ALTER ===");
         // console.dir(state.users);
     },
 
@@ -35,7 +35,7 @@ export default {
             entry.nurse = state.curr_user_id;
         }
         state.logs.unshift(entry); 
-        console.log("=== in mutation CHART_CREATE ===")
+        // console.log("=== in mutation CHART_CREATE ===")
     },
     [types.CHART_DELETE](state, chart_idx) {
         state.logs.splice(chart_idx, 1);
@@ -110,26 +110,26 @@ export default {
     
     [types.CHART_INTRO_PROGRESS](state, item) {
         state.logs[item.idx].progress[0] = item.s_id;
-        console.log("=== in mutation CHART_INTRO_PROGRESS === " + state.logs[item.idx].progress);
+        // console.log("=== in mutation CHART_INTRO_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_PROTO_PROGRESS](state, item) {
         state.logs[item.idx].progress[1] = item.p_id;
         state.logs[item.idx].progress[2] = -1;
         state.logs[item.idx].progress[3] = -1;
         state.logs[item.idx].progress[4] = 0;
-        console.log("=== in mutation CHART_PROTO_PROGRESS === " + state.logs[item.idx].progress);
+        // console.log("=== in mutation CHART_PROTO_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_ITEMS_PROGRESS](state, item) {
         state.logs[item.idx].progress[2] = item.l_id;
-        console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
+        // console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_OTHERS_PROGRESS](state, item) {
         state.logs[item.idx].progress[3] = item.in_others;
-        console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
+        // console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_PLANS_PROGRESS](state, item) {
         state.logs[item.idx].progress[4] = item.has_plan;
-        console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
+        // console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
 
 };

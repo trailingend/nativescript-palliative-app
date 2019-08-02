@@ -58,7 +58,8 @@
                     props: {
                         log_id: this.log_id,
                         step_ids: steps_ids,
-                        step_idx: curr_idx
+                        step_idx: curr_idx,
+                        from_summary: true
                     }
                 });
             }

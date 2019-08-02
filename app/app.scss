@@ -46,7 +46,7 @@ Button {
     background: $color-dark-blue;
 }
 
-.back-btn, .next-btn {
+.back-btn, .next-btn, .save-btn {
     width: 140;
     height: 50;
     margin: 0 auto 40 auto;
@@ -65,7 +65,7 @@ Button {
     transform: translateX(-25);
     horizontal-align: left;
 }
-.next-btn {
+.next-btn, .save-btn {
     padding-right: 20; 
     transform: translateX(25);
     horizontal-align: right;

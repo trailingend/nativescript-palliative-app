@@ -110,7 +110,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        from_summary: false,
                     }
                 });
             },

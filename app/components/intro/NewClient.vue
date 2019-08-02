@@ -259,12 +259,13 @@
                         transition: {
                             name: 'fade',
                             curve: 'easeIn',
-                            duration: 300
+                            duration: 300,
                         },
                         props: {
                             log_id: client_id,
                             step_ids: steps_ids,
-                            step_idx: 0
+                            step_idx: 0,
+                            from_summary: false
                         }
                     });
                     console.log("=== New Client Logged ===");

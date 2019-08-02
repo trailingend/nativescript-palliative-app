@@ -144,7 +144,8 @@
                         props: {
                             log_id: this.log_id,
                             step_ids: step_ids,
-                            step_idx: step_ids.length - 1
+                            step_idx: step_ids.length - 1,
+                            from_summary: false
                         }
                     });
                 }
@@ -160,7 +161,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -175,7 +177,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: p_id
+                        protocol_id: p_id,
+                        from_summary: false,
                     }
                 });
             },

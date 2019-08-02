@@ -54,6 +54,7 @@
                     },
                     props: {
                         log_id: this.log_id,
+                        from_summary: true,
                     }
                 });
             },

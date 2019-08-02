@@ -30,9 +30,11 @@
             <ResourcesButton row="4" col="2"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
-            <Button row="5" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="5" col="0" colSpan="1" class="back-btn" v-if="!from_summary" text="Back" @tap="onBackTap" ></Button>
 
-            <Button row="5" col="2" class="next-btn" :text="next_text" @tap="onNextTap" ></Button>
+            <Button row="5" col="2" class="next-btn" v-if="!from_summary" :text="next_text" @tap="onNextTap" ></Button>
+
+            <Button row="5" col="2" colSpan="1" v-if="from_summary" class="save-btn" text="save" @tap="onSummaryTap" ></Button>
         </GridLayout>
     </Page>
 </template>
@@ -45,6 +47,7 @@
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';
+    import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -87,6 +90,10 @@
                 type: Number,
                 required: true,
             },
+            from_summary: {
+                type: Boolean,
+                required: true,
+            }
         },
         computed: {
             ...mapGetters([
@@ -116,7 +123,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -131,7 +139,8 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: this.protocol_id
+                        protocol_id: this.protocol_id,
+                        from_summary: false,
                     }
                 });
             },
@@ -146,7 +155,23 @@
                     },
                     props: {
                         log_id: this.log_id,
-                        protocol_id: p_id
+                        protocol_id: p_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            goToSummary() {
+                this.$navigateTo(Summary, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'slide',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: this.log_id,
+                        has_prev: false
                     }
                 });
             },
@@ -180,6 +205,9 @@
             },
             onNextTap() {
                 this.onForward();
+            },
+            onSummaryTap() {
+                this.goToSummary();
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
