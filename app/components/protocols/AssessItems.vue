@@ -334,11 +334,7 @@
                 this.complete_letter_ids.add(l_id);
             },
             markAsIncomplete(l_id) {
-                this.complete_letter_ids.forEach(id => { 
-                    if (id === l_id) {
-                        this.complete_letter_ids.delete(id);
-                    }
-                });
+                const success = this.complete_letter_ids.delete(l_id);
             },
             addNewChart() {
                 this.$navigateTo(NewClient, {
@@ -357,6 +353,7 @@
                     const letter_view = args.object.page.getViewById(`items-tab-${l_id}`);
                     const mark_view = args.object.page.getViewById(`items-icon-${l_id}`);
                     if (checkNotEmpty) {
+                        this.markAsComplete(l_id);
                         mark_view.opacity = 1;
                         if (this.curr_letter_id != l_id) {
                             letter_view.color = this.color_complete;
@@ -364,6 +361,7 @@
                             letter_view.borderColor = this.color_complete;
                         }
                     } else {
+                        this.markAsIncomplete(l_id);
                         mark_view.opacity = 0;
                         if (this.curr_letter_id != l_id) {
                             letter_view.color = this.color_black;

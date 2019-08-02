@@ -73,11 +73,14 @@
                 const p_obj = log.items_answers.find(elem => { return elem.id === p_id; });
                 if (p_obj) {
                     const q_objs = p_obj.a.find(elem => { return elem.q_id === q_id; });
-                    if (q_objs) {
-                        const saved_answers = q_objs.a;
-                        const l_id = q_objs.l_id;
-                        this.$emit("foundResponse", l_id);
-                        return saved_answers;
+                    if (q_objs && q_objs.length > 0) {                        
+                        let test_empty_response = '';
+                        q_objs.a.forEach(ans => { test_empty_response = test_empty_response + ans.join(); });
+
+                        if (test_empty_response.trim() != '') {
+                            this.$emit("foundResponse", q_objs.l_id);
+                            return q_objs.a;
+                        }
                     }
                 }
                 return [];
