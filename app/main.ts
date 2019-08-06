@@ -3,13 +3,13 @@ import Vue from 'nativescript-vue';
 import App from './components/App.vue';
 import store from './vuex/store';
 
-// import VueDevtools from 'nativescript-vue-devtools';
+import VueDevtools from 'nativescript-vue-devtools';
 import RadListView from 'nativescript-ui-listview/vue';
 
 
-// if (TNS_ENV !== 'production') {
-// 	Vue.use(VueDevtools);
-// }
+if (TNS_ENV !== 'production') {
+	Vue.use(VueDevtools);
+}
 Vue.use(RadListView);
 
 Vue.registerElement('MaskedTextField', () => require('nativescript-masked-text-field').MaskedTextField);

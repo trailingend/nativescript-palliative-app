@@ -2,6 +2,11 @@
 	"android": {
 		"v8Flags": "--expose_gc"
 	},
+	"ios": {
+		"gcThrottleTime": 1000,
+		"memoryCheckInterval": 500,
+		"freeMemoryRatio": 0.50
+	},
 	"main": "main",
 	"name": "vch-palliative-ios",
 	"version": "1.0.0"
