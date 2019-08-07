@@ -14,9 +14,11 @@
     }
   },
   "dependencies": {
-    "@types/jspdf": "^1.3.0",
+    "@types/jspdf": "^1.3.1",
     "@vue/devtools": "^5.0.6",
     "base-64": "^0.1.0",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.1.4",
     "nativescript-email": "^1.5.3",
     "nativescript-iqkeyboardmanager": "^1.5.1",
     "nativescript-localstorage": "^2.0.0",

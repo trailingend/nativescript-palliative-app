@@ -1,15 +1,15 @@
 <template>
     <StackLayout class="sum-sec-ctnr">
-        <FlexboxLayout orientation="horizontal" alignItems="center" justifyContent="space-between">
+        <FlexboxLayout orientation="horizontal" alignItems="flex-end" justifyContent="space-between" class="sec-title-ctnr">
             <Label text="Client Information" class="sum-sec-title"/>
             <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         </FlexboxLayout>
-        <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*, *">
+        <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="*, *" class="sec-content-ctnr">
             <Label row="0" col="0" text="Client's Name: " class="sum-text sum-bold"/>
             <Label row="1" col="0" text="Call-back Number: " class="sum-text sum-bold"/>
             <Label row="2" col="0" text="Caller's Name: " class="sum-text sum-bold"/>
             <Label row="3" col="0" text="Caller's relationship to client: " class="sum-text sum-bold"/>
-            <Label row="4" col="0" text="Consent to documente call " class="sum-text sum-bold"/>
+            <Label row="4" col="0" text="Consent to document call " class="sum-text sum-bold"/>
             <Label row="5" col="0" text="and to represent client " class="sum-text sum-bold"/>
             <Label row="6" col="0" text="Intake Nurse " class="sum-text sum-bold"/>
             <Label row="7" col="0" text="Intake Date: " class="sum-text sum-bold"/>

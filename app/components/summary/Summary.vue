@@ -9,7 +9,7 @@
             <ScrollView row="1" col="0" rowSpan="2" colSpan="2">
                 <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
-                        <Label class="sum-title" text="Client Summary"></Label>
+                        <Label class="sum-title" text="Summary"></Label>
                     </StackLayout>
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />
