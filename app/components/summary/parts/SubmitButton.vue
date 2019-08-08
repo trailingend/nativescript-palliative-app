@@ -112,7 +112,6 @@
                 this.protocols.forEach(protocol => {
                     const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
-                    console.dir(items_idx != -1 || others_idx != -1);
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
                         let others_body = [];
@@ -212,24 +211,18 @@
                     return base64.decode(bytes);
                 };
                 global["utf8"] = {};
-                console.log("get here");
                 let jsPDF;
                 let lib_loaded = false;
                 while(!lib_loaded) {
                     try {
                         lib_loaded = true;
                         jsPDF = require("jspdf");
-                        console.log("loading")
                     }
                     catch(error) {
                         lib_loaded = false;
-                        console.error(error);
-                        console.log("not loaded")
                     }
                 }
-                console.log("loaded")
                 require("jspdf-autotable");
-                console.log("get a cat");
 
                 var doc = new jsPDF();
                 const end_of_line = 196.5;
@@ -247,18 +240,18 @@
 
                 doc.setFontSize(7);
                 doc.setFontType('normal')
-                doc.text("PALLIATIVE ASSESSMENT TOOL", 85, 8);
+                doc.text("PALLIATIVE ASSESSMENT TOOL", 85, 18);
 
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
-                doc.line(start_of_text, 10, end_of_line, 10);
+                doc.line(start_of_text, 20, end_of_line, 20);
 
                 doc.setFontSize(title_font_size);
                 doc.setFontType('bold')
-                doc.text("Client Information", start_of_text, 10 + 6);
+                doc.text("Client Information", start_of_text, 20 + 6);
           
                 doc.autoTable({
-                    startY: 10 + 10,
+                    startY: 20 + 10,
                     theme: 'grid',
                     body: info_body,
                     columns: [{ dataKey: 'a' }, { dataKey: 'b'}],
@@ -282,9 +275,6 @@
                 doc.setDrawColor(0, 0, 0);
                 doc.line(start_of_text, finalYInfo, end_of_line, finalYInfo);
                 protocol_bodies.forEach(protocol_body => {
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-                    console.dir(protocol_body.name);
-
                     finalY = doc.previousAutoTable.finalY;
                     doc.setLineWidth(0.25);
                     doc.setDrawColor(0, 0, 0);
