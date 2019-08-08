@@ -3,9 +3,7 @@
 		"v8Flags": "--expose_gc"
 	},
 	"ios": {
-		"gcThrottleTime": 1000,
-		"memoryCheckInterval": 500,
-		"freeMemoryRatio": 0.50
+		"gcThrottleTime": 1000
 	},
 	"main": "main",
 	"name": "vch-palliative-ios",
