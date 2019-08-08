@@ -19,26 +19,11 @@
                 submit_text: 'Submit'
             }
         },
+        beforeCreate() {
+            
+        },
         mounted() {
             this.prepareText();
-            global['window'] = {
-                'document': {
-                    'createElementNS': () => { return {} }
-                }
-            };
-            global['document'] = {
-                'createElement': (str) => { return {} }
-            };
-            global['navigator'] = {};
-            const jsPDF = require("jspdf");
-            require("jspdf-autotable");
-            global["btoa"] = str => {
-                return base64.encode(str);
-            };
-            global["atob"] = bytes => {
-                return base64.decode(bytes);
-            };
-            global["utf8"] = {};
         },
         props: {
             log_id: {
@@ -127,6 +112,7 @@
                 this.protocols.forEach(protocol => {
                     const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
+                    console.dir(items_idx != -1 || others_idx != -1);
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
                         let others_body = [];
@@ -164,12 +150,14 @@
                         });
 
                         protocol.additional_questions.forEach(q_obj => {
-                            const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
-                            const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
-                            others_body.push({
-                                q: q_obj.question,
-                                a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
-                            });
+                            if (others_idx != -1) {
+                                const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
+                                const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
+                                others_body.push({
+                                    q: q_obj.question,
+                                    a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
+                                });
+                            }
                         });
                     
                         protocol_bodies.push({
@@ -177,8 +165,9 @@
                             items: items_body,
                             others: others_body,
                         });
+                        
                     }
-                });             
+                }); 
                 return protocol_bodies;
             },
             preparePlans(curr_log) {
@@ -206,8 +195,42 @@
                 return notes_body;
             },
             generatePDF() {
-                const jsPDF = require("jspdf");
+                global['window'] = {
+                    'document': {
+                        'createElementNS': () => { return {} }
+                    }
+                };
+                global['document'] = {
+                    'createElement': (str) => { return {} }
+                };
+                global['navigator'] = {};
+                
+                global["btoa"] = str => {
+                    return base64.encode(str);
+                };
+                global["atob"] = bytes => {
+                    return base64.decode(bytes);
+                };
+                global["utf8"] = {};
+                console.log("get here");
+                let jsPDF;
+                let lib_loaded = false;
+                while(!lib_loaded) {
+                    try {
+                        lib_loaded = true;
+                        jsPDF = require("jspdf");
+                        console.log("loading")
+                    }
+                    catch(error) {
+                        lib_loaded = false;
+                        console.error(error);
+                        console.log("not loaded")
+                    }
+                }
+                console.log("loaded")
                 require("jspdf-autotable");
+                console.log("get a cat");
+
                 var doc = new jsPDF();
                 const end_of_line = 196.5;
                 const start_of_text = 15;
