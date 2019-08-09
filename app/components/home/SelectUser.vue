@@ -3,22 +3,30 @@
      <Page class="page select-user-page">
          <GridLayout rows="auto, auto, *, auto" columns="*"
                      ref="userSelectGridRef" 
+                     :class="ctnrSetting"
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             <Label row="1" col="0" class="select-title" text="user information" ></Label>   
-            <StackLayout row="2" col="0" rowSpan="1" :class="ctnrSetting">
+            <StackLayout row="2" col="0" rowSpan="1" >
                 <StackLayout v-if="users.length > 0" class="select-content-ctnr">
-                    <Label class="select-text" text="select from saved users" ></Label>   
+                    <GridLayout rows="auto" columns="*, auto" class="select-text-ctnr">
+                        <Label row="0" col="0" colSpan="2" class="select-text" text="select from saved users" ></Label> 
+                        <Image row="0" col="1" colSpan="1" class="select-edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditUserTap"></Image>
+                    </GridLayout>
+                    
                     <ScrollView class="select-scroll">
                         <StackLayout>
                             <FlexboxLayout flexWrap="wrap" justifyContent="center" alignItems="flex-start" class="select-ppl-ctnr">
                                 <StackLayout v-for="user in users" 
                                             :key="user.id" 
                                             class="select-ppl" 
-                                            :width="widthSetting"
-                                            @tap="onUserTap(user)"
-                                            @longPress="onUserLongPress(user)" > 
-                                            <StackLayout class="select-head" :background="user.color"></StackLayout>
+                                            :width="widthSetting" > 
+                                            <GridLayout rows="*" columns="*" class="select-head-ctnr">
+                                                <StackLayout row="0" column="0" class="select-head" :background="user.color" @tap="onUserTap(user)" ></StackLayout>
+                                                <Image row="0" col="0" 
+                                                       v-show="canDelete" @tap="onDeleteTap(user)" 
+                                                       class="select-head-x" src="~/assets/images/head-x.png" stretch="aspectFit"></Image>
+                                            </GridLayout>
                                             <Label class="select-text select-name" :text="user.name" textWrap="true"></Label>
                                 </StackLayout>
                             </FlexboxLayout>
@@ -52,6 +60,7 @@
     export default {
         data() {
             return {
+                canDelete: false,
                 next_color_idx: 0,
                 widthSetting: "20%",
                 ctnrSetting: "select-user-ctnr"
@@ -75,26 +84,28 @@
                 'deleteUser'
             ]),
             onUserTap(user) {
-                dialogs.prompt({
-                    title: "Enter Employee ID",
-                    okButtonText: "Confirm",
-                    cancelButtonText: "Cancel",
-                    inputType: dialogs.inputType.number
-                }).then(result => {
-                    if (result.result) {
-                        if (result.text == user.id) {
-                            this.activateUser(user);
-                            this.$modal.close();
-                        } else {
-                            dialogs.confirm({
-                                title: "ID not match",
-                                message: "The ID you entered does not match our record.",
-                                okButtonText: "OK",
-                            });
+                if (! this.canDelete) {
+                    dialogs.prompt({
+                        title: "Enter Employee ID",
+                        okButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        inputType: dialogs.inputType.number
+                    }).then(result => {
+                        if (result.result) {
+                            if (result.text == user.id) {
+                                this.activateUser(user);
+                                this.$modal.close();
+                            } else {
+                                dialogs.confirm({
+                                    title: "ID not match",
+                                    message: "The ID you entered does not match our record.",
+                                    okButtonText: "OK",
+                                });
+                            }
                         }
-                    }
-                    
-                });
+                        
+                    });
+                }
             },
             onAddTap(args) {
                 // const page = args.object.page;
@@ -114,7 +125,10 @@
                     }
                 });
             },
-            onUserLongPress(user) {
+            onEditUserTap() {
+                this.canDelete = !this.canDelete;
+            },
+            onDeleteTap(user) {
                 if (this.curr_user_id === user.id) {
                     dialogs.alert('This is the current user. Cannot delete. Please log out first.').then(() => {
                         console.log("=== in Select User - cannot delete user ===");

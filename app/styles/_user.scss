@@ -12,18 +12,7 @@
         text-transform: uppercase;
         margin-bottom: 40;
     }
-    .select-add-btn {
-        width: 220;
-        margin-bottom: 110;
-    }
-    .select-text {
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 40;
-    }
-    .select-or {
-        margin-top: 40;
-    }
+    
 
     .select-user-ctnr {
         vertical-align: middle;
@@ -31,18 +20,43 @@
         .select-scroll {
         }
         .select-content-ctnr {
+            border-color: $log-border-color;
+            border-bottom-width: 0.5;
+            border-top-width: 0.5;
+            margin: 0 25;
         }
-        
+        .select-text-ctnr {
+            vertical-align: center;
+        }
+        .select-text {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 30;
+            margin-bottom: 30;
+        }        
+        .select-edit-icon {
+            width: 20;
+            padding-left: 20; 
+        }
         .select-ppl-ctnr {
             margin-bottom: 80;
         }
         .select-ppl {
             margin: 10 25;
         }
+        .select-head-ctnr {
+            padding-top: 5; 
+        }
         .select-head {
             width: 80;
             height: 80;
             border-radius: 50;
+            horizontal-align: center;
+        }
+        .select-head-x {
+            width: 40;
+            vertical-align: top;
+            transform: translate(32, -5);
         }
         .select-name {
             margin-top: 15;
@@ -55,6 +69,25 @@
             font-weight: 200;
             letter-spacing: 0.05;
             text-transform: uppercase;
+        }
+        
+        .select-or {
+            margin-top: 40;
+            margin-bottom: 40;
+        }
+        .select-add-btn {
+            width: 220;
+            margin-bottom: 110;
+        }
+
+        &.tablet-landscape {
+            .select-add-btn {
+                margin-bottom: 80;
+            }
+            .select-or {
+                margin-top: 30;
+                margin-bottom: 30;
+            }
         }
     }
 
