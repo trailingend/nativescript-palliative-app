@@ -96,14 +96,16 @@
                                         :col="gridSetting.children.a5.col"
                                         id="client-a5"
                                         class="client-a client-a5" 
-                                        v-model="c_nurse" 
                                         hint="i.e. 888888"
+                                        ref="idFieldRef"
+                                        @textChange="onIdChange"
                                         editable="true" />
                             <Label :row="gridSetting.children.e5.row" 
                                     :col="gridSetting.children.e5.col"
                                     :colSpan="gridSetting.children.e5.colSpan"
                                     class="client-e client-e5" 
                                     text="Please enter your work ID" 
+                                    ref="idErrorFieldRef"
                                     opacity="0" />
                         </GridLayout>
                     <!-- </PreviousNextView> -->
@@ -202,6 +204,7 @@
                     this.c_nurse = curr_log.nurse.replace(/\D/g, '').substring(0, 6);
                     this.c_info = curr_log.info;
                     this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
+                    this.$refs.idFieldRef.nativeView.text = formatPhoneNum(this.c_nurse);
                     // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
             },
@@ -218,6 +221,12 @@
                 if (client_phone.length != 10) {
                     this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
                     this.$refs.phoneFieldRef.nativeView.borderColor = '#ff1f00';
+                    return;
+                }
+
+                if (this.c_nurse.length != 6) {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
                     return;
                 }
 
@@ -245,6 +254,19 @@
                 } else {
                     this.$refs.phoneErrorFieldRef.nativeView.opacity = 0;
                     this.$refs.phoneFieldRef.nativeView.borderColor = '#dbdbdb';
+                }
+            },
+            onIdChange(args) {
+                const new_input = args.value.replace(/\D/g, '');
+                this.c_nurse = new_input.substring(0, Math.min(6, new_input.length));
+                this.$refs.idFieldRef.nativeView.text = this.c_nurse;
+
+                if (this.c_nurse.length != 6) {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                } else {
+                    this.$refs.idErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
                 }
             },
             onPhoneEnterred() {
