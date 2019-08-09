@@ -6,12 +6,15 @@
                      :class="ctnrSetting"
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+
             <Label row="1" col="0" class="select-title" text="user information" ></Label>   
-            <StackLayout row="2" col="0" rowSpan="1" >
-                <StackLayout v-if="users.length > 0" class="select-content-ctnr">
+
+            <StackLayout row="2" col="0" rowSpan="1" class="select-content-ctnr">
+                <StackLayout v-if="users.length > 0" >
                     <GridLayout rows="auto" columns="*, auto" class="select-text-ctnr">
                         <Label row="0" col="0" colSpan="2" class="select-text" text="select from saved users" ></Label> 
-                        <Image row="0" col="1" colSpan="1" class="select-edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditUserTap"></Image>
+                        <Image row="0" col="1" colSpan="1" class="select-edit-icon" v-if="! canDelete" src="~/assets/images/pen-user.png" stretch="aspectFit" @tap="onEditUserTap"></Image>
+                        <Image row="0" col="1" colSpan="1" class="select-edit-icon" v-else src="~/assets/images/done-user.png" stretch="aspectFit" @tap="onEditUserTap"></Image>
                     </GridLayout>
                     
                     <ScrollView class="select-scroll">
@@ -34,9 +37,7 @@
                     </ScrollView>
                 </StackLayout>
 
-                <StackLayout v-if="users.length <= 0" class="select-content-ctnr">
-                    <Label  text="No Currently saved user" class="user-null" />
-                </StackLayout>
+                <Label v-else class="user-null" text="No Currently saved user"  />
             </StackLayout>
 
             <StackLayout row="3" col="0" >
