@@ -24,8 +24,8 @@
                 </v-template>
 
                 <v-template name="itemswipe">
-                    <GridLayout class="swipe-ctnr" columns="auto">
-                        <Button id="delete-view" class="delete-btn" text="DELETE" @tap="onDeleteTap"></Button>
+                    <GridLayout class="swipe-ctnr" columns="*, auto">
+                        <Button col="1" id="delete-view" class="delete-btn" text="DELETE" @tap="onDeleteTap"></Button>
                     </GridLayout>
                 </v-template>
 
@@ -53,7 +53,7 @@
     export default {
         data() {
             return {
-                isSwipeMode: false,
+                isSwiping: false,
             }
         },
         mounted() {
@@ -80,11 +80,7 @@
                 return (curr_user) ? curr_user.name : 'Unknown';
             },
             onEditTap(args) {
-                if (this.isSwipeMode) {
-                    this.isSwipeMode = false;
-                } else {
-                    this.triage(args.index);
-                }
+                this.triage(args.index);
             },
             onTouch(args) {
                 console.log("=== Log touched === " + args.action);
@@ -113,19 +109,25 @@
             },
 
             onSwipeStarted ({ data, object }) {
-                console.log(`Swipe started`);
-                const swipeLimits = data.swipeLimits;
-                const swipeView = object;
-                const rightItem = swipeView.getViewById('delete-view');
-                swipeLimits.left = rightItem.getMeasuredWidth();
-                swipeLimits.right = 0;
-                // swipeLimits.left = 0;
-                // swipeLimits.right = rightItem.getMeasuredWidth();
-                swipeLimits.top = 0;
-                swipeLimits.bottom = 0;
-                swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
-                this.$refs.logListView.notifySwipeToExecuteFinished();
-                this.isSwipeMode = true;
+                // this.$refs.logListView.notifySwipeToExecuteFinished();
+                if (! this.isSwiping) {
+                    console.log(`Swipe started`);
+                    this.isSwiping = true;
+                    const swipeLimits = data.swipeLimits;
+                    const swipeView = object;
+                    const rightItem = swipeView.getViewById('delete-view');
+                    swipeLimits.left = 0;
+                    swipeLimits.right = rightItem.getMeasuredWidth();
+                    swipeLimits.top = 0;
+                    swipeLimits.bottom = 0;
+                    swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
+                    setTimeout(() => {
+                        this.isSwiping = false;
+                    }, 500);
+                } else {
+                    console.log("still swiping");
+                }
+                
             },
             triage(log_idx) {
                 const log = this.logs[log_idx];

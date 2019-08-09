@@ -139,7 +139,7 @@
              formatPhoneNum, 
              editGridChildPortrait, 
              editGridChildLandscape } from '../../scripts/common';
-    
+
     export default {
         data() {
             return {
