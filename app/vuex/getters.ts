@@ -6,6 +6,7 @@ export default {
     logs: state => state.logs,
     users: state => state.users,
 
+    data_version: state => state.data_version,
     tutorials: state => state.tutorials,
     intro: state => state.intro,
     protocols: state => state.protocols,

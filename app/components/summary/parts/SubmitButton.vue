@@ -116,7 +116,6 @@
                         let items_body = [];
                         let others_body = [];
                         let info = [];
-                        let contents = [];
                         
                         this.assessment_letters.forEach(letter => {
                             let count_letter = 0;
@@ -126,7 +125,7 @@
                                     const r_obj = curr_log.items_answers[items_idx].a.find(elem => {return elem.q_id === q_obj.id});
                                     const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
                                     
-                                    contents.push( {
+                                    items_body.push( {
                                         t: letter.title,
                                         q: q_obj.question,
                                         a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
@@ -143,9 +142,14 @@
                             count_letter = 0;
                         });
 
-                        items_body.push({
-                            info: info,
-                            content: contents
+                        info.forEach(info_item => {
+                            if (info_item.c > 1) {
+                                const item_to_change = items_body.find(item => item.t === info_item.t);
+                                item_to_change['t'] = {
+                                    rowSpan: info_item.c, 
+                                    content: info_item.t
+                                };
+                            }
                         });
 
                         protocol.additional_questions.forEach(q_obj => {
@@ -286,7 +290,7 @@
                     doc.autoTable({
                         startY: finalY + 10,
                         theme: 'grid',
-                        body: protocol_body.items[0].content,
+                        body: protocol_body.items,
                         columns: [{ dataKey: 't' }, {dataKey: 'q' }, { dataKey: 'a' }],
                         columnStyles: {t: {cellWidth: 25, minCellWidth: 25, fontStyle: 'bold'},
                                     q: {cellWidth: 65, minCellWidth: 65, fontStyle: 'bold'},
@@ -392,6 +396,7 @@
                             });
                         });
                     } 
+                    
                 }).catch(error => {
                     alert({
                         title: "Email Client not Found",

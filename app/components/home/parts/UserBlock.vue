@@ -1,6 +1,6 @@
 <template>
     <StackLayout class="user-ctnr" @tap="onEditTap">
-        <FlexboxLayout justifyContent="space-between" alignItems="flex-start" v-show="has_user">
+        <FlexboxLayout justifyContent="space-between" alignItems="flex-start" v-if="curr_user_id != -1">
             <StackLayout class="user-head" :background="user.color" @tap="onDotTap"></StackLayout>
             <StackLayout>
                 <Label class="user-item user-bold" :text="user.name" />
@@ -11,8 +11,8 @@
                 <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
             </StackLayout>
         </FlexboxLayout>
-        <FlexboxLayout justifyContent="center" alignItems="center" v-show="! has_user">
-            <StackLayout class="user-begin-text-ctnr">
+        <FlexboxLayout justifyContent="center" alignItems="center" v-else>
+            <StackLayout >
                 <Label class="user-item user-begin-text" text="START" />
                 <Label class="user-item user-begin-text" text="MY SHIFT" />
             </StackLayout>   
@@ -30,7 +30,6 @@
     export default {
         data() {
             return {
-                has_user: false,
                 user: {
                     id: '888888',
                     name: 'Nomen Nescio',
@@ -52,12 +51,9 @@
         methods: {
             prepareUser() {
                 if (this.curr_user_id != -1) {
-                    this.has_user = true;
                     this.user = this.users.find((user)=> {return user.id === this.curr_user_id; });
                     this.$emit("userChange");
-                } else {
-                     this.has_user = false;
-                }
+                } 
             },
             onDotTap() {
 

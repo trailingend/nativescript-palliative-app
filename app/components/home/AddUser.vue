@@ -88,7 +88,7 @@
                         is_first_time: true,
                         parent_modal: this.parent_modal,
                     }
-                })
+                });
             },
             parseIDInput() {
                 let user_ID = '000000';

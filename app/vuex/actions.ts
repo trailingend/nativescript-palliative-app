@@ -12,10 +12,16 @@ export default {
     loadOnlineData({commit, state}){
         let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
         fetch(url)
-            .then(response => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log("=== Something went wrong loading online data ===");
+                }
+            })
             .then(input => {
                 const version_not_match = (state.data_version != input.info.version);
-                console.log("=== in load online data === version match found? - " + version_not_match);
+                console.log(`=== in load online data === version match found? - ${version_not_match} (${state.data_version}, ${input.info.version})`);
                 if (version_not_match) {
                     commit(types.JSON_UPDATE, input); 
                 }
@@ -24,6 +30,10 @@ export default {
 
     activateUser({commit, state}, user) {
         commit(types.USER_UPDATE, user.id);
+    },
+
+    deactivateUser({commit, state}) {
+        commit(types.USER_LOGOUT);
     },
 
     deleteUser({commit, state}, user_id) {

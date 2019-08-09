@@ -37,6 +37,7 @@
     import Logs from './parts/Logs.vue';
     import NewClient from '../intro/NewClient.vue';
     import Notes from '../intro/Notes.vue';
+    import Settings from './Settings.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -66,6 +67,7 @@
         computed: {
             ...mapGetters([
                 'curr_user_id',
+                'data_version'
 			])
 		},
         methods: {
@@ -77,7 +79,10 @@
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
                 if (localJsonData) {
-                    this.loadLocalData(localJsonData);
+                    console.log(`=== check if load from local json === ${localJsonData.info.version > this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
+                    if (localJsonData.info.version > this.data_version) {
+                        this.loadLocalData(localJsonData);
+                    } 
                 }
             },
             checkUserStatus() {
@@ -97,6 +102,11 @@
                 });
             },
             onSettingTap() {
+                this.$showModal(Settings, { 
+                    fullscreen: true,
+                }).then(() => {
+                    this.checkUserStatus();
+                });
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.homeGridRef.nativeView.getMeasuredWidth() );

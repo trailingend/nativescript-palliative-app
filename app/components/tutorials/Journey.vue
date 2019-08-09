@@ -156,7 +156,7 @@
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.firstTimeRef.nativeView.getMeasuredWidth() );
                     if (width > 1000) {
                         this.ctnrSetting = "first-time-ctnr tablet-landscape";
-                        this.widthSetting = '357.5';
+                        this.widthSetting = '351.5';
                         this.mainSetting = {
                             rows: "*",
                             columns: "*, *",

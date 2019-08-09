@@ -240,7 +240,7 @@ export default {
 
 
 
-	data_version: 1,
+	data_version: 0,
 
 	intro: [],
 	protocols: [],

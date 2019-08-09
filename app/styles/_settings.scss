@@ -1,0 +1,58 @@
+@import "variables";
+
+.settings-page {
+    .close-btn {
+        margin: 25;
+        horizontal-align: right;
+    }  
+    .settings-ctnr {
+        .settings-title {
+            font-size: $form-title-font-size;
+            font-weight: 500;
+            letter-spacing: 0.1;
+            text-transform: uppercase;
+            margin-bottom: 120;
+        }
+        .settings-items-ctnr {
+            background: white;
+            border-color: $log-border-color;
+            border-top-width: 0.5;
+            margin: 0 50; 
+        }
+        .settings-item {
+            background: white;
+            border-color: $log-border-color;
+            border-bottom-width: 0.5;
+            padding: 20 0;
+        }
+        .settings-text {
+            font-size: 24;
+            font-weight: 700;
+            letter-spacing: 0.05;
+            text-transform: capitalize;
+            margin-left: 25; 
+        }
+        .settings-logout {
+            font-size: 24;
+            font-weight: 400;
+            text-transform: capitalize;
+            margin-top: 40;
+            margin-bottom: 80;
+        }
+        .settings-arrow {
+            margin-right: 25; 
+        }
+
+        &.tablet-landscape {
+            .settings-title {
+                margin-bottom: 80;
+            }
+            .settings-logout {
+                margin-bottom: 60;
+            }
+        }
+    }
+    
+
+
+}

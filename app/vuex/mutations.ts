@@ -8,16 +8,18 @@ export default {
         state.protocols = data.data.protocols;
         state.assessment_letters = data.data.assessment_letters;
         state.plans = data.data.plans;
+        console.log(`=== in JSON_UPDATE === version match found? - (${state.data_version}, ${data.info.version})`);
     },
 
     [types.USER_CREATE](state, user) {
         state.curr_user_id = user.id;
         state.users.push(user);
-        // console.log("=== in mutation USER_CREATE ===");
-        // console.dir(state.users);
     },
     [types.USER_UPDATE](state, user_id) {
         state.curr_user_id = user_id;
+    },
+    [types.USER_LOGOUT](state) {
+        state.curr_user_id = -1;
     },
     [types.USER_DELETE](state, user_idx) {
         state.users.splice(user_idx, 1);
