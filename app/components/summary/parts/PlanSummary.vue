@@ -1,11 +1,17 @@
 <template>
     <StackLayout class="sum-pseudo-item-ctnr">
-        <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-            <Label class="sum-item-title" text="Plans" />
-            <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onPlansEditTap"></Image>
-        </FlexboxLayout>                    
-        <StackLayout class="sum-unit-ctnr">
-            <Label :text="response" textWrap="true" class="sum-text"/>
+        <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between" class="sec-title-ctnr">
+            <Label class="sum-sec-title" text="Plans" />
+            <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onPlansEditTap"></Image>
+        </FlexboxLayout>                 
+        <StackLayout class="sec-content-ctnr sum-unit-ctnr">
+            <Label v-if="plans_answers == []" text="N/A" class="sum-text"/>
+            <GridLayout rows="auto" columns="auto, *" 
+                        class="sum-plan-unit"
+                        v-else v-for="(plan, index) in plans_answers.filter(elem => elem != '')" :key="index">
+                <Image row="0" col="0" class="sum-pointy" src="~/assets/images/pointy.png" stretch="aspectFit" ></Image>
+                <Label row="0" col="1" :text="plan" textWrap="true" class="sum-text"/>
+            </GridLayout>
         </StackLayout>
     </StackLayout>
 </template>
@@ -18,7 +24,7 @@
     export default {
         data() {
             return {
-                response: '',
+                plans_answers: [],
             }
         },
         created() {
@@ -39,9 +45,7 @@
 		},
         methods: {
             prepareSummary() {
-                const plans_answers = this.logs.find(elem => { return elem.id === this.log_id; }).plans_answers;
-                this.response = (plans_answers != []) ? plans_answers.join('\n') : 'N/A';
-                if (this.response === "") this.response = 'N/A';
+                this.plans_answers = this.logs.find(elem => { return elem.id === this.log_id; }).plans_answers;
             },
             onPlansEditTap() {
                 this.$navigateTo(Plans, {

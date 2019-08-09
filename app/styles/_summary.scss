@@ -19,43 +19,79 @@
             text-transform: uppercase;
         }
         .sum-sec-ctnr {
-            margin-bottom: 50; 
+            margin-bottom: 30; 
         }
-        // .sec-title-ctnr {
-        //     background: #f0f0f0;
-        // }
-        // .sec-content-ctnr {
-        //     background: #f8f8f8;
-        // }
+        .sec-title-ctnr {
+            background: #f0f0f0;
+            margin-bottom: 8;
+            padding: 10 25;
+        }
+        .sec-content-ctnr {
+            background: #f8f8f8;
+            padding: 15 25;
+        }
         .sum-sec-title {
             font-size: 18;
             font-weight: 700;
             text-align: left;
             text-transform: uppercase;
-            margin-bottom: 10; 
-            margin-bottom: 5 0 15 0;
         }
-        
-        .sum-item-ctnr,
-        .sum-pseudo-item-ctnr {
-            margin-bottom: 25;
+        .sum-inner-ctnr {
+            margin-right: 35;
         }
-        .sum-item-title {
+        .sum-step-title {
+            font-size: 16;
             font-weight: 700;
             margin-bottom: 10; 
+            margin-right: 25;
+            vertical-align: top;
+        }
+        .sum-proto-title {
+            font-size: 16;
+            font-weight: 700;
+            text-decoration: underline;
             text-transform: uppercase;
+            margin-bottom: 20; 
+            horizontal-align: left;
+        }
+        .sum-item-title {
+            font-size: 16;
+            font-weight: 700;
+            text-decoration: underline;
+            text-transform: uppercase;
+            margin-bottom: 10; 
+        }
+        .sum-item-edit {
+            vertical-align: top;
         }
         .sum-unit-ctnr {
             margin-bottom: 15; 
         }
+        .sum-proto-ctnr {
+            margin-bottom: 15; 
+        }
         .sum-text {
+            font-size: 15;
             font-weight: 400;
             text-align: left;
             text-transform: none;
+            vertical-align: top;
         }
         .sum-bold {
             font-weight: 700;
             text-transform: none;
+        }
+        .sum-separate {
+            margin-top: 10;
+        }
+        .sum-plan-unit {
+            margin-bottom: 10;
+        }
+        .sum-pointy {
+            width: 18;
+            margin-top: 3;
+            margin-right: 35;
+            vertical-align: top;
         }
     
         .sum-btn {

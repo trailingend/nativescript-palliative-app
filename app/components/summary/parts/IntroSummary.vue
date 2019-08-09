@@ -1,18 +1,20 @@
 <template>
     <StackLayout class="sum-sec-ctnr">
-        <Label text="Introduction" class="sum-sec-title"/>
+        <StackLayout class="sec-title-ctnr">
+            <Label text="Introduction" class="sum-sec-title"/>
+        </StackLayout>
         
-        <StackLayout>
+        <StackLayout class="sec-content-ctnr">
             <StackLayout v-for="(item, index) in intro" 
                          :key="item.id" 
                          class="sum-item-ctnr">  
-                <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-                    <Label class="sum-item-title" :text="`Step ${index + 1}`" />
-                    <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onEditTap(index)" ></Image>
-                </FlexboxLayout>                    
-                <StackLayout v-for="question in item.questions" :key="question.id">
-                    <QuestionSummary :log_id="log_id" :protocol_id="-1" :unit="question" section="intro" /> 
-                </StackLayout>
+                <GridLayout rows="*" columns="auto, *, auto">
+                    <Label row="0" col="0" class="sum-step-title" :text="`${index + 1}`"/>
+                    <StackLayout row="0" col="1" class="sum-inner-ctnr">
+                        <QuestionSummary v-for="question in item.questions" :key="question.id" :log_id="log_id" :protocol_id="-1" :unit="question" section="intro" /> 
+                    </StackLayout>
+                    <Image row="0" col="2" class="edit-icon sum-item-edit" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap(index)" ></Image>
+                </GridLayout>            
             </StackLayout>   
         </StackLayout>  
     </StackLayout>

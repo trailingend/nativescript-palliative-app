@@ -1,30 +1,38 @@
 <template>
-    <StackLayout class="sum-sec-ctnr">
-        <Label :text="protocol_title" class="sum-sec-title"/>
+    <StackLayout class="sum-proto-ctnr">
+        <Label :text="protocol_title" class="sum-proto-title"/>
         
-        <StackLayout>
-            <StackLayout v-for="letter in assessment_letters" 
-                         :key="letter.id" 
-                         class="sum-item-ctnr">  
-                <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-                    <Label class="sum-item-title" :text="letter.title" />
-                    <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onItemsEditTap(letter.id)"></Image>
-                </FlexboxLayout>                    
-                <StackLayout v-for="question in filteredAssessments(letter)" :key="question.id">
-                    <QuestionSummary :log_id="log_id" :protocol_id="protocol_id" :unit="question" section="items" /> 
-                </StackLayout>
+        <GridLayout rows="*" columns="auto, *">
+            <Label row="0" col="0" class="sum-step-title" text=" "/>
+            <StackLayout row="0" col="1">
+                <StackLayout v-for="(letter, index) in assessment_letters" 
+                             :key="letter.id" 
+                             class="sum-item-ctnr">  
+                    <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
+                        <Label class="sum-item-title" :text="letter.title" />
+                        <Image class="edit-icon" v-show="index === 0" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onItemsEditTap(letter.id)"></Image>
+                    </FlexboxLayout> 
+                    <StackLayout class="sum-inner-ctnr">
+                        <QuestionSummary v-for="question in filteredAssessments(letter)" :key="question.id" 
+                                         :log_id="log_id" :protocol_id="protocol_id" :unit="question" section="items" /> 
+                    </StackLayout>
+                </StackLayout>   
             </StackLayout>   
-        </StackLayout>  
+        </GridLayout>  
 
-        <StackLayout class="sum-pseudo-item-ctnr">
-            <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
-                <Label class="sum-item-title" text="Other" />
-                <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit" @tap="onOthersEditTap()"></Image>
-            </FlexboxLayout>                    
-            <StackLayout v-for="question in others_questions" :key="question.id">
-                <QuestionSummary :log_id="log_id" :protocol_id="protocol_id" :unit="question" section="others" /> 
-            </StackLayout>
-        </StackLayout>  
+        <GridLayout rows="*" columns="auto, *">
+            <Label row="0" col="0" class="sum-step-title" text=" "/>
+            <StackLayout row="0" col="1" class="sum-pseudo-item-ctnr">
+                <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
+                    <Label class="sum-item-title" text="Other" />
+                    <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onOthersEditTap()"></Image>
+                </FlexboxLayout>                    
+                <StackLayout class="sum-inner-ctnr">
+                    <QuestionSummary v-for="question in others_questions" :key="question.id"
+                                     :log_id="log_id" :protocol_id="protocol_id" :unit="question" section="others" /> 
+                </StackLayout>
+            </StackLayout> 
+        </GridLayout>   
 
     </StackLayout>
 </template>
@@ -91,7 +99,7 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id,
-                        preset_letter_id: letter_id,
+                        // preset_letter_id: letter_id,
                         from_summary: true,
                     }
                 });

@@ -13,11 +13,19 @@
                     </StackLayout>
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />
-                    <ProtocolSummary v-for="p_id in protocol_ids"
-                                     :key="p_id"
-                                     :log_id="log_id" 
-                                     :protocol_id="p_id" />
+                    <StackLayout class="sum-sec-ctnr">
+                        <StackLayout class="sec-title-ctnr">
+                            <Label text="Protocols" class="sum-sec-title"/>
+                        </StackLayout>
+                        <StackLayout class="sec-content-ctnr">
+                            <ProtocolSummary v-for="p_id in protocol_ids"
+                                             :key="p_id"
+                                             :log_id="log_id" 
+                                             :protocol_id="p_id" />
+                        </StackLayout>
+                    </StackLayout>
                     <PlanSummary :log_id="log_id" /> 
+                    <NoteSummary :log_id="log_id" />
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
                         <SubmitButton :log_id="log_id" />
@@ -38,6 +46,7 @@
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
     import PlanSummary from './parts/PlanSummary.vue';
+    import NoteSummary from './parts/NoteSummary.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import Plans from '../protocols/Plans.vue';
 
@@ -78,7 +87,8 @@
             InfoSummary,
             IntroSummary,
             ProtocolSummary,
-            PlanSummary
+            PlanSummary,
+            NoteSummary
         },
         computed: {
             ...mapGetters([
