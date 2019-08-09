@@ -24,12 +24,14 @@
                                             ref="phoneFieldRef"
                                             mask="(000) 000-0000"
                                             hint="(###) ###-####"
+                                            @textChange="onPhoneTextChange"
                                             keyboardType="phone" />
                             <Label :row="gridSetting.children.e1.row" 
                                     :col="gridSetting.children.e1.col"
                                     :colSpan="gridSetting.children.e1.colSpan"
                                     class="client-e client-e1" 
                                     text="Please enter a callback number" 
+                                    ref="phoneErrorFieldRef"
                                     opacity="0" />
                             <Label :row="gridSetting.children.q2.row" 
                                     :col="gridSetting.children.q2.col"
@@ -221,9 +223,25 @@
                     }
                 } 
             },
+            onPhoneTextChange() {
+                let client_phone = this.parsePhoneInput();
+                if (client_phone.length != 10) {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#ff1f00';
+                } else {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#dbdbdb';
+                }
+            },
             onNextTap(args) {
                 this.recordTime(); 
                 let client_phone = this.parsePhoneInput();
+
+                if (client_phone.length != 10) {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#ff1f00';
+                    return;
+                }
 
                 if (this.is_consented) {
                     const client_id = this.c_id;

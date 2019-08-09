@@ -102,7 +102,7 @@ export const logMonths = (month_unformatted) => {
 };
 
 export const formatPhoneNum = (phone_unformatted) => {
-    let formatted_input = '';
+    let formatted_input = phone_unformatted.replace(/\D/g, '');
     const input = phone_unformatted;
     const len = phone_unformatted.length;
     if (len > 2) {

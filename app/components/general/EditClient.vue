@@ -20,16 +20,18 @@
                                         :col="gridSetting.children.a1.col"
                                         id="client-a1"
                                         class="client-a client-a1" 
-                                        v-model="input_phone" 
+                                        ref="phoneFieldRef"
                                         hint="(888) 888-8888"
                                         keyboardType="phone"
-                                        @blur="onPhoneEntered"
+                                        @textChange="onPhoneChange"
+                                        @blur="onPhoneEnterred"
                                         editable="true" />
                             <Label :row="gridSetting.children.e1.row" 
                                    :col="gridSetting.children.e1.col"
                                    :colSpan="gridSetting.children.e1.colSpan"
                                    class="client-e client-e1" 
                                    text="Please enter a callback number" 
+                                   ref="phoneErrorFieldRef"
                                    opacity="0" />
                             <Label :row="gridSetting.children.q2.row" 
                                     :col="gridSetting.children.q2.col"
@@ -176,14 +178,6 @@
             ...mapGetters([
                 'logs',
             ]),
-            input_phone: {
-                get: function() {                    
-                    return formatPhoneNum(this.c_phone);
-                },
-                set: function (new_input) {
-                    this.c_phone = new_input.replace(/\D/g, '').substring(0, Math.min(10, new_input.length));
-                }
-            }
 		},
         methods: {
             ...mapActions([
@@ -207,6 +201,7 @@
                     this.c_relation = curr_log.relation;
                     this.c_nurse = curr_log.nurse.replace(/\D/g, '').substring(0, 6);
                     this.c_info = curr_log.info;
+                    this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
                     // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
             },
@@ -219,6 +214,13 @@
                 const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
                 const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
                 const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
+
+                if (client_phone.length != 10) {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#ff1f00';
+                    return;
+                }
+
                 const entry = {
                     id: this.log_id,
                     phone: client_phone,
@@ -232,6 +234,22 @@
 
                 this.$modal.close();
             },
+            onPhoneChange(args) {
+                const new_input = args.value.replace(/\D/g, '');
+                this.c_phone = new_input.substring(0, Math.min(10, new_input.length));
+                this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
+
+                if (this.c_phone.length != 10) {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#ff1f00';
+                } else {
+                    this.$refs.phoneErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.phoneFieldRef.nativeView.borderColor = '#dbdbdb';
+                }
+            },
+            onPhoneEnterred() {
+                // this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
+            },
             onCloseTap() {
                 this.$modal.close();
             },
@@ -241,9 +259,6 @@
                     const aTextfield = layoutView.getViewById(`client-a${i}`);
                     aTextfield.dismissSoftInput();
                 }
-            },
-            onPhoneEntered() {
-                this.input_phone = formatPhoneNum(this.c_phone.replace(/\D/g, ''));
             },
             onNavigatingFrom() {
                 
