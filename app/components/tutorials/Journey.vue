@@ -17,7 +17,9 @@
                                  muted="true"
                                  loop="true"
                                  :width="widthSetting"
-                                 height="490" />
+                                 height="490"
+                                 :opacity="isReady? 1 : 0"
+                                 @playbackReady="() => {isReady = true; }" />
                 </StackLayout>
                 <StackLayout :row="mainSetting.desc.row" :col="mainSetting.desc.col" class="desc-ctnr">
                     <Label class="tutorial-subtitle" :text="tutorials[$props.item_idx].title" ></Label>   
@@ -47,6 +49,8 @@
     export default {
         data() {
             return {
+                isReady: false,
+                
                 ctnrSetting: "first-time-ctnr",
                 widthSetting: '367.5',
                 mainSetting: {
@@ -63,8 +67,11 @@
                 }
             }
         },
-        beforeCreate: function () {
+        beforeCreate() {
             this.$options.components.Journey = require('./Journey.vue').default;
+        },
+        beforeDestroy() {
+            this.$refs.journeyPlayerRef.nativeView.destroy();
         },
         mounted() {
         },

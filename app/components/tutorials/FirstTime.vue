@@ -15,7 +15,9 @@
                                  muted="true"
                                  loop="true"
                                  width="367.5"
-                                 height="490" />
+                                 height="490"
+                                 :opacity="isReady? 1 : 0"
+                                 @playbackReady="() => {isReady = true; }" />
                 </StackLayout>
                 <StackLayout :row="mainSetting.desc.row" :col="mainSetting.desc.col" class="desc-ctnr">
                     <Label class="tutorial-subtitle" text="First Time Using PAT?" ></Label>   
@@ -41,6 +43,8 @@
     export default {
         data() {
             return {
+                isReady: false,
+
                 ctnrSetting: "first-time-ctnr",
                 mainSetting: {
                     rows: "auto, *",
@@ -55,6 +59,9 @@
                     }
                 }
             }
+        },
+        beforeDestroy() {
+            this.$refs.firstTimePlayerRef.nativeView.destroy();
         },
         components: {
         },
