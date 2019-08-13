@@ -213,29 +213,29 @@ export default {
 
 
 	tutorials: [{
-			title: 'Charting a New Client',
+			title: 'Documenting a New Client',
 			video: 'history',
-			desc: 'Tap on “New Chart” on the bottom of the Dashboard screen to start charting. If another client calls, you can pause your current documentation to answer the new call. To chart on the new call, tap “New Chart”. Unfinished documentation will be saved in Chart History.'
+			desc: 'Tap on “New Client“ on the bottom of the Dashboard screen to start. If another client calls, you can pause your current documentation to answer the new call. To open, assess and document the new call, tap “New Client”. Unfinished documentation will be saved in “Client History”.'
 		}, {
-			title: 'Accessing Chart History',
+			title: 'Accessing Client History',
 			video: 'new',
-			desc: 'Access the Chart History on the homescreen. A checkmark indicates charting is complete. The Arrow with semi-circle indicates incomplete charting. Tap the chart to open where you left off and continue documenting.'
+			desc: 'Access the Client History on the homescreen. Checkmark indicates documenting is complete. Arrow with semi-circle indicates incomplete documenting. Tap the chart to open where you left off and continue documenting.'
 		}, {
-			title: 'Charting',
+			title: 'Documenting',
 			video: 'charting',
-			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The Recommend section is to support you with more info.'
+			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The “Recommend” section is to support you with more info.'
 		}, {
 			title: 'Summary Screen',
 			video: 'summary',
-			desc: 'This screen is a final review of your documentation before completion of charting. Tap the pencil icon to access any section of the chart.'
+			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section. Tick the box “Documentation reviewed and finalized”.'
 		}, {
 			title: 'Uploading to PARIS',
 			video: 'history',
-			desc: 'When finished charting, a PDF will be emailed to you. This PDF can be uploaded to PARIS. Sign charting “signed charting/electronic signature” _______ to indicate documentation complete. The completed charting will be saved in PDF format.'
+			desc: 'The completed documentation will be saved in pdf format. TBD based on discussion with Clinical Informatics.'
 		}, {
 			title: 'Send and Delete',
 			video: 'history',
-			desc: 'Completed documentation must be uploaded to PARIS ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
+			desc: 'When finished documenting, a pdf will be emailed to you. Checkmark on the Dashboard/ Client History indicates documenting is complete. Arrow with semi-circle indicates incomplete documentation. Completed documentation must be uploaded to Paris ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
 	}],
 
 

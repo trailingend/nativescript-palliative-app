@@ -5,7 +5,7 @@
             <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onPlansEditTap"></Image>
         </FlexboxLayout>                 
         <StackLayout class="sec-content-ctnr sum-unit-ctnr">
-            <Label v-if="plans_answers == []" text="N/A" class="sum-text"/>
+            <Label v-if="plans_answers.join('') === ''" text="N/A" class="sum-text"/>
             <GridLayout rows="auto" columns="auto, *" 
                         class="sum-plan-unit"
                         v-else v-for="(plan, index) in plans_answers.filter(elem => elem != '')" :key="index">

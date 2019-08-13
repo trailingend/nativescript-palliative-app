@@ -92,8 +92,8 @@
 
                     <FlexboxLayout class="client-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
                         <StackLayout>
-                            <Label class="client-t client-t-consent" text="consent to documente call" />
-                            <Label class="client-t client-t-consent" text="and to represent client" />
+                            <Label class="client-t client-t-consent" text="consent to care given and" />
+                            <Label class="client-t client-t-consent" text="to speak on behalf of client" />
                         </StackLayout>
                         <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" />
                     </FlexboxLayout>

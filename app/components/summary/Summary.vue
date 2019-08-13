@@ -18,7 +18,8 @@
                             <Label text="Protocols" class="sum-sec-title"/>
                         </StackLayout>
                         <StackLayout class="sec-content-ctnr">
-                            <ProtocolSummary v-for="p_id in protocol_ids"
+                            <Label v-if="protocol_ids.length === 0" class="sum-text" text="N/A" />
+                            <ProtocolSummary v-else v-for="p_id in protocol_ids"
                                              :key="p_id"
                                              :log_id="log_id" 
                                              :protocol_id="p_id" />

@@ -107,7 +107,7 @@ export default {
     [types.CHART_PLANS_UPDATE](state, chart_item) {
         state.logs[chart_item.idx].plans_answers = chart_item.content;
         // console.log("=== in mutation CHART_PLANS_UPDATE ===");
-        console.dir(state.logs[chart_item.idx].plans_answers);
+        // console.dir(state.logs[chart_item.idx].plans_answers);
     },
     
     [types.CHART_INTRO_PROGRESS](state, item) {

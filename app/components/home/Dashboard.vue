@@ -14,7 +14,7 @@
             </StackLayout>
 
             <StackLayout row="1" col="0" colSpan="3" class="log-title-ctnr">
-                <Label class="log-title" text="charts" />
+                <Label class="log-title" text="client history" />
             </StackLayout>
 
             <Logs row="2" col="0" rowSpan="2" colSpan="3" class="home-log-ctnr" />
@@ -58,7 +58,7 @@
         },
         mounted() {
             this.checkUserStatus();
-            this.loadOnlineData();
+            // this.loadOnlineData();
         },
         components: {
             Logs,
@@ -79,10 +79,10 @@
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
                 if (localJsonData) {
-                    console.log(`=== check if load from local json === ${localJsonData.info.version > this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
-                    if (localJsonData.info.version > this.data_version) {
+                    console.log(`=== check if load from local json === ${localJsonData.info.version != this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
+                    // if (localJsonData.info.version != this.data_version) {
                         this.loadLocalData(localJsonData);
-                    } 
+                    // } 
                 }
             },
             checkUserStatus() {

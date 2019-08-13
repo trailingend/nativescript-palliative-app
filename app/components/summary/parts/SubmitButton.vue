@@ -88,7 +88,7 @@
                 const date = time_arr[1].split(" / ").join(" ");
                 const submit_time = this.recordTime();
                 info_body.push({
-                    a: `Intake nurse: ${nurse}\nConsent to document call\nand to represent client: Yes`, 
+                    a: `Intake nurse: ${nurse}\nConsent to care given and\n to speak on behalf of client: Yes`, 
                     b: `Date: ${date}\nCall Start: ${create_time}\nCall End: ${submit_time}`,
                 });
                 return info_body;

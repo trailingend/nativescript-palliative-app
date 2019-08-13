@@ -20,7 +20,7 @@
                                  @playbackReady="() => {isReady = true; }" />
                 </StackLayout>
                 <StackLayout :row="mainSetting.desc.row" :col="mainSetting.desc.col" class="desc-ctnr">
-                    <Label class="tutorial-subtitle" text="First Time Using PAT?" ></Label>   
+                    <Label class="tutorial-subtitle" text="First Time Using this Tool?" ></Label>   
                     <StackLayout class="tutorial-text-ctnr">
                             <Label class="tutorial-text" text="We can show you how to use this tool." ></Label>
                             <Label class="tutorial-text" text="Revisit this Tutorial anytime in Settings."></Label>

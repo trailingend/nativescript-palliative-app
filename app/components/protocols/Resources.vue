@@ -145,6 +145,7 @@
                 });
             },
             onLinkTap(url) {
+                console.log("navigating to " + url);
                 utils.openUrl(url);
             },
             onTabTap(args, curr_id) {

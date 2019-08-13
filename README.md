@@ -23,6 +23,7 @@ tns deploy ios --bundle --device 93ff730c6579308b561791adafec2fc96d59eec4 --clea
 
 ## Plugins
 ```
+npm install jspdf --save
 npm install @types/jspdf --save
 npm install base-64 --save
 npm install utf8 --save
@@ -35,5 +36,9 @@ tns plugin add nativescript-email
 tns plugin add nativescript-localstorage
 ```
 
-		// "memoryCheckInterval": 500,
-		// "freeMemoryRatio": 0.20
+## Memory Management
+1. Via Schedule
+	- "gcThrottleTime": 1000
+2. Via Ratio
+	- "memoryCheckInterval": 500,
+	- "freeMemoryRatio": 0.20
