@@ -86,8 +86,9 @@
                     fullscreen: true,
                     props: {
                         is_first_time: true,
-                        parent_modal: this.parent_modal,
                     }
+                }).then(() => {
+                    this.parent_modal.close();
                 });
             },
             parseIDInput() {

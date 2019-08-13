@@ -56,8 +56,9 @@
                     fullscreen: true,
                     props: {
                         is_first_time: false,
-                        parent_modal: this.$modal,
                     }
+                }).then(() => {
+                    this.$modal.close();
                 });
             },
             onCloseTap() {

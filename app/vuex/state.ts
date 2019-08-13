@@ -213,28 +213,28 @@ export default {
 
 
 	tutorials: [{
-			title: 'Documenting a New Client',
-			video: 'history',
-			desc: 'Tap on “New Client“ on the bottom of the Dashboard screen to start. If another client calls, you can pause your current documentation to answer the new call. To open, assess and document the new call, tap “New Client”. Unfinished documentation will be saved in “Client History”.'
+			title: 'Create New Client',
+			video: 'help1',
+			desc: 'Tap on ‘New Client’ on the bottom of the Dashboard screen to start.\nEven unfinished documentation will be saved in ‘Client History’.\nIf another client calls, you can pause your current documentation to answer the new call.'
 		}, {
-			title: 'Accessing Client History',
-			video: 'new',
-			desc: 'Access the Client History on the homescreen. Checkmark indicates documenting is complete. Arrow with semi-circle indicates incomplete documenting. Tap the chart to open where you left off and continue documenting.'
+			title: 'Access Chart History',
+			video: 'help2',
+			desc: 'Access your Chart History on the home-screen.\nArrow with semi-circle indicates incomplete charting.\nCheckmark indicates charting is complete and sent.\nTap the chart to open where you left off and continue documenting.'
 		}, {
-			title: 'Documenting',
-			video: 'charting',
-			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The “Recommend” section is to support you with more info.'
+			title: 'Document',
+			video: 'help3',
+			desc: 'You have the option of free text and multiple choice to assist with documentation.\nTo help navigate the assessment you can skip, go-back or forward.\nThe ‘Recommend’ section is to support you with more info.'
 		}, {
-			title: 'Summary Screen',
-			video: 'summary',
-			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section. Tick the box “Documentation reviewed and finalized”.'
+			title: 'Review Summary Screen',
+			video: 'help4',
+			desc: 'This screen is a final review of your documentation.\nTap the pencil icon to access any section of the chart.\nTick the box “Documentation reviewed and finalized”.'
 		}, {
 			title: 'Uploading to PARIS',
-			video: 'history',
+			video: 'help5',
 			desc: 'The completed documentation will be saved in pdf format. TBD based on discussion with Clinical Informatics.'
 		}, {
 			title: 'Send and Delete',
-			video: 'history',
+			video: 'new',
 			desc: 'When finished documenting, a pdf will be emailed to you. Checkmark on the Dashboard/ Client History indicates documenting is complete. Arrow with semi-circle indicates incomplete documentation. Completed documentation must be uploaded to Paris ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
 	}],
 

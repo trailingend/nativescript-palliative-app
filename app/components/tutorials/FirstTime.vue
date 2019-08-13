@@ -9,7 +9,7 @@
             <GridLayout row="1" col="0" :rows="mainSetting.rows" :columns="mainSetting.columns" class="first-time-main-ctnr">
                 <StackLayout :row="mainSetting.video.row" :col="mainSetting.video.col" class="video-ctnr">
                     <VideoPlayer ref="firstTimePlayerRef" 
-                                 src="~/assets/videos/history.mp4" 
+                                 src="~/assets/videos/first_time.mp4" 
                                  autoplay="true" 
                                  controls="false"
                                  muted="true"
@@ -69,7 +69,7 @@
             parent_modal: {
                 type: Object,
                 required: true,
-            } 
+            },
         },
         computed: {
             ...mapGetters([
@@ -104,7 +104,6 @@
             },
             onBackHome() {
                 this.$refs.firstTimePlayerRef.nativeView.pause();
-                this.$modal.close();
                 this.parent_modal.close();
             },
             onLayoutUpdate() {

@@ -1,7 +1,7 @@
 <template>
     <Frame id="tutorialFrame" ref="tFrameRef">
-        <FirstTime v-if="is_first_time" :parent_modal="this.parent_modal" />
-        <Journey v-else :parent_modal="parent_modal" :item_idx="0" />
+        <FirstTime v-if="is_first_time" :parent_modal="$modal" />
+        <Journey v-else :parent_modal="$modal" :item_idx="0" />
     </Frame>
 </template>
 
@@ -25,10 +25,6 @@
                 type: Boolean,
                 required: true,
             },
-            parent_modal: {
-                type: Object,
-                required: true,
-            } 
         },
         components: {
             FirstTime,

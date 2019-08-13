@@ -85,7 +85,7 @@
             parent_modal: {
                 type: Object,
                 required: true,
-            } 
+            },
         },
         computed: {
             ...mapGetters([
@@ -100,7 +100,6 @@
             },
             onBackHome() {
                 this.$refs.journeyPlayerRef.nativeView.pause();
-                this.$modal.close();
                 this.parent_modal.close();
             },
             onBackTap() {

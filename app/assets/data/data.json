@@ -1,6 +1,6 @@
 {
     "info": {
-        "version": 7
+        "version": 8
     },
     "data": {
         "intro": [
@@ -84,11 +84,278 @@
             {
                 "id": 4,
                 "name": "Caregiver Distress",
-                "additional_questions": [],
-                "assessment_questions": [],
-                "recommendations": [],
+                "additional_questions": [
+                    {
+                        "id": 13,
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "When did the caregiver last see their GP?",
+                        "answers": []
+                    },
+                    {
+                        "id": 14,
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "question": "When did the home care nurse visit?",
+                        "answers": []
+                    },
+                    {
+                        "id": 15,
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is the caregiver able to safely care for the client? \nWho else is in the home to provide care?",
+                        "answers": []
+                    },
+                    {
+                        "id": 16,
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "question": "Is the client safe? \nRisk to client if caregiver isn\u2019t coping (e.g. client will be abandoned as caregiver might leave home)?  ",
+                        "answers": []
+                    }
+                ],
+                "assessment_questions": [
+                    {
+                        "id": 22,
+                        "question": "What has been happening? What is most concerning? \nWhat is the caregiver\u2019s relationship to the client?\nHas this feeling (distress) happened before? \nIf yes, explain.\n",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": [
+                            {
+                                "id": 20,
+                                "answer": "Yes \u2013 new distress",
+                                "question": 22
+                            },
+                            {
+                                "id": 21,
+                                "answer": "No \u2013 not new distress",
+                                "question": 22
+                            }
+                        ]
+                    },
+                    {
+                        "id": 23,
+                        "question": "What care has the caregiver been doing? \nFor how long? \nWho else is involved with the client\u2019s care at home?\n",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 24,
+                        "question": "Any change in the health condition? \nHave the care needs changed? If yes, how?\nDoes the caller feel the symptoms are being managed well? If no, explain.",
+                        "assessment_letter": {
+                            "id": 1
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 25,
+                        "question": "Is there worry about leaving the home? \nIf yes, explain.",
+                        "assessment_letter": {
+                            "id": 2
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 26,
+                        "question": "Is there anyone else there now? \nIf no, is there someone to call?   ",
+                        "assessment_letter": {
+                            "id": 2
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 5,
+                            "type": "boolean"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 27,
+                        "question": "Describe the feeling:\n\u201cTell me what has been happening?\u201d",
+                        "assessment_letter": {
+                            "id": 3
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 28,
+                        "question": "How distressing is this symptom?\n0 (not distressing) \u2013 10 (distressing)\n\u201cWhat is most dif\ufb01cult for you?\u201d \nIs this distress worse\/ better\/same as before? ",
+                        "assessment_letter": {
+                            "id": 5
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 4,
+                            "type": "scale"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 29,
+                        "question": "Is this feeling constant or does it come and go?",
+                        "assessment_letter": {
+                            "id": 6
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 2,
+                            "type": "single_select"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 30,
+                        "question": "Caller\u2019s thoughts on what is happening? \nWhat would they like to see happen?",
+                        "assessment_letter": {
+                            "id": 7
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    },
+                    {
+                        "id": 31,
+                        "question": "Review Goals of Care\nAre there any beliefs, views or feelings about this symptom that are important to keep in mind during treatment?",
+                        "assessment_letter": {
+                            "id": 8
+                        },
+                        "protocol": {
+                            "id": 4
+                        },
+                        "question_type": {
+                            "id": 1,
+                            "type": "free_form"
+                        },
+                        "answers": []
+                    }
+                ],
+                "recommendations": [
+                    {
+                        "id": 6,
+                        "protocol": 4,
+                        "content": "<p>Try to determine the underlying reason that might be causing caregiver distress and being able to assess the severity of the distress. If the client is at undue risk, the need to call 911 may be required even if the client\u2019s GOC are to remain at home. <br><\/p><p><b>Emergency situations  <\/b><\/p><ul><li>Suicidal ideation and\/or plan in place \u2013 refer to Crisis Line 1-800-784-2433<\/li><li>Extreme caregiver agitation unable to assess over the phone resulting in high risk to client<\/li><li>Do you feel safe? Client becoming abusive and threatening to caregiver<\/li><\/ul><div><p><b>Consider<\/b><\/p><ul><li>Use a calming voice<\/li><li>Listen, don\u2019t interrupt or rush <\/li><li>Allow silence, be mindful and use empathic listening<\/li><li>\u201cWhat is concerning you most\u201d<\/li><li>\u201cHelp me understand a bit more\u201d<\/li><li>\u201cYou sound upset\u2026\u201d <\/li><li>\u201cWhat I\u2019m hearing is\u2026do you feel that\u2019s accurate?<\/li><li>\u201cWhat have you done in the past that has been helpful?\u201d<\/li><li>\u201cHow are you feeling now?\u201d<\/li><li>If the short term plan is to get through till the morning ask: \u201cIs there anyone you can call to come to the home?\u201d<\/li><\/ul><p><br><\/p><\/div>",
+                        "title": "Non-Pharmaceutical Interventions"
+                    }
+                ],
                 "related_protocols": [],
-                "resources": []
+                "resources": [
+                    {
+                        "id": 5,
+                        "title": "Family Caregivers",
+                        "url": "https:\/\/www.familycaregiversbc.ca\/",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 6,
+                        "title": "Virtual Hospice",
+                        "url": "http:\/\/www.virtualhospice.ca\/",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 7,
+                        "title": "Victoria Hospice",
+                        "url": "https:\/\/www.victoriahospice.org\/",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 8,
+                        "title": "Suicide Prevention",
+                        "url": "https:\/\/suicideprevention.ca\/",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 9,
+                        "title": "Online Distress Services",
+                        "url": "https:\/\/crisiscentrechat.ca\/",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 10,
+                        "title": "Crisis Line 1-800-784-2433",
+                        "url": "undefined",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 11,
+                        "title": "Modified Caregiver Strain Index",
+                        "url": "undefined",
+                        "protocol": 4
+                    },
+                    {
+                        "id": 12,
+                        "title": "Hospital Anxiety and Depression Scale (HADS)",
+                        "url": "undefined",
+                        "protocol": 4
+                    }
+                ]
             },
             {
                 "id": 5,
