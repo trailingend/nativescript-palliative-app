@@ -4,7 +4,7 @@
             <Button class="navigation-close" text="Close" @tap="onCloseTap"></Button>
         </StackLayout>
         <StackLayout flexGrow="2" class="client-text-ctnr">
-            <Label class="navigation-title" text="client" />
+            <Label class="navigation-title" text="chart" />
         </StackLayout>
         <StackLayout class="nav-btn-ctnr">
             <Button class="navigation-btn" text="New Client" @tap="onNewTap"></Button>
@@ -32,7 +32,7 @@
                 if (this.is_close) {
                     confirm({
                         title: "Close Chart",
-                        message: "Your current progress will be saved in your Chart History.",
+                        message: "Your current progress will be saved in your Client History.",
                         okButtonText: "Save and Close",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
@@ -42,7 +42,7 @@
                     });
                 } else {
                     confirm({
-                        title: "Cancel Create Chart",
+                        title: "Cancel Create Client",
                         message: "This client will not be charted.",
                         okButtonText: "Close without Saving",
                         cancelButtonText: "Cancel",
@@ -56,8 +56,8 @@
             onNewTap() {
                 confirm({
                     title: "Create New Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Create New Chart",
+                    message: "Your current progress will be saved in your Client History.",
+                    okButtonText: "Create New Client",
                     cancelButtonText: "Cancel",
                 }).then((result) => {
                     if (result || result === undefined) {

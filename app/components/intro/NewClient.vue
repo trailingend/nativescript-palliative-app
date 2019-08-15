@@ -95,7 +95,7 @@
                             <Label class="client-t client-t-consent" text="consent to care given and" />
                             <Label class="client-t client-t-consent" text="to speak on behalf of client" />
                         </StackLayout>
-                        <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" />
+                        <Switch class="client-switch" v-model="is_consented" @checkedChange="checkConsentError" offBackgroundColor="#e5e5e5"/>
                     </FlexboxLayout>
 
                     <StackLayout class="client-switch-error" opacity="0" ref="consentErrorRef">
@@ -190,7 +190,7 @@
             ]),
             recordTime() {
                 const today = new Date();
-                const date = today.getDate() + ' / ' + logMonths(today.getMonth()) + ' / ' + today.getFullYear();
+                const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
                 const time = today.getHours() + ':' + today.getMinutes();
                 const dateTime = time + ' | ' + date;
 

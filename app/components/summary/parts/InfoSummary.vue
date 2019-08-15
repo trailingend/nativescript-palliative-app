@@ -14,7 +14,7 @@
             <Label row="1" col="0" textWrap="true" class="sum-text">
                 <FormattedString>
                     <span class="sum-bold" text="Intake Date: " />
-                    <span :text="client.createdTime.split(' | ')[1].split(' / ').join(' ')" />
+                    <span :text="client.createdTime.split(' | ')[1]" />
                 </FormattedString>
             </Label>
             <Label row="2" col="0" textWrap="true" class="sum-text">

@@ -42,7 +42,7 @@
             <!-- <FlexboxLayout row="2" col="0" orientation="horizontal" alignItems="center" justifyContent="space-between"> -->
             <Button row="3" col="0" class="back-btn" text="Back" @tap="onBackTap" ></Button>
             
-            <Button row="3" col="2" v-if="show_next" class="next-btn" text="Next" @tap="onNextTap" ></Button>
+            <Button row="3" col="2" v-if="show_next" class="next-btn" text="Next"></Button>
             <!-- </FlexboxLayout> -->
         </GridLayout>
     </Page>
@@ -209,11 +209,11 @@
                     if (this.checkSavedProtocols(p_id_to_check)) {
                         if (i === index) {
                             if (this.protocol_id != null) {
-                                this.show_next = true;
+                                // this.show_next = true;
                                 clicked_btn.color = this.black_color;
                                 clicked_btn.background = this.clicked_color;
                             } else {
-                                this.show_next = false;
+                                // this.show_next = false;
                                 clicked_btn.color = this.saved_color;
                                 clicked_btn.background = this.white_color;
                             }
@@ -224,11 +224,11 @@
                     } else {
                         if (i === index) {
                             if (this.protocol_id != null && proto.assessment_questions.length > 0) {
-                                this.show_next = true;
+                                // this.show_next = true;
                                 clicked_btn.background = this.clicked_color;
                                 clicked_btn.borderColor = this.clicked_color;
                             } else {
-                                this.show_next = false;
+                                // this.show_next = false;
                                 clicked_btn.background = this.unclicked_color;
                                 clicked_btn.borderColor = this.unclicked_color;
                             }
@@ -238,6 +238,8 @@
                         }
                     }
                 }
+
+                this.onForward();
             },
             onForward(args) {
                 if (this.protocol_id != null) {
@@ -258,7 +260,6 @@
                 this.onBackward();
             },
             onNextTap() {
-                this.onForward();
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 

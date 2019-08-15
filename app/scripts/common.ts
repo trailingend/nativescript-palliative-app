@@ -101,6 +101,23 @@ export const logMonths = (month_unformatted) => {
     return month_titles[month_num];
 };
 
+/**
+ *  Function to convert month string to month index
+ *  @param {String} month_unformatted
+ *  @return {Number} index of month, e.g. Janurary is 0
+ * **/
+export const convertMonthToNum = (month_unformatted) => {
+    const month_titles = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const index = month_titles.findIndex(elem => elem === month_unformatted);
+    return index;
+};
+
+export const numDaysInMon = (year) => {
+    const num_feb = (year % 4 === 0) ? 30 : 29;
+    const month_day_nums = [31, num_feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return month_day_nums;
+};
+
 export const formatPhoneNum = (phone_unformatted) => {
     let formatted_input = phone_unformatted.replace(/\D/g, '');
     const input = phone_unformatted;

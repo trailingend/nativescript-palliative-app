@@ -85,11 +85,11 @@
                 const nurse = curr_log.nurse;
                 const time_arr = curr_log.createdTime.split(" | ");
                 const create_time = time_arr[0];
-                const date = time_arr[1].split(" / ").join(" ");
+                const date = time_arr[1];
                 const submit_time = this.recordTime();
                 info_body.push({
                     a: `Intake nurse: ${nurse}\nConsent to care given and\n to speak on behalf of client: Yes`, 
-                    b: `Date: ${date}\nCall Start: ${create_time}\nCall End: ${submit_time}`,
+                    b: `Intake Date: ${date}\nCall Start: ${create_time}\nCall End: ${submit_time}`,
                 });
                 return info_body;
             },

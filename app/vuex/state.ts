@@ -29,7 +29,7 @@ export default {
 		info: '87, high blood pressure',
 		notes: 'sounds urgent',
 		nurse: '888888',
-        createdTime: '5:45 | JAN / 05 / 2019',
+        createdTime: '5:45 | 05 Jul 2019',
 		status: false,
 		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -51,7 +51,7 @@ export default {
 		info: '38, no history',
 		notes: '',
 		nurse: '888888',
-        createdTime: '1:45 | DEC / 05 / 2018',
+        createdTime: '1:45 | 05 Dec 2018',
 		status: false,
 		progress: [3, 3, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -90,7 +90,7 @@ export default {
 		info: '77, no history',
 		notes: 'Ask about his breathing condition',
 		nurse: '777777',
-        createdTime: '5:05 | DEC / 08 /2017',
+        createdTime: '5:05 | 02 Aug 2019',
 		status: true,
 		progress: [3, 3, 3, -1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -234,7 +234,7 @@ export default {
 			desc: 'The completed documentation will be saved in pdf format. TBD based on discussion with Clinical Informatics.'
 		}, {
 			title: 'Send and Delete',
-			video: 'new',
+			video: 'help2',
 			desc: 'When finished documenting, a pdf will be emailed to you. Checkmark on the Dashboard/ Client History indicates documenting is complete. Arrow with semi-circle indicates incomplete documentation. Completed documentation must be uploaded to Paris ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
 	}],
 

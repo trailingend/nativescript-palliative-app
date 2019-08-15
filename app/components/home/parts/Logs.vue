@@ -15,6 +15,9 @@
                             <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
                             <Label :text="`${client.createdTime} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
+                        <StackLayout alignSelf="flex-start" class="client-tip-ctnr">
+                            <Label :text="`deletes in ${formatCountdown(client.createdTime, client.client)} days`" class="client-text client-light" color="#4b4b4b" />
+                        </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <!-- <StackLayout class="bar-ctnr"></StackLayout>
                         <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
@@ -47,7 +50,7 @@
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { confirm }  from "tns-core-modules/ui/dialogs";
-    import { formatPhoneForDisplay } from '../../../scripts/common';
+    import { formatPhoneForDisplay, convertMonthToNum, numDaysInMon } from '../../../scripts/common';
 
 
     export default {
@@ -74,6 +77,35 @@
             ]),
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
+            },
+            formatCountdown(create_time, name) {
+                const old_date = create_time.split(" | ")[1];
+                const old_time = create_time.split(" | ")[0];
+                const month_title = old_date.split(" ")[1];
+                
+                const today = new Date();
+                
+                let month_diff = today.getMonth() - convertMonthToNum(month_title);
+                if (month_diff < 0) month_diff = today.getMonth() + (12 - convertMonthToNum(month_title));
+                const date_diff = today.getDate() - parseInt(old_date.split(" ")[0]);
+                const hour_diff = today.getHours() - parseInt(old_time.split(":")[0]);
+                const minute_diff = today.getMinutes() - parseInt(old_time.split(":")[1]);
+
+                console.log(`${name} ----- ${month_diff} ${date_diff} ${hour_diff} ${minute_diff}`);
+                let countdown = 0;
+                if (month_diff == 0) {
+                    countdown = date_diff;
+                } else if (month_diff == 1 || month_diff < 0 ) {
+                    const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)]; 
+                    const residule = old_month_full - parseInt(old_date.split(" ")[0]);
+                    countdown = residule + today.getDate();
+                } else {
+                    const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)];
+                    const residule = old_month_full - parseInt(old_date.split(" ")[0]);
+                    countdown = old_month_full * (month_diff - 2) + residule + today.getDate();
+                }
+                countdown = countdown;
+                console.log(countdown)
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });

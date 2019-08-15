@@ -16,7 +16,7 @@ Vue.registerElement('MaskedTextField', () => require('nativescript-masked-text-f
 Vue.registerElement("VideoPlayer", () => require("nativescript-videoplayer").Video);
 
 // Prints Vue logs when --env.production is *NOT* set while building
-Vue.config.silent = false;// (TNS_ENV === 'production');
+Vue.config.silent = true;// (TNS_ENV === 'production');
 
 
 new Vue({
