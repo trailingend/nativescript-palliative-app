@@ -29,7 +29,7 @@ export default {
 		info: '87, high blood pressure',
 		notes: 'sounds urgent',
 		nurse: '888888',
-        createdTime: '5:45 | 05 Jul 2019',
+        createdTime: '5:45 | 10 Aug 2019',
 		status: false,
 		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -51,7 +51,7 @@ export default {
 		info: '38, no history',
 		notes: '',
 		nurse: '888888',
-        createdTime: '1:45 | 05 Dec 2018',
+        createdTime: '1:45 | 14 Aug 2018',
 		status: false,
 		progress: [3, 3, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{

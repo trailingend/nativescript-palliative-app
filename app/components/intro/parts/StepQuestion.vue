@@ -64,7 +64,10 @@
                 const q_obj = log.intro_answers.find(elem => { return elem.q_id === unit.id; });
                 if (q_obj) {
                     const saved_answers = q_obj.a;
-                    this.$emit("foundResponse");
+                    let test_empty_response = saved_answers.join();
+                    if (test_empty_response.trim() != "") {
+                        this.$emit("foundResponse");
+                    }    
                     return saved_answers;
                 }
                 return [];

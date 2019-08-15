@@ -1,7 +1,7 @@
 <template>
     <StackLayout>
         <ScrollView class="client-list" v-if="logs.length > 0">
-            <RadListView for="client in logs" 
+            <RadListView for="client in full_logs" 
                          ref="logListView"
                          swipeActions="true"
                          @itemTap="onEditTap"
@@ -16,7 +16,7 @@
                             <Label :text="`${client.createdTime} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
                         <StackLayout alignSelf="flex-start" class="client-tip-ctnr">
-                            <Label :text="`deletes in ${formatCountdown(client.createdTime, client.client)} days`" class="client-text client-light" color="#4b4b4b" />
+                            <Label :text="`deletes in ${client.countdown} days`" class="client-text client-light" :color="`${client.color}`" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <!-- <StackLayout class="bar-ctnr"></StackLayout>
@@ -56,10 +56,12 @@
     export default {
         data() {
             return {
+                full_logs: [],
                 isSwiping: false,
             }
         },
         mounted() {
+            this.prepareLogs();
         },
         components: {
         },
@@ -75,12 +77,23 @@
                 'deleteChart',
                 'saveActiveChart'
             ]),
+            prepareLogs() {
+                this.full_logs = this.logs;
+                this.full_logs.forEach(log => {
+                    log.countdown = this.formatCountdown(log.createdTime);
+                    if (log.countdown === 0) {
+                        console.log("delete this one " + log.id);
+                        this.deleteChart(log.id);
+                    }
+
+                    log.color = (log.countdown <= 2) ? "#ff1f00" : "#4b4b4b";
+                });
+            },
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
             },
-            formatCountdown(create_time, name) {
+            formatCountdown(create_time) {
                 const old_date = create_time.split(" | ")[1];
-                const old_time = create_time.split(" | ")[0];
                 const month_title = old_date.split(" ")[1];
                 
                 const today = new Date();
@@ -88,10 +101,9 @@
                 let month_diff = today.getMonth() - convertMonthToNum(month_title);
                 if (month_diff < 0) month_diff = today.getMonth() + (12 - convertMonthToNum(month_title));
                 const date_diff = today.getDate() - parseInt(old_date.split(" ")[0]);
-                const hour_diff = today.getHours() - parseInt(old_time.split(":")[0]);
-                const minute_diff = today.getMinutes() - parseInt(old_time.split(":")[1]);
+                // const hour_diff = today.getHours() - parseInt(old_time.split(":")[0]);
+                // const minute_diff = today.getMinutes() - parseInt(old_time.split(":")[1]);
 
-                console.log(`${name} ----- ${month_diff} ${date_diff} ${hour_diff} ${minute_diff}`);
                 let countdown = 0;
                 if (month_diff == 0) {
                     countdown = date_diff;
@@ -104,8 +116,9 @@
                     const residule = old_month_full - parseInt(old_date.split(" ")[0]);
                     countdown = old_month_full * (month_diff - 2) + residule + today.getDate();
                 }
-                countdown = countdown;
-                console.log(countdown)
+
+                countdown = (countdown > 7) ? 0 : 7 - countdown; 
+                return countdown;
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });

@@ -18,7 +18,7 @@
                         <StackLayout v-for="question in questions" :key="question.id">
                             <StepQuestion :unit="question" :log_id="log_id" 
                                           @answerChange="(data) => { recordResponse(question, data); }"
-                                          @foundResponse="onResponseChange" /> 
+                                          @foundResponse="onResponseChange(true)" /> 
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -145,7 +145,7 @@
                 };
                 this.saveIntroUpdate(update);
                 
-                this.onResponseChange();
+                this.onResponseChange(false);
             },
             prepareNextStage() {
                 this.$navigateTo(ChooseProtocol, {
@@ -197,7 +197,6 @@
                 this.next_text = new_text;
             },
             onForward(args) {
-                console.log("=== Forward === ");
                 const progress = {
                     log_id: this.log_id,
                     s_id: this.step_ids[this.step_idx],
@@ -212,7 +211,6 @@
                 }
             },
             onBackward(args) {
-                console.log("=== Backward === ");
                 const prev_step_idx = this.step_idx - 1;
                 if (prev_step_idx >= 0) {
                     this.prepareAnotherQuestion(prev_step_idx);
@@ -229,11 +227,11 @@
             onSummaryTap() {
                 this.goToSummary();
             },
-            onResponseChange() {
+            onResponseChange(from_saved=false) {
                 let test_empty_response = '';
                 this.responses.forEach(r => { test_empty_response = test_empty_response + r.a.join(); });
 
-                if (this.responses.length > 0 && test_empty_response.trim() != '') {
+                if (from_saved || (this.responses.length > 0 && test_empty_response.trim() != '') ) {
                     this.changeNextText('Next');
                 } else {
                     this.changeNextText('Skip');
