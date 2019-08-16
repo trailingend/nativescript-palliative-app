@@ -11,6 +11,7 @@
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Summary"></Label>
                     </StackLayout>
+                    <CallSummary :log_id="log_id" :can_check="can_check_call_info" />
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />
                     <StackLayout class="sum-sec-ctnr">
@@ -27,9 +28,18 @@
                     </StackLayout>
                     <PlanSummary :log_id="log_id" /> 
                     <NoteSummary :log_id="log_id" />
+
+                    <FlexboxLayout class="sum-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
+                        <Label class="sum-bold" text="Documentation reviewed and finalized." />
+                        <Switch class="sum-switch" ref="switchRef" @checkedChange="onSwitchSwap" offBackgroundColor="#e5e5e5"/>
+                    </FlexboxLayout>
+                    <StackLayout class="sum-e-ctnr sum-switch-e-ctnr" opacity="0" ref="consentErrorRef">
+                        <Label class="sum-e sum-e5" text="Please confirm review" />
+                    </StackLayout>
+
                     <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center">
                         <Button class="form-btn sum-btn" text="New Protocol" @tap="onNewTap" ></Button>
-                        <SubmitButton :log_id="log_id" />
+                        <SubmitButton :log_id="log_id" :is_reviewed="is_reviewed" @onClick="checkConditions" />
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
@@ -43,6 +53,7 @@
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import SubmitButton from './parts/SubmitButton.vue';
+    import CallSummary from './parts/CallSummary.vue';
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
@@ -54,10 +65,13 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { alert }  from "tns-core-modules/ui/dialogs";
 
     export default {
         data() {
             return {
+                is_reviewed: false,
+                can_check_call_info: false,
                 protocol_ids: [],
 
                 ctnrSetting: {
@@ -85,6 +99,7 @@
         components: {
             NavBar,
             SubmitButton,
+            CallSummary,
             InfoSummary,
             IntroSummary,
             ProtocolSummary,
@@ -126,8 +141,37 @@
                     }
                 });
             },
-            prepareNextStage() {
-
+            onSwitchSwap(args) {
+                const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                if (curr_log.nurse === "" || curr_log.endTime === "") {
+                    this.is_reviewed = false;
+                    this.$refs.switchRef.nativeView.checked = false;
+                    alert({
+                        title: "Missing Call Information",
+                        message: "Please complete before continuing.",
+                        okButtonText: "OK"
+                    }).then((result) => {
+                        this.can_check_call_info = true;
+                    });
+                    return;
+                } else {
+                    this.is_reviewed = ! this.is_reviewed;
+                    this.$refs.switchRef.nativeView.checked = ! this.$refs.switchRef.nativeView.checked;
+                    if (args.oldValue) {
+                        if (! args.value) {
+                            this.$refs.consentErrorRef.nativeView.opacity = 1;
+                        }
+                    } else {
+                        if (args.value) {
+                            this.$refs.consentErrorRef.nativeView.opacity = 0;
+                        }
+                    } 
+                }                
+            },
+            checkConditions() {
+                if (! this.is_reviewed) {
+                    this.$refs.consentErrorRef.nativeView.opacity = 1;
+                }
             },
             addNewChart() {
                 this.$navigateTo(NewClient, {
@@ -145,9 +189,6 @@
             },
             onBackTap() {
                 this.onBackward();
-            },
-            onSubmitTap() {
-                this.prepareNextStage();
             },
             onNewTap() {
                 this.$navigateTo(ChooseProtocol, {

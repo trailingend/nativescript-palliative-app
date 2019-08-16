@@ -146,6 +146,7 @@
                 c_caller: '',
                 c_relation: '',
                 c_info: '',
+                created_date: '',
                 created_time: '',
                 is_consented: false,
 
@@ -162,6 +163,7 @@
         created() {
         },
         mounted() {
+            this.recordTime();
         },
         components: {
             NavBar
@@ -190,11 +192,9 @@
             ]),
             recordTime() {
                 const today = new Date();
-                const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                const time = today.getHours() + ':' + today.getMinutes();
-                const dateTime = time + ' | ' + date;
+                this.created_date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
+                this.created_time = today.getHours() + ':' + today.getMinutes();
 
-                this.created_time = dateTime;
                 this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
             },
             resetTextviewModel(args) {
@@ -234,7 +234,6 @@
                 }
             },
             onNextTap(args) {
-                this.recordTime(); 
                 let client_phone = this.parsePhoneInput();
 
                 if (client_phone.length != 10) {
@@ -258,7 +257,9 @@
                         info: this.c_info,
                         notes: '',
                         nurse: '',
-                        createdTime: this.created_time,
+                        date: this.created_date,
+                        startTime: this.created_time,
+                        endTime: '',
                         status: false,
                         progress: [-1, -1, -1, -1, 0], // intro[step id], proto[protocol id], items[letter id], others[Tri-state], plans[Bool]
                         intro_answers: [],

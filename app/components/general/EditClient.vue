@@ -204,7 +204,7 @@
                     this.c_nurse = curr_log.nurse.replace(/\D/g, '').substring(0, 6);
                     this.c_info = curr_log.info;
                     this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
-                    this.$refs.idFieldRef.nativeView.text = formatPhoneNum(this.c_nurse);
+                    this.$refs.idFieldRef.nativeView.text = this.c_nurse;
                     // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
             },

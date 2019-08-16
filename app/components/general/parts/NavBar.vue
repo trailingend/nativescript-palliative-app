@@ -4,7 +4,7 @@
             <Button class="navigation-close" text="Close" @tap="onCloseTap"></Button>
         </StackLayout>
         <StackLayout flexGrow="2" class="client-text-ctnr">
-            <Label class="navigation-title" text="chart" />
+            <Label class="navigation-title" text="client" />
         </StackLayout>
         <StackLayout class="nav-btn-ctnr">
             <Button class="navigation-btn" text="New Client" @tap="onNewTap"></Button>

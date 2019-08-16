@@ -13,7 +13,7 @@
                         <StackLayout flexGrow="2">
                             <Label :text="client.client" class="client-text client-bold"/>
                             <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
-                            <Label :text="`${client.createdTime} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
+                            <Label :text="`${client.startTime} | ${client.date} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
                         <StackLayout alignSelf="flex-start" class="client-tip-ctnr">
                             <Label :text="`deletes in ${client.countdown} days`" class="client-text client-light" :color="`${client.color}`" />
@@ -80,7 +80,7 @@
             prepareLogs() {
                 this.full_logs = this.logs;
                 this.full_logs.forEach(log => {
-                    log.countdown = this.formatCountdown(log.createdTime);
+                    log.countdown = this.formatCountdown(log.date);
                     if (log.countdown === 0) {
                         console.log("delete this one " + log.id);
                         this.deleteChart(log.id);
@@ -92,28 +92,25 @@
             formatPhoneNum(num) {
                 return formatPhoneForDisplay(num);
             },
-            formatCountdown(create_time) {
-                const old_date = create_time.split(" | ")[1];
-                const month_title = old_date.split(" ")[1];
+            formatCountdown(date) {
+                const month_title = date.split(" ")[1];
                 
                 const today = new Date();
                 
                 let month_diff = today.getMonth() - convertMonthToNum(month_title);
                 if (month_diff < 0) month_diff = today.getMonth() + (12 - convertMonthToNum(month_title));
-                const date_diff = today.getDate() - parseInt(old_date.split(" ")[0]);
-                // const hour_diff = today.getHours() - parseInt(old_time.split(":")[0]);
-                // const minute_diff = today.getMinutes() - parseInt(old_time.split(":")[1]);
+                const date_diff = today.getDate() - parseInt(date.split(" ")[0]);
 
                 let countdown = 0;
                 if (month_diff == 0) {
                     countdown = date_diff;
                 } else if (month_diff == 1 || month_diff < 0 ) {
                     const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)]; 
-                    const residule = old_month_full - parseInt(old_date.split(" ")[0]);
+                    const residule = old_month_full - parseInt(date.split(" ")[0]);
                     countdown = residule + today.getDate();
                 } else {
                     const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)];
-                    const residule = old_month_full - parseInt(old_date.split(" ")[0]);
+                    const residule = old_month_full - parseInt(date.split(" ")[0]);
                     countdown = old_month_full * (month_diff - 2) + residule + today.getDate();
                 }
 

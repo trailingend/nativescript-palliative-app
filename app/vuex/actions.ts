@@ -245,6 +245,19 @@ export default {
         }
     },
 
+    saveCallInfo({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.id});
+        if (log_idx === -1) {
+            console.log("=== In call info update: OH NO !!! ===");
+        } else {
+            const item = {
+                idx: log_idx,
+                content: input_item,
+            };
+            commit(types.CHART_CALL_UPDATE, item);
+        }
+    },
+
     changeChartStatus({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         commit(types.CHART_STATUS_TRUE, log_idx);

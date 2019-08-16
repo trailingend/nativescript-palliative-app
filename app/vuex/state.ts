@@ -8,14 +8,16 @@ export default {
 	[{
 		id: '888888',
 		name: 'Leslie S.',
-		shift_start: '9:00', //'7:00AM',
-		shift_end: '17:00', // '5:00PM',
+		fullname: 'Leslie Simon',
+		shift_start: '9:00', 
+		shift_end: '17:00', 
 		color: '#7ca8ea',
 	}, {
 		id: '777777',
 		name: 'Ruby C.',
-		shift_start: '10:00',//'8:00AM',
-		shift_end: '18:00', //'6:00PM',
+		fullname: 'Ruby Chen',
+		shift_start: '10:00',
+		shift_end: '18:00', 
 		color: '#a57ed7'
 	}],
 
@@ -29,7 +31,9 @@ export default {
 		info: '87, high blood pressure',
 		notes: 'sounds urgent',
 		nurse: '888888',
-        createdTime: '5:45 | 10 Aug 2019',
+		date: '12 Aug 2019',
+		startTime: '5:45',
+		endTime: '5:58',
 		status: false,
 		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -51,7 +55,9 @@ export default {
 		info: '38, no history',
 		notes: '',
 		nurse: '888888',
-        createdTime: '1:45 | 14 Aug 2018',
+		date: '16 Aug 2018',
+		startTime: '1:45',
+		endTime: '2:15',
 		status: false,
 		progress: [3, 3, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -90,7 +96,9 @@ export default {
 		info: '77, no history',
 		notes: 'Ask about his breathing condition',
 		nurse: '777777',
-        createdTime: '5:05 | 02 Aug 2019',
+		date: '13 Aug 2019',
+		startTime: '5:05',
+		endTime: '5:20',
 		status: true,
 		progress: [3, 3, 3, -1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		intro_answers: [{
@@ -215,27 +223,27 @@ export default {
 	tutorials: [{
 			title: 'Create New Client',
 			video: 'help1',
-			desc: 'Tap on ‘New Client’ on the bottom of the Dashboard screen to start.\nEven unfinished documentation will be saved in ‘Client History’.\nIf another client calls, you can pause your current documentation to answer the new call.'
+			desc: 'Tap on ‘New Client’ on the bottom of the Dashboard screen to start. Even unfinished documentation will be saved in ‘Client History’. If another client calls, you can pause your current documentation to answer the new call.'
 		}, {
-			title: 'Access Chart History',
+			title: 'Access Client History',
 			video: 'help2',
-			desc: 'Access your Chart History on the home-screen.\nArrow with semi-circle indicates incomplete charting.\nCheckmark indicates charting is complete and sent.\nTap the chart to open where you left off and continue documenting.'
+			desc: 'Access your Client History on the home-screen. Arrow with semi-circle indicates incomplete documenting. Checkmark indicates documenting is complete and sent. Tap the document to open where you left off and continue.'
 		}, {
 			title: 'Document',
 			video: 'help3',
-			desc: 'You have the option of free text and multiple choice to assist with documentation.\nTo help navigate the assessment you can skip, go-back or forward.\nThe ‘Recommend’ section is to support you with more info.'
+			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The ‘Recommend’ section is to support you with more info.'
 		}, {
 			title: 'Review Summary Screen',
 			video: 'help4',
-			desc: 'This screen is a final review of your documentation.\nTap the pencil icon to access any section of the chart.\nTick the box “Documentation reviewed and finalized”.'
+			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section of the document. Tick the box “Documentation reviewed and finalized”.'
 		}, {
 			title: 'Uploading to PARIS',
 			video: 'help5',
-			desc: 'The completed documentation will be saved in pdf format. TBD based on discussion with Clinical Informatics.'
+			desc: 'TBD.'
 		}, {
-			title: 'Send and Delete',
+			title: 'Delete Document',
 			video: 'help2',
-			desc: 'When finished documenting, a pdf will be emailed to you. Checkmark on the Dashboard/ Client History indicates documenting is complete. Arrow with semi-circle indicates incomplete documentation. Completed documentation must be uploaded to Paris ASAP. Select the client chart and swipe right to delete after uploaded to PARIS.'
+			desc: 'TBD'
 	}],
 
 

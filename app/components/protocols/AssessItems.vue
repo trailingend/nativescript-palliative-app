@@ -458,21 +458,23 @@
                     };
                     extra_for_landscape = 0;
                 }
-
-                const last_letter_id = this.filtered_letters[this.filtered_letters.length - 1].id;
-                const pageHeight = utils.layout.toDeviceIndependentPixels( 
-                    this.$refs.itemsGridRef.nativeView.getMeasuredHeight() 
-                );
-                if (this.thingsHeight) {
-                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
-                } else {
-                    this.thingsHeight = utils.layout.toDeviceIndependentPixels( 
-                        this.$refs.navRef.nativeView.getMeasuredHeight() 
-                        + this.$refs.clientBlockRef.nativeView.getMeasuredHeight() 
-                        + this.$refs.titleRef.nativeView.getMeasuredHeight() 
-                        + args.object.page.getViewById(`items-item-ctnr-${last_letter_id}`).getMeasuredHeight() 
+                
+                if (this.filtered_letters[this.filtered_letters.length - 1]) {
+                     const last_letter_id = this.filtered_letters[this.filtered_letters.length - 1].id;
+                    const pageHeight = utils.layout.toDeviceIndependentPixels( 
+                        this.$refs.itemsGridRef.nativeView.getMeasuredHeight() 
                     );
-                    this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
+                    if (this.thingsHeight) {
+                        this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
+                    } else {
+                        this.thingsHeight = utils.layout.toDeviceIndependentPixels( 
+                            this.$refs.navRef.nativeView.getMeasuredHeight() 
+                            + this.$refs.clientBlockRef.nativeView.getMeasuredHeight() 
+                            + this.$refs.titleRef.nativeView.getMeasuredHeight() 
+                            + args.object.page.getViewById(`items-item-ctnr-${last_letter_id}`).getMeasuredHeight() 
+                        );
+                        this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
+                    }
                 }
             },
         }

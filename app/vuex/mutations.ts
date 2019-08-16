@@ -12,7 +12,6 @@ export default {
     },
 
     [types.USER_CREATE](state, user) {
-        state.curr_user_id = user.id;
         state.users.push(user);
     },
     [types.USER_UPDATE](state, user_id) {
@@ -26,7 +25,6 @@ export default {
     },
     [types.USER_ALTER](state, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
-        state.curr_user_id = user.id;
         state.users[userIdx] = user;
         // console.log("=== in mutation USER_ALTER ===");
         // console.dir(state.users);
@@ -133,5 +131,11 @@ export default {
         state.logs[item.idx].progress[4] = item.has_plan;
         // console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
-
+    [types.CHART_CALL_UPDATE](state, item) {
+        console.dir(item)
+        state.logs[item.idx].nurse = item.content.nurse_id;
+        state.logs[item.idx].startTime = item.content.call_start;
+        state.logs[item.idx].endTime = item.content.call_end;
+        // console.log("=== in mutation CHART_CALL_UPDATE === " + state.logs[item.idx]);
+    },
 };

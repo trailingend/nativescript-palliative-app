@@ -30,9 +30,14 @@
                 type: String,
                 required: true,
             },
+            is_reviewed: {
+                type: Boolean, 
+                required: true
+            }
         },
         computed: {
             ...mapGetters([
+                'users',
                 'logs',
                 'intro',
                 'protocols',
@@ -49,21 +54,29 @@
             },
             recordTime() {
                 const today = new Date();
+                const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
                 const time = today.getHours() + ':' + today.getMinutes();
-                return time;
+                const dateTime = time + ' | ' + date;
+                return dateTime;
             },
             onSubmitTap() {
+                this.$emit("onClick");
+                console.log("check here ==========="  + this.is_reviewed);
 
-                confirm({
-                    title: "Send Chart",
-                    message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
-                    okButtonText: "Send",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.generatePDF();
-                    } 
-                });
+                if (this.is_reviewed) {
+                    confirm({
+                        title: "Send Chart",
+                        message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
+                        okButtonText: "Send",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result || result === undefined) {
+                            this.generatePDF();
+                        } 
+                    });
+                } else {
+                    console.log("TODO: if no time entered, scroll to top");
+                }
             },
             onEmailSent() {
                 this.changeChartStatus(this.log_id);
@@ -82,14 +95,15 @@
             },
             prepareInfo(curr_log) {
                 let info_body = [];
-                const nurse = curr_log.nurse;
-                const time_arr = curr_log.createdTime.split(" | ");
-                const create_time = time_arr[0];
-                const date = time_arr[1];
-                const submit_time = this.recordTime();
+                const nurse_id = curr_log.nurse;
+                const nurse_item = this.users.find(elem => elem.id === nurse_id);
+                const nurse_name = nurse_item ? nurse_item.fullname : "Unknown";
+                const start_time = curr_log.startTime;
+                const date = curr_log.date;
+                const end_time = curr_log.endTime;
                 info_body.push({
-                    a: `Intake nurse: ${nurse}\nConsent to care given and\n to speak on behalf of client: Yes`, 
-                    b: `Intake Date: ${date}\nCall Start: ${create_time}\nCall End: ${submit_time}`,
+                    a: `Call Start: ${start_time}\nCall End: ${end_time}`, 
+                    b: `Date: ${date}\nIntake Nurse ID: ${nurse_id}\nIntake Nurse Name: ${nurse_name}`,
                 });
                 return info_body;
             },
@@ -106,6 +120,27 @@
                     });
                 });
                 return intro_body;
+            },
+            prepareProtocolsSummary(curr_log) {
+                let protocol_titles = [];
+                this.protocols.forEach(protocol => {
+                    const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
+                    const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
+                    if ( items_idx != -1 || others_idx != -1) {
+                        protocol_titles.push(protocol.name);
+                    }
+                });
+                let titles = '';
+                protocol_titles.forEach((title, index) => {
+                    if (index === 0) {
+                        titles = titles + title;
+                    } else if (index % 3 === 0) {
+                        titles = titles + "\n" + title;
+                    } else {
+                        titles = titles + ", " + title;
+                    }
+                });
+                return titles;
             },
             prepareProtocols(curr_log) {
                 let protocol_bodies = [];
@@ -226,8 +261,9 @@
                         lib_loaded = false;
                     }
                 }
-                require("jspdf-autotable");
 
+                require("jspdf-autotable");
+                
                 var doc = new jsPDF();
                 const end_of_line = 196.5;
                 const start_of_text = 15;
@@ -235,9 +271,11 @@
                 const table_font_size = 9;
                 const cell_padding = 3;
 
+                const submit_time = this.recordTime();
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
+                const protocol_titles = this.prepareProtocolsSummary(curr_log);
                 const protocol_bodies = this.prepareProtocols(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
@@ -251,8 +289,8 @@
                 doc.line(start_of_text, 20, end_of_line, 20);
 
                 doc.setFontSize(title_font_size);
-                doc.setFontType('bold')
-                doc.text("Client Information", start_of_text, 20 + 6);
+                doc.setFontType('bold');
+                doc.text("Call Information", start_of_text, 20 + 6);
           
                 doc.autoTable({
                     startY: 20 + 10,
@@ -263,9 +301,21 @@
                                    b: {cellWidth: 'auto', minCellWidth: 60}},
                     styles: {minCellHeight: 18, fontSize: table_font_size, cellPadding: cell_padding},
                 });
-                
+
                 let finalY = doc.previousAutoTable.finalY;
-                const finalYInfo = doc.previousAutoTable.finalY;
+                doc.setLineWidth(0.25);
+                doc.setDrawColor(0, 0, 0);
+                doc.line(start_of_text, finalY, end_of_line, finalY);
+                doc.setFontSize(title_font_size);
+                doc.setFontType('bold');
+                doc.text("Assessed Protocols", start_of_text, finalY + 6);
+                doc.setFontSize(table_font_size);
+                doc.setFontType('normal');
+                doc.text(protocol_titles, start_of_text + 37, finalY + 6);
+                
+                const intro_padding = 6 + 4 * Math.ceil(protocol_bodies.length / 3);
+                finalY = doc.previousAutoTable.finalY + intro_padding;
+                const finalYInfo = doc.previousAutoTable.finalY + intro_padding;
                 doc.autoTable({
                     startY: finalY,
                     theme: 'grid',
@@ -346,6 +396,11 @@
                     styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
+                finalY = doc.previousAutoTable.finalY;
+                doc.setFontSize(7);
+                doc.setFontType('normal')
+                doc.text(`Phone assessment -Generated by Palliative Assessment Tool (PAT) at ${submit_time}`, start_of_text, finalY + 20);
+
                 let pageInfo = doc.internal.getCurrentPageInfo();
                 for (var i = 1; i <= pageInfo.pageNumber; i++) {
                     doc.setPage(i);
@@ -359,10 +414,11 @@
                     doc.setDrawColor(255, 255, 255);
                     doc.line(197, 0, 197, 300);
                 }
-        
+
                 var doc_64 = "base64://" + doc.output("datauristring").split(",")[1];
 
                 email.available().then(avaialble => {
+                    console.log("????" + avaialble)
                     if (avaialble) {
                         email.compose({
                             subject: "Email Template",
@@ -395,15 +451,19 @@
                                 okButtonText: "OK"
                             });
                         });
-                    } 
-                    
+                    } else {
+                        alert({
+                            title: "Email Client not Available",
+                            okButtonText: "OK"
+                        });
+                    }
                 }).catch(error => {
                     alert({
                         title: "Email Client not Found",
                         message: error,
                         okButtonText: "OK"
                     });
-
+                    
                 });
             }
         }

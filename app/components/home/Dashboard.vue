@@ -58,7 +58,7 @@
         },
         mounted() {
             this.checkUserStatus();
-            // this.loadOnlineData();
+            this.loadOnlineData();
         },
         components: {
             Logs,
@@ -80,7 +80,7 @@
                 const localJsonData = require('@/assets/data/data.json');
                 if (localJsonData) {
                     console.log(`=== check if load from local json === ${localJsonData.info.version != this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
-                    // if (localJsonData.info.version != this.data_version) {
+                    // if (localJsonData.info.version > this.data_version) {
                         this.loadLocalData(localJsonData);
                     // } 
                 }

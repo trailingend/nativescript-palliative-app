@@ -59,6 +59,7 @@
             return {
                 u_id: '',
                 u_name: '',
+                u_fullname: '',
                 u_shift_start: 'Sun Dec 31 1899 03:01:00 GMT-0800 (PST)',
                 u_shift_end: 'Sun Dec 31 1899 03:01:00 GMT-0800 (PST)',
 
@@ -141,11 +142,11 @@
                 const item = {
                     id: this.parseIDInput(),
                     name: formatUsernameForDisplay(user_name),
-                    shift_start: formatShiftTime(this.u_shift_start),
-                    shift_end: formatShiftTime(this.u_shift_end),
+                    fullname: user_name.trim(),
                     color: userColors[this.color_idx],
                 }
                 this.saveUserInfo(item);
+                this.activateUser(this.parseIDInput());
 
                 this.prepareTutorial();
             },
