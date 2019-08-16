@@ -9,7 +9,6 @@
                 <StackLayout row="1" col="0" class="client-main-ctnr">
                     <Label class="client-title" text="client Informtaion" ></Label>   
                         
-                    <!-- <PreviousNextView>              -->
                         <GridLayout :rows="gridSetting.rows" :columns="gridSetting.columns">
                             <Label :row="gridSetting.children.q1.row" 
                                     :col="gridSetting.children.q1.col"
@@ -87,28 +86,7 @@
                                     class="client-e client-e4" 
                                     text="Please enter a relationship" 
                                     opacity="0" />
-                            <Label :row="gridSetting.children.q5.row" 
-                                    :col="gridSetting.children.q5.col"
-                                    class="client-q client-q5" 
-                                    text="Intake nurse ID:" 
-                                    textWrap="true"/>
-                            <TextField :row="gridSetting.children.a5.row" 
-                                        :col="gridSetting.children.a5.col"
-                                        id="client-a5"
-                                        class="client-a client-a5" 
-                                        hint="i.e. 888888"
-                                        ref="idFieldRef"
-                                        @textChange="onIdChange"
-                                        editable="true" />
-                            <Label :row="gridSetting.children.e5.row" 
-                                    :col="gridSetting.children.e5.col"
-                                    :colSpan="gridSetting.children.e5.colSpan"
-                                    class="client-e client-e5" 
-                                    text="Please enter your work ID" 
-                                    ref="idErrorFieldRef"
-                                    opacity="0" />
                         </GridLayout>
-                    <!-- </PreviousNextView> -->
 
                     <StackLayout>
                         <Label class="client-t client-t-info" text="General Client Information" textWrap="true"/>
@@ -157,7 +135,7 @@
                     class: "client-ctnr",
                 },
                 gridSetting: {
-                    rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
+                    rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto",
                     columns: "*",
                     children: editGridChildPortrait,
                 }
@@ -201,10 +179,8 @@
                     this.c_client = curr_log.client;
                     this.c_caller = curr_log.caller;
                     this.c_relation = curr_log.relation;
-                    this.c_nurse = curr_log.nurse.replace(/\D/g, '').substring(0, 6);
                     this.c_info = curr_log.info;
                     this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
-                    this.$refs.idFieldRef.nativeView.text = this.c_nurse;
                     // this.$refs.editClientRef.nativeView.text = curr_log.info;
                 }
             },
@@ -224,19 +200,12 @@
                     return;
                 }
 
-                if (this.c_nurse.length != 6) {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
-                    return;
-                }
-
                 const entry = {
                     id: this.log_id,
                     phone: client_phone,
                     caller: caller_name,
                     client: client_name,
                     relation: client_relation,
-                    nurse: this.c_nurse,
                     info: this.c_info,
                 };
                 this.changeClientInfo(entry);
@@ -256,19 +225,7 @@
                     this.$refs.phoneFieldRef.nativeView.borderColor = '#dbdbdb';
                 }
             },
-            onIdChange(args) {
-                const new_input = args.value.replace(/\D/g, '');
-                this.c_nurse = new_input.substring(0, Math.min(6, new_input.length));
-                this.$refs.idFieldRef.nativeView.text = this.c_nurse;
 
-                if (this.c_nurse.length != 6) {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
-                } else {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 0;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
-                }
-            },
             onPhoneEnterred() {
                 // this.$refs.phoneFieldRef.nativeView.text = formatPhoneNum(this.c_phone);
             },
@@ -277,7 +234,7 @@
             },
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
-                for (let i = 1; i <= 5; i++) {
+                for (let i = 1; i <= 4; i++) {
                     const aTextfield = layoutView.getViewById(`client-a${i}`);
                     aTextfield.dismissSoftInput();
                 }
@@ -291,14 +248,14 @@
                     if (width > 800) {
                         this.ctnrSetting.class = "client-ctnr tablet-landscape";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "auto, *",
                             children: editGridChildLandscape,
                         }
                     } else {
                         this.ctnrSetting.class = "client-ctnr";
                         this.gridSetting = {
-                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
+                            rows: "auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto,",
                             columns: "*",
                             children: editGridChildPortrait,
                         }

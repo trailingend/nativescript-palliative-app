@@ -51,12 +51,12 @@
 
 <script lang="ts">
     import AddUser from './AddUser.vue';
+    import LoginUser from './LoginUser.vue';
 
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as dialogs from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
-    import { userColors } from '../../scripts/common';
 
     export default {
         data() {
@@ -68,7 +68,6 @@
             }
         },
         mounted() {
-            this.next_color_idx = this.users.length % userColors.length;
         },
         components: {
         },
@@ -86,31 +85,24 @@
             ]),
             onUserTap(user) {
                 if (! this.canDelete) {
-                    dialogs.prompt({
-                        title: "Enter Employee ID",
-                        okButtonText: "Confirm",
-                        cancelButtonText: "Cancel",
-                        inputType: dialogs.inputType.number
-                    }).then(result => {
-                        if (result.result) {
-                            if (result.text == user.id) {
-                                this.activateUser(user);
-                                this.$modal.close();
-                            } else {
-                                dialogs.confirm({
-                                    title: "ID not match",
-                                    message: "The ID you entered does not match our record.",
-                                    okButtonText: "OK",
-                                });
-                            }
-                        }
-                        
-                    });
+                    this.$navigateTo(LoginUser, {
+                    frame: 'userFrame',
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        parent_modal: this.$modal,
+                        selected_user: user
+                    }
+                });
                 }
             },
             onAddTap(args) {
                 // const page = args.object.page;
-
                 this.$navigateTo(AddUser, {
                     frame: 'userFrame',
                     animated: true,
@@ -122,7 +114,6 @@
                     },
                     props: {
                         parent_modal: this.$modal,
-                        color_idx: this.next_color_idx,
                     }
                 });
             },

@@ -136,13 +136,29 @@
         vertical-align: top;
     }  
     .client-ctnr {
+        .client-q, .client-t{
+            margin-bottom: 15;
+        }
+
+        .client-free {
+            height: 150;
+        }
+
         &.tablet-landscape {
             .client-main-ctnr {
                 padding: 10 80 0 80;
             }
-
+            .client-q, .client-t{
+                margin-bottom: 15;
+            }
             .client-a {
                 width: 620;
+            }
+            .client-free {
+                height: 120;
+            }
+            .client-btn {
+                margin: 20 auto;
             }
         }
     }

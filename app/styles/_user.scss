@@ -98,14 +98,15 @@
 
 
 .add-user-page {
-    .close-btn {
-        margin: 25;
-        horizontal-align: right;
-    }  
+    
     .add-user-ctnr {
-        margin: 80 80 0 80;
-        background-color: white;
-       
+        .close-btn {
+            margin: 25;
+            horizontal-align: right;
+        }  
+        .add-content-ctnr {
+            margin: 0 80 0 80;
+        }
         .add-user-title {
             font-size: $form-title-font-size;
             font-weight: 500;
@@ -140,25 +141,132 @@
             horizontal-align: right;
             color: $color-red;
         }
+        .add-e3 {
+            horizontal-align: left;
+            transform: translateX(162);
+        }
+        .add-e4 {
+            horizontal-align: left;
+            transform: translateX(140);
+        }
         .add-picker {
             width: 60%;
             height: 150;
         }
         .add-user-btn {
-            margin: 40 auto;
+            width: 220;
+            margin-bottom: 110;
         }
 
         &.tablet-landscape {
-            .add-user-title {
-                margin-bottom: 20;
-            }
             .add-picker {
                 height: 100;
             }
             .add-user-btn {
-                margin-top: 20;
+                margin-bottom: 80;
             }
             .add-q {
+                margin-bottom: 5;
+            }
+        }
+    }
+}
+
+
+
+.login-user-page {
+    
+    .login-user-ctnr {
+        .close-btn {
+            margin: 25;
+            horizontal-align: right;
+        }  
+        .login-content-ctnr {
+            margin: 0 80 0 80;
+        }
+        .login-content-ctnr-id {
+            margin: 0 150 0 150;
+        }
+        .login-user-title {
+            font-size: $form-title-font-size;
+            font-weight: 500;
+            letter-spacing: 0.1;
+            margin-bottom: 80;
+            text-transform: uppercase;
+        }
+        .login-text {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 30;
+            margin-bottom: 30;
+        }        
+        .login-head {
+            width: 80;
+            height: 80;
+            border-radius: 50;
+            horizontal-align: center;
+        }
+        .login-name {
+            margin-top: 15;
+        }
+        .login-q {
+            font-weight: 500;
+            letter-spacing: 0.1;
+            text-align: left;
+            margin-bottom: 10;
+            text-transform: uppercase;
+        }
+        .login-a {
+            font-weight: 300;
+            letter-spacing: 0.1;
+            text-align: left;
+            width: 100%;
+            height: 50;
+            background: white;
+            border-color: $log-border-color;
+            border-width: 1.5;
+            border-radius: 10;
+            padding: 0 15;
+        }
+        .login-a2 {
+            margin-top: 60; 
+        }
+        .login-e {
+            font-size: 13;
+            font-weight: 200;
+            margin-top: 2;
+            margin-bottom: 10;
+            horizontal-align: right;
+            color: $color-red;
+        }
+        .login-e3 {
+            horizontal-align: left;
+            transform: translateX(162);
+        }
+        .login-e4 {
+            horizontal-align: left;
+            transform: translateX(140);
+        }
+        .login-picker {
+            width: 60%;
+            height: 150;
+        }
+        .login-user-btn {
+            width: 220;
+            margin-bottom: 110;
+        }
+
+        &.tablet-landscape {
+            .login-user-title {
+                margin-bottom: 20;
+            }
+            .login-picker {
+                height: 100;
+            }
+            .login-user-btn {
+                margin-bottom: 80;
+            }
+            .login-q {
                 margin-bottom: 5;
             }
         }

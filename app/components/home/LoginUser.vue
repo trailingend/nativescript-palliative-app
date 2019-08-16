@@ -1,71 +1,66 @@
 <template>
-     <Page class="page add-user-page">
+     <Page class="page login-user-page">
         <GridLayout rows="auto, auto, *, auto" columns="*" 
-                    ref="addUserGridRef" 
+                    ref="loginUserGridRef" 
                     :class="formSetting.class"
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             
-            <Label row="1" col="0" class="add-user-title" :text="is_login ? 'sign in' : 'user information'" ></Label>  
+            <Label row="1" col="0" class="login-user-title" :text="is_passed ? 'sign in' : 'enter employee id'" ></Label>  
                
-            <GridLayout v-if="!is_login"
-                        row="2" col="0" rowSpan="2" class="add-content-ctnr"
-                        rows="auto, auto, auto, auto, auto, auto" columns="*">
-                <Label row="0" col="0" class="add-q1 add-q" text="Full name:" textWrap="true"/>
-                <TextField row="1" col="0" 
-                            id="user-add-a1"
-                            class="add-a1 add-a" 
-                            ref="nameFieldRef"
-                            v-model="u_name"
-                            @textChange="checkNameError"
-                            hint="Firstname Lastname"/>
-                <Label row="2" col="0" class="add-e add-e1" 
-                        text="Please enter your firstname and lastname" 
-                        opacity="0" 
-                        ref="nameErrorFieldRef" />
-                <Label row="3" col="0" class="add-q2 add-q" text="Employee ID #:" textWrap="true"/>
-                <MaskedTextField row="4" col="0"
-                                id="user-add-a2"
-                                class="add-a2 add-a" 
+            <GridLayout v-if="!is_passed"
+                        row="2" col="0" rowSpan="2" class="login-content-ctnr login-content-ctnr-id"
+                        rows="auto, auto, auto" columns="*">
+                <StackLayout row="0" col="0">
+                    <StackLayout class="login-head" :background="selected_user.color" ></StackLayout>
+                    <Label class="login-text login-name" :text="selected_user.name" textWrap="true"></Label>
+                </StackLayout>
+                <MaskedTextField row="1" col="0"
+                                id="user-login-a2"
+                                class="login-a login-a2" 
                                 ref="idFieldRef"
                                 mask="000000"
                                 hint="######"
                                 @textChange="checkIDError"
                                 keyboardType="phone" />
-                <Label row="5" col="0" class="add-e add-e2" 
+                <Label row="2" col="0" class="login-e login-e2" 
                         text="Please enter a valid employee ID" 
                         opacity="0" 
                         ref="idErrorFieldRef"/>
             </GridLayout>
 
             <GridLayout v-else
-                        row="2" col="0" rowSpan="2" class="add-content-ctnr"
-                        rows="auto, auto, auto, auto" columns="*">
-                <Label row="0" col="0" class="add-q3 add-q" text="Shift Starts:" textWrap="true"/>
-                <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorFieldRef" />
-                <TimePicker row="1" col="0" 
-                            class="add-picker" 
+                        row="2" col="0" rowSpan="2" class="login-content-ctnr"
+                        rows="auto, auto, auto, auto, auto" columns="*">
+                <StackLayout row="0" col="0">
+                    <StackLayout class="login-head" :background="selected_user.color" ></StackLayout>
+                    <Label class="login-text login-name" :text="selected_user.name" textWrap="true"></Label>
+                </StackLayout>
+                <Label row="1" col="0" class="login-q3 login-q" text="Shift Starts:" textWrap="true"/>
+                <Label row="1" col="0" class="login-e login-e3" text="Please select start time" opacity="0" ref="sErrorFieldRef" />
+                <TimePicker row="2" col="0" 
+                            class="login-picker" 
                             ref="sTimeFieldRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="2" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true" />
-                <Label row="2" col="0" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorFieldRef" />
-                <TimePicker row="3" col="0" 
-                            class="add-picker" 
+                <Label row="3" col="0" class="login-q4 login-q" text="Shift Ends:" textWrap="true" />
+                <Label row="3" col="0" class="login-e login-e4" text="Please select end time" opacity="0" ref="eErrorFieldRef" />
+                <TimePicker row="4" col="0" 
+                            class="login-picker" 
                             ref="eTimeFieldRef"
                             @timeChange="onEndTimeChange"/>
             </GridLayout>
 
-            <Button row="3" col="0" class="form-btn add-user-btn" :text="is_login ? 'Start' : 'Save'" @tap="onSaveTap" />
+            <Button row="3" col="0" class="form-btn login-user-btn" :text="is_passed ? 'start' : 'submit'" @tap="onSaveTap" />
         </GridLayout>
     </Page>
 </template>
 
 <script lang="ts">
-    import Tutorial from '../tutorials/Tutorial.vue';
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { alert }  from "tns-core-modules/ui/dialogs";
     import { formatShiftTime, formatUsernameForDisplay, userColors } from '../../scripts/common';
 
     export default {
@@ -75,12 +70,12 @@
                 u_name: '',
                 u_fullname: '',
 
-                is_login: false,
+                is_passed: false,
                 start_time_changed: false,
                 end_time_changed: false,
 
                 formSetting: {
-                    class: "add-user-ctnr",
+                    class: "login-user-ctnr",
                 },
             }
         },
@@ -88,7 +83,16 @@
         },
         components: {
         },
-        props: ['parent_modal'],
+        props: {
+            parent_modal: {
+                type: Object,
+                required: true,
+            },
+            selected_user: {
+                type: Object,
+                required: true,
+            }
+        },
         computed: {
             ...mapGetters([
                 'users'
@@ -99,16 +103,6 @@
                 'saveUserInfo',
                 'activateUser'
             ]),
-            prepareTutorial() {
-                this.$showModal(Tutorial, { 
-                    fullscreen: true,
-                    props: {
-                        is_first_time: true,
-                    }
-                }).then(() => {
-                    this.parent_modal.close();
-                });
-            },
             parseIDInput() {
                 let user_ID = '000000';
                 if (this.$refs.idFieldRef) {
@@ -119,20 +113,6 @@
                     }
                 }
                 return user_ID;
-            },
-            checkNameError(args) {
-                if (args.oldValue != '') {
-                    if (args.value === '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
-                    }
-                } 
-                if (args.oldValue === '') {
-                    if (args.value != '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 0;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#dbdbdb';
-                    }
-                } 
             },
             checkIDError(args) {
                 const id_to_check = this.parseIDInput();
@@ -157,35 +137,23 @@
                 }
             },
             onSaveTap(args) {
-                if (! this.is_login) { 
-                    if (this.u_name === '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
-                    }
+                if (! this.is_passed) { 
                     this.u_id = this.parseIDInput();
                     if (this.u_id.length != 6 || this.u_id == '000000') {
                         this.$refs.idErrorFieldRef.nativeView.opacity = 1;
                         this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
-                    }
-                    if (this.u_name === '' || this.u_id.length != 6) {
                         return;
                     } else {
-                        this.is_login = ! this.is_login;
+                        if (this.u_id === this.selected_user.id) {
+                            this.is_passed = ! this.is_passed;
+                        } else {
+                            alert({
+                                title: "ID not match",
+                                message: "The ID you entered does not match our record.",
+                                okButtonText: "OK",
+                            });
+                        }
                     }
-
-                    const user_name = (this.u_name != '') ? this.u_name : 'Unknown';
-                    let color_idx = userColors.findIndex(elem => elem === this.users[this.users.length - 1].color);
-                    color_idx = (color_idx === userColors.length - 1) ? 0 : color_idx + 1;
-                    console.log("in save tap of add user " + color_idx)
-                    const item = {
-                        id: this.parseIDInput(),
-                        name: formatUsernameForDisplay(user_name),
-                        fullname: user_name.trim(),
-                        shift_start: '',
-                        shift_end: '',
-                        color: userColors[color_idx],
-                    }
-                    this.saveUserInfo(item);
                 } else {
                     if (! this.start_time_changed) {
                         this.$refs.sErrorFieldRef.nativeView.opacity = 1;
@@ -205,7 +173,7 @@
                         shift_end: this.$refs.eTimeFieldRef.nativeView.hour + ":" + e_minute,
                     }
                     this.activateUser(item);
-                    this.prepareTutorial();
+                    this.parent_modal.close();
                 }
             },
             onCloseTap() {
@@ -215,19 +183,18 @@
                 this.parent_modal.close();
             },
             clearTextfieldFocus(args) {
-                if (! this.is_login) {
+                if (! this.is_passed) {
                     const layoutView = args.object;
-                    layoutView.getViewById("user-add-a1").dismissSoftInput();
-                    layoutView.getViewById("user-add-a2").dismissSoftInput();
+                    layoutView.getViewById("user-login-a2").dismissSoftInput();
                 }
             },
             onLayoutUpdate() {
-                if (this.$refs.addUserGridRef) {
-                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.addUserGridRef.nativeView.getMeasuredWidth() );
+                if (this.$refs.loginUserGridRef) {
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.loginUserGridRef.nativeView.getMeasuredWidth() );
                     if (width > 1000) {
-                        this.formSetting.class = "add-user-ctnr tablet-landscape";
+                        this.formSetting.class = "login-user-ctnr tablet-landscape";
                     } else {
-                        this.formSetting.class = "add-user-ctnr";
+                        this.formSetting.class = "login-user-ctnr";
                     }
                 }
             },

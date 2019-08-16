@@ -178,6 +178,8 @@
                         id: this.u_id,
                         name: formatUsernameForDisplay(this.u_name),
                         fullname: this.u_name.trim(),
+                        shift_start: '',
+                        shift_end: '',
                         color: userColors[color_idx],
                     }
                     this.saveUserInfo(user_item);

@@ -29,7 +29,7 @@ export default {
     },
 
     activateUser({commit, state}, user) {
-        commit(types.USER_UPDATE, user.id);
+        commit(types.USER_UPDATE, user);
     },
 
     deactivateUser({commit, state}) {

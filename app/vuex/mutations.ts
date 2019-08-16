@@ -13,21 +13,28 @@ export default {
 
     [types.USER_CREATE](state, user) {
         state.users.push(user);
-    },
-    [types.USER_UPDATE](state, user_id) {
-        state.curr_user_id = user_id;
-    },
-    [types.USER_LOGOUT](state) {
-        state.curr_user_id = -1;
-    },
-    [types.USER_DELETE](state, user_idx) {
-        state.users.splice(user_idx, 1);
+        // console.log("=== in mutation USER_CREATE ===");
+        // console.dir(state.users);
     },
     [types.USER_ALTER](state, user) {
         const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
         state.users[userIdx] = user;
         // console.log("=== in mutation USER_ALTER ===");
         // console.dir(state.users);
+    },
+    [types.USER_UPDATE](state, user) {
+        const userIdx = state.users.findIndex(elem => { return elem.id === user.id });
+        state.curr_user_id = user.id;
+        state.users[userIdx].shift_start = user.shift_start;
+        state.users[userIdx].shift_end = user.shift_end;
+        // console.log("=== in mutation USER_UPDATE ===");
+        // console.dir(state.users);
+    },
+    [types.USER_LOGOUT](state) {
+        state.curr_user_id = -1;
+    },
+    [types.USER_DELETE](state, user_idx) {
+        state.users.splice(user_idx, 1);
     },
 
     [types.CHART_CREATE](state, entry){
@@ -50,7 +57,6 @@ export default {
         state.logs[chart_idx].status = true;
         console.log("in mutation status ===: " + state.logs[chart_idx].status);
     },
-
     [types.CHART_INFO_UPDATE](state, entry) {
         const chart_idx = state.logs.findIndex((elem) => {return elem.id == entry.id});
         state.logs[chart_idx].phone = entry.phone;
@@ -132,7 +138,6 @@ export default {
         // console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_CALL_UPDATE](state, item) {
-        console.dir(item)
         state.logs[item.idx].nurse = item.content.nurse_id;
         state.logs[item.idx].startTime = item.content.call_start;
         state.logs[item.idx].endTime = item.content.call_end;
