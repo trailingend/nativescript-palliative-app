@@ -16,7 +16,7 @@
                             <Label :text="`${client.startTime} | ${client.date} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
                         <StackLayout alignSelf="flex-start" class="client-tip-ctnr">
-                            <Label :text="`deletes in ${client.countdown} days`" class="client-text client-light" :color="`${client.color}`" />
+                            <Label :text="`deletes in ${client.countdown}`" class="client-text client-light" :color="`${client.color}`" />
                         </StackLayout>
                         <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
                         <!-- <StackLayout class="bar-ctnr"></StackLayout>
@@ -115,7 +115,7 @@
                 }
 
                 countdown = (countdown > 7) ? 0 : 7 - countdown; 
-                return countdown;
+                return (countdown > 1) ? `${countdown} DAYS` : `TOMORROW`;
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });
