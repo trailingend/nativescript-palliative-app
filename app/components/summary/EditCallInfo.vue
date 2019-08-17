@@ -130,17 +130,19 @@
                 } 
             },
             checkIDError(args) {
-                const new_input = args.value.replace(/\D/g, '');
-                this.u_id = new_input.substring(0, Math.min(6, new_input.length));
-                this.$refs.idFieldRef.nativeView.text = this.u_id;
+                if (args.value) {
+                    const new_input = args.value.replace(/\D/g, '');
+                    this.u_id = new_input.substring(0, Math.min(6, new_input.length));
+                    this.$refs.idFieldRef.nativeView.text = this.u_id;
 
-                if (this.u_id.length != 6) {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
-                } else {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 0;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
-                } 
+                    if (this.u_id.length != 6) {
+                        this.$refs.idErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                    } else {
+                        this.$refs.idErrorFieldRef.nativeView.opacity = 0;
+                        this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
+                    } 
+                }
             },
             onSaveTap(args) {
                 if (this.u_name === '') {
