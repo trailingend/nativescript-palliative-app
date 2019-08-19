@@ -11,7 +11,7 @@
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Summary"></Label>
                     </StackLayout>
-                    <CallSummary :log_id="log_id" :can_check="can_check_call_info" />
+                    <CallSummary :log_id="log_id" :can_check="can_check_call_info" @canSwitch="onSwitchCanEnable"/>
                     <InfoSummary :log_id="log_id" />
                     <IntroSummary :log_id="log_id" />
                     <StackLayout class="sum-sec-ctnr">
@@ -29,9 +29,9 @@
                     <PlanSummary :log_id="log_id" /> 
                     <NoteSummary :log_id="log_id" />
 
-                    <FlexboxLayout class="sum-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between">
+                    <FlexboxLayout class="sum-switch-ctnr" flexDirection="row" alignItems="center" justifyContent="space-between" @tap="onSwitchTap">
                         <Label class="sum-bold" text="Documentation reviewed and finalized." />
-                        <Switch class="sum-switch" ref="switchRef" @checkedChange="onSwitchSwap" offBackgroundColor="#e5e5e5"/>
+                        <Switch class="sum-switch" :isEnabled="is_switch_enabled" ref="switchRef" @checkedChange="onSwitchSwap" offBackgroundColor="#e5e5e5"/>
                     </FlexboxLayout>
                     <StackLayout class="sum-e-ctnr sum-switch-e-ctnr" opacity="0" ref="consentErrorRef">
                         <Label class="sum-e sum-e5" text="Please confirm review" />
@@ -72,6 +72,7 @@
             return {
                 is_reviewed: false,
                 can_check_call_info: false,
+                is_switch_enabled: false,
                 protocol_ids: [],
 
                 ctnrSetting: {
@@ -116,6 +117,10 @@
         methods: {
             ...mapActions([
             ]),
+            /**
+             *  Function to prepare data to display on load
+             *  - also check whether the switch can be enabled based on content of nurse info of the log
+             * **/
             prepareSummary() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
@@ -123,6 +128,12 @@
                     curr_log.items_answers.forEach(elem => { p_id_set.add(elem.id) });
                     curr_log.others_answers.forEach(elem => { p_id_set.add(elem.id) });
                     this.protocol_ids = Array.from(p_id_set);
+
+                    if (curr_log.nurse === "" || curr_log.endTime === "") {
+                        this.is_switch_enabled = false;
+                    } else {
+                        this.is_switch_enabled = true;
+                    }
                 }
             },
             preparePrevStage() {
@@ -141,22 +152,27 @@
                     }
                 });
             },
+            onSwitchTap(args) {
+                if (! this.is_switch_enabled) {
+                    const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
+                    if (curr_log.nurse === "" || curr_log.endTime === "") {
+                        this.is_reviewed = false;
+                        alert({
+                            title: "Missing Call Information",
+                            message: "Please complete before continuing.",
+                            okButtonText: "OK"
+                        }).then((result) => {
+                            this.can_check_call_info = true;
+                        });
+                        return;
+                    }
+                }           
+            },
             onSwitchSwap(args) {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log.nurse === "" || curr_log.endTime === "") {
-                    this.is_reviewed = false;
-                    this.$refs.switchRef.nativeView.checked = false;
-                    alert({
-                        title: "Missing Call Information",
-                        message: "Please complete before continuing.",
-                        okButtonText: "OK"
-                    }).then((result) => {
-                        this.can_check_call_info = true;
-                    });
-                    return;
                 } else {
                     this.is_reviewed = ! this.is_reviewed;
-                    this.$refs.switchRef.nativeView.checked = ! this.$refs.switchRef.nativeView.checked;
                     if (args.oldValue) {
                         if (! args.value) {
                             this.$refs.consentErrorRef.nativeView.opacity = 1;
@@ -204,6 +220,10 @@
                         from_summary: true,
                     }
                 });
+            },
+            onSwitchCanEnable() {
+                console.log("can enable");
+                this.is_switch_enabled = true;
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.summaryGridRef.nativeView.getMeasuredWidth() );

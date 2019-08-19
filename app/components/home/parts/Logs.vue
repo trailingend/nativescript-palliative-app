@@ -86,7 +86,7 @@
                         this.deleteChart(log.id);
                     }
 
-                    log.color = (log.countdown <= 2) ? "#ff1f00" : "#4b4b4b";
+                    log.color = (log.countdown === 'TOMORROW') ? "#ff1f00" : "#4b4b4b";
                 });
             },
             formatPhoneNum(num) {

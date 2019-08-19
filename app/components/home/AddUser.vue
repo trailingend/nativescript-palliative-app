@@ -24,7 +24,7 @@
                         text="Please enter your firstname and lastname" 
                         opacity="0" 
                         ref="nameErrorFieldRef" />
-                <Label row="3" col="0" class="add-q2 add-q" text="Employee ID #:" textWrap="true"/>
+                <Label row="3" col="0" class="add-q add-q2" text="Employee ID #:" textWrap="true"/>
                 <MaskedTextField row="4" col="0"
                                 id="user-add-a2"
                                 class="add-a2 add-a" 
@@ -42,7 +42,7 @@
             <GridLayout v-else
                         row="2" col="0" rowSpan="2" class="add-content-ctnr"
                         rows="auto, auto, auto, auto" columns="*">
-                <Label row="0" col="0" class="add-q3 add-q" text="Shift Starts:" textWrap="true"/>
+                <Label row="0" col="0" class="add-q add-q3" text="Shift Starts:" color="black"/>
                 <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorFieldRef" />
                 <TimePicker row="1" col="0" 
                             class="add-picker" 

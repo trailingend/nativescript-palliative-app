@@ -114,6 +114,7 @@
                         this.end_time = curr_log.endTime;
                         this.nurse_id = curr_log.nurse;
                         this.nurse_name = (curr_user) ? curr_user.fullname : '';
+                        this.$emit("canSwitch");
                     }
                 });
             },

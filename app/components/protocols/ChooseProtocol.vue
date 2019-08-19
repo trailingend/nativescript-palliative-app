@@ -209,11 +209,9 @@
                     if (this.checkSavedProtocols(p_id_to_check)) {
                         if (i === index) {
                             if (this.protocol_id != null) {
-                                // this.show_next = true;
                                 clicked_btn.color = this.black_color;
                                 clicked_btn.background = this.clicked_color;
                             } else {
-                                // this.show_next = false;
                                 clicked_btn.color = this.saved_color;
                                 clicked_btn.background = this.white_color;
                             }
@@ -223,14 +221,16 @@
                         }
                     } else {
                         if (i === index) {
-                            if (this.protocol_id != null && proto.assessment_questions.length > 0) {
-                                // this.show_next = true;
+                            if (this.protocol_id != null && proto.assessment_questions.length > 0) { 
+                                // CONDITIONING - Style before go to protocol
+                                console.log("index of yes proto " + i)
                                 clicked_btn.background = this.clicked_color;
                                 clicked_btn.borderColor = this.clicked_color;
-                            } else {
-                                // this.show_next = false;
+                            } else { 
+                                // CONDITIONING - No content in such protocol
                                 clicked_btn.background = this.unclicked_color;
                                 clicked_btn.borderColor = this.unclicked_color;
+                                return;
                             }
                         } else {
                             page.getViewById(`choose-btn-${i}`).background = this.unclicked_color;

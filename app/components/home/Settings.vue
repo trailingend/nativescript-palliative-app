@@ -1,7 +1,7 @@
 <template>
 <Frame id="settingFrame">
      <Page class="page settings-page">
-         <GridLayout rows="auto, auto, *, auto" columns="*"
+         <GridLayout rows="auto, auto, *, auto, auto" columns="*"
                      :class="ctnrSetting"
                      ref="settingsGridRef" 
                      @layoutChanged="onLayoutUpdate">
@@ -15,7 +15,8 @@
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
-            <Label row="3" col="0" class="settings-logout" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Label>   
+            <Image row="3" col="0" width="300" class="settings-logo" src="~/assets/images/vch-logo.png" stretch="aspectFit"></Image>
+            <Label row="4" col="0" class="settings-logout" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Label>   
         </GridLayout>
     </Page>
 </Frame>
