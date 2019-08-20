@@ -164,25 +164,20 @@
                         }).then((result) => {
                             this.can_check_call_info = true;
                         });
-                        return;
                     }
                 }           
             },
             onSwitchSwap(args) {
-                const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                if (curr_log.nurse === "" || curr_log.endTime === "") {
+                this.is_reviewed = ! this.is_reviewed;
+                if (args.oldValue) {
+                    if (! args.value) {
+                        this.$refs.consentErrorRef.nativeView.opacity = 1;
+                    }
                 } else {
-                    this.is_reviewed = ! this.is_reviewed;
-                    if (args.oldValue) {
-                        if (! args.value) {
-                            this.$refs.consentErrorRef.nativeView.opacity = 1;
-                        }
-                    } else {
-                        if (args.value) {
-                            this.$refs.consentErrorRef.nativeView.opacity = 0;
-                        }
-                    } 
-                }                
+                    if (args.value) {
+                        this.$refs.consentErrorRef.nativeView.opacity = 0;
+                    }
+                } 
             },
             checkConditions() {
                 if (! this.is_reviewed) {

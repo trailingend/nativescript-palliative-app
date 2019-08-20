@@ -41,12 +41,14 @@
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
+    import { setInterval, clearInterval } from "tns-core-modules/timer";
     import * as utils from 'tns-core-modules/utils/utils';
 
     export default {
         data() {
             return {
                 is_vertical: true,
+
                 pageSetting: {
                     class: "page home-page"
                 },
@@ -86,7 +88,7 @@
                 }
             },
             checkUserStatus() {
-                this.userSetting = (this.curr_user_id == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr"
+                this.userSetting = (this.curr_user_id == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr";
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");

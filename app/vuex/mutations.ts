@@ -143,4 +143,9 @@ export default {
         state.logs[item.idx].endTime = item.content.call_end;
         // console.log("=== in mutation CHART_CALL_UPDATE === " + state.logs[item.idx]);
     },
+    [types.CHART_HISTORY_UPDATE](state, chart_item){
+        state.logs[chart_item.idx].history.push(chart_item.content);
+        console.log("=== in mutation CHART_HISTORY_UPDATE ===");
+        console.dir(state.logs[chart_item.idx].history);
+    },
 };

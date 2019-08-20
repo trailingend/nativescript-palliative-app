@@ -33,7 +33,10 @@
                         <StackLayout v-for="resource in resources_list" 
                                     :key="resource.id" 
                                     class="resources-item resources-res-item" > 
-                            <Label class="resources-text resources-url" :text="resource.title" @tap="onLinkTap(resource.url)" />
+                            <Label class="resources-text resources-url" 
+                                    :textDecoration="(resource.url != '' && resource.url != 'null' && resource.url !=null) ? 'underline' : 'none'" 
+                                    :text="resource.title" 
+                                    @tap="onLinkTap(resource.url)" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout id="resources-item-ctnr-pro" class="resources-item-ctnr resources-resc-ctnr">
@@ -145,8 +148,10 @@
                 });
             },
             onLinkTap(url) {
-                console.log("navigating to " + url);
-                utils.openUrl(url);
+                if (url === null || url === '' || url === 'null') {
+                    console.log("=== Resources === navigating to " + url);
+                    utils.openUrl(url);
+                }
             },
             onTabTap(args, curr_id) {
                 const scrollView = args.object.page.getViewById("resources-main-ctnr");

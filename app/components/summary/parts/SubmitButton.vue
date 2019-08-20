@@ -4,6 +4,7 @@
 
 <script lang="ts">
     import Dashboard from '../../home/Dashboard.vue';
+    import Reason from '../Reason.vue';
 
     import { mapGetters } from 'vuex';
     import { mapActions } from 'vuex';
@@ -16,7 +17,8 @@
     export default {
         data() {
             return {
-                submit_text: 'Submit'
+                submit_text: 'Submit',
+                is_resubmit: false,
             }
         },
         beforeCreate() {
@@ -46,11 +48,13 @@
 		},
         methods: {
             ...mapActions([
-                'changeChartStatus'
+                'changeChartStatus',
+                'changeClientHistory'
             ]),
             prepareText() {
                 const status = this.logs.find(elem => { return elem.id === this.log_id; }).status;
                 this.submit_text = status ? 'Re-submit' : 'Submit';
+                this.is_resubmit = status;
             },
             recordTime() {
                 const today = new Date();
@@ -61,21 +65,45 @@
             },
             onSubmitTap() {
                 this.$emit("onClick");
-                console.log("check here ==========="  + this.is_reviewed);
 
                 if (this.is_reviewed) {
-                    confirm({
-                        title: "Send Chart",
-                        message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
-                        okButtonText: "Send",
-                        cancelButtonText: "Cancel",
-                    }).then((result) => {
-                        if (result || result === undefined) {
-                            this.generatePDF();
-                        } 
-                    });
+                    if (this.is_resubmit) {
+                        this.$showModal(Reason, {
+                            fullscreen: false,
+                            ios: {
+                                presentationStyle: UIModalPresentationStyle.Popover
+                            },
+                            props: {
+                                log_id: this.log_id,
+                            }
+                        }).then((resp) => {
+                            if (resp) {
+                                confirm({
+                                    title: "Send Chart",
+                                    message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
+                                    okButtonText: "Send",
+                                    cancelButtonText: "Cancel",
+                                }).then((result) => {
+                                    if (result || result === undefined) {
+                                        this.generatePDF();
+                                    } 
+                                });
+                            } 
+                        });
+                    } else {
+                        confirm({
+                            title: "Send Chart",
+                            message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
+                            okButtonText: "Send",
+                            cancelButtonText: "Cancel",
+                        }).then((result) => {
+                            if (result || result === undefined) {
+                                this.generatePDF();
+                            } 
+                        });
+                    }
                 } else {
-                    console.log("TODO: if no time entered, scroll to top");
+                    console.log("=== Submit === document not reviewed");
                 }
             },
             onEmailSent() {
@@ -271,7 +299,6 @@
                 const table_font_size = 9;
                 const cell_padding = 3;
 
-                const submit_time = this.recordTime();
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
@@ -279,6 +306,10 @@
                 const protocol_bodies = this.prepareProtocols(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
+                let submit_time = '';
+                if (curr_log.history.length > 0) {
+                    submit_time = curr_log.history[curr_log.history.length - 1].recordTime;
+                }
 
                 doc.setFontSize(7);
                 doc.setFontType('normal')
@@ -418,7 +449,6 @@
                 var doc_64 = "base64://" + doc.output("datauristring").split(",")[1];
 
                 email.available().then(avaialble => {
-                    console.log("????" + avaialble)
                     if (avaialble) {
                         email.compose({
                             subject: "Email Template",

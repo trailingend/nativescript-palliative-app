@@ -10,20 +10,31 @@ export default {
     },
 
     loadOnlineData({commit, state}){
-        let url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
-        fetch(url)
+        let info_url = 'https://api.palliative.vchlearn.ca/_/items/info';
+        let real_url = 'https://api.palliative.vchlearn.ca/_/custom/bundle';
+        fetch(info_url)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    console.log("=== Something went wrong loading online data ===");
+                    console.log("=== Something went wrong loading online info data ===");
                 }
             })
-            .then(input => {
-                const version_not_match = (state.data_version != input.info.version);
-                console.log(`=== in load online data === version match found? - ${version_not_match} (${state.data_version}, ${input.info.version})`);
+            .then(info_input => {
+                const version_not_match = (info_input.data[0].version > state.data_version);
+                console.log(`=== in load online data === version match found? - ${version_not_match} (${state.data_version}, ${info_input.data[0].version})`);
                 if (version_not_match) {
-                    commit(types.JSON_UPDATE, input); 
+                    fetch(real_url)
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                console.log("=== Something went wrong loading online data ===");
+                            }
+                        })
+                        .then(real_input => {
+                            commit(types.JSON_UPDATE, real_input); 
+                        });
                 }
             });
     },
@@ -65,6 +76,15 @@ export default {
             content: update_item.content
         };
         commit(types.CHART_NOTE_UPDATE, log_item);
+    },
+
+    changeClientHistory({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
+        const log_item = {
+            idx: log_idx,
+            content: update_item.content
+        };
+        commit(types.CHART_HISTORY_UPDATE, log_item);
     },
 
     deleteChart({commit, state}, log_id) {

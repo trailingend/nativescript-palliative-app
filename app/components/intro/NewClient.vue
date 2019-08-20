@@ -262,6 +262,7 @@
                         endTime: '',
                         status: false,
                         progress: [-1, -1, -1, -1, 0], // intro[step id], proto[protocol id], items[letter id], others[Tri-state], plans[Bool]
+                        editHistory: [],
                         intro_answers: [],
                         items_answers: [],
                         others_answers: [],

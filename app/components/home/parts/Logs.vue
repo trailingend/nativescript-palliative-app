@@ -7,23 +7,19 @@
                          @itemTap="onEditTap"
                          @itemSwipeProgressStarted="onSwipeStarted" >
                 <v-template>
-                    <FlexboxLayout alignItems="center" class="client-item">
-                        <Image width="50" class="user-head " v-show="!client.status" src="~/assets/images/progress.png" stretch="aspectFit"></Image>
-                        <Image width="50" class="user-head" v-show="client.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
-                        <StackLayout flexGrow="2">
+                    <GridLayout rows="auto" columns="auto, *, auto, auto" class="client-item">
+                        <Image row="0" col="0" width="50" class="user-head " v-show="!client.status" src="~/assets/images/progress.png" stretch="aspectFit"></Image>
+                        <Image row="0" col="0" width="50" class="user-head" v-show="client.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
+                        <StackLayout row="0" col="1" verticalAlignment="center">
                             <Label :text="client.client" class="client-text client-bold"/>
                             <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
                             <Label :text="`${client.startTime} | ${client.date} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
                         </StackLayout>
-                        <StackLayout alignSelf="flex-start" class="client-tip-ctnr">
-                            <Label :text="`deletes in ${client.countdown}`" class="client-text client-light" :color="`${client.color}`" />
+                        <StackLayout row="0" col="2" class="client-tip-ctnr">
+                            <Label :text="`deletes ${client.countdown}`" class="client-text client-light" :color="`${client.color}`" />
                         </StackLayout>
-                        <Image class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
-                        <!-- <StackLayout class="bar-ctnr"></StackLayout>
-                        <StackLayout class="facetime-ctnr" @tap="onCallTap(client.id)">
-                            <Image class="facetime-icon" width="35" src="~/assets/images/facetime.png" stretch="aspectFit"></Image>
-                        </StackLayout> -->
-                    </FlexboxLayout>
+                        <Image row="0" col="3" class="edit-icon" src="~/assets/images/pen.png" stretch="aspectFit"></Image>
+                    </GridLayout>
                 </v-template>
 
                 <v-template name="itemswipe">
@@ -77,6 +73,10 @@
                 'deleteChart',
                 'saveActiveChart'
             ]),
+            /**
+             *  Function to prepare data to display on load
+             *  - the delete time countdown will trun red when there are less than two days left
+             * **/
             prepareLogs() {
                 this.full_logs = this.logs;
                 this.full_logs.forEach(log => {
@@ -86,7 +86,7 @@
                         this.deleteChart(log.id);
                     }
 
-                    log.color = (log.countdown === 'TOMORROW') ? "#ff1f00" : "#4b4b4b";
+                    log.color = (log.countdown === 'TOMORROW' || log.countdown === 'IN 2 DAYS') ? "#ff1f00" : "#4b4b4b";
                 });
             },
             formatPhoneNum(num) {
@@ -115,7 +115,7 @@
                 }
 
                 countdown = (countdown > 7) ? 0 : 7 - countdown; 
-                return (countdown > 1) ? `${countdown} DAYS` : `TOMORROW`;
+                return (countdown > 1) ? `IN ${countdown} DAYS` : `TOMORROW`;
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });

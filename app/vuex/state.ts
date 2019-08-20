@@ -36,6 +36,7 @@ export default {
 		endTime: '5:58',
 		status: false,
 		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
 			a: ["Unconscious"]
@@ -60,6 +61,7 @@ export default {
 		endTime: '2:15',
 		status: false,
 		progress: [3, 3, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
 			a: ["Vomiting"]
@@ -101,6 +103,7 @@ export default {
 		endTime: '5:20',
 		status: true,
 		progress: [3, 3, 3, -1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
 			a: ["Cannot breathe"]
