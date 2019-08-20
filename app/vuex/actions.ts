@@ -290,5 +290,9 @@ export default {
     deleteActiveChart({commit, state}) {
         commit(types.CHART_DEACTIVATE);
     },
+
+    startTimer({commit, state}, timer_obj) {
+        commit(types.TIMER_ADD, timer_obj);
+    },
 };
 

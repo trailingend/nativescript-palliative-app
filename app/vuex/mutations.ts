@@ -144,8 +144,13 @@ export default {
         // console.log("=== in mutation CHART_CALL_UPDATE === " + state.logs[item.idx]);
     },
     [types.CHART_HISTORY_UPDATE](state, chart_item){
-        state.logs[chart_item.idx].history.push(chart_item.content);
-        console.log("=== in mutation CHART_HISTORY_UPDATE ===");
-        console.dir(state.logs[chart_item.idx].history);
+        state.logs[chart_item.idx].editHistory.push(chart_item.content);
+        // console.log("=== in mutation CHART_HISTORY_UPDATE ===");
+        // console.dir(state.logs[chart_item.idx].history);
+    },
+
+    [types.TIMER_ADD](state, timer_obj){
+        state.timer = timer_obj;
+        console.log("=== in mutation TIMER_ADD ===");
     },
 };

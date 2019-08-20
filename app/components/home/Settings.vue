@@ -44,7 +44,8 @@
         computed: {
             ...mapGetters([
                 'users',
-                'curr_user_id'
+                'curr_user_id',
+                'timer',
 			]),
 		},
         methods: {
@@ -62,6 +63,10 @@
                     this.$modal.close();
                 });
             },
+            endTimerForUser() {
+                console.log("=== Setting === timer stopped");
+                clearInterval(this.timer);
+            },
             onCloseTap() {
                 this.$modal.close();
             },
@@ -77,6 +82,7 @@
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result) {
+                            this.endTimerForUser();
                             this.deactivateUser();
                             this.$modal.close();
                         } 

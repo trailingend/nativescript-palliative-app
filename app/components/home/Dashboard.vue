@@ -8,7 +8,7 @@
                 <Image class="home-logo" src="~/assets/images/logo.png" stretch="aspectFill" ></Image>
             </StackLayout>
 
-            <StackLayout row="0" col="1" :class="userSetting" orientation="horizontal">
+            <StackLayout row="0" col="1" :class="(curr_user_id == -1) ? 'home-user-ctnr home-user-begin-ctnr' : 'home-user-ctnr'" orientation="horizontal">
                 <Image class="home-setting" width="35" height="35" src="~/assets/images/union.png" stretch="aspectFill" @tap="onSettingTap"></Image>
                 <UserBlock @userChange="checkUserStatus" />
             </StackLayout>
@@ -61,6 +61,9 @@
         mounted() {
             this.checkUserStatus();
             this.loadOnlineData();
+        },
+        updated() {
+            this.checkUserStatus();
         },
         components: {
             Logs,

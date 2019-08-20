@@ -7,15 +7,16 @@
                         v-bind:key="answer.id" 
                         :row="Math.floor(index / 2)"
                         :col="index % 2" 
-                        class="answers-a-select-ctnr">
-                <GridLayout class="answers-a-ctnr" rows="auto" columns="auto, *, auto" 
+                        class="answers-a-select-ctnr"
+                        verticalAlignment="stretch">
+                <GridLayout class="answers-a-ctnr" rows="*" columns="auto, *, auto" 
                             :backgroundColor="answer.status ? color_checked : color_unchecked"  
-                            @tap="(args) => { onAnswerTap(answer, args); }">
+                            @tap="(args) => { onAnswerTap(answer, args); }" >
                     <Image row="0" col="0" width="30" 
                            class="ans-status-icon" 
                            :opacity="answer.status ? 1 : 0" 
                            src="~/assets/images/checked.png" stretch="aspectFit"></Image>
-                    <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer" />
+                    <Label row="0" col="1" class="answers-a" textWrap="true" :text="answer.answer"/>
                     <StackLayout row="0" col="2" width="30" ></StackLayout>
                 </GridLayout>
             </StackLayout>

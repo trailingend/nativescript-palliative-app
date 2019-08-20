@@ -81,8 +81,8 @@
                 this.full_logs = this.logs;
                 this.full_logs.forEach(log => {
                     log.countdown = this.formatCountdown(log.date);
-                    if (log.countdown === 0) {
-                        console.log("delete this one " + log.id);
+                    if (log.countdown === 'TODAY') {
+                        console.log("=== auto deleting === " + log.id);
                         this.deleteChart(log.id);
                     }
 
@@ -115,7 +115,14 @@
                 }
 
                 countdown = (countdown > 7) ? 0 : 7 - countdown; 
-                return (countdown > 1) ? `IN ${countdown} DAYS` : `TOMORROW`;
+
+                if (countdown === 1) {
+                    return 'TOMORROW';
+                } else if (countdown === 0) {
+                    return 'TODAY';
+                } else {
+                    return `IN ${countdown} DAYS`;
+                }
             },
             getNurseName(nurse_id) {
                 const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });

@@ -1,8 +1,7 @@
 export default {
 	curr_user_id: -1,
 	curr_log_id: null,
-	timer_value: 0,
-	timer_status: false,
+	timer: undefined,
 
 	users: 
 	[{
@@ -31,7 +30,7 @@ export default {
 		info: '87, high blood pressure',
 		notes: 'sounds urgent',
 		nurse: '888888',
-		date: '13 Aug 2019',
+		date: '16 Aug 2019',
 		startTime: '5:45',
 		endTime: '5:58',
 		status: false,
@@ -56,7 +55,7 @@ export default {
 		info: '38, no history',
 		notes: '',
 		nurse: '888888',
-		date: '16 Aug 2018',
+		date: '15 Aug 2018',
 		startTime: '1:45',
 		endTime: '2:15',
 		status: false,

@@ -168,6 +168,7 @@
                         titles = titles + ", " + title;
                     }
                 });
+                titles = (titles === '') ? 'N/A' : titles;
                 return titles;
             },
             prepareProtocols(curr_log) {
@@ -177,7 +178,6 @@
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
-                        let others_body = [];
                         let info = [];
                         
                         this.assessment_letters.forEach(letter => {
@@ -205,6 +205,22 @@
                             count_letter = 0;
                         });
 
+                        protocol.additional_questions.forEach(q_obj => {
+                            if (others_idx != -1) {
+                                const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
+                                const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
+                                items_body.push({
+                                    t: 'Others',
+                                    q: q_obj.question,
+                                    a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
+                                });
+                            }
+                        });
+                        info.push({
+                            t: 'Others',
+                            c: protocol.additional_questions.length
+                        });
+
                         info.forEach(info_item => {
                             if (info_item.c > 1) {
                                 const item_to_change = items_body.find(item => item.t === info_item.t);
@@ -214,22 +230,10 @@
                                 };
                             }
                         });
-
-                        protocol.additional_questions.forEach(q_obj => {
-                            if (others_idx != -1) {
-                                const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
-                                const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
-                                others_body.push({
-                                    q: q_obj.question,
-                                    a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
-                                });
-                            }
-                        });
                     
                         protocol_bodies.push({
                             name: protocol.name,
                             items: items_body,
-                            others: others_body,
                         });
                         
                     }
@@ -260,6 +264,18 @@
                 });
                 return notes_body;
             },
+            prepareHistory(curr_log) {
+                let hist_body = [];
+                curr_log.editHistory.forEach((hist) => {
+                    const nurse_obj = this.users.find(elem=> elem.id === hist.nurse);
+                    hist_body.push({
+                        n: nurse_obj ? nurse_obj.fullname : hist.nurse,
+                        t: hist.recordTime,
+                        r: hist.reason.join('\n')
+                    });
+                });
+                return hist_body;
+            },
             generatePDF() {
                 global['window'] = {
                     'document': {
@@ -289,7 +305,7 @@
                         lib_loaded = false;
                     }
                 }
-
+                
                 require("jspdf-autotable");
                 
                 var doc = new jsPDF();
@@ -306,11 +322,15 @@
                 const protocol_bodies = this.prepareProtocols(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
+                const hist_body = this.prepareHistory(curr_log);
+                
                 let submit_time = '';
-                if (curr_log.history.length > 0) {
-                    submit_time = curr_log.history[curr_log.history.length - 1].recordTime;
+                if (curr_log.editHistory.length > 0) {
+                    submit_time = curr_log.editHistory[curr_log.editHistory.length - 1].recordTime;
+                } else {
+                    submit_time = this.recordTime();
                 }
-
+                console.log("=== PDF === flag 3 " + submit_time);
                 doc.setFontSize(7);
                 doc.setFontType('normal')
                 doc.text("PALLIATIVE ASSESSMENT TOOL", 85, 18);
@@ -344,7 +364,7 @@
                 doc.setFontType('normal');
                 doc.text(protocol_titles, start_of_text + 37, finalY + 6);
                 
-                const intro_padding = 6 + 4 * Math.ceil(protocol_bodies.length / 3);
+                const intro_padding = 6 + 4 * Math.max(1, Math.ceil(protocol_bodies.length / 3));
                 finalY = doc.previousAutoTable.finalY + intro_padding;
                 const finalYInfo = doc.previousAutoTable.finalY + intro_padding;
                 doc.autoTable({
@@ -374,24 +394,8 @@
                         body: protocol_body.items,
                         columns: [{ dataKey: 't' }, {dataKey: 'q' }, { dataKey: 'a' }],
                         columnStyles: {t: {cellWidth: 25, minCellWidth: 25, fontStyle: 'bold'},
-                                    q: {cellWidth: 65, minCellWidth: 65, fontStyle: 'bold'},
-                                    a: {cellWidth: 'auto', minCellWidth: 50}},
-                        styles: {minCellHeight: 10, fontSize: table_font_size, cellPadding: cell_padding},
-                    });
-
-                    finalY = doc.previousAutoTable.finalY;
-                    doc.setLineWidth(0.25);
-                    doc.setDrawColor(0, 0, 0);
-                    doc.line(start_of_text, finalY, end_of_line, finalY);
-                    doc.text("Others", start_of_text, finalY + 6);
-
-                    doc.autoTable({
-                        startY: finalY + 10,
-                        theme: 'grid',
-                        body: protocol_body.others,
-                        columns: [{ dataKey: 'q' }, { dataKey: 'a' }],
-                        columnStyles: {q: {cellWidth: 65, minCellWidth: 65, fontStyle: 'bold'},
-                                    a: {cellWidth: 'auto', minCellWidth: 50}},
+                                       q: {cellWidth: 65, minCellWidth: 65, fontStyle: 'bold'},
+                                       a: {cellWidth: 'auto', minCellWidth: 50}},
                         styles: {minCellHeight: 10, fontSize: table_font_size, cellPadding: cell_padding},
                     });
                 });
@@ -416,6 +420,9 @@
                 });
 
                 finalY = doc.previousAutoTable.finalY;
+                doc.setLineWidth(0.25);
+                doc.setDrawColor(0, 0, 0);
+                doc.line(start_of_text, finalY, end_of_line, finalY);
                 doc.text("Additional Notes", start_of_text, finalY + 6);
 
                 doc.autoTable({
@@ -427,6 +434,25 @@
                     styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
+                if (hist_body != []) {
+                    finalY = doc.previousAutoTable.finalY;
+                    doc.setLineWidth(0.25);
+                    doc.setDrawColor(0, 0, 0);
+                    doc.line(start_of_text, finalY, end_of_line, finalY);
+                    doc.text("Edit History", start_of_text, finalY + 6);
+
+                    doc.autoTable({
+                        startY: finalY + 10,
+                        theme: 'grid',
+                        body: hist_body,
+                        columns: [{ dataKey: 'n' }, { dataKey: 't' }, { dataKey: 'r' }],
+                        columnStyles: {n: {cellWidth: 35, minCellWidth: 35},
+                                    t: {cellWidth: 25, minCellWidth: 25},
+                                    r: {cellWidth: 'auto', minCellWidth: 50}},
+                        styles: {minCellHeight: 10, fontSize: table_font_size, cellPadding: cell_padding},
+                    });
+                }
+                
                 finalY = doc.previousAutoTable.finalY;
                 doc.setFontSize(7);
                 doc.setFontType('normal')

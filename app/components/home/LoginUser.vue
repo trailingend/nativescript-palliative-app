@@ -60,7 +60,7 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
-    import { alert }  from "tns-core-modules/ui/dialogs";
+    import { alert, confirm }  from "tns-core-modules/ui/dialogs";
     import { formatShiftTime, formatUsernameForDisplay, userColors } from '../../scripts/common';
 
     export default {
@@ -73,6 +73,8 @@
                 is_passed: false,
                 start_time_changed: false,
                 end_time_changed: false,
+
+                timer_obj: undefined,
 
                 formSetting: {
                     class: "login-user-ctnr",
@@ -101,7 +103,9 @@
         methods: {
             ...mapActions([
                 'saveUserInfo',
-                'activateUser'
+                'activateUser',
+                'deactivateUser',
+                'startTimer'
             ]),
             parseIDInput() {
                 let user_ID = '000000';
@@ -163,18 +167,107 @@
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
-                    let s_minute = '' + this.$refs.sTimeFieldRef.nativeView.minute;
-                    let e_minute = '' + this.$refs.eTimeFieldRef.nativeView.minute;
+                    const s_hour = this.$refs.sTimeFieldRef.nativeView.hour;
+                    const e_hour = this.$refs.eTimeFieldRef.nativeView.hour;
+                    let s_minute = this.$refs.sTimeFieldRef.nativeView.minute;
+                    let e_minute = this.$refs.eTimeFieldRef.nativeView.minute;
                     if (s_minute.length === 1) s_minute = '0' + s_minute;
                     if (e_minute.length === 1) e_minute = '0' + e_minute;
+
                     const item = {
                         id: this.u_id,
-                        shift_start: this.$refs.sTimeFieldRef.nativeView.hour + ":" + s_minute,
-                        shift_end: this.$refs.eTimeFieldRef.nativeView.hour + ":" + e_minute,
-                    }
+                        shift_start: s_hour + ":" + s_minute,
+                        shift_end: e_hour + ":" + e_minute,
+                    };
+
+                    this.startTimerForUser(s_hour, s_minute, e_hour, e_minute);
                     this.activateUser(item);
                     this.parent_modal.close();
                 }
+            },
+            startTimerForUser(s_hour, s_minute, e_hour, e_minute) {
+                const today = new Date();
+                let tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+
+                const s_date = today.getDate();
+                let e_date;
+                if (e_hour >= s_hour) { // no date change
+                    e_date = today.getDate();
+                } else { // date change
+                    e_date = tomorrow.getDate();
+                }
+                
+                console.log("=== Timer init === " + e_date + ' ' + e_hour + ' ' + e_minute);
+
+                this.timer_obj = setInterval(() => {
+                    const current = new Date();
+                    const c_date = current.getDate();
+                    const c_hour = current.getHours();
+                    const c_minute = current.getMinutes();
+                    
+                    console.log("=== Timer running === " + c_date + ' ' + c_hour + ' ' + c_minute);
+                    let user_time_up = false;
+                    if (c_date > e_date) {
+                        user_time_up = true;
+                    } else if (c_date === e_date){
+                        if (c_hour > e_hour) {
+                            user_time_up = true;
+                        } else if (c_hour === e_hour){
+                            user_time_up = (c_minute >= e_minute);
+                        }
+                    }
+                    if (user_time_up) {
+                        this.endTimerForUser();
+
+                    }
+                }, 10000);
+
+                this.startTimer(this.timer_obj);
+            },
+            resetTimerForUser(duration) {
+                let start = Date.now();
+                console.log("=== Timer init === " + start);
+
+                this.timer_obj = setInterval(() => {
+                    const diff = duration - (((Date.now() - start) / 1000) | 0);
+                    console.log("=== Timer running === " + diff / 60);
+
+                    if (diff <= 0) {
+                        start = Date.now() + 1000;
+                    }
+                    
+                    if (Math.round(diff / 60) === 0) {
+                        this.forceEndTimerForUser();
+                    }
+                }, 10000);
+
+                this.startTimer(this.timer_obj);
+            },
+            endTimerForUser() {
+                const minutes_to_delay = 10;
+                clearInterval(this.timer_obj);
+                const user = this.users.find(elem => elem.id === this.curr_user_id);
+                console.log("=== Login === timer stopped, check if logout");
+                confirm({
+                    message: `Your shift is ending. Comfirm automatic logout.`,
+                    okButtonText: "Logout",
+                    cancelButtonText: `Wait another ${minutes_to_delay} minutes`,
+                }).then((result) => {
+                    if (result) {
+                        this.deactivateUser();
+                        console.log("=== Login === timer stopped, logging out now");
+                    } else {
+                        this.resetTimerForUser(60 * minutes_to_delay);
+                        console.log("=== Login === timer stopped, reset");
+                    }
+                });
+                
+            },
+            forceEndTimerForUser() {
+                clearInterval(this.timer_obj);
+                this.deactivateUser();
+                console.log("=== Login === second timer stopped, logging out now");
             },
             onCloseTap() {
                 this.onBackHome();
