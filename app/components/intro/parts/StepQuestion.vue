@@ -15,6 +15,10 @@
                        :question_id="unit.id"
                        :responses="retrieveSavedResponses(unit)"
                        @answerChange="onAnswerChange" />
+        <ScaleSelect v-else-if="unit.question_type.type === 'scale'"
+                       :question_id="unit.id"
+                       :responses="retrieveSavedResponses(unit)"
+                       @answerChange="onAnswerChange" />
         <FreeText v-else
                   :question_id="unit.id"
                   :responses="retrieveSavedResponses(unit)"
@@ -26,6 +30,7 @@
     import SingleSelect from '../../answers/SingleSelect.vue';
     import MultiSelect from '../../answers/MultiSelect.vue';
     import BooleanSelect from '../../answers/BooleanSelect.vue';
+    import ScaleSelect from '../../answers/ScaleSelect.vue';
     import FreeText from '../../answers/FreeText.vue';
 
     import { mapGetters } from 'vuex';
@@ -41,6 +46,7 @@
             SingleSelect,
             MultiSelect,
             BooleanSelect,
+            ScaleSelect,
             FreeText
         },
         props: {
