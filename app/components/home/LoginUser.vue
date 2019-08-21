@@ -71,7 +71,7 @@
                 u_fullname: '',
 
                 is_passed: false,
-                start_time_changed: false,
+                start_time_changed: true, //Disabled checking for start_time input
                 end_time_changed: false,
 
                 timer_obj: undefined,
@@ -81,8 +81,7 @@
                 },
             }
         },
-        mounted() {
-        },
+        mounted() {},
         components: {
         },
         props: {
