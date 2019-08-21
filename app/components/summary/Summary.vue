@@ -6,7 +6,7 @@
                     @layoutChanged="onLayoutUpdate">
             <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
 
-            <ScrollView row="1" col="0" rowSpan="2" colSpan="2">
+            <ScrollView row="1" col="0" rowSpan="2" colSpan="2" id="sum-scroll">
                 <StackLayout class="summary-main-ctnr">
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Summary"></Label>
@@ -163,6 +163,12 @@
                             okButtonText: "OK"
                         }).then((result) => {
                             this.can_check_call_info = true;
+                            console.log("TODO - scroll");
+                            if (args.object.page) {
+                                const page = args.object.page;
+                                const scrollView = args.object.page.getViewById("sum-scroll");
+                                scrollView.scrollToVerticalOffset(0, true);
+                            }
                         });
                     }
                 }           

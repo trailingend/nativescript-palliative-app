@@ -63,6 +63,19 @@
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
+            recordTimeForPDFName() {
+                const today = new Date();
+                const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                const time = today.getHours() + '' + today.getMinutes();
+                const dateTime =  date + '_' + time;
+                return dateTime;
+            },
+            recordNurseForPDFName(curr_log) {
+                const nurse_id = curr_log.nurse;
+                const nurse_item = this.users.find(elem => elem.id === nurse_id);
+                const full_name = nurse_item.fullname.split(' ').join('_');
+                return full_name;
+            },
             onSubmitTap() {
                 this.$emit("onClick");
 
@@ -173,13 +186,14 @@
             },
             prepareProtocols(curr_log) {
                 let protocol_bodies = [];
+                const other_title = 'Other';
+
                 this.protocols.forEach(protocol => {
                     const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
                         let info = [];
-                        
                         this.assessment_letters.forEach(letter => {
                             let count_letter = 0;
                             const l_objs = protocol.assessment_questions.filter(elem => {return elem.assessment_letter.id === letter.id});
@@ -204,33 +218,33 @@
                             }
                             count_letter = 0;
                         });
-
                         protocol.additional_questions.forEach(q_obj => {
                             if (others_idx != -1) {
                                 const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
                                 const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
                                 items_body.push({
-                                    t: 'Others',
+                                    t: other_title,
                                     q: q_obj.question,
                                     a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
                                 });
                             }
                         });
-                        info.push({
-                            t: 'Others',
-                            c: protocol.additional_questions.length
-                        });
-
+                        if (others_idx != -1) {
+                            info.push({
+                                t: other_title,
+                                c: protocol.additional_questions.length
+                            });
+                        }
                         info.forEach(info_item => {
                             if (info_item.c > 1) {
-                                const item_to_change = items_body.find(item => item.t === info_item.t);
+                                const item_to_change = items_body.find(item => { return item.t == info_item.t; });
+                                
                                 item_to_change['t'] = {
                                     rowSpan: info_item.c, 
                                     content: info_item.t
                                 };
                             }
                         });
-                    
                         protocol_bodies.push({
                             name: protocol.name,
                             items: items_body,
@@ -314,7 +328,7 @@
                 const title_font_size = 10;
                 const table_font_size = 9;
                 const cell_padding = 3;
-
+                
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
@@ -324,13 +338,10 @@
                 const notes_body = this.prepareNotes(curr_log);
                 const hist_body = this.prepareHistory(curr_log);
                 
-                let submit_time = '';
-                if (curr_log.editHistory.length > 0) {
-                    submit_time = curr_log.editHistory[curr_log.editHistory.length - 1].recordTime;
-                } else {
-                    submit_time = this.recordTime();
-                }
-                console.log("=== PDF === flag 3 " + submit_time);
+                const submit_time = this.recordTime();
+                const nurse_info_for_name = this.recordNurseForPDFName(curr_log);
+                const submit_time_for_name = this.recordTimeForPDFName();
+                
                 doc.setFontSize(7);
                 doc.setFontType('normal')
                 doc.text("PALLIATIVE ASSESSMENT TOOL", 85, 18);
@@ -434,7 +445,7 @@
                     styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
-                if (hist_body != []) {
+                if (hist_body.length > 0) {
                     finalY = doc.previousAutoTable.finalY;
                     doc.setLineWidth(0.25);
                     doc.setDrawColor(0, 0, 0);
@@ -483,7 +494,7 @@
                             cc: [],
                             bcc: [],
                             attachments: [{
-                                fileName: 'test.pdf',
+                                fileName: `${nurse_info_for_name}_PAT${submit_time_for_name}.pdf`,
                                 path: doc_64,
                                 mimeType: 'application/pdf'
                             }]

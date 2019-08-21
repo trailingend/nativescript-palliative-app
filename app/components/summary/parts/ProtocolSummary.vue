@@ -5,7 +5,7 @@
         <GridLayout rows="*" columns="auto, *">
             <Label row="0" col="0" class="sum-step-title" text=" "/>
             <StackLayout row="0" col="1">
-                <StackLayout v-for="(letter, index) in assessment_letters" 
+                <StackLayout v-for="(letter, index) in valid_assessment_letters()" 
                              :key="letter.id" 
                              class="sum-item-ctnr">  
                     <FlexboxLayout orientation="horizontal" alignItems="flex-start" justifyContent="space-between">
@@ -76,6 +76,14 @@
 			]),
 		},
         methods: {
+            valid_assessment_letters() {
+                let valid_letters = new Set();
+                this.assessment_letters.forEach(letter_obj => {
+                    const items_check = this.items_questions.find(q => q.assessment_letter.id === letter_obj.id);
+                    if (items_check != undefined) valid_letters.add(letter_obj);
+                })
+                return Array.from(valid_letters);
+            },
             filteredAssessments(letter) {
                 const filted_assessments = this.items_questions.filter(elem => elem.assessment_letter.id == letter.id);
                 return filted_assessments;
