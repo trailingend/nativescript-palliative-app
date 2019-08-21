@@ -68,7 +68,6 @@
         methods: {
             ...mapActions([
                 'saveItemsUpdate',
-                'saveItemsProgress'
             ]),
             retrieveSavedResponses(unit) {
                 const p_id = unit.protocol.id;
@@ -114,13 +113,8 @@
                     l_id: this.unit.assessment_letter.id,
                     a: data
                 };
-                const progress = {
-                    log_id: this.log_id,
-                    l_id: this.unit.assessment_letter.id,
-                };
                 
                 this.saveItemsUpdate(update);
-                this.saveItemsProgress(progress);
                 const checkNotEmpty = this.checkEmptyResponsesForLetter(this.unit.assessment_letter.id);
                 this.$emit("answerChange", this.unit.assessment_letter.id, args, checkNotEmpty);
             },

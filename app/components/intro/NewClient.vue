@@ -189,6 +189,7 @@
             ...mapActions([
                 'saveClientInfo',
                 'saveActiveChart',
+                'saveIntroProgress'
             ]),
             recordTime() {
                 const today = new Date();
@@ -261,7 +262,7 @@
                         startTime: this.created_time,
                         endTime: '',
                         status: false,
-                        progress: [-1, -1, -1, -1, 0], // intro[step id], proto[protocol id], items[letter id], others[Tri-state], plans[Bool]
+                        progress: [-1, -2, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Bool], others[Tri-state], plans[Bool], summary[Bool]
                         editHistory: [],
                         intro_answers: [],
                         items_answers: [],
@@ -288,6 +289,11 @@
                             from_summary: false
                         }
                     });
+                    const progress = {
+                        log_id: client_id,
+                        s_id: steps_ids[0],
+                    }
+                    this.saveIntroProgress(progress);
                     console.log("=== New Client Logged ===");
                 } else {
                     this.$refs.consentErrorRef.nativeView.opacity = 1;

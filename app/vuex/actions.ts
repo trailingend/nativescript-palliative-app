@@ -264,6 +264,19 @@ export default {
         }
     },
 
+    saveSummaryProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In summary progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                in_sum: input_item.in_sum,
+            };
+            commit(types.CHART_SUM_PROGRESS, progress_item);
+        }
+    },
+
     saveCallInfo({commit, state}, input_item) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.id});
         if (log_idx === -1) {

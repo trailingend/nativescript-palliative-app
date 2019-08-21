@@ -107,6 +107,7 @@
         methods: {
             ...mapActions([
                 'saveOthersProgress',
+                'savePlansProgress',
             ]),
             prepareQuestions() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
@@ -192,12 +193,17 @@
             onForward() {
                 const progress = {
                     log_id: this.log_id,
-                    in_others: 1,
+                    has_plan: 1,
                 }
-                this.saveOthersProgress(progress);
+                this.savePlansProgress(progress);
                 this.prepareNextStage();
             },
             onBackward() {
+                const progress = {
+                    log_id: this.log_id,
+                    in_others: 0,
+                }
+                this.saveOthersProgress(progress);
                 this.preparePrevStage();
             },
             onBackTap() {

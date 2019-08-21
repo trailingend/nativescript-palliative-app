@@ -384,7 +384,7 @@
             onForward(args) {
                 const progress = {
                     log_id: this.log_id,
-                    in_others: 0,
+                    in_others: 1,
                 }
                 this.saveOthersProgress(progress);
                 this.prepareNextPage();

@@ -115,26 +115,31 @@ export default {
     
     [types.CHART_INTRO_PROGRESS](state, item) {
         state.logs[item.idx].progress[0] = item.s_id;
-        // console.log("=== in mutation CHART_INTRO_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation CHART_INTRO_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_PROTO_PROGRESS](state, item) {
         state.logs[item.idx].progress[1] = item.p_id;
-        state.logs[item.idx].progress[2] = -1;
-        state.logs[item.idx].progress[3] = -1;
+        state.logs[item.idx].progress[2] = item.p_id > -1 ? 1 : 0;
+        state.logs[item.idx].progress[3] = 0;
         state.logs[item.idx].progress[4] = 0;
-        // console.log("=== in mutation CHART_PROTO_PROGRESS === " + state.logs[item.idx].progress);
+        state.logs[item.idx].progress[5] = 0;
+        console.log("=== in mutation CHART_PROTO_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_ITEMS_PROGRESS](state, item) {
         state.logs[item.idx].progress[2] = item.l_id;
-        // console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_OTHERS_PROGRESS](state, item) {
         state.logs[item.idx].progress[3] = item.in_others;
-        // console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_PLANS_PROGRESS](state, item) {
         state.logs[item.idx].progress[4] = item.has_plan;
-        // console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
+    },
+    [types.CHART_SUM_PROGRESS](state, item) {
+        state.logs[item.idx].progress[5] = item.in_sum;
+        console.log("=== in mutation CHART_SUM_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_CALL_UPDATE](state, item) {
         state.logs[item.idx].nurse = item.content.nurse_id;

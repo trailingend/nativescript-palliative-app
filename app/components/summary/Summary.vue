@@ -116,6 +116,7 @@
 		},
         methods: {
             ...mapActions([
+                'saveSummaryProgress'
             ]),
             /**
              *  Function to prepare data to display on load
@@ -202,6 +203,11 @@
                 });
             },
             onBackward() {
+                const progress = {
+                    log_id: this.log_id,
+                    in_sum: 0,
+                }
+                this.saveSummaryProgress(progress);
                 this.preparePrevStage();
             },
             onBackTap() {

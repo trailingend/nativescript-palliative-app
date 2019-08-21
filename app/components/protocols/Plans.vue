@@ -123,7 +123,9 @@
         methods: {
             ...mapActions([
                 'savePlansUpdate',
-                'savePlansProgress'
+                'savePlansProgress',
+                'saveProtoProgress',
+                'saveSummaryProgress'
             ]),
             retrieveSavedPlans() {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
@@ -268,16 +270,26 @@
                 
                 const progress = {
                     log_id: this.log_id,
-                    has_plan: 1,
+                    in_sum: 1,
                 }
-                this.savePlansProgress(progress);
+                this.saveSummaryProgress(progress);
 
                 this.prepareNextStage();
             },
             onBackward() {
                 if (this.protocol_id != null && this.protocol_id != undefined && this.protocol_id != -1) {
+                    const progress = {
+                        log_id: this.log_id,
+                        has_plan: 0,
+                    }
+                    this.savePlansProgress(progress);
                     this.preparePrevStage();
                 } else {
+                    const progress = {
+                        log_id: this.log_id,
+                        p_id: -1,
+                    }
+                    this.saveProtoProgress(progress);
                     this.prepareChooseProto();
                 }
             },

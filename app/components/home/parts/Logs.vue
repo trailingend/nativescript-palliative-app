@@ -182,40 +182,45 @@
                 const log = this.logs[log_idx];
                 const status = log.status;
                 const progress = log.progress;
+                
                 if (status) {
                     this.prepareSummary(log.id);
-                } else {
-                    if (progress[4] === 1) { // if plans filled
-                        this.prepareSummary(log.id);
-                    } else {
-                        if (progress[1] > -1) { // if protocol selected
-                            if (progress[3] === 1) { // if others filled, go to plans
-                                this.preparePlans(log.id);
-                            } else if (progress[3] === 0) { // if items filled, go to others
-                                this.prepareOthers(log.id, progress[1]);
-                            } else if (progress[2] != -1) { // if items in progress, go to items
-                                this.prepareItems(log.id, progress[1]);
-                            } else { // if protocol choosed, go to items
-                                this.prepareItems(log.id, progress[1]);
-                            }
-                        } else if (progress[1] === -1) { // if on choose page
-                            this.prepareChoose(log.id);
-                        } else { // if in intro sec
-                            let steps_ids = [];
-                            this.intro.forEach(elem => { steps_ids.push(elem.id); });
-                            if (progress[0] != -1) {
-                                const curr_idx = steps_ids.findIndex(elem => elem === progress[0]);
-                                if (curr_idx < steps_ids.length) {
-                                    this.prepareIntro(log.id, steps_ids, curr_idx);
-                                } else { // if intro filled, go to choose protocol
-                                    console.log("=== wrong in logs ===")
-                                }
-                            } else {
-                                const curr_idx = 0;
-                                this.prepareIntro(log.id, steps_ids, curr_idx);
-                            }
+                    return;
+                } 
+                if (progress[5] === 1) { // if last at summary page
+                    this.prepareSummary(log.id);
+                    return;
+                }
+                if (progress[4] === 1) { // if last at plans page
+                    this.preparePlans(log.id);
+                    return;
+                }
+                console.log(progress)
+                if (progress[1] > -1) { // if protocol selected
+                    if (progress[3] === 1) { // if last at others page
+                        this.prepareOthers(log.id, progress[1]);
+                        return;
+                    }
+                    if (progress[2] === 1) { // if last at items page
+                    
+                        this.prepareItems(log.id, progress[1]);
+                        return;
+                    }
+                } else if (progress[1] === -1) { // if at choose page
+                    this.prepareChoose(log.id);
+                } else { // if in intro section
+                    let steps_ids = [];
+                    this.intro.forEach(elem => { steps_ids.push(elem.id); });
+                    if (progress[0] != -1) {
+                        const curr_idx = steps_ids.findIndex(elem => elem === progress[0]);
+                        if (curr_idx < steps_ids.length) {
+                            this.prepareIntro(log.id, steps_ids, curr_idx);
+                        } else { // if intro filled, go to choose protocol
+                            console.log("=== OH NO!!! something is not logged right in progress ===")
                         }
-                        
+                    } else {
+                        const curr_idx = 0;
+                        this.prepareIntro(log.id, steps_ids, curr_idx);
                     }
                 }
             },
