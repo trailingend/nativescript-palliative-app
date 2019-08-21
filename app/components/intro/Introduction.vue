@@ -101,6 +101,7 @@
             ...mapActions([
                 'saveIntroUpdate',
                 'saveIntroProgress',
+                'saveProtoProgress'
             ]),
             prepareIntro() {
                 this.step_id = this.step_ids[this.step_idx];
@@ -208,22 +209,31 @@
                 });
             },
             onForward(args) {
-                const progress = {
-                    log_id: this.log_id,
-                    s_id: this.step_ids[this.step_idx],
-                }
-                this.saveIntroProgress(progress);
-
                 const next_step_idx = this.step_idx + 1;
                 if (next_step_idx < this.intro.length) {
+                    const progress = {
+                        log_id: this.log_id,
+                        s_id: this.step_ids[next_step_idx],
+                    }
+                    this.saveIntroProgress(progress);
                     this.prepareAnotherQuestion(next_step_idx);
                 } else {
+                    const progress = {
+                        log_id: this.log_id,
+                        p_id: -1,
+                    }
+                    this.saveProtoProgress(progress);
                     this.prepareNextStage();
                 }
             },
             onBackward(args) {
                 const prev_step_idx = this.step_idx - 1;
                 if (prev_step_idx >= 0) {
+                    const progress = {
+                        log_id: this.log_id,
+                        s_id: this.step_ids[prev_step_idx],
+                    }
+                    this.saveIntroProgress(progress);
                     this.prepareAnotherQuestion(prev_step_idx);
                 } else {
                     console.log("=== No prev step to go to ===")

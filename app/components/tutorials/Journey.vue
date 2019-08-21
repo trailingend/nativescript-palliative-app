@@ -18,6 +18,7 @@
                                  loop="true"
                                  :width="widthSetting"
                                  height="490"
+                                 class="video-player"
                                  :opacity="isReady? 1 : 0"
                                  @playbackReady="() => {isReady = true; }" />
                 </StackLayout>

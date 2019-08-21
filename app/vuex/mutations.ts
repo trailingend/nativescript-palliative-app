@@ -2,13 +2,12 @@ import * as types from './mutation-types';
 
 export default {
     [types.JSON_UPDATE](state, data){
+        console.log(`=== in JSON_UPDATE === updating from ${state.data_version} to ${data.info.version}`);
         state.data_version = data.info.version;
-
         state.intro = data.data.intro;
         state.protocols = data.data.protocols;
         state.assessment_letters = data.data.assessment_letters;
         state.plans = data.data.plans;
-        console.log(`=== in JSON_UPDATE === version match found? - (${state.data_version}, ${data.info.version})`);
     },
 
     [types.USER_CREATE](state, user) {

@@ -188,7 +188,7 @@
                     if (progress[4] === 1) { // if plans filled
                         this.prepareSummary(log.id);
                     } else {
-                        if (progress[1] != -1) { // if protocol selected
+                        if (progress[1] > -1) { // if protocol selected
                             if (progress[3] === 1) { // if others filled, go to plans
                                 this.preparePlans(log.id);
                             } else if (progress[3] === 0) { // if items filled, go to others
@@ -198,15 +198,17 @@
                             } else { // if protocol choosed, go to items
                                 this.prepareItems(log.id, progress[1]);
                             }
-                        } else {
+                        } else if (progress[1] === -1) { // if on choose page
+                            this.prepareChoose(log.id);
+                        } else { // if in intro sec
                             let steps_ids = [];
                             this.intro.forEach(elem => { steps_ids.push(elem.id); });
                             if (progress[0] != -1) {
                                 const curr_idx = steps_ids.findIndex(elem => elem === progress[0]);
-                                if (curr_idx + 1 < steps_ids.length) {
-                                    this.prepareIntro(log.id, steps_ids, curr_idx + 1);
+                                if (curr_idx < steps_ids.length) {
+                                    this.prepareIntro(log.id, steps_ids, curr_idx);
                                 } else { // if intro filled, go to choose protocol
-                                    this.prepareChoose(log.id);
+                                    console.log("=== wrong in logs ===")
                                 }
                             } else {
                                 const curr_idx = 0;

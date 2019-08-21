@@ -32,15 +32,17 @@
             text-transform: capitalize;
             margin-left: 25; 
         }
-        .settings-logout {
-            font-size: 24;
-            font-weight: 400;
-            text-transform: capitalize;
-            text-decoration: underline;
-            margin-bottom: 80;
+        .settings-logout-btn {
+            margin-bottom: 40;
         }
         .settings-logo {
-            margin-bottom: 80;
+            margin-bottom: 20;
+        }
+        .settings-credits {
+            font-size: 16;
+            font-weight: 400;
+            letter-spacing: 0.05;
+            margin-bottom: 40; 
         }
         .settings-arrow {
             margin-right: 25; 

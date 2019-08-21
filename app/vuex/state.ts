@@ -34,7 +34,7 @@ export default {
 		startTime: '5:45',
 		endTime: '5:58',
 		status: false,
-		progress: [1, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		progress: [1, -2, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
@@ -59,7 +59,7 @@ export default {
 		startTime: '1:45',
 		endTime: '2:15',
 		status: false,
-		progress: [3, 3, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
+		progress: [3, -1, -1, -1, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		editHistory: [],
 		intro_answers: [{
 			q_id: 4,

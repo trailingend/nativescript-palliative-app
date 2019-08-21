@@ -15,8 +15,12 @@
     .video-ctnr {
         margin-top: 40;
         margin-bottom: 30;
+        
     }
-    
+    .video-player {
+        border-color: $color-tab-border;
+        border-width: 0.5;
+    }
     .tutorial-subtitle {
         font-size: 28;
         font-weight: 700;

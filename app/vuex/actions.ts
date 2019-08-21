@@ -199,7 +199,6 @@ export default {
             commit(types.CHART_PLANS_UPDATE, log_item);
         }
     },
-
     saveIntroProgress({commit, state}, input_item) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
         if (log_idx === -1) {

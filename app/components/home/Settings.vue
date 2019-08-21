@@ -15,8 +15,11 @@
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
-            <Image row="3" col="0" width="300" class="settings-logo" src="~/assets/images/vch-logo.png" stretch="aspectFit"></Image>
-            <Label row="4" col="0" class="settings-logout" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Label>   
+            <Button row="3" col="0" class="form-btn settings-logout-btn" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Button>  
+            <StackLayout row="4" col="0" > 
+                <Image width="150" class="settings-logo" src="~/assets/images/vch-logo.png" stretch="aspectFit"></Image>
+                <Label class="settings-credits" text="© 2019 VCH | Powered by Learning Technologies, Clinical Education" />
+            </StackLayout>
         </GridLayout>
     </Page>
 </Frame>

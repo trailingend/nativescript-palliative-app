@@ -172,6 +172,7 @@
 		},
         methods: {
             ...mapActions([
+                'saveProtoProgress',
                 'saveItemsProgress',
                 'saveOthersProgress'
             ]),
@@ -389,6 +390,11 @@
                 this.prepareNextPage();
             },
             onBackward(args) {
+                const progress = {
+                    log_id: this.log_id,
+                    p_id: -2,
+                }
+                this.saveProtoProgress(progress);
                 this.preparePrevPage();
             },
             onBackTap() {
