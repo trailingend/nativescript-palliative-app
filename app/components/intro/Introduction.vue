@@ -5,7 +5,7 @@
                     columns="auto, *, auto" ref="introGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="false" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
@@ -195,6 +195,17 @@
             },
             changeNextText(new_text) {
                 this.next_text = new_text;
+            },
+            addNewChart() {
+                this.$navigateTo(NewClient, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'slide',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                });
             },
             onForward(args) {
                 const progress = {

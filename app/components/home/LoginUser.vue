@@ -37,14 +37,14 @@
                     <StackLayout class="login-head" :background="selected_user.color" ></StackLayout>
                     <Label class="login-text login-name" :text="selected_user.name" textWrap="true"></Label>
                 </StackLayout>
-                <Label row="1" col="0" class="login-q3 login-q" text="Shift Starts:" textWrap="true"/>
-                <Label row="1" col="0" class="login-e login-e3" text="Please select start time" opacity="0" ref="sErrorFieldRef" />
+                <Label row="1" col="0" class="login-q login-q3" text="Shift Starts:" textWrap="true"/>
+                <Label row="1" col="0" class="login-e login-e3" text="Please select start time" opacity="0" ref="sErrorLoginRef" />
                 <TimePicker row="2" col="0" 
                             class="login-picker" 
                             ref="sTimeFieldRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="3" col="0" class="login-q4 login-q" text="Shift Ends:" textWrap="true" />
-                <Label row="3" col="0" class="login-e login-e4" text="Please select end time" opacity="0" ref="eErrorFieldRef" />
+                <Label row="3" col="0" class="login-q login-q4" text="Shift Ends:" textWrap="true" />
+                <Label row="3" col="0" class="login-e login-e4" text="Please select end time" opacity="0" ref="eErrorLoginRef" />
                 <TimePicker row="4" col="0" 
                             class="login-picker" 
                             ref="eTimeFieldRef"
@@ -131,13 +131,13 @@
             onStartTimeChange() {
                 if (! this.start_time_changed) {
                     this.start_time_changed = true;
-                    this.$refs.sErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.sErrorLoginRef.nativeView.opacity = 0;
                 }
             },
             onEndTimeChange() {
                 if (! this.end_time_changed) {
                     this.end_time_changed = true;
-                    this.$refs.eErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.eErrorLoginRef.nativeView.opacity = 0;
                 }
             },
             onSaveTap(args) {
@@ -160,17 +160,17 @@
                     }
                 } else {
                     if (! this.start_time_changed) {
-                        this.$refs.sErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.sErrorLoginRef.nativeView.opacity = 1;
                     }
                     if (! this.end_time_changed) {
-                        this.$refs.eErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.eErrorLoginRef.nativeView.opacity = 1;
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
                     const s_hour = this.$refs.sTimeFieldRef.nativeView.hour;
                     const e_hour = this.$refs.eTimeFieldRef.nativeView.hour;
-                    let s_minute = this.$refs.sTimeFieldRef.nativeView.minute;
-                    let e_minute = this.$refs.eTimeFieldRef.nativeView.minute;
+                    let s_minute = '' + this.$refs.sTimeFieldRef.nativeView.minute;
+                    let e_minute = '' + this.$refs.eTimeFieldRef.nativeView.minute;
                     if (s_minute.length === 1) s_minute = '0' + s_minute;
                     if (e_minute.length === 1) e_minute = '0' + e_minute;
 

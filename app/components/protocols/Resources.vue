@@ -5,7 +5,6 @@
                      rows="auto, auto, *" columns="*"
                      ref="resourcesGridRef" 
                      @layoutChanged="onLayoutUpdate">
-            
 
             <StackLayout row="0" col="0" class="resources-title-ctnr">
                 <Label class="resources-title" :text="protocol_name" />
@@ -14,7 +13,7 @@
                 
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
 
-            <FlexboxLayout row="1" col="0" flexDirect="row" alignItems="center" justifyContent="space-around" class="resources-tab-ctnr">
+            <FlexboxLayout row="1" col="0" flexDirect="row" alignItems="center" justifyContent="center" class="resources-tab-ctnr">
                 <Button v-for="(info, index) in button_list" 
                         :key="index"
                         :text="info.title"

@@ -48,7 +48,7 @@
                             class="add-picker" 
                             ref="sTimeFieldRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="2" col="0" class="add-q4 add-q" text="Shift Ends:" textWrap="true" />
+                <Label row="2" col="0" class="add-q add-q4" text="Shift Ends:" textWrap="true" />
                 <Label row="2" col="0" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorFieldRef" />
                 <TimePicker row="3" col="0" 
                             class="add-picker" 
@@ -199,6 +199,7 @@
                     let e_minute = '' + this.$refs.eTimeFieldRef.nativeView.minute;
                     if (s_minute.length === 1) s_minute = '0' + s_minute;
                     if (e_minute.length === 1) e_minute = '0' + e_minute;
+                    
                     const item = {
                         id: this.u_id,
                         shift_start: this.$refs.sTimeFieldRef.nativeView.hour + ":" + s_minute,

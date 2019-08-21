@@ -29,7 +29,7 @@
                             <StackLayout class="divider-ctnr"></StackLayout>
                         </StackLayout>
                         <StackLayout class="spacer-ctnr"></StackLayout>
-                        <Label v-show="letter.letter === 'V'" text="Review Goals of care" class="items-d" textWrap="true"/>
+                        <Label v-show="letter.letter === 'V'" text="Review Goals of Care" class="items-d" textWrap="true"/>
                         <StackLayout v-for="question in filteredAssessments(letter)"
                                     :key="question.id">
                                 <AssessItem :unit="question" :log_id="log_id" 
