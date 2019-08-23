@@ -30,7 +30,7 @@
                 </StackLayout>
             </GridLayout>
 
-            <Button row="2" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" ></Button>
+            <Button row="2" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" :opacity="(!is_first_time && item_idx === 0) ? 0 : 1"></Button>
             <StackLayout row="2" col="1" colSpan="1" class="tutorial-progress-ctnr">
                 <Label class="tutorial-progress" :text="`${$props.item_idx + 1} / 6`"></Label>
             </StackLayout>
@@ -83,6 +83,10 @@
                 type: Number,
                 required: true,
             },
+            is_first_time: {
+                type: Boolean,
+                required: true,
+            },
             parent_modal: {
                 type: Object,
                 required: true,
@@ -104,7 +108,7 @@
                 this.parent_modal.close();
             },
             onBackTap() {
-                if (this.item_idx === 0) {
+                if (this.is_first_time && this.item_idx === 0) {
                     this.$navigateTo(FirstTime, {
                         frame: 'tutorialFrame',
                         animated: true,
@@ -132,6 +136,7 @@
                         props: {
                             item_idx: prev_item_idx,
                             parent_modal: this.parent_modal,
+                            is_first_time: this.is_first_time,
                         }
                     });
                 }

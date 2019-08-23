@@ -24,7 +24,7 @@
                     <Label class="tutorial-subtitle" text="First Time Using this Tool?" ></Label>   
                     <StackLayout class="tutorial-text-ctnr">
                             <Label class="tutorial-text" text="We can show you how to use this tool." ></Label>
-                            <Label class="tutorial-text" text="Revisit this Tutorial anytime in Settings."></Label>
+                            <Label class="tutorial-text" text="Revisit this Tutorial anytime in Options."></Label>
                     </StackLayout>   
                     <Button class="form-btn first-time-save-btn" text="Start" @tap="onStartTap" />
                     <Button class="first-time-skip-btn" text="Skip" @tap="onSkipTap" />
@@ -94,6 +94,7 @@
                     props: {
                         item_idx: 0,
                         parent_modal: this.parent_modal,
+                        is_first_time: true,
                     }
                 });
             },

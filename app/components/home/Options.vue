@@ -1,24 +1,24 @@
 <template>
 <Frame id="settingFrame">
-     <Page class="page settings-page">
+     <Page class="page options-page">
          <GridLayout rows="auto, auto, *, auto, auto" columns="*"
                      :class="ctnrSetting"
-                     ref="settingsGridRef" 
+                     ref="optionsGridRef" 
                      @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
-            <Label row="1" col="0" class="settings-title" text="settings" ></Label>   
+            <Label row="1" col="0" class="options-title" text="Options" ></Label>   
             <ScrollView row="2" col="0">
-                <StackLayout class="settings-items-ctnr">
-                    <FlexboxLayout class="settings-item" flexDirection="row" justifyContent="space-between" alignItems="center" @tap="onTutorialTap">
-                        <Label class="settings-text" text="Tutorial" />
-                        <Image class="settings-arrow" width="20" src="~/assets/images/goto.png" stretch="aspectFit" @tap="onCloseTap"></Image>
+                <StackLayout class="options-items-ctnr">
+                    <FlexboxLayout class="options-item" flexDirection="row" justifyContent="space-between" alignItems="center" @tap="onTutorialTap">
+                        <Label class="options-text" text="View Tutorial" />
+                        <Image class="options-arrow" width="20" src="~/assets/images/goto.png" stretch="aspectFit" @tap="onCloseTap"></Image>
                     </FlexboxLayout>
                 </StackLayout>
             </ScrollView>
-            <Button row="3" col="0" class="form-btn settings-logout-btn" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Button>  
+            <Button row="3" col="0" class="form-btn options-logout-btn" text="Logout" v-show="curr_user_id != -1" @tap="onLogoutTap"></Button>  
             <StackLayout row="4" col="0" > 
-                <Image width="150" class="settings-logo" src="~/assets/images/vch-logo.png" stretch="aspectFit"></Image>
-                <Label class="settings-credits" text="© 2019 VCH | Powered by Learning Technologies, Clinical Education" />
+                <Image width="150" class="options-logo" src="~/assets/images/vch-logo.png" stretch="aspectFit"></Image>
+                <Label class="options-credits" text="© 2019 VCH | Powered by Learning Technologies, Clinical Education" />
             </StackLayout>
         </GridLayout>
     </Page>
@@ -37,7 +37,7 @@
     export default {
         data() {
             return {
-                ctnrSetting: "settings-ctnr"
+                ctnrSetting: "options-ctnr"
             }
         },
         mounted() {
@@ -63,7 +63,7 @@
                         is_first_time: false,
                     }
                 }).then(() => {
-                    this.$modal.close();
+                    // this.$modal.close();
                 });
             },
             endTimerForUser() {
@@ -95,14 +95,14 @@
                 }
             },
             onLayoutUpdate() {
-                if (this.$refs.settingsGridRef) {
-                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.settingsGridRef.nativeView.getMeasuredWidth() );
+                if (this.$refs.optionsGridRef) {
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.optionsGridRef.nativeView.getMeasuredWidth() );
                     if (width > 1000) {
                         
-                        this.ctnrSetting = "settings-ctnr tablet-landscape";
+                        this.ctnrSetting = "options-ctnr tablet-landscape";
                         this.widthSetting = "auto";
                     } else {
-                        this.ctnrSetting = "settings-ctnr";
+                        this.ctnrSetting = "options-ctnr";
                         this.widthSetting = "20%";
                     }
                 }

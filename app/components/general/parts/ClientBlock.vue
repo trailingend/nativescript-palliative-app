@@ -5,9 +5,9 @@
         </StackLayout>
         <StackLayout class="bar-ctnr"></StackLayout>
         <StackLayout flexGrow="2" class="client-text-ctnr" @tap="onEditTap">
-            <Label :text="client.client" class="client-text client-bold"/>
-            <Label :text="`${formatted_phone} | CALLER: ${client.caller}`" class="client-text"/>                            
-            <Label :text="`${client.startTime} | ${client.date} | ${nurse_name}`" class="client-text client-light" />
+            <Label :text="getClientName(client)" class="client-text client-bold"/>
+            <Label :text="`${formatted_phone} | CALLER: ${getCallerName(client)}`" class="client-text"/>                            
+            <Label :text="`${client.startTime} | ${client.date} | ${nurse_initials}`" class="client-text client-light" />
         </StackLayout>
         <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         <StackLayout v-show="has_proto" class="bar-ctnr"></StackLayout>
@@ -30,15 +30,15 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
-    import { formatPhoneForDisplay } from '../../../scripts/common';
+    import { formatPhoneForDisplay, formatUsernameForDisplay } from '../../../scripts/common';
 
     export default {
         name: 'ClientBlock',
         data() {
             return {
                 client: {},
-                nurse_name: 'Unknown',
                 formatted_phone: '',
+                nurse_initials: '',
                 count_protocols: 1,
             }
         },
@@ -62,7 +62,7 @@
                 'logs',
                 'users',
                 'protocols'
-			]),
+            ]),
 		},
         methods: {
             ...mapActions([
@@ -72,12 +72,17 @@
                 if (curr_log) {
                     this.client = curr_log;
                     this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
-
-                    const curr_user = this.users.find((elem) => { return elem.id === this.client.nurse; });
-                    this.nurse_name = (curr_user) ? curr_user.name : 'Unknown';
-
+                    this.nurse_initials = formatUsernameForDisplay(curr_log.nurseFullname);
                     this.countProtocols();
                 }
+            },
+            getCallerName(client) {
+                const caller = client.caller;
+                return (caller != '') ? caller : 'Anonymous';
+            },
+            getClientName(client) {
+                const client_name = client.client;
+                return (client_name != '') ? client_name : 'John Doe';
             },
             countProtocols() {
                 let count_p = 0;
@@ -106,15 +111,9 @@
                     }
                 }).then(() => {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                    const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     if (curr_log) {
                         this.client = curr_log;
                         this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
-                        if (curr_log.nurse === '') {
-                            this.nurse_name = 'Unknown';
-                        } else {
-                            this.nurse_name = (curr_user) ? curr_user.name : curr_log.nurse;
-                        }
                     }
                 });
             },

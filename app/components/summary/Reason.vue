@@ -14,28 +14,28 @@
                         <Label class="reason-q1 reason-u-q" text="Intake Nurse Name:" textWrap="true"/>
                         <TextField id="reason-a1"
                                    class="reason-a1 reason-a" 
-                                   ref="nameFieldRef"
+                                   ref="nameReasonRef"
                                    v-model="u_name"
                                    @textChange="checkNameError"
                                    hint="Enter your first and last name"/>
                         <Label row="2" col="0" class="reason-e reason-e1" 
                                text="Please enter first and last name" 
                                opacity="0" 
-                               ref="nameErrorFieldRef" />
+                               ref="nameEReasonRef" />
                         <Label row="3" col="0" class="reason-q2 reason-u-q" text="Intake Nurse ID #:" textWrap="true"/>
                         <TextField row="4" col="0"
                                     id="reason-a2"
                                     class="reason-a reason-a2" 
                                     hint="Enter your six digit ID number"
                                     v-model="u_id"
-                                    ref="idFieldRef"
+                                    ref="idReasonRef"
                                     @textChange="checkIDError"
                                     keyboardType="phone"
                                     editable="true" />
                         <Label row="5" col="0" class="reason-e reason-e2" 
                                text="Please enter a valid employee ID" 
                                opacity="0" 
-                               ref="idErrorFieldRef"/>
+                               ref="idEReasonRef"/>
                     </stackLayout>
                     <StackLayout v-else class="reason-unit-ctnr">
                         <Label text="Explain your edits and where they were made" textWrap="true" class="reason-q"/>
@@ -131,12 +131,13 @@
                 if (this.log_id) {
                     if (this.curr_user_id != -1) {
                         const user_idx = this.users.findIndex(elem => elem.id === this.curr_user_id);
-                        this.user_name = this.users[user_idx].name;
-                        this.user_head_color = this.users[user_idx].color;
-                        this.user_text_color = '#000000';
-                        this.u_name = this.users[user_idx].fullname;
-                        this.u_id = this.curr_user_id;
-                        console.log(this.u_id)
+                        if (user_idx > 0) {
+                            this.user_name = this.users[user_idx].name;
+                            this.user_head_color = this.users[user_idx].color;
+                            this.user_text_color = '#000000';
+                            this.u_name = this.users[user_idx].fullname;
+                            this.u_id = this.curr_user_id;
+                        }
                     } else {
                         this.user_name = 'Unknown User';
                         this.user_text_color = '#ff1f00';
@@ -157,16 +158,16 @@
                 this.changeClientReason(entry);
             },
             checkNameError(args) {
-                if (args.oldValue != '') {
-                    if (args.value === '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                if (args.oldValue.trim() != '') {
+                    if (args.value.trim() === '') {
+                        this.$refs.nameEReasonRef.nativeView.opacity = 1;
+                        this.$refs.nameReasonRef.nativeView.borderColor = '#ff1f00';
                     }
                 } 
-                if (args.oldValue === '') {
-                    if (args.value != '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 0;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#dbdbdb';
+                if (args.oldValue.trim() === '') {
+                    if (args.value.trim() != '') {
+                        this.$refs.nameEReasonRef.nativeView.opacity = 0;
+                        this.$refs.nameReasonRef.nativeView.borderColor = '#dbdbdb';
                     }
                 } 
             },
@@ -174,42 +175,45 @@
                 if (args.value) {
                     const new_input = args.value.replace(/\D/g, '');
                     this.u_id = new_input.substring(0, Math.min(6, new_input.length));
-                    this.$refs.idFieldRef.nativeView.text = this.u_id;
+                    this.$refs.idReasonRef.nativeView.text = this.u_id;
 
                     if (this.u_id.length != 6) {
-                        this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                        this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                        this.$refs.idEReasonRef.nativeView.opacity = 1;
+                        this.$refs.idReasonRef.nativeView.borderColor = '#ff1f00';
                     } else {
-                        this.$refs.idErrorFieldRef.nativeView.opacity = 0;
-                        this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
+                        this.$refs.idEReasonRef.nativeView.opacity = 0;
+                        this.$refs.idReasonRef.nativeView.borderColor = '#dbdbdb';
                     } 
                 }
             },
             recordTime() {
                 const today = new Date();
                 const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                const time = today.getHours() + ':' + today.getMinutes();
+                const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
+                const time = today.getHours() + ':' + minute;
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
             onUserSaveTap(args) {
-                if (this.u_name === '') {
-                    this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                if (this.u_name.trim() === '') {
+                    this.$refs.nameEReasonRef.nativeView.opacity = 1;
+                    this.$refs.nameReasonRef.nativeView.borderColor = '#ff1f00';
                 }
                 if (this.u_id.length != 6 || this.u_id == '000000') {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                    this.$refs.idEReasonRef.nativeView.opacity = 1;
+                    this.$refs.idReasonRef.nativeView.borderColor = '#ff1f00';
                 }
-                if (this.u_name === '' || this.u_id.length != 6) return;
+                if (this.u_name.trim() === '' || this.u_id.length != 6) return;
 
                 const saved_user = this.users.find(elem => elem.id === this.u_id);
                 if (saved_user === undefined) {
-                    let color_idx = userColors.findIndex(elem => elem === this.users[this.users.length - 1].color);
+                    let color_idx;
+                    if (this.users.length === 0) color_idx = 0;
+                    else color_idx = userColors.findIndex(elem => elem === this.users[this.users.length - 1].color);
                     color_idx = (color_idx === userColors.length - 1) ? 0 : color_idx + 1;
                     const user_item = {
                         id: this.u_id,
-                        name: formatUsernameForDisplay(this.u_name),
+                        name: formatUsernameForDisplay(this.u_name.trim()),
                         fullname: this.u_name.trim(),
                         shift_start: '',
                         shift_end: '',
@@ -243,10 +247,11 @@
                         }
                     }
                     this.changeClientHistory(hist_item);
+                    this.$modal.close(true);
                 }
             },
             onChangeUser() {
-                // this.$refs.idFieldRef.nativeView.text = this.curr_user_id;
+                // this.$refs.idReasonRef.nativeView.text = this.curr_user_id;
                 this.is_user_editing = true;
             },
             onSubmitTap(args) {
@@ -254,7 +259,6 @@
                     this.onUserSaveTap(args);
                 } else {
                     this.onSubmit();
-                    this.$modal.close(true);
                 }
             },
             onCloseTap() {

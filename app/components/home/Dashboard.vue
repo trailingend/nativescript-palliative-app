@@ -37,7 +37,7 @@
     import Logs from './parts/Logs.vue';
     import NewClient from '../intro/NewClient.vue';
     import Notes from '../intro/Notes.vue';
-    import Settings from './Settings.vue';
+    import Options from './Options.vue';
     
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -107,7 +107,7 @@
                 });
             },
             onSettingTap() {
-                this.$showModal(Settings, { 
+                this.$showModal(Options, { 
                     fullscreen: true,
                 }).then(() => {
                     this.checkUserStatus();

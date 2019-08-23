@@ -182,7 +182,9 @@
         computed: {
             ...mapGetters([
                 'logs',
-                'intro'
+                'intro',
+                'users',
+                'curr_user_id',
             ]),
 		},
         methods: {
@@ -194,9 +196,10 @@
             recordTime() {
                 const today = new Date();
                 this.created_date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                this.created_time = today.getHours() + ':' + today.getMinutes();
+                const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
+                this.created_time = today.getHours() + ':' + minute;
 
-                this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
+                this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + minute;
             },
             resetTextviewModel(args) {
                 this.c_info = args.value;
@@ -245,10 +248,16 @@
 
                 if (this.is_consented) {
                     const client_id = this.c_id;
-                    const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
-                    const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
-                    const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
-                                        
+                    const caller_name = this.c_caller.trim();
+                    const client_name = this.c_client.trim();
+                    const client_relation = this.c_relation.trim();
+                    const nurse_id = (this.curr_user_id != -1 && this.curr_user_id.length === 6) ? this.curr_user_id : '';
+                    let nurse_fullname = '';
+                    if ((this.curr_user_id != -1 && this.curr_user_id.length === 6)) {
+                        const user_obj = this.users.find((elem) => { return elem.id === nurse_id; });
+                        nurse_fullname = (user_obj) ? user_obj.fullname : '';
+                    }
+                              
                     const entry = {
                         id: this.c_id,
                         phone: client_phone,
@@ -257,7 +266,8 @@
                         relation: client_relation,
                         info: this.c_info,
                         notes: '',
-                        nurse: '',
+                        nurseID: nurse_id,
+		                nurseFullname: nurse_fullname,
                         date: this.created_date,
                         startTime: this.created_time,
                         endTime: '',

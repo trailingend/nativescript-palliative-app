@@ -43,7 +43,7 @@
                     <span :text="nurse_name" />
                 </FormattedString>
             </Label>
-            <StackLayout row="5" col="1" class="sum-e-ctnr" :opacity="(can_check && client.nurse === '') ? 1 : 0"></StackLayout>
+            <StackLayout row="5" col="1" class="sum-e-ctnr" :opacity="(can_check && nurse_id === '') ? 1 : 0"></StackLayout>
             <Label row="4" col="1" class="sum-e" text="Please enter Name" :opacity="(can_check && nurse_name === '') ? 1 : 0" />
         </GridLayout>
     </StackLayout>
@@ -67,7 +67,6 @@
         },
         created() {
             this.prepareClientInfo();
-            console.log(this.can_check)
         },
         components: {
         },
@@ -95,8 +94,8 @@
                     this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
                     const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     this.end_time = curr_log.endTime;
-                    this.nurse_id = curr_log.nurse;
-                    this.nurse_name = (curr_user) ? curr_user.fullname : '';
+                    this.nurse_id = curr_log.nurseID;
+                    this.nurse_name = curr_log.nurseFullname;
                 }
             },
             onEditTap() {
@@ -112,8 +111,8 @@
                         this.client = curr_log;
                         this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
                         this.end_time = curr_log.endTime;
-                        this.nurse_id = curr_log.nurse;
-                        this.nurse_name = (curr_user) ? curr_user.fullname : '';
+                        this.nurse_id = curr_log.nurseID;
+                        this.nurse_name = curr_log.nurseFullname;
                         this.$emit("canSwitch");
                     }
                 });

@@ -23,7 +23,7 @@
                 <Label row="2" col="0" class="add-e add-e1" 
                         text="Please enter your firstname and lastname" 
                         opacity="0" 
-                        ref="nameErrorFieldRef" />
+                        ref="nameErrorAddRef" />
                 <Label row="3" col="0" class="add-q add-q2" text="Employee ID #:" textWrap="true"/>
                 <MaskedTextField row="4" col="0"
                                 id="user-add-a2"
@@ -42,17 +42,17 @@
             <GridLayout v-else
                         row="2" col="0" rowSpan="2" class="add-content-ctnr"
                         rows="auto, auto, auto, auto" columns="*">
-                <Label row="0" col="0" class="add-q add-q3" text="Shift Starts:" color="black"/>
-                <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorFieldRef" />
+                <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorAddRef" />
+                <Label row="0" col="0" class="add-q" text="Shift Starts:" />
                 <TimePicker row="1" col="0" 
                             class="add-picker" 
-                            ref="sTimeFieldRef"
+                            ref="sTimeAddRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="2" col="0" class="add-q add-q4" text="Shift Ends:" textWrap="true" />
-                <Label row="2" col="0" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorFieldRef" />
+                <Label row="2" col="0" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorAddRef" />
+                <Label row="2" col="0" class="add-q" text="Shift Ends:" />
                 <TimePicker row="3" col="0" 
                             class="add-picker" 
-                            ref="eTimeFieldRef"
+                            ref="eTimeAddRef"
                             @timeChange="onEndTimeChange"/>
             </GridLayout>
 
@@ -66,6 +66,7 @@
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
+    import { confirm }  from "tns-core-modules/ui/dialogs";
     import { formatShiftTime, formatUsernameForDisplay, userColors } from '../../scripts/common';
 
     export default {
@@ -76,7 +77,7 @@
                 u_fullname: '',
 
                 is_login: false,
-                start_time_changed: false,
+                start_time_changed: true,
                 end_time_changed: false,
 
                 formSetting: {
@@ -97,7 +98,9 @@
         methods: {
             ...mapActions([
                 'saveUserInfo',
-                'activateUser'
+                'activateUser',
+                'deactivateUser',
+                'startTimer'
             ]),
             prepareTutorial() {
                 this.$showModal(Tutorial, { 
@@ -121,15 +124,15 @@
                 return user_ID;
             },
             checkNameError(args) {
-                if (args.oldValue != '') {
-                    if (args.value === '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
+                if (args.oldValue.trim() != '') {
+                    if (args.value.trim() === '') {
+                        this.$refs.nameErrorAddRef.nativeView.opacity = 1;
                         this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
                     }
                 } 
-                if (args.oldValue === '') {
-                    if (args.value != '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 0;
+                if (args.oldValue.trim() === '') {
+                    if (args.value.trim() != '') {
+                        this.$refs.nameErrorAddRef.nativeView.opacity = 0;
                         this.$refs.nameFieldRef.nativeView.borderColor = '#dbdbdb';
                     }
                 } 
@@ -147,19 +150,19 @@
             onStartTimeChange() {
                 if (! this.start_time_changed) {
                     this.start_time_changed = true;
-                    this.$refs.sErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.sErrorAddRef.nativeView.opacity = 0;
                 }
             },
             onEndTimeChange() {
                 if (! this.end_time_changed) {
                     this.end_time_changed = true;
-                    this.$refs.eErrorFieldRef.nativeView.opacity = 0;
+                    this.$refs.eErrorAddRef.nativeView.opacity = 0;
                 }
             },
             onSaveTap(args) {
                 if (! this.is_login) { 
-                    if (this.u_name === '') {
-                        this.$refs.nameErrorFieldRef.nativeView.opacity = 1;
+                    if (this.u_name.trim() === '') {
+                        this.$refs.nameErrorAddRef.nativeView.opacity = 1;
                         this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
                     }
                     this.u_id = this.parseIDInput();
@@ -167,20 +170,23 @@
                         this.$refs.idErrorFieldRef.nativeView.opacity = 1;
                         this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
                     }
-                    if (this.u_name === '' || this.u_id.length != 6) {
+                    if (this.u_name.trim() === '' || this.u_id.length != 6) {
                         return;
                     } else {
                         this.is_login = ! this.is_login;
                     }
 
-                    const user_name = (this.u_name != '') ? this.u_name : 'Unknown';
-                    let color_idx = userColors.findIndex(elem => elem === this.users[this.users.length - 1].color);
+                    const user_name = (this.u_name.trim() != '') ? this.u_name.trim() : 'Unknown';
+                    let color_idx = userColors.findIndex((elem) => {
+                        if (this.users.length === 0) return false;
+                        else return elem === this.users[this.users.length - 1].color;
+                    });
                     color_idx = (color_idx === userColors.length - 1) ? 0 : color_idx + 1;
                     console.log("in save tap of add user " + color_idx)
                     const item = {
                         id: this.parseIDInput(),
                         name: formatUsernameForDisplay(user_name),
-                        fullname: user_name.trim(),
+                        fullname: user_name,
                         shift_start: '',
                         shift_end: '',
                         color: userColors[color_idx],
@@ -188,26 +194,114 @@
                     this.saveUserInfo(item);
                 } else {
                     if (! this.start_time_changed) {
-                        this.$refs.sErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.sErrorAddRef.nativeView.opacity = 1;
                     }
                     if (! this.end_time_changed) {
-                        this.$refs.eErrorFieldRef.nativeView.opacity = 1;
+                        this.$refs.eErrorAddRef.nativeView.opacity = 1;
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
-                    let s_minute = '' + this.$refs.sTimeFieldRef.nativeView.minute;
-                    let e_minute = '' + this.$refs.eTimeFieldRef.nativeView.minute;
+                    const s_hour = this.$refs.sTimeAddRef.nativeView.hour;
+                    const e_hour = this.$refs.eTimeAddRef.nativeView.hour;
+                    let s_minute = '' + this.$refs.sTimeAddRef.nativeView.minute;
+                    let e_minute = '' + this.$refs.eTimeAddRef.nativeView.minute;
                     if (s_minute.length === 1) s_minute = '0' + s_minute;
                     if (e_minute.length === 1) e_minute = '0' + e_minute;
                     
                     const item = {
                         id: this.u_id,
-                        shift_start: this.$refs.sTimeFieldRef.nativeView.hour + ":" + s_minute,
-                        shift_end: this.$refs.eTimeFieldRef.nativeView.hour + ":" + e_minute,
+                        shift_start: s_hour + ":" + s_minute,
+                        shift_end: e_hour + ":" + e_minute,
                     }
+
+                    this.startTimerForUser(s_hour, s_minute, e_hour, e_minute);
                     this.activateUser(item);
                     this.prepareTutorial();
                 }
+            },
+            startTimerForUser(s_hour, s_minute, e_hour, e_minute) {
+                const today = new Date();
+                let tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+
+                const s_date = today.getDate();
+                let e_date;
+                if (e_hour >= s_hour) { // no date change
+                    e_date = today.getDate();
+                } else { // date change
+                    e_date = tomorrow.getDate();
+                }
+                
+                console.log("=== Timer init === " + e_date + ' ' + e_hour + ' ' + e_minute);
+
+                this.timer_obj = setInterval(() => {
+                    const current = new Date();
+                    const c_date = current.getDate();
+                    const c_hour = current.getHours();
+                    const c_minute = current.getMinutes();
+                    
+                    console.log("=== Timer running === " + c_date + ' ' + c_hour + ' ' + c_minute);
+                    let user_time_up = false;
+                    if (c_date > e_date) {
+                        user_time_up = true;
+                    } else if (c_date === e_date){
+                        if (c_hour > e_hour) {
+                            user_time_up = true;
+                        } else if (c_hour === e_hour){
+                            user_time_up = (c_minute >= e_minute);
+                        }
+                    }
+                    if (user_time_up) {
+                        this.endTimerForUser();
+
+                    }
+                }, 10000);
+
+                this.startTimer(this.timer_obj);
+            },
+            resetTimerForUser(duration) {
+                let start = Date.now();
+                console.log("=== Timer init === " + start);
+
+                this.timer_obj = setInterval(() => {
+                    const diff = duration - (((Date.now() - start) / 1000) | 0);
+                    console.log("=== Timer running === " + diff / 60);
+
+                    if (diff <= 0) {
+                        start = Date.now() + 1000;
+                    }
+                    
+                    if (Math.round(diff / 60) === 0) {
+                        this.forceEndTimerForUser();
+                    }
+                }, 10000);
+
+                this.startTimer(this.timer_obj);
+            },
+            endTimerForUser() {
+                const minutes_to_delay = 60;
+                clearInterval(this.timer_obj);
+                const user = this.users.find(elem => elem.id === this.curr_user_id);
+                console.log("=== Login === timer stopped, check if logout");
+                confirm({
+                    message: `Your shift is ending. Comfirm automatic logout.`,
+                    okButtonText: "Logout",
+                    cancelButtonText: `Wait another ${minutes_to_delay} minutes`,
+                }).then((result) => {
+                    if (result) {
+                        this.deactivateUser();
+                        console.log("=== Login === timer stopped, logging out now");
+                    } else {
+                        this.resetTimerForUser(60 * minutes_to_delay);
+                        console.log("=== Login === timer stopped, reset");
+                    }
+                });
+                
+            },
+            forceEndTimerForUser() {
+                clearInterval(this.timer_obj);
+                this.deactivateUser();
+                console.log("=== Login === second timer stopped, logging out now");
             },
             onCloseTap() {
                 this.onBackHome();

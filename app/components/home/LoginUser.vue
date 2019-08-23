@@ -37,17 +37,17 @@
                     <StackLayout class="login-head" :background="selected_user.color" ></StackLayout>
                     <Label class="login-text login-name" :text="selected_user.name" textWrap="true"></Label>
                 </StackLayout>
-                <Label row="1" col="0" class="login-q login-q3" text="Shift Starts:" textWrap="true"/>
                 <Label row="1" col="0" class="login-e login-e3" text="Please select start time" opacity="0" ref="sErrorLoginRef" />
+                <Label row="1" col="0" class="login-q" text="Shift Starts:" />
                 <TimePicker row="2" col="0" 
                             class="login-picker" 
-                            ref="sTimeFieldRef"
+                            ref="sTimeLoginRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="3" col="0" class="login-q login-q4" text="Shift Ends:" textWrap="true" />
                 <Label row="3" col="0" class="login-e login-e4" text="Please select end time" opacity="0" ref="eErrorLoginRef" />
+                <Label row="3" col="0" class="login-q" text="Shift Ends:" />
                 <TimePicker row="4" col="0" 
                             class="login-picker" 
-                            ref="eTimeFieldRef"
+                            ref="eTimeLoginRef"
                             @timeChange="onEndTimeChange"/>
             </GridLayout>
 
@@ -166,10 +166,10 @@
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
-                    const s_hour = this.$refs.sTimeFieldRef.nativeView.hour;
-                    const e_hour = this.$refs.eTimeFieldRef.nativeView.hour;
-                    let s_minute = '' + this.$refs.sTimeFieldRef.nativeView.minute;
-                    let e_minute = '' + this.$refs.eTimeFieldRef.nativeView.minute;
+                    const s_hour = this.$refs.sTimeLoginRef.nativeView.hour;
+                    const e_hour = this.$refs.eTimeLoginRef.nativeView.hour;
+                    let s_minute = '' + this.$refs.sTimeLoginRef.nativeView.minute;
+                    let e_minute = '' + this.$refs.eTimeLoginRef.nativeView.minute;
                     if (s_minute.length === 1) s_minute = '0' + s_minute;
                     if (e_minute.length === 1) e_minute = '0' + e_minute;
 
@@ -244,7 +244,7 @@
                 this.startTimer(this.timer_obj);
             },
             endTimerForUser() {
-                const minutes_to_delay = 10;
+                const minutes_to_delay = 60;
                 clearInterval(this.timer_obj);
                 const user = this.users.find(elem => elem.id === this.curr_user_id);
                 console.log("=== Login === timer stopped, check if logout");

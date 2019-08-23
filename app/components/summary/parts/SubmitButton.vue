@@ -59,7 +59,8 @@
             recordTime() {
                 const today = new Date();
                 const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                const time = today.getHours() + ':' + today.getMinutes();
+                const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
+                const time = today.getHours() + ':' + minute;
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
@@ -70,10 +71,9 @@
                 const dateTime =  date + '_' + time;
                 return dateTime;
             },
-            recordNurseForPDFName(curr_log) {
-                const nurse_id = curr_log.nurse;
-                const nurse_item = this.users.find(elem => elem.id === nurse_id);
-                const full_name = nurse_item.fullname.split(' ').join('_');
+            recordClientForPDFName(curr_log) {
+                const full_name = curr_log.client.split(' ').join('_');
+                console.log(curr_log.client)
                 return full_name;
             },
             onSubmitTap() {
@@ -136,9 +136,8 @@
             },
             prepareInfo(curr_log) {
                 let info_body = [];
-                const nurse_id = curr_log.nurse;
-                const nurse_item = this.users.find(elem => elem.id === nurse_id);
-                const nurse_name = nurse_item ? nurse_item.fullname : "Unknown";
+                const nurse_id = curr_log.nurseID;
+                const nurse_name = (curr_log.nurseFullname != '') ? curr_log.nurseFullname : "Unknown";
                 const start_time = curr_log.startTime;
                 const date = curr_log.date;
                 const end_time = curr_log.endTime;
@@ -191,35 +190,41 @@
                 this.protocols.forEach(protocol => {
                     const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
+                    console.log("FLAG IN 1");
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
                         let info = [];
-                        this.assessment_letters.forEach(letter => {
-                            let count_letter = 0;
-                            const l_objs = protocol.assessment_questions.filter(elem => {return elem.assessment_letter.id === letter.id});
-                            if (l_objs) {
-                                l_objs.forEach(q_obj => {
-                                    const r_obj = curr_log.items_answers[items_idx].a.find(elem => {return elem.q_id === q_obj.id});
-                                    const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
-                                    
-                                    items_body.push( {
-                                        t: letter.title,
-                                        q: q_obj.question,
-                                        a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
+                        if (items_idx != -1) {
+                            this.assessment_letters.forEach(letter => {
+                                let count_letter = 0;
+                                const l_objs = protocol.assessment_questions.filter(elem => {return elem.assessment_letter.id === letter.id});
+                                if (l_objs) {
+                                    l_objs.forEach(q_obj => {
+                                        const r_obj = curr_log.items_answers[items_idx].a.find(elem => {return elem.q_id === q_obj.id});
+                                        const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
+                                        
+                                        items_body.push( {
+                                            t: letter.title,
+                                            q: q_obj.question,
+                                            a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
+                                        });
+                                        count_letter = count_letter + 1;
                                     });
-                                    count_letter = count_letter + 1;
-                                });
-                                if (count_letter > 0) {
-                                    info.push({
-                                        t: letter.title,
-                                        c: count_letter
-                                    });
+                                    if (count_letter > 0) {
+                                        info.push({
+                                            t: letter.title,
+                                            c: count_letter
+                                        });
+                                    }
                                 }
-                            }
-                            count_letter = 0;
-                        });
-                        protocol.additional_questions.forEach(q_obj => {
-                            if (others_idx != -1) {
+                                count_letter = 0;
+                            });
+                        }
+                        
+                        console.log("FLAG IN 1");
+                        
+                        if (others_idx != -1) {
+                            protocol.additional_questions.forEach(q_obj => {
                                 const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
                                 const a_obj = (r_obj) ? r_obj.a.join('\n') : 'N/A';
                                 items_body.push({
@@ -227,14 +232,13 @@
                                     q: q_obj.question,
                                     a: (a_obj.trim() != '') ? a_obj.trim() : 'N/A'
                                 });
-                            }
-                        });
-                        if (others_idx != -1) {
+                            });
                             info.push({
                                 t: other_title,
                                 c: protocol.additional_questions.length
                             });
                         }
+                        console.log("FLAG IN 2");
                         info.forEach(info_item => {
                             if (info_item.c > 1) {
                                 const item_to_change = items_body.find(item => { return item.t == info_item.t; });
@@ -291,6 +295,7 @@
                 return hist_body;
             },
             generatePDF() {
+                console.log("FLAG1");
                 global['window'] = {
                     'document': {
                         'createElementNS': () => { return {} }
@@ -328,18 +333,19 @@
                 const title_font_size = 10;
                 const table_font_size = 9;
                 const cell_padding = 3;
-                
+                console.log("FLAG2");
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
                 const protocol_titles = this.prepareProtocolsSummary(curr_log);
+                console.log("FLAG2.5");
                 const protocol_bodies = this.prepareProtocols(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
                 const hist_body = this.prepareHistory(curr_log);
-                
+                console.log("FLAG3");
                 const submit_time = this.recordTime();
-                const nurse_info_for_name = this.recordNurseForPDFName(curr_log);
+                const client_info_for_name = this.recordClientForPDFName(curr_log);
                 const submit_time_for_name = this.recordTimeForPDFName();
                 
                 doc.setFontSize(7);
@@ -494,7 +500,7 @@
                             cc: [],
                             bcc: [],
                             attachments: [{
-                                fileName: `${nurse_info_for_name}_PAT${submit_time_for_name}.pdf`,
+                                fileName: `${client_info_for_name}_PAT${submit_time_for_name}.pdf`,
                                 path: doc_64,
                                 mimeType: 'application/pdf'
                             }]

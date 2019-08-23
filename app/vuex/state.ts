@@ -3,25 +3,27 @@ export default {
 	curr_log_id: null,
 	timer: undefined,
 
-	users: 
-	[{
-		id: '888888',
-		name: 'Leslie S.',
-		fullname: 'Leslie Simon',
-		shift_start: '9:00', 
-		shift_end: '17:00', 
-		color: '#7ca8ea',
-	}, {
-		id: '777777',
-		name: 'Ruby C.',
-		fullname: 'Ruby Chen',
-		shift_start: '10:00',
-		shift_end: '18:00', 
-		color: '#a57ed7'
-	}],
+	users: [],
+	// logs: [],
 
-	logs: //[],
-	[{
+	// users: 
+	// [{
+	// 	id: '888888',
+	// 	name: 'Leslie S.',
+	// 	fullname: 'Leslie Simon',
+	// 	shift_start: '9:00', 
+	// 	shift_end: '17:00', 
+	// 	color: '#7ca8ea',
+	// }, {
+	// 	id: '777777',
+	// 	name: 'Ruby C.',
+	// 	fullname: 'Ruby Chen',
+	// 	shift_start: '10:00',
+	// 	shift_end: '18:00', 
+	// 	color: '#a57ed7'
+	// }],
+
+	logs: [{
 		id: '201915545',
 		phone: '7788095547',
         caller: 'Jess Johnson',
@@ -29,8 +31,9 @@ export default {
 		relation: 'Friend',
 		info: '87, high blood pressure',
 		notes: 'sounds urgent',
-		nurse: '888888',
-		date: '17 Aug 2019',
+		nurseID: '888888',
+		nurseFullname: 'Leslie Simon',
+		date: '20 Aug 2019',
 		startTime: '5:45',
 		endTime: '5:58',
 		status: false,
@@ -54,7 +57,8 @@ export default {
 		relation: 'Friend',
 		info: '38, no history',
 		notes: '',
-		nurse: '888888',
+		nurseID: '888888',
+		nurseFullname: 'Leslie Simon',
 		date: '16 Aug 2018',
 		startTime: '1:45',
 		endTime: '2:15',
@@ -96,8 +100,9 @@ export default {
 		relation: 'Daughter',
 		info: '77, no history',
 		notes: 'Ask about his breathing condition',
-		nurse: '777777',
-		date: '15 Aug 2019',
+		nurseID: '777777',
+		nurseFullname: 'Ruby Chen',
+		date: '20 Aug 2019',
 		startTime: '5:05',
 		endTime: '5:20',
 		status: true,

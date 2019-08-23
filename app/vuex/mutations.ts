@@ -37,11 +37,9 @@ export default {
     },
 
     [types.CHART_CREATE](state, entry){
-        if (state.curr_user_id != -1) {
-            entry.nurse = state.curr_user_id;
-        }
         state.logs.unshift(entry); 
-        // console.log("=== in mutation CHART_CREATE ===")
+        console.log("=== in mutation CHART_CREATE ===");
+        console.dir(state.logs[0]);
     },
     [types.CHART_DELETE](state, chart_idx) {
         state.logs.splice(chart_idx, 1);
@@ -62,7 +60,6 @@ export default {
         state.logs[chart_idx].caller = entry.caller;
         state.logs[chart_idx].client = entry.client;
         state.logs[chart_idx].relation = entry.relation;
-        state.logs[chart_idx].nurse = entry.nurse;
         state.logs[chart_idx].info = entry.info;
     },
     [types.CHART_NOTE_UPDATE](state, chart_item){
@@ -142,7 +139,8 @@ export default {
         console.log("=== in mutation CHART_SUM_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.CHART_CALL_UPDATE](state, item) {
-        state.logs[item.idx].nurse = item.content.nurse_id;
+        state.logs[item.idx].nurseID = item.content.nurse_id;
+        state.logs[item.idx].nurseFullname = item.content.nurse_fullname;
         state.logs[item.idx].startTime = item.content.call_start;
         state.logs[item.idx].endTime = item.content.call_end;
         // console.log("=== in mutation CHART_CALL_UPDATE === " + state.logs[item.idx]);

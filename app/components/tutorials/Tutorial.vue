@@ -1,7 +1,7 @@
 <template>
     <Frame id="tutorialFrame" ref="tFrameRef">
         <FirstTime v-if="is_first_time" :parent_modal="$modal" />
-        <Journey v-else :parent_modal="$modal" :item_idx="0" />
+        <Journey v-else :parent_modal="$modal" :item_idx="0" :is_first_time="is_first_time" />
     </Frame>
 </template>
 

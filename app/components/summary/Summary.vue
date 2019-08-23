@@ -164,7 +164,6 @@
                             okButtonText: "OK"
                         }).then((result) => {
                             this.can_check_call_info = true;
-                            console.log("TODO - scroll");
                             if (args.object.page) {
                                 const page = args.object.page;
                                 const scrollView = args.object.page.getViewById("sum-scroll");
@@ -229,7 +228,6 @@
                 });
             },
             onSwitchCanEnable() {
-                console.log("can enable");
                 this.is_switch_enabled = true;
             },
             onLayoutUpdate() {

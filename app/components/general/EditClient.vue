@@ -163,15 +163,6 @@
             ...mapActions([
                 'changeClientInfo',
             ]),
-            recordTime() {
-                const today = new Date();
-                const date = today.getDate() + ' / ' + logMonths(today.getMonth()) + ' / ' + today.getFullYear();
-                const time = today.getHours() + ':' + today.getMinutes();
-                const dateTime = time + ' | ' + date;
-
-                this.created_time = dateTime;
-                this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + today.getMinutes();
-            },
             loadExistingInfo() {
                 if (this.log_id) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });

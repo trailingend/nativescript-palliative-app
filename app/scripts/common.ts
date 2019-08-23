@@ -137,13 +137,15 @@ export const formatPhoneForDisplay = (input) => {
 };
 
 export const formatUsernameForDisplay = (input) => {
-    const name_segments = input.trim().split(' ');
-    const firstname = name_segments[0];
-    if (name_segments.length - 1 === 0) {
-        return (firstname != '') ? firstname : 'Unknown';
-    } else {
-        const lastname = name_segments[name_segments.length - 1];
-        return `${firstname} ${lastname.substring(0, 1)}.`
+    if (input != undefined) {
+        const name_segments = input.trim().split(' ');
+        const firstname = name_segments[0];
+        if (name_segments.length - 1 === 0) {
+            return (firstname != '') ? firstname : 'Unknown';
+        } else {
+            const lastname = name_segments[name_segments.length - 1];
+            return `${firstname} ${lastname.substring(0, 1)}.`
+        }
     }
 };
 

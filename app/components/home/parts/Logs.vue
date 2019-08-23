@@ -11,9 +11,9 @@
                         <Image row="0" col="0" width="50" class="user-head " v-show="!client.status" src="~/assets/images/progress.png" stretch="aspectFit"></Image>
                         <Image row="0" col="0" width="50" class="user-head" v-show="client.status" src="~/assets/images/confirmed.png" stretch="aspectFit"></Image>
                         <StackLayout row="0" col="1" verticalAlignment="center">
-                            <Label :text="client.client" class="client-text client-bold"/>
-                            <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${client.caller}`" class="client-text"/>                            
-                            <Label :text="`${client.startTime} | ${client.date} | ${getNurseName(client.nurse)}`" class="client-text client-light" />
+                            <Label :text="getClientName(client)" class="client-text client-bold"/>
+                            <Label :text="`${formatPhoneNum(client.phone)} | Caller: ${getCallerName(client)}`" class="client-text"/>                            
+                            <Label :text="`${client.startTime} | ${client.date} | ${getNurseName(client)}`" class="client-text client-light" />
                         </StackLayout>
                         <StackLayout row="0" col="2" class="client-tip-ctnr">
                             <Label :text="`deletes ${client.countdown}`" class="client-text client-light" :color="`${client.color}`" />
@@ -46,7 +46,7 @@
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { confirm }  from "tns-core-modules/ui/dialogs";
-    import { formatPhoneForDisplay, convertMonthToNum, numDaysInMon } from '../../../scripts/common';
+    import { formatPhoneForDisplay, convertMonthToNum, numDaysInMon, formatUsernameForDisplay } from '../../../scripts/common';
 
 
     export default {
@@ -124,9 +124,24 @@
                     return `IN ${countdown} DAYS`;
                 }
             },
-            getNurseName(nurse_id) {
-                const curr_user = this.users.find((elem) => { return elem.id === nurse_id; });
-                return (curr_user) ? curr_user.name : 'Unknown';
+            getCallerName(client) {
+                const caller = client.caller;
+                return (caller != '') ? caller : 'Anonymous';
+            },
+            getClientName(client) {
+                const client_name = client.client;
+                return (client_name != '') ? client_name : 'John Doe';
+            },
+            getNurseName(client) {
+                const nurse_fullname = client.nurseFullname;
+                const name_segments = nurse_fullname.trim().split(' ');
+                const firstname = name_segments[0];
+                if (name_segments.length - 1 === 0) {
+                    return (firstname != '') ? firstname : 'Unknown';
+                } else {
+                    const lastname = name_segments[name_segments.length - 1];
+                    return `${firstname} ${lastname.substring(0, 1)}.`
+                }
             },
             onEditTap(args) {
                 this.triage(args.index);
@@ -195,7 +210,6 @@
                     this.preparePlans(log.id);
                     return;
                 }
-                console.log(progress)
                 if (progress[1] > -1) { // if protocol selected
                     if (progress[3] === 1) { // if last at others page
                         this.prepareOthers(log.id, progress[1]);

@@ -1,58 +1,58 @@
 @import "variables";
 
-.settings-page {
+.options-page {
     .close-btn {
         margin: 25;
         horizontal-align: right;
     }  
-    .settings-ctnr {
-        .settings-title {
+    .options-ctnr {
+        .options-title {
             font-size: $form-title-font-size;
             font-weight: 500;
             letter-spacing: 0.1;
             text-transform: uppercase;
             margin-bottom: 120;
         }
-        .settings-items-ctnr {
+        .options-items-ctnr {
             background: white;
             border-color: $log-border-color;
             border-top-width: 0.5;
             margin: 0 50; 
         }
-        .settings-item {
+        .options-item {
             background: white;
             border-color: $log-border-color;
             border-bottom-width: 0.5;
             padding: 20 0;
         }
-        .settings-text {
+        .options-text {
             font-size: 24;
             font-weight: 700;
             letter-spacing: 0.05;
             text-transform: capitalize;
             margin-left: 25; 
         }
-        .settings-logout-btn {
+        .options-logout-btn {
             margin-bottom: 40;
         }
-        .settings-logo {
+        .options-logo {
             margin-bottom: 20;
         }
-        .settings-credits {
+        .options-credits {
             font-size: 16;
             font-weight: 400;
             letter-spacing: 0.05;
             margin-bottom: 40; 
         }
-        .settings-arrow {
+        .options-arrow {
             margin-right: 25; 
         }
 
         &.tablet-landscape {
-            .settings-title {
+            .options-title {
                 margin-bottom: 80;
             }
-            .settings-logout {
+            .options-logout {
                 margin-bottom: 60;
             }
         }
