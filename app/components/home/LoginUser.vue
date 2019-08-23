@@ -166,20 +166,25 @@
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
-                    const s_hour = this.$refs.sTimeLoginRef.nativeView.hour;
-                    const e_hour = this.$refs.eTimeLoginRef.nativeView.hour;
-                    let s_minute = '' + this.$refs.sTimeLoginRef.nativeView.minute;
-                    let e_minute = '' + this.$refs.eTimeLoginRef.nativeView.minute;
-                    if (s_minute.length === 1) s_minute = '0' + s_minute;
-                    if (e_minute.length === 1) e_minute = '0' + e_minute;
+                    const s_time_obj = this.$refs.sTimeLoginRef.nativeView.time;
+                    const e_time_obj = this.$refs.eTimeLoginRef.nativeView.time;
+                    let s_time = s_time_obj.toString().split(' ')[4].substring(0, 5);
+                    let e_time = e_time_obj.toString().split(' ')[4].substring(0, 5);
+                    const s_hour = s_time.split(":")[0];
+                    const e_hour = e_time.split(":")[0];
+                    let s_minute = s_time.split(":")[1];
+                    let e_minute = e_time.split(":")[1];
 
                     const item = {
                         id: this.u_id,
-                        shift_start: s_hour + ":" + s_minute,
-                        shift_end: e_hour + ":" + e_minute,
+                        shift_start: s_time,
+                        shift_end: e_time,
                     };
 
-                    this.startTimerForUser(s_hour, s_minute, e_hour, e_minute);
+                    this.startTimerForUser(parseInt(s_hour), 
+                                           parseInt(s_minute), 
+                                           parseInt(e_hour), 
+                                           parseInt(e_minute));
                     this.activateUser(item);
                     this.parent_modal.close();
                 }
@@ -191,8 +196,14 @@
 
                 const s_date = today.getDate();
                 let e_date;
-                if (e_hour >= s_hour) { // no date change
+                if (e_hour > s_hour) { // no date change
                     e_date = today.getDate();
+                } else if (e_hour == s_hour) {
+                    if (e_minute > s_minute) { // no date change
+                        e_date = today.getDate();
+                    } else { // date change
+                        e_date = tomorrow.getDate();
+                    }
                 } else { // date change
                     e_date = tomorrow.getDate();
                 }

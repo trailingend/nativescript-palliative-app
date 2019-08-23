@@ -10,7 +10,7 @@
     import { mapActions } from 'vuex';
     import * as email from "nativescript-email";
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
-    import { logMonths } from '../../../scripts/common';
+    import { monthIndexToString } from '../../../scripts/common';
     import * as base64 from "base-64";
     import * as utf8 from "utf8";
 
@@ -58,16 +58,18 @@
             },
             recordTime() {
                 const today = new Date();
-                const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
-                const time = today.getHours() + ':' + minute;
+                const today_arr = today.toString().split(' ');
+                const date = today_arr[2] + ' ' + today_arr[1] + ' ' + today_arr[3];
+                const time = today_arr[4].substring(0, 5);
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
             recordTimeForPDFName() {
                 const today = new Date();
-                const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                const time = today.getHours() + '' + today.getMinutes();
+                const month = ((today.getMonth() + 1) < 10) ? ('0' + (today.getMonth() + 1)) : ('' + (today.getMonth() + 1));
+                const day = (today.getDate() < 10) ? ('0' + today.getDate()) : ('' + today.getDate());
+                const date = today.getFullYear() + '-' + month + '-' + day;
+                const time = today.toString().split(' ')[4].substring(0, 5);
                 const dateTime =  date + '_' + time;
                 return dateTime;
             },
@@ -92,7 +94,7 @@
                         }).then((resp) => {
                             if (resp) {
                                 confirm({
-                                    title: "Send Chart",
+                                    title: "Send Document",
                                     message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
                                     okButtonText: "Send",
                                     cancelButtonText: "Cancel",
@@ -105,7 +107,7 @@
                         });
                     } else {
                         confirm({
-                            title: "Send Chart",
+                            title: "Send Document",
                             message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
                             okButtonText: "Send",
                             cancelButtonText: "Cancel",
@@ -495,7 +497,7 @@
                     if (avaialble) {
                         email.compose({
                             subject: "Email Template",
-                            body: "This is a <strong>fake</strong> email template for a palliative chart",
+                            body: "This is a <strong>fake</strong> email template for a palliative document",
                             to: ['zhou.jiayi.1992@gmail.com'],
                             cc: [],
                             bcc: [],

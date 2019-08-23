@@ -3,28 +3,28 @@ export default {
 	curr_log_id: null,
 	timer: undefined,
 
-	users: [],
+	// users: [],
 	// logs: [],
 
-	// users: 
-	// [{
-	// 	id: '888888',
-	// 	name: 'Leslie S.',
-	// 	fullname: 'Leslie Simon',
-	// 	shift_start: '9:00', 
-	// 	shift_end: '17:00', 
-	// 	color: '#7ca8ea',
-	// }, {
-	// 	id: '777777',
-	// 	name: 'Ruby C.',
-	// 	fullname: 'Ruby Chen',
-	// 	shift_start: '10:00',
-	// 	shift_end: '18:00', 
-	// 	color: '#a57ed7'
-	// }],
+	users: 
+	[{
+		id: '888888',
+		name: 'Leslie S.',
+		fullname: 'Leslie Simon',
+		shift_start: '9:00', 
+		shift_end: '17:00', 
+		color: '#7ca8ea',
+	}, {
+		id: '777777',
+		name: 'Ruby C.',
+		fullname: 'Ruby Chen',
+		shift_start: '10:00',
+		shift_end: '18:00', 
+		color: '#a57ed7'
+	}],
 
 	logs: [{
-		id: '201915545',
+		id: '1566600220489', 
 		phone: '7788095547',
         caller: 'Jess Johnson',
         client: 'Karry Lee',
@@ -33,9 +33,9 @@ export default {
 		notes: 'sounds urgent',
 		nurseID: '888888',
 		nurseFullname: 'Leslie Simon',
-		date: '20 Aug 2019',
-		startTime: '5:45',
-		endTime: '5:58',
+		date: '18 Aug 2019',
+		startTime: '05:45',
+		endTime: '05:58',
 		status: false,
 		progress: [1, -2, 0, 0, 0, 0], // progress: intro[step id], proto[protocol id], items[Bool], others[Bool], plans[Bool], summary[Bool]
 		editHistory: [],
@@ -50,7 +50,7 @@ export default {
 		others_answers: [],
 		plans_answers: [],
     }, {
-		id: '2018125145',
+		id: '1566600264775',
 		phone: '6045128638',
         caller: 'Ahssan Moshref',
         client: 'Machenzie Kingston',
@@ -59,9 +59,9 @@ export default {
 		notes: '',
 		nurseID: '888888',
 		nurseFullname: 'Leslie Simon',
-		date: '16 Aug 2018',
-		startTime: '1:45',
-		endTime: '2:15',
+		date: '17 Aug 2018',
+		startTime: '01:45',
+		endTime: '02:15',
 		status: false,
 		progress: [3, 3, 1, 0, 0, 0], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool], summary[Bool]
 		editHistory: [],
@@ -93,7 +93,7 @@ export default {
 		others_answers: [],
 		plans_answers: [],
     }, {
-		id: '201712855',
+		id: '1566600289235',
 		phone: '7788836996',
         caller: 'Sandy Benson',
         client: 'Jack Benson',
@@ -103,8 +103,8 @@ export default {
 		nurseID: '777777',
 		nurseFullname: 'Ruby Chen',
 		date: '20 Aug 2019',
-		startTime: '5:05',
-		endTime: '5:20',
+		startTime: '05:05',
+		endTime: '05:20',
 		status: true,
 		progress: [3, 3, 3, 1, 1, 1], // progress: intro[step id], proto[protocol id], items[letter id], others[tri-state], plans[Bool]
 		editHistory: [],

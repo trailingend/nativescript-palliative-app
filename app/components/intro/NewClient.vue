@@ -132,7 +132,7 @@
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { dialogConsent, 
-             logMonths, 
+             monthIndexToString, 
              formatPhoneNum, 
              newGridChildPortrait, 
              newGridChildLandscape } from '../../scripts/common';
@@ -195,11 +195,11 @@
             ]),
             recordTime() {
                 const today = new Date();
-                this.created_date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
-                const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
-                this.created_time = today.getHours() + ':' + minute;
-
-                this.c_id = '' + today.getFullYear() + (today.getMonth() + 1) + today.getDate() + today.getHours() + minute;
+                const today_arr = today.toString().split(' ');
+                this.created_date = today_arr[2] + ' ' + today_arr[1] + ' ' + today_arr[3];
+                this.created_time = today_arr[4].substring(0, 5);
+                console.log(today)
+                this.c_id = '' + today.getTime();
             },
             resetTextviewModel(args) {
                 this.c_info = args.value;

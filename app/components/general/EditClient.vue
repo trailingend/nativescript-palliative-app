@@ -115,7 +115,7 @@
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { dialogConsent, 
-             logMonths, 
+             monthIndexToString, 
              formatPhoneNum, 
              editGridChildPortrait, 
              editGridChildLandscape } from '../../scripts/common';

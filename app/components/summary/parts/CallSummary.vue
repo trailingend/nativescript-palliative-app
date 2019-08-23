@@ -92,7 +92,6 @@
                 if (curr_log) {
                     this.client = curr_log;
                     this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
-                    const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     this.end_time = curr_log.endTime;
                     this.nurse_id = curr_log.nurseID;
                     this.nurse_name = curr_log.nurseFullname;
@@ -106,14 +105,13 @@
                     }
                 }).then(() => {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                    const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     if (curr_log) {
                         this.client = curr_log;
                         this.formatted_phone = formatPhoneForDisplay(curr_log.phone);
                         this.end_time = curr_log.endTime;
                         this.nurse_id = curr_log.nurseID;
                         this.nurse_name = curr_log.nurseFullname;
-                        this.$emit("canSwitch");
+                        this.$emit("checkSwitch");
                     }
                 });
             },

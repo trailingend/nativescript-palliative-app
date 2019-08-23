@@ -38,7 +38,7 @@
                     <TimePicker row="7" col="0" 
                                 class="call-picker" 
                                 :hour="u_call_s_h" :minute="u_call_s_m"
-                                ref="sTimeFieldRef" />
+                                ref="sTimeCallInfoRef" />
                     <Label row="8" col="0" class="call-q4 call-q" text="Call Ends:" textWrap="true" />
                     <Label row="8" col="0" class="call-e call-e4" text="Please select end time" opacity="0" ref="timeECallInfoRef" />
                     <TimePicker row="9" col="0" 
@@ -71,9 +71,6 @@
                 u_call_s_m: 0,
                 u_call_e_h: 0,
                 u_call_e_m: 0,
-
-                call_s_time: '',
-                call_e_time: '',
                 end_time_changed: false,
 
                 formSetting: {
@@ -162,17 +159,17 @@
                 }
                 if (this.u_name.trim() === '' || this.u_id.length != 6 || !this.end_time_changed) return;
 
-                let s_minute = '' + this.$refs.sTimeFieldRef.nativeView.minute;
-                let e_minute = '' + this.$refs.eTimeCallInfoRef.nativeView.minute;
-                if (s_minute.length === 1) s_minute = '0' + s_minute;
-                if (e_minute.length === 1) e_minute = '0' + e_minute;
+                const s_time_obj = this.$refs.sTimeCallInfoRef.nativeView.time;
+                const e_time_obj = this.$refs.eTimeCallInfoRef.nativeView.time;
+                let s_time = s_time_obj.toString().split(' ')[4].substring(0, 5);
+                let e_time = e_time_obj.toString().split(' ')[4].substring(0, 5);
                 const call_item = {
                     id: this.log_id,
                     nurse_id: this.u_id,
                     nurse_name: formatUsernameForDisplay(this.u_name.trim()),
                     nurse_fullname: this.u_name.trim(),
-                    call_start: this.$refs.sTimeFieldRef.nativeView.hour + ":" + s_minute,
-                    call_end: this.$refs.eTimeCallInfoRef.nativeView.hour + ":" + e_minute,
+                    call_start: s_time,
+                    call_end: e_time,
                 }
                
                 this.saveCallInfo(call_item);

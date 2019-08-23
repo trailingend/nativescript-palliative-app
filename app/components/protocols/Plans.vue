@@ -330,9 +330,9 @@
 
             onNewTap() {
                 confirm({
-                    title: "Create New Chart",
-                    message: "Your current progress will be saved in your Chart History.",
-                    okButtonText: "Create New Chart",
+                    title: "Create New Client",
+                    message: "Your current progress will be saved in your Client History.",
+                    okButtonText: "Create New Client",
                     cancelButtonText: "Cancel",
                 }).then((result) => {
                     if (result || result === undefined) {

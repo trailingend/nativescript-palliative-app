@@ -46,7 +46,7 @@
     import { mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { confirm }  from "tns-core-modules/ui/dialogs";
-    import { formatPhoneForDisplay, convertMonthToNum, numDaysInMon, formatUsernameForDisplay } from '../../../scripts/common';
+    import { formatPhoneForDisplay, monthStringToNumber, numDaysInMon, formatUsernameForDisplay } from '../../../scripts/common';
 
 
     export default {
@@ -97,19 +97,19 @@
                 
                 const today = new Date();
                 
-                let month_diff = today.getMonth() - convertMonthToNum(month_title);
-                if (month_diff < 0) month_diff = today.getMonth() + (12 - convertMonthToNum(month_title));
+                let month_diff = today.getMonth() - monthStringToNumber(month_title);
+                if (month_diff < 0) month_diff = today.getMonth() + (12 - monthStringToNumber(month_title));
                 const date_diff = today.getDate() - parseInt(date.split(" ")[0]);
 
                 let countdown = 0;
                 if (month_diff == 0) {
                     countdown = date_diff;
                 } else if (month_diff == 1 || month_diff < 0 ) {
-                    const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)]; 
+                    const old_month_full = numDaysInMon(today.getFullYear())[monthStringToNumber(month_title)]; 
                     const residule = old_month_full - parseInt(date.split(" ")[0]);
                     countdown = residule + today.getDate();
                 } else {
-                    const old_month_full = numDaysInMon(today.getFullYear())[convertMonthToNum(month_title)];
+                    const old_month_full = numDaysInMon(today.getFullYear())[monthStringToNumber(month_title)];
                     const residule = old_month_full - parseInt(date.split(" ")[0]);
                     countdown = old_month_full * (month_diff - 2) + residule + today.getDate();
                 }
@@ -158,8 +158,8 @@
             onDeleteTap(args) {
                 const id = args.object.bindingContext.id;
                 confirm({
-                    title: "Delete Chart",
-                    message: "This chart and its contents will be removed from the app. This action is not reversible.",
+                    title: "Delete Document",
+                    message: "This document and its contents will be removed from the app. This action is not reversible.",
                     okButtonText: "Delete",
                     cancelButtonText: "Cancel"
                 }).then(isConfirmed => {

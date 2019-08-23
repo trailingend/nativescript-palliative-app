@@ -31,7 +31,7 @@
             onCloseTap() {
                 if (this.is_close) {
                     confirm({
-                        title: "Close Chart",
+                        title: "Close Document",
                         message: "Your current progress will be saved in your Client History.",
                         okButtonText: "Save and Close",
                         cancelButtonText: "Cancel",
@@ -43,7 +43,7 @@
                 } else {
                     confirm({
                         title: "Cancel Create Client",
-                        message: "This client will not be charted.",
+                        message: "This client will not be documented.",
                         okButtonText: "Close without Saving",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
@@ -55,7 +55,7 @@
             },
             onNewTap() {
                 confirm({
-                    title: "Create New Chart",
+                    title: "Create New Client",
                     message: "Your current progress will be saved in your Client History.",
                     okButtonText: "Create New Client",
                     cancelButtonText: "Cancel",

@@ -67,7 +67,7 @@
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { alert }  from "tns-core-modules/ui/dialogs";
-    import { formatUsernameForDisplay, userColors, logMonths } from '../../scripts/common';
+    import { formatUsernameForDisplay, userColors, monthIndexToString } from '../../scripts/common';
     
     export default {
         data() {
@@ -145,7 +145,7 @@
                 }
             },
             retrieveSavedResponses() {
-                return [];
+                return this.responses;
             },
             onAnswerChange(data) {
                 this.responses = data;
@@ -188,7 +188,7 @@
             },
             recordTime() {
                 const today = new Date();
-                const date = today.getDate() + ' ' + logMonths(today.getMonth()) + ' ' + today.getFullYear();
+                const date = today.getDate() + ' ' + monthIndexToString(today.getMonth()) + ' ' + today.getFullYear();
                 const minute = (today.getMinutes() < 10) ? `0${today.getMinutes()}` : `${today.getMinutes()}`;
                 const time = today.getHours() + ':' + minute;
                 const dateTime = time + ' | ' + date;

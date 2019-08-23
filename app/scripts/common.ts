@@ -94,7 +94,12 @@ export const dialogConsent = () => {
     });
 };
 
-export const logMonths = (month_unformatted) => {
+/**
+ *  Function to convert month index to month string
+ *  @param {Number} - index of month, e.g. Janurary is 0 
+ *  @return {String} - name of month, e.g. Jan
+ * **/
+export const monthIndexToString = (month_unformatted) => {
     const month_num =  parseInt(month_unformatted);
     let month_formated = '';
     const month_titles = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -103,10 +108,10 @@ export const logMonths = (month_unformatted) => {
 
 /**
  *  Function to convert month string to month index
- *  @param {String} month_unformatted
- *  @return {Number} index of month, e.g. Janurary is 0
+ *  @param {String} - name of month, e.g. Jan
+ *  @return {Number} - index of month, e.g. Janurary is 0
  * **/
-export const convertMonthToNum = (month_unformatted) => {
+export const monthStringToNumber = (month_unformatted) => {
     const month_titles = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const index = month_titles.findIndex(elem => elem === month_unformatted);
     return index;
