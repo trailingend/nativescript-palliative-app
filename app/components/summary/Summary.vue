@@ -11,8 +11,8 @@
                     <StackLayout class="sum-title-ctnr">
                         <Label class="sum-title" text="Summary"></Label>
                     </StackLayout>
-                    <CallSummary :log_id="log_id" :can_check="can_check_call_info" @checkSwitch="onCheckSwitch"/>
-                    <InfoSummary :log_id="log_id" />
+                    <CallSummary :log_id="log_id" :can_check="can_check_call_info" @checkSwitch="checkSwitch"/>
+                    <InfoSummary :log_id="log_id" :can_check="can_check_call_info" @checkSwitch="checkSwitch"/>
                     <IntroSummary :log_id="log_id" />
                     <StackLayout class="sum-sec-ctnr">
                         <StackLayout class="sec-title-ctnr">
@@ -130,11 +130,7 @@
                     curr_log.others_answers.forEach(elem => { p_id_set.add(elem.id) });
                     this.protocol_ids = Array.from(p_id_set);
 
-                    if (curr_log.nurseID === "" || curr_log.endTime === "") {
-                        this.is_switch_enabled = false;
-                    } else {
-                        this.is_switch_enabled = true;
-                    }
+                    this.checkSwitch();
                 }
             },
             preparePrevStage() {
@@ -156,7 +152,7 @@
             onSwitchTap(args) {
                 if (! this.is_switch_enabled) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                    if (curr_log.nurseID === "" || curr_log.endTime === "") {
+                    if (curr_log.nurseID === "" || curr_log.endTime === "" || curr_log.client === "") {
                         this.is_reviewed = false;
                         alert({
                             title: "Missing Call Information",
@@ -227,9 +223,9 @@
                     }
                 });
             },
-            onCheckSwitch() {
+            checkSwitch() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                this.is_switch_enabled = ! (curr_log.nurseID === "" || curr_log.endTime === "");
+                this.is_switch_enabled = ! (curr_log.nurseID === "" || curr_log.endTime === "" || curr_log.client === "");
             },
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.summaryGridRef.nativeView.getMeasuredWidth() );

@@ -4,38 +4,40 @@
             <Label text="Client Information" class="sum-sec-title"/>
             <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onEditTap"></Image>
         </FlexboxLayout>
-        <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="*" class="sec-content-ctnr">
+        <GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="*" class="sec-content-ctnr">
             <Label row="0" col="0" textWrap="true" class="sum-text">
                 <FormattedString>
                     <span class="sum-bold" text="Client's Name: " />
                     <span :text="client.client" />
                 </FormattedString>
             </Label>
-            <Label row="1" col="0" textWrap="true" class="sum-text">
+            <StackLayout row="1" col="0" class="sum-e-ctnr" :opacity="(can_check && client.client === '') ? 1 : 0"></StackLayout>
+            <Label row="0" col="0" class="sum-e" text="Please enter client's first and last name" :opacity="(can_check && client.client === '') ? 1 : 0" />
+            <Label row="2" col="0" textWrap="true" class="sum-text">
                 <FormattedString>
                     <span class="sum-bold" text="Caller's Name: " />
-                    <span :text="client.caller" />
+                    <span :text="getCallerName(client)" />
                 </FormattedString>
             </Label>
-            <Label row="2" col="0" text="Call-back Number: " textWrap="true" class="sum-text">
+            <Label row="3" col="0" text="Call-back Number: " textWrap="true" class="sum-text">
                 <FormattedString>
                     <span class="sum-bold" text="Call-back Number: " />
                     <span :text="`${formatted_phone}`" />
                 </FormattedString>
             </Label>
-            <Label row="3" col="0"  textWrap="true" class="sum-text">
+            <Label row="4" col="0"  textWrap="true" class="sum-text">
                 <FormattedString>
                     <span class="sum-bold" text="Caller's relationship to client: " />
                     <span :text="client.relation" />
                 </FormattedString>
             </Label>
-            <Label row="4" col="0" textWrap="true" class="sum-text sum-separate">
+            <Label row="5" col="0" textWrap="true" class="sum-text sum-separate">
                 <FormattedString>
                     <span class="sum-bold" text="Consent to care given and to speak on behalf of client: " />
                     <span text="Yes" />
                 </FormattedString>
             </Label>
-            <Label row="5" col="0" textWrap="true" class="sum-text sum-separate">
+            <Label row="6" col="0" textWrap="true" class="sum-text sum-separate">
                 <FormattedString>
                     <span class="sum-bold" text="General Client Info: " />
                     <span :text="client.info === '' ? 'N/A' : client.info.trim()" />
@@ -69,6 +71,10 @@
                 type: String,
                 required: true,
             },
+            can_check: {
+                type: Boolean,
+                required:true
+            }
         },
         computed: {
             ...mapGetters([
@@ -85,6 +91,10 @@
                     const curr_user = this.users.find((elem) => { return elem.id === curr_log.nurse; });
                     this.nurse_name = (curr_user) ? curr_user.name : 'Unknown';
                 }
+            },
+            getCallerName(client) {
+                const caller = client.caller;
+                return (caller != '') ? caller : 'Anonymous';
             },
             onEditTap() {
                 this.$showModal(EditClient, { 
@@ -104,6 +114,7 @@
                             this.nurse_name = (curr_user) ? curr_user.name : curr_log.nurse;
                         }
                     }
+                    this.$emit("checkSwitch");
                 });
             },
         },

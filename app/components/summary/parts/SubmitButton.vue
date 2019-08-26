@@ -69,13 +69,28 @@
                 const month = ((today.getMonth() + 1) < 10) ? ('0' + (today.getMonth() + 1)) : ('' + (today.getMonth() + 1));
                 const day = (today.getDate() < 10) ? ('0' + today.getDate()) : ('' + today.getDate());
                 const date = today.getFullYear() + '-' + month + '-' + day;
-                const time = today.toString().split(' ')[4].substring(0, 5);
+                const time = today.toString().split(' ')[4].substring(0, 5).split(":").join("");
                 const dateTime =  date + '_' + time;
+                console.log("for pdf - " + dateTime);
                 return dateTime;
             },
             recordClientForPDFName(curr_log) {
                 const full_name = curr_log.client.split(' ').join('_');
                 console.log(curr_log.client)
+                return full_name;
+            },
+            recordTimeForEmailName() {
+                const today = new Date();
+                const month = ((today.getMonth() + 1) < 10) ? ('0' + (today.getMonth() + 1)) : ('' + (today.getMonth() + 1));
+                const day = (today.getDate() < 10) ? ('0' + today.getDate()) : ('' + today.getDate());
+                const date = today.getFullYear() + '.' + month + '.' + day;
+                const time = today.toString().split(' ')[4].substring(0, 5);
+                const dateTime =  date + ' ' + time;
+                console.log("for email - " + dateTime);
+                return dateTime;
+            },
+            recordClientForEmailName(curr_log) {
+                const full_name = curr_log.client;
                 return full_name;
             },
             onSubmitTap() {
@@ -335,20 +350,20 @@
                 const title_font_size = 10;
                 const table_font_size = 9;
                 const cell_padding = 3;
-                console.log("FLAG2");
+                
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
                 const protocol_titles = this.prepareProtocolsSummary(curr_log);
-                console.log("FLAG2.5");
                 const protocol_bodies = this.prepareProtocols(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
                 const hist_body = this.prepareHistory(curr_log);
-                console.log("FLAG3");
                 const submit_time = this.recordTime();
-                const client_info_for_name = this.recordClientForPDFName(curr_log);
-                const submit_time_for_name = this.recordTimeForPDFName();
+                const client_info_for_pdf = this.recordClientForPDFName(curr_log);
+                const submit_time_for_pdf = this.recordTimeForPDFName();
+                const client_info_for_email = this.recordClientForEmailName(curr_log);
+                const submit_time_for_email = this.recordTimeForEmailName();
                 
                 doc.setFontSize(7);
                 doc.setFontType('normal')
@@ -496,13 +511,13 @@
                 email.available().then(avaialble => {
                     if (avaialble) {
                         email.compose({
-                            subject: "Email Template",
+                            subject: `[PAT] ${client_info_for_email} - ${submit_time_for_email}`,
                             body: "This is a <strong>fake</strong> email template for a palliative document",
-                            to: ['zhou.jiayi.1992@gmail.com'],
-                            cc: [],
+                            to: [],
+                            cc: ['zhou.jiayi.1992@gmail.com'],
                             bcc: [],
                             attachments: [{
-                                fileName: `${client_info_for_name}_PAT${submit_time_for_name}.pdf`,
+                                fileName: `${client_info_for_pdf}_PAT${submit_time_for_pdf}.pdf`,
                                 path: doc_64,
                                 mimeType: 'application/pdf'
                             }]
