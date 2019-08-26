@@ -1,6 +1,7 @@
 # PAT
 
 > A native application built with NativeScript-Vue for VCH Palliative
+> Credit to VCH Learning Technologies
 
 ## Usage
 
@@ -11,13 +12,13 @@ npm install
 # Build for production
 tns build ios --bundle --device "iPad (5th generation)"
 
-# Build, watch for changes and debug the application
-tns debug ios --bundle --device "iPad (5th generation)"
-
-# Build, watch for changes and run the application
+# Build, watch for changes and run the application on Simulator
 tns run ios --bundle --device "iPad (5th generation)"
 
-# Deploy the application to VCH Learning Technologies' iPad
+# Build, watch for changes and run the application on VCH Learning Tech iPad
+tns run ios --bundle --device 93ff730c6579308b561791adafec2fc96d59eec4
+
+# Deploy the application to VCH Learning Tech iPad
 tns deploy ios --bundle --device 93ff730c6579308b561791adafec2fc96d59eec4 --clean --provision 4da594d9-3e86-42f0-9386-d3153111e030
 
 # VCH Learning Tech Team ID
@@ -40,7 +41,7 @@ Team ID: 5MYA8389GQ
 "version": "0.25.0-next-2019-06-03-171607-01"
 ```
 
-Here are the list of plugins being used: 
+List of plugins used in this app: 
 ``` bash
 npm install jspdf --save
 npm install @types/jspdf --save
@@ -63,3 +64,28 @@ tns plugin add nativescript-localstorage
 	- "memoryCheckInterval": 500,
 	- "freeMemoryRatio": 0.20
 
+## VueX Data Structure
+### General Structure of All Data Storage
+- **curr_user_id**
+	- [Type] string, null state is -1
+	- [Description] - ID of the nurse currently logged in to the app
+	- [Related Places] - it will be changed mostly in Login/ AddUser/ Options page
+- **timer**
+	- [Type] Object, null state is undefined
+	- [Description] - ID of the nurse currently logged in to the app
+	- [Related Places] - it will be changed mostly in Login/ AddUser/ Options page
+- **users** :two_men_holding_hands::two_women_holding_hands:
+	- [Type] Array, null state is []
+	- [Description] - list of users
+	- [Related Places] - it will be changed mostly in SelectUser/ Login/ AddUser/ EditCallInfo pages
+- logs
+- data_version
+- data_version
+- tutorials
+- intro
+- protocols
+- assessment_letters
+- plans
+
+### Detailed Structure of Users Array
+### Detailed Structure of Users Array
