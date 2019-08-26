@@ -28,44 +28,59 @@ tns device
 tns prepare ios --provision
 
 # VCH Learning Tech Team Info
-Team ID: 5MYA8389GQ
-Device Identifier: 93ff730c6579308b561791adafec2fc96d59eec4
+"Team ID": 5MYA8389GQ
+"Device Identifier for VCH Learning Tech iPad": 93ff730c6579308b561791adafec2fc96d59eec4
 ``` 
 
 ## Libraries and Plugins
-This app is developed with Nativescript, optimized for iPad 9.7 inches
-Important framework parameters used in this app: 
-``` bash
+> This app is developed with Nativescript, optimized for iPad 9.7 inches
+
+### Important framework parameters used in this app: 
+``` json
 # nativescript and tns-core-modules version
 "version": "5.4.3"
 
 # nativescript tns-ios version
 "version": "5.4.0"
 
-#"nativescript vue version
+# nativescript vue version
 "version": "2.2.2"
 
 # nativescript-dev-webpack version
 "version": "0.25.0-next-2019-06-03-171607-01"
 ```
 
-List of plugins used in this app: 
+### List of plugins used in this app: 
+[jsPDF](https://github.com/MrRio/jsPDF)
+[jsPDF-AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable)
 ``` bash
 npm install jspdf --save
 npm install @types/jspdf --save
 npm install base-64 --save
 npm install utf8 --save
-npm install nativescript-masked-text-field
-npm install nativescript-iqkeyboardmanager
-npm install nativescript-videoplayer
-
-tns plugin add nativescript-ui-listview
-tns plugin add nativescript-email
-tns plugin add nativescript-localstorage
+npm install jspdf-autotable
 ```
 
+[Masked Text Field](https://www.npmjs.com/package/nativescript-masked-text-field)
+`npm install nativescript-masked-text-field`
+
+[IQ Keyboard Manager](https://www.npmjs.com/package/nativescript-iqkeyboardmanager)
+`npm install nativescript-iqkeyboardmanager`
+
+[NativeScript Videoplayer](https://github.com/nstudio/nativescript-videoplayer)
+`npm install nativescript-videoplayer`
+
+[RadListView](https://docs.nativescript.org/ui/professional-ui-components/ListView/overview)
+`tns plugin add nativescript-ui-listview`
+
+[NativeScript Email](https://www.npmjs.com/package/nativescript-email)
+`tns plugin add nativescript-email`
+
+[NativeScript LocalStorage](https://github.com/NathanaelA/nativescript-localstorage)
+`tns plugin add nativescript-localstorage`
+
 ## Memory Management
-> Currently there are two options to clear memories after page navigation according to [nativescript's documentation](https://docs.nativescript.org/core-concepts/android-runtime/advanced-topics/memory-management). This app is currently using the first option.
+> With the current version of NativeScript we are using, we run into a memory leak issue, a.k.a. the app crashes and auto-exits after being used for a period of time, especially when lots of between-page navigation is happening. To fix this issue, we manually clear app memory every half second using nativescript's memory settings. There are two options to setup scheduled manually memory cleaning.[nativescript's documentation](https://docs.nativescript.org/core-concepts/android-runtime/advanced-topics/memory-management). This app is currently using the first option.
 1. Via Schedule :watch:
 	- "gcThrottleTime": 500
 2. Via Ratio :heavy_division_sign:
@@ -86,7 +101,7 @@ tns plugin add nativescript-localstorage
 - **main.ts**:page_with_curl: - entry for all vue and js files
 
 ## VueX Data Structure
-#### General Structure of All Data Storage
+### General Structure of All Data Storage
 - **curr_user_id** :raised_hand:
 	- [Type] string, null state is -1
 	- [Description] - ID of the nurse currently logged in to the app
@@ -128,7 +143,7 @@ tns plugin add nativescript-localstorage
 	- [Description] - data for plans section
 	- [Related Places] - it will be loaded from local data json file or online data json
 
-#### Detailed Structure of Users Array
+### Detailed Structure of Users Array
 - **id** :id:
 	- [Type] String
 	- [Description] - employee ID of nurse user
@@ -148,7 +163,7 @@ tns plugin add nativescript-localstorage
 	- [Type] String
 	- [Description] - color code associated with this nurse user
 
-#### Detailed Structure of Logs Array
+### Detailed Structure of Logs Array
 - **id** :id:
 	- [Type] String, required field
 	- [Description] - unique ID of client used by this app only, unique string based on creation time
@@ -242,8 +257,8 @@ tns plugin add nativescript-localstorage
 	- [Description] each item in the array represents a plan entry.
 	- e.g. see below
 
-#### Example of editHistory Field with A Answer Entry of A Client in Logs 
-```
+### Example of editHistory Field with A Answer Entry of A Client in Logs 
+``` json
 editHistory: [{
 	nurse: "777777",
 	recordTime: "20 Aug 2019 | 12:00",
@@ -251,16 +266,16 @@ editHistory: [{
 }]
 ```
 
-#### Example of intro_answers Field with A Answer Entry of A Client in Logs 
-```
+### Example of intro_answers Field with A Answer Entry of A Client in Logs 
+``` json
 intro_answers: [{
 	q_id: 4,
 	a: ["Cannot breathe"]
 }]
 ```
 
-#### Example of item_answers Field of A Protocol with A Answer Entry of A Client in Logs 
-```
+### Example of item_answers Field of A Protocol with A Answer Entry of A Client in Logs 
+``` json
 items_answers: [{
 	"id": 3,
 	"a": [{
@@ -275,8 +290,8 @@ items_answers: [{
 }]
 ```
 
-#### Example of others_answers Field of A Protocol with A Answer Entry of A Client in Logs 
-```
+### Example of others_answers Field of A Protocol with A Answer Entry of A Client in Logs 
+``` json
 others_answers: [{
 	"id": 3,
 	"a": [{
@@ -289,8 +304,8 @@ others_answers: [{
 }]
 ```
 
-#### Example of plans_answers Field with A Answer Entry of A Client in Logs 
-```
+### Example of plans_answers Field with A Answer Entry of A Client in Logs 
+``` json
 plans_answers: [
 	"Reach out for medical support (e.g. MRP)",
 	"Recommend going to UPCC (Urgent Primary Care Center)* if appropriate and unable to manage symptoms at home and if ambulatory and within client’s goals of care",
@@ -299,7 +314,7 @@ plans_answers: [
 ```
 
 ## Vue Page / Components Structure
-#### answers:open_file_folder:
+### answers:open_file_folder:
 - [Description] - folder for components of different types of answers
 - [Members] - all answer typesare shared across sections
 	- **BooleanSelect.vue**:page_with_curl: - component for boolean answers
@@ -307,7 +322,7 @@ plans_answers: [
 	- **MultiSelect.vue**:page_with_curl: - component for multiple choice answers
 	- **ScaleSelect.vue**:page_with_curl: - component for scale selector answers
 	- **SingleSelect.vue**:page_with_curl: - component for single choice answers
-#### general :open_file_folder:
+### general :open_file_folder:
 - [Description] - folder for components and pages and components that is used across board
 - [Members] - include pages and components
 	- **parts**:open_file_folder: - folder for sub-components
@@ -316,7 +331,7 @@ plans_answers: [
 	- **Catalogue.vue**:page_with_curl: - pop-up frame/ page for choosing protocols, can be opened from ClientBlock
 	- **EditClient.vue**:page_with_curl: - pop-up frame/ page for editing client info, can be opened from ClientBlock and Summary
 	- **Notes.vue**:page_with_curl: - semi-page popup for additional nurse notes
-#### home :open_file_folder: - folder for global js files
+### home :open_file_folder: - folder for global js files
 - [Description] - folder for components and pages and components that is used in home/ dashboard screen
 - [Members] - include pages and components
 	- **parts**:open_file_folder: - folder for sub-components
@@ -327,14 +342,14 @@ plans_answers: [
 	- **LoginUser.vue**:page_with_curl: - pop-up page for logging in an existing user, has to be opened from SelectUser frame
 	- **Options.vue**:page_with_curl: - pop-up frame/ page for option/ setting pages, opened from Dashboard
 	- **SelectUser.vue**:page_with_curl: - pop-up frame/ page for user management, can add, login, or delete a user here
-#### intro :open_file_folder: - folder for scss files
+### intro :open_file_folder: - folder for scss files
 - [Description] - folder for components and pages and components that is used in introduction section
 - [Members] - include pages and components
 	- **parts**:open_file_folder: - folder for sub-components
 		- **StepQuestion.vue**:page_with_curl: - component to determine which answer component to display for introduction questions
 	- **Introduction.vue**:page_with_curl: - page to show introduction questions
 	- **NewClient.vue**:page_with_curl: - page to add a new client
-#### protocols :open_file_folder: - folder for data storage
+### protocols :open_file_folder: - folder for data storage
 - **parts**:open_file_folder: - folder for sub-components
 	- **AssessItem.vue**:page_with_curl: - component to determine which answer component to display for items-assessment questions
 	- **OthersQuestion.vue**:page_with_curl: - component to determine which answer component to display for additional questions
@@ -344,7 +359,7 @@ plans_answers: [
 - **ChooseProtocol.vue**:page_with_curl: - page to choose a protocol
 - **Plans.vue**:page_with_curl: - page to show plans to a client
 - **Resources.vue**:page_with_curl: - pop-up frame/ page fto show related resources, protocols and recommendation of a protocol
-#### summary :open_file_folder: - folder for scss files
+### summary :open_file_folder: - folder for scss files
 - **parts**:open_file_folder: - folder for sub-components
 	- **CallSummary.vue**:page_with_curl: - component to show summary of the call information
 	- **InfoSummary.vue**:page_with_curl: - component to show summary of client information
@@ -357,7 +372,7 @@ plans_answers: [
 - **EditCallInfo.vue**:page_with_curl: - popup page/ frame to edit call information, opened from Summary
 - **Reason.vue**:page_with_curl: - semi-page popup to record pdf modification history
 - **Summary.vue**:page_with_curl: - page to show summary of a client
-#### tutorials :open_file_folder: - folder for data storage
+### tutorials :open_file_folder: - folder for data storage
 - **FirstTime.vue**:page_with_curl: - pop-up page to show tutorial welcome screen
 - **Journey.vue**:page_with_curl: - pop-up page to show tutorials
 - **Tutorial.vue**:page_with_curl: - pop-up frame, to either pull from Journey or FirstTime
