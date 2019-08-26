@@ -260,17 +260,17 @@ npm install jspdf-autotable
 ### Example of editHistory Field with A Answer Entry of A Client in Logs 
 ``` json
 editHistory: [{
-	nurse: "777777",
-	recordTime: "20 Aug 2019 | 12:00",
-	reason: "Edited question 2 in intro section because of a spelling error"
+	"nurse": "777777",
+	"recordTime": "20 Aug 2019 | 12:00",
+	"reason": "Edited question 2 in intro section because of a spelling error"
 }]
 ```
 
 ### Example of intro_answers Field with A Answer Entry of A Client in Logs 
 ``` json
 intro_answers: [{
-	q_id: 4,
-	a: ["Cannot breathe"]
+	"q_id": 4,
+	"a": ["Cannot breathe"]
 }]
 ```
 
