@@ -16,7 +16,7 @@
                 <TextField row="1" col="0" 
                             id="user-add-a1"
                             class="add-a1 add-a" 
-                            ref="nameFieldRef"
+                            ref="nameFieldAddUserRef"
                             v-model="u_name"
                             @textChange="checkNameError"
                             hint="Firstname Lastname"/>
@@ -28,7 +28,7 @@
                 <MaskedTextField row="4" col="0"
                                 id="user-add-a2"
                                 class="add-a2 add-a" 
-                                ref="idFieldRef"
+                                ref="idFieldAddUserRef"
                                 mask="000000"
                                 hint="######"
                                 @textChange="checkIDError"
@@ -36,25 +36,24 @@
                 <Label row="5" col="0" class="add-e add-e2" 
                         text="Please enter a valid employee ID" 
                         opacity="0" 
-                        ref="idErrorFieldRef"/>
+                        ref="idErrorFieldAddUserRef"/>
             </GridLayout>
 
-            <GridLayout v-else
-                        row="2" col="0" rowSpan="2" class="add-content-ctnr"
-                        rows="auto, auto, auto, auto" columns="*">
-                <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorAddRef" />
-                <Label row="0" col="0" class="add-q" text="Shift Starts:" />
-                <TimePicker row="1" col="0" 
-                            class="add-picker" 
+            <StackLayout v-else
+                        row="2" col="0" rowSpan="2" class="add-content-ctnr">
+                <!-- <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorAddRef" /> -->
+                <Label class="add-q" text="Shift Starts:" />
+                <TimePicker class="add-picker" 
                             ref="sTimeAddRef"
                             @timeChange="onStartTimeChange" />
-                <Label row="2" col="0" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorAddRef" />
-                <Label row="2" col="0" class="add-q" text="Shift Ends:" />
-                <TimePicker row="3" col="0" 
-                            class="add-picker" 
+                <GridLayout rows="auto" columns="auto, *" >
+                    <Label row="0" col="0" class="add-q" text="Shift Ends:" />
+                    <Label row="0" col="1" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorAddRef" />
+                </GridLayout>
+                <TimePicker class="add-picker" 
                             ref="eTimeAddRef"
                             @timeChange="onEndTimeChange"/>
-            </GridLayout>
+            </StackLayout>
 
             <Button row="3" col="0" class="form-btn add-user-btn" :text="is_login ? 'Start' : 'Save'" @tap="onSaveTap" />
         </GridLayout>
@@ -114,10 +113,10 @@
             },
             parseIDInput() {
                 let user_ID = '000000';
-                if (this.$refs.idFieldRef) {
-                    if (this.$refs.idFieldRef.nativeView.text != null 
-                        && this.$refs.idFieldRef.nativeView.text != '') {
-                        const curr_val = this.$refs.idFieldRef.nativeView.text;
+                if (this.$refs.idFieldAddUserRef) {
+                    if (this.$refs.idFieldAddUserRef.nativeView.text != null 
+                        && this.$refs.idFieldAddUserRef.nativeView.text != '') {
+                        const curr_val = this.$refs.idFieldAddUserRef.nativeView.text;
                         user_ID = curr_val.replace(/\D/g, '').substring(0, 6);
                     }
                 }
@@ -127,30 +126,30 @@
                 if (args.oldValue.trim() != '') {
                     if (args.value.trim() === '') {
                         this.$refs.nameErrorAddRef.nativeView.opacity = 1;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                        this.$refs.nameFieldAddUserRef.nativeView.borderColor = '#ff1f00';
                     }
                 } 
                 if (args.oldValue.trim() === '') {
                     if (args.value.trim() != '') {
                         this.$refs.nameErrorAddRef.nativeView.opacity = 0;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#dbdbdb';
+                        this.$refs.nameFieldAddUserRef.nativeView.borderColor = '#dbdbdb';
                     }
                 } 
             },
             checkIDError(args) {
                 const id_to_check = this.parseIDInput();
                 if (id_to_check.length != 6) {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                    this.$refs.idErrorFieldAddUserRef.nativeView.opacity = 1;
+                    this.$refs.idFieldAddUserRef.nativeView.borderColor = '#ff1f00';
                 } else {
-                    this.$refs.idErrorFieldRef.nativeView.opacity = 0;
-                    this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
+                    this.$refs.idErrorFieldAddUserRef.nativeView.opacity = 0;
+                    this.$refs.idFieldAddUserRef.nativeView.borderColor = '#dbdbdb';
                 } 
             },
             onStartTimeChange() {
                 if (! this.start_time_changed) {
                     this.start_time_changed = true;
-                    this.$refs.sErrorAddRef.nativeView.opacity = 0;
+                    // this.$refs.sErrorAddRef.nativeView.opacity = 0;
                 }
             },
             onEndTimeChange() {
@@ -163,12 +162,12 @@
                 if (! this.is_login) { 
                     if (this.u_name.trim() === '') {
                         this.$refs.nameErrorAddRef.nativeView.opacity = 1;
-                        this.$refs.nameFieldRef.nativeView.borderColor = '#ff1f00';
+                        this.$refs.nameFieldAddUserRef.nativeView.borderColor = '#ff1f00';
                     }
                     this.u_id = this.parseIDInput();
                     if (this.u_id.length != 6 || this.u_id == '000000') {
-                        this.$refs.idErrorFieldRef.nativeView.opacity = 1;
-                        this.$refs.idFieldRef.nativeView.borderColor = '#ff1f00';
+                        this.$refs.idErrorFieldAddUserRef.nativeView.opacity = 1;
+                        this.$refs.idFieldAddUserRef.nativeView.borderColor = '#ff1f00';
                     }
                     if (this.u_name.trim() === '' || this.u_id.length != 6) {
                         return;
@@ -194,15 +193,15 @@
                     this.saveUserInfo(item);
                 } else {
                     if (! this.start_time_changed) {
-                        this.$refs.sErrorAddRef.nativeView.opacity = 1;
+                        // this.$refs.sErrorAddRef.nativeView.opacity = 1;
                     }
                     if (! this.end_time_changed) {
                         this.$refs.eErrorAddRef.nativeView.opacity = 1;
                     }
                     if (! this.start_time_changed || ! this.end_time_changed) return;
 
-                    const s_time_obj = this.$refs.sTimeLoginRef.nativeView.time;
-                    const e_time_obj = this.$refs.eTimeLoginRef.nativeView.time;
+                    const s_time_obj = this.$refs.sTimeAddRef.nativeView.time;
+                    const e_time_obj = this.$refs.eTimeAddRef.nativeView.time;
                     let s_time = s_time_obj.toString().split(' ')[4].substring(0, 5);
                     let e_time = e_time_obj.toString().split(' ')[4].substring(0, 5);
                     const s_hour = s_time.split(":")[0];

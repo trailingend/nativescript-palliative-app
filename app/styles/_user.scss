@@ -142,13 +142,14 @@
             horizontal-align: right;
             color: $color-red;
         }
-        .add-e3 {
-            horizontal-align: left;
-            transform: translateX(162);
-        }
+        // .add-e3 {
+        //     horizontal-align: left;
+        //     transform: translateX(162);
+        // }
         .add-e4 {
             horizontal-align: left;
-            transform: translateX(140);
+        //     transform: translateX(140);
+            margin-left: 5;
         }
         .add-picker {
             width: 60%;
