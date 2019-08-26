@@ -176,15 +176,15 @@ tns plugin add nativescript-localstorage
 	- [Type] Boolean
 	- [Description] - whether the document has been compiled as PDF and sent via email
 - **progress** :card_index: 
-	- [Type] Array of Numbers, null state is [-1, -2, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Bool], others[Tri-state], plans[Bool], summary[Bool]
+	- [Type] Array of Numbers, null state is [-1, -2, 0, 0, 0, 0]
 	- [Description] The 6 items individually represents :one:progress of the intro section, :two:the current protocol id, :three:whether items page of current protocol is reached, :four:whether others page of current protocol is reached, :five:whether plan page is reached, :six:whether summary page is reached.
+		- @param {Number} intro progress - current step id of intro section
+		- @param {Number} protocol id - current protocol id
+		- @param {Boolean} items page - whether reached, if protocol id is set, this variable is usually set to true 
+		- @param {Boolean} others page - whether reached
+		- @param {Boolean} plans page - whether reached
+		- @param {Boolean} summary page - whether reached
 	- [Related Places] - this info is set in every pages in the linear flow of documenting. this info will be used in Client History section on Dashboard.
-		- @param{Number} intro progress - current step id of intro section
-		- @param{Number} protocol id - current protocol id
-		- @param{Boolean} items page - whether reached, if protocol id is set, this variable is usually set to true 
-		- @param{Boolean} others page - whether reached
-		- @param{Boolean} plans page - whether reached
-		- @param{Boolean} summary page - whether reached
 	- e.g.
 		- [3, 3, 1, 1, 1, 1] - currently reached summary page
 		- [3, 3, 1, 1, 1, 0] - currently reached plans page
@@ -192,16 +192,48 @@ tns plugin add nativescript-localstorage
 		- [3, -1, 0, 1, 1, 1] - currently reached ChooseProtocol page
 		- [3, -2, 0, 1, 1, 1] - currently reached step 3 page of intro section
 - **editHistory** :newspaper:
-	
+	- [Type] Array, null state is []
+	- [Description] each item in the array represents a change history. note that the initial submission is not in this history.
+		- @param {String} nurse - take the id of the nurse currently logged in
+		- @param {String} recordTime - document change time, in millitary time
+		- @param {String} reason - reason and places for changes
+	- e.g. see below
 - **intro_answers** :page_facing_up:
+	- [Type] Array, null state is []
+	- [Description] each item in the array represents a responded question in intro section.
+		- @param {Number} q_id - question id
+		- @param {Array} a - array of strings, each is an answer entry
+	- e.g. see below
 - **items_answers** :page_facing_up:
+	- [Type] Array, null state is []
+	- [Description] each item in the array represents a responded protocol.
+		- @param {Number} q_id - question id
+		- @param {Array} a - array of objects, each is an answer entry of a items-assessment question in current protocol
+			- @param {Number} q_id - question id
+			- @param {String} q_type - question type
+			- @param {Number} l_id - letter id
+			- @param {Array} a - array of strings, each is an answer entry
+	- e.g. see below
 - **others_answers** :page_facing_up:
+	- [Type] Array, null state is []
+	- [Description] each item in the array represents a responded protocol.
+		- @param {Number} q_id - question id
+		- @param {Array} a - array of objects, each is an answer entry of a additional question in current protocol
+			- @param {Number} q_id - question id
+			- @param {String} q_type - question type
+			- @param {Array} a - array of strings, each is an answer entry
+	- e.g. see below
 - **plans_answers** :page_facing_up:
+	- [Type] Array, null state is []
+	- [Description] each item in the array represents a plan entry.
+	- e.g. see below
 
 ### Example of editHistory Field with A Answer Entry of A Client in Logs 
 ```
 editHistory: [{
-
+	nurse: "777777",
+	recordTime: "20 Aug 2019 | 12:00",
+	reason: "Edited question 2 in intro section because of a spelling error"
 }]
 ```
 
