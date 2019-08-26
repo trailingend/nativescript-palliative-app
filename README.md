@@ -33,7 +33,8 @@ Device Identifier: 93ff730c6579308b561791adafec2fc96d59eec4
 ``` 
 
 ## Libraries and Plugins
-
+This app is developed with Nativescript, optimized for iPad 9.7 inches
+Important framework parameters used in this app: 
 ``` bash
 # nativescript and tns-core-modules version
 "version": "5.4.3"
@@ -71,8 +72,21 @@ tns plugin add nativescript-localstorage
 	- "memoryCheckInterval": 500,
 	- "freeMemoryRatio": 0.20
 
+## Project File Structure
+- **assets**:open_file_folder: - folder for static assets
+	- **data**:open_file_folder: - folder for local data json file
+	- **images**:open_file_folder: - folder for images
+	- **videos**:open_file_folder: - folder for tutorial videos
+- **components**:open_file_folder: - folder for vue page and component files
+- **fonts**:open_file_folder: - folder for font files
+- **scripts**:open_file_folder: - folder for global js files
+- **styles**:open_file_folder: - folder for scss files
+- **vuex**:open_file_folder: - folder for data storage
+- **app.scss**:page_with_curl: - entry for all style files
+- **main.ts**:page_with_curl: - entry for all vue and js files
+
 ## VueX Data Structure
-### General Structure of All Data Storage
+#### General Structure of All Data Storage
 - **curr_user_id** :raised_hand:
 	- [Type] string, null state is -1
 	- [Description] - ID of the nurse currently logged in to the app
@@ -114,7 +128,7 @@ tns plugin add nativescript-localstorage
 	- [Description] - data for plans section
 	- [Related Places] - it will be loaded from local data json file or online data json
 
-### Detailed Structure of Users Array
+#### Detailed Structure of Users Array
 - **id** :id:
 	- [Type] String
 	- [Description] - employee ID of nurse user
@@ -134,7 +148,7 @@ tns plugin add nativescript-localstorage
 	- [Type] String
 	- [Description] - color code associated with this nurse user
 
-### Detailed Structure of Logs Array
+#### Detailed Structure of Logs Array
 - **id** :id:
 	- [Type] String, required field
 	- [Description] - unique ID of client used by this app only, unique string based on creation time
@@ -228,7 +242,7 @@ tns plugin add nativescript-localstorage
 	- [Description] each item in the array represents a plan entry.
 	- e.g. see below
 
-### Example of editHistory Field with A Answer Entry of A Client in Logs 
+#### Example of editHistory Field with A Answer Entry of A Client in Logs 
 ```
 editHistory: [{
 	nurse: "777777",
@@ -237,7 +251,7 @@ editHistory: [{
 }]
 ```
 
-### Example of intro_answers Field with A Answer Entry of A Client in Logs 
+#### Example of intro_answers Field with A Answer Entry of A Client in Logs 
 ```
 intro_answers: [{
 	q_id: 4,
@@ -245,7 +259,7 @@ intro_answers: [{
 }]
 ```
 
-### Example of item_answers Field of A Protocol with A Answer Entry of A Client in Logs 
+#### Example of item_answers Field of A Protocol with A Answer Entry of A Client in Logs 
 ```
 items_answers: [{
 	"id": 3,
@@ -261,7 +275,7 @@ items_answers: [{
 }]
 ```
 
-### Example of others_answers Field of A Protocol with A Answer Entry of A Client in Logs 
+#### Example of others_answers Field of A Protocol with A Answer Entry of A Client in Logs 
 ```
 others_answers: [{
 	"id": 3,
@@ -275,7 +289,7 @@ others_answers: [{
 }]
 ```
 
-### Example of plans_answers Field with A Answer Entry of A Client in Logs 
+#### Example of plans_answers Field with A Answer Entry of A Client in Logs 
 ```
 plans_answers: [
 	"Reach out for medical support (e.g. MRP)",
@@ -283,3 +297,67 @@ plans_answers: [
 	""
 ]
 ```
+
+## Vue Page / Components Structure
+#### answers :open_file_folder:
+	- [Description] - folder for components of different types of answers
+	- [Members] - all answer typesare shared across sections
+		- **BooleanSelect.vue**:page_with_curl: - component for boolean answers
+		- **FreeText.vue**:page_with_curl: - component for free text answers
+		- **MultiSelect.vue**:page_with_curl: - component for multiple choice answers
+		- **ScaleSelect.vue**:page_with_curl: - component for scale selector answers
+		- **SingleSelect.vue**:page_with_curl: - component for single choice answers
+#### general :open_file_folder:
+	- [Description] - folder for components and pages and components that is used across board
+	- [Members] - include pages and components
+		- **parts**:open_file_folder: - folder for sub-components
+			- **ClientBlock.vue**:page_with_curl: - component for the sticky yellow bar on top of any client page
+			- **NavBar.vue**:page_with_curl: - component for the sticky navigation bar on top of any page
+		- **Catalogue.vue**:page_with_curl: - pop-up frame/ page for choosing protocols, can be opened from ClientBlock
+		- **EditClient.vue**:page_with_curl: - pop-up frame/ page for editing client info, can be opened from ClientBlock and Summary
+		- **Notes.vue**:page_with_curl: - semi-page popup for additional nurse notes
+#### home :open_file_folder: - folder for global js files
+	- [Description] - folder for components and pages and components that is used in home/ dashboard screen
+	- [Members] - include pages and components
+		- **parts**:open_file_folder: - folder for sub-components
+			- **Logs.vue**:page_with_curl: - component for listview of client history, used in Dashboard
+			- **UserBlock.vue**:page_with_curl: - component for the user info at the top right corner of the Dashboard
+		- **AddUser.vue**:page_with_curl: - pop-up page for adding a new user, has to be opened from SelectUser frame
+		- **Dashboard.vue**:page_with_curl: - page for home screen/ dashboard
+		- **LoginUser.vue**:page_with_curl: - pop-up page for logging in an existing user, has to be opened from SelectUser frame
+		- **Options.vue**:page_with_curl: - pop-up frame/ page for option/ setting pages, opened from Dashboard
+		- **SelectUser.vue**:page_with_curl: - pop-up frame/ page for user management, can add, login, or delete a user here
+#### intro :open_file_folder: - folder for scss files
+	- [Description] - folder for components and pages and components that is used in introduction section
+	- [Members] - include pages and components
+		- **parts**:open_file_folder: - folder for sub-components
+			- **StepQuestion.vue**:page_with_curl: - component to determine which answer component to display for introduction questions
+		- **Introduction.vue**:page_with_curl: - page to show introduction questions
+		- **NewClient.vue**:page_with_curl: - page to add a new client
+#### protocols :open_file_folder: - folder for data storage
+	- **parts**:open_file_folder: - folder for sub-components
+		- **AssessItem.vue**:page_with_curl: - component to determine which answer component to display for items-assessment questions
+		- **OthersQuestion.vue**:page_with_curl: - component to determine which answer component to display for additional questions
+		- **ResourcesButton.vue**:page_with_curl: - component to open Resources pop-up, used in all protocol related pages
+	- **AssessItems.vue**:page_with_curl: - page to show items-assessment questions related with a protocol
+	- **AssessOthers.vue**:page_with_curl: - page to show additional questions related with a protocol
+	- **ChooseProtocol.vue**:page_with_curl: - page to choose a protocol
+	- **Plans.vue**:page_with_curl: - page to show plans to a client
+	- **Resources.vue**:page_with_curl: - pop-up frame/ page fto show related resources, protocols and recommendation of a protocol
+#### summary :open_file_folder: - folder for scss files
+	- **parts**:open_file_folder: - folder for sub-components
+		- **CallSummary.vue**:page_with_curl: - component to show summary of the call information
+		- **InfoSummary.vue**:page_with_curl: - component to show summary of client information
+		- **IntroSummary.vue**:page_with_curl: - component to show summary of introduction section
+		- **NoteSummary.vue**:page_with_curl: - component to show summary of global additional notes
+		- **PlanSummary.vue**:page_with_curl: - component to show summary of plans
+		- **ProtocolSummary.vue**:page_with_curl: - component to show summary of one protocol
+		- **QuestionSummary.vue**:page_with_curl: - component to show summary of one question and its answers
+		- **SubmitButton.vue**:page_with_curl: - component to generate PDF, and to send email
+	- **EditCallInfo.vue**:page_with_curl: - popup page/ frame to edit call information, opened from Summary
+	- **Reason.vue**:page_with_curl: - semi-page popup to record pdf modification history
+	- **Summary.vue**:page_with_curl: - page to show summary of a client
+#### tutorials :open_file_folder: - folder for data storage
+	- **FirstTime.vue**:page_with_curl: - pop-up page to show tutorial welcome screen
+	- **Journey.vue**:page_with_curl: - pop-up page to show tutorials
+	- **Tutorial.vue**:page_with_curl: - pop-up frame, to either pull from Journey or FirstTime
