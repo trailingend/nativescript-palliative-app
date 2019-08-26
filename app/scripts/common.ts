@@ -1,5 +1,9 @@
 import { alert, confirm, prompt, login, action, inputType }  from "tns-core-modules/ui/dialogs";
 
+/**
+ *  Variable to hold landscape grid settings of Dashboard page
+ *  Description - used in GridLayout children
+ * **/
 export const homeGridChildLandscape = {
     logoSec: { row: "0", col: "0" },
     userSec: { row: "0", col: "2" },
@@ -9,6 +13,10 @@ export const homeGridChildLandscape = {
     btnSec: { row: "3", col: "0", colSpan: "3" },
 };
 
+/**
+ *  Variable to hold portrait grid settings of Dashboard page
+ *  Description - used in GridLayout children
+ * **/
 export const homeGridChildPortrait = {
     logoSec: { row: "0", col: "0" },
     userSec: { row: "0", col: "2" },
@@ -18,6 +26,10 @@ export const homeGridChildPortrait = {
     btnSec: { row: "3", col: "0", colSpan: "3" },
 };
 
+/**
+ *  Variable to hold landscape grid settings of NewClient page
+ *  Description - used in GridLayout children
+ * **/
 export const newGridChildLandscape = {
     q1: { row: "0", col: "0", },
     a1: { row: "0", col: "1", },
@@ -33,6 +45,10 @@ export const newGridChildLandscape = {
     e4: { row: "7", col: "0", colSpan: "2"},
 };
 
+/**
+ *  Variable to hold portrait grid settings of NewClient page
+ *  Description - used in GridLayout children
+ * **/
 export const newGridChildPortrait = {
     q1: { row: "0", col: "0", },
     a1: { row: "1", col: "0", },
@@ -48,6 +64,10 @@ export const newGridChildPortrait = {
     e4: { row: "11", col: "0", colSpan: "1"},
 };
 
+/**
+ *  Variable to hold landscape grid settings of EditClient
+ *  Description - used in GridLayout children
+ * **/
 export const editGridChildLandscape = {
     q1: { row: "0", col: "0", },
     a1: { row: "0", col: "1", },
@@ -66,6 +86,10 @@ export const editGridChildLandscape = {
     e5: { row: "9", col: "0", colSpan: "2"},
 };
 
+/**
+ *  Variable to hold portrait grid settings of EditClient
+ *  Description - used in GridLayout children
+ * **/
 export const editGridChildPortrait = {
     q1: { row: "0", col: "0", },
     a1: { row: "1", col: "0", },
@@ -84,6 +108,10 @@ export const editGridChildPortrait = {
     e5: { row: "14", col: "0", colSpan: "1"},
 };
 
+/**
+ *  Variable to hold possible colors for nurse user avatar
+ *  Description - used in AddUser popup and EditCallInfo popup
+ * **/
 export const userColors = ['#7ca8ea', '#a57ed7', '#dc9078', '#3956a0', '#007c7c'];
 
 export const dialogConsent = () => {
@@ -96,7 +124,7 @@ export const dialogConsent = () => {
 
 /**
  *  Function to convert month index to month string
- *  @param {Number} - index of month, e.g. Janurary is 0 
+ *  @param {Number} month_unformatted - index of month, e.g. Janurary is 0 
  *  @return {String} - name of month, e.g. Jan
  * **/
 export const monthIndexToString = (month_unformatted) => {
@@ -108,7 +136,7 @@ export const monthIndexToString = (month_unformatted) => {
 
 /**
  *  Function to convert month string to month index
- *  @param {String} - name of month, e.g. Jan
+ *  @param {String} month_unformatted - name of month, e.g. Jan
  *  @return {Number} - index of month, e.g. Janurary is 0
  * **/
 export const monthStringToNumber = (month_unformatted) => {
@@ -117,12 +145,20 @@ export const monthStringToNumber = (month_unformatted) => {
     return index;
 };
 
+/**
+ *  Function to get numbers of days in every month
+ *  @param {Number} year - year in XXXX format
+ * **/
 export const numDaysInMon = (year) => {
     const num_feb = (year % 4 === 0) ? 30 : 29;
     const month_day_nums = [31, num_feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     return month_day_nums;
 };
 
+/**
+ *  Function to format phone number to XXX-XXX-XXXX 
+ *  @param {Number} phone_unformatted - phone number in XXXXXXXXXX
+ * **/
 export const formatPhoneNum = (phone_unformatted) => {
     let formatted_input = phone_unformatted.replace(/\D/g, '');
     const input = phone_unformatted;
@@ -137,6 +173,10 @@ export const formatPhoneNum = (phone_unformatted) => {
     return formatted_input;
 };
 
+/**
+ *  Function to format phone number to XXX-XXX-XXXX 
+ *  @param {Number} - phone number in XXXXXXXXXX
+ * **/
 export const formatPhoneForDisplay = (input) => {
     return `${input.substring(0, 3)}-${input.substring(3, 6)}-${input.substring(6, input.length)}`;
 };
@@ -154,16 +194,23 @@ export const formatUsernameForDisplay = (input) => {
     }
 };
 
+/**
+ *  Function to format time to millitary time
+ *  @param {Number} - phone number in XX:XX
+ * **/
 export const formatShiftTime = (input) => {
     const millitary = input.toString().split(" ");
     const time = millitary[4];
     const hours = time.split(':')[0];
     const minutes = time.split(':')[1];
-    const suffix = hours >= 12 ? "PM":"AM"; 
-    // return `${((hours + 11) % 12 + 1)}:${minutes}${suffix}`; 
     return `${hours}:${minutes}`;
 };
 
+/**
+ *  Function to animate titles
+ *  @param {Object} elem - elem to animate
+ *  @param {String} new_title -  new title text to add
+ * **/
 export const animateSubTitle = function(elem, new_title) {
     elem.animate({
         translate: { x: 0, y: -5 },
