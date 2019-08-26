@@ -517,7 +517,7 @@
                             cc: ['zhou.jiayi.1992@gmail.com'],
                             bcc: [],
                             attachments: [{
-                                fileName: `${client_info_for_pdf}_PAT${submit_time_for_pdf}.pdf`,
+                                fileName: `${client_info_for_pdf}_PAT_${submit_time_for_pdf}.pdf`,
                                 path: doc_64,
                                 mimeType: 'application/pdf'
                             }]
