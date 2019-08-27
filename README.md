@@ -1,7 +1,6 @@
-# PAT
+# ☎️ PAT 🏥
 
-> A native application built with NativeScript-Vue for VCH Palliative
-> Credit to VCH Learning Technologies
+The Palliative Assessment Tool (PAT) is an iOS application that provides on call palliative nurses with a structured documentation system as they procees with a call.  Once the call is finished, a pdf is generated that is sent via email and uploaded to PARIS.
 
 ## Usage
 
@@ -35,7 +34,8 @@ tns prepare ios --provision
 ## Libraries and Plugins
 > This app is developed with Nativescript, optimized for iPad 9.7 inches
 
-### Important framework parameters used in this app: 
+### Nativescript Dependency Versions
+This project has very specific dependency requirements in order to compile.  Further work would be needed to update from these speciifc package versions.
 ``` json
 # nativescript and tns-core-modules version
 "version": "5.4.3"
@@ -50,7 +50,7 @@ tns prepare ios --provision
 "version": "0.25.0-next-2019-06-03-171607-01"
 ```
 
-### List of plugins used in this app: 
+### Dependencies
 - [jsPDF](https://github.com/MrRio/jsPDF) and [jsPDF-AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable)
 ``` bash
 npm install jspdf --save
