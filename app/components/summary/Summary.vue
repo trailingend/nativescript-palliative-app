@@ -50,6 +50,21 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Page to display summary of current client
+     *  [Description] - used in Summary page
+     *  @param {Object} client - local cache of current client document
+     *  @param {String} end_time - the call end time in format of XX:XX
+     *  @param {String} nurse_id - the if of intake nurse
+     *  @param {String} formatted_phone - the formatted call-back number
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Boolean} can_check - the variable recprds whether can perform error checking
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import SubmitButton from './parts/SubmitButton.vue';

@@ -21,6 +21,16 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to display introduction section in Summary
+     *  [Description] - used in Summary page
+     *  @prop {String} log_id - the id of the current dociment
+     * 
+     *  =============================================================
+     * **/
+
     import QuestionSummary from './QuestionSummary.vue';
     import Introduction from '../../intro/Introduction.vue';
     import { mapGetters } from 'vuex';
@@ -46,6 +56,10 @@
 			]),
         },
         methods: {
+            /**
+             *  Function to go and edit introduction section based on the step id of current client
+             *  [Description] - from_summary flag on for Introduction oage
+             * **/
             onEditTap(curr_idx) {
                 let steps_ids = [];
                 this.intro.forEach(elem => { steps_ids.push(elem.id); });

@@ -50,6 +50,21 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to display caller info section in Summary
+     *  [Description] - used in Summary page
+     *  @param {Object} client - local cache of current client document
+     *  @param {String} end_time - the call end time in format of XX:XX
+     *  @param {String} nurse_id - the if of intake nurse
+     *  @param {String} formatted_phone - the formatted call-back number
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Boolean} can_check - the variable recprds whether can perform error checking
+     * 
+     *  =============================================================
+     * **/
+
     import EditCallInfo from '../EditCallInfo.vue';
 
     import { mapGetters } from 'vuex';
@@ -66,7 +81,7 @@
             }
         },
         created() {
-            this.prepareClientInfo();
+            this.prepareCallInfo();
         },
         components: {
         },
@@ -87,7 +102,10 @@
 			]),
 		},
         methods: {
-            prepareClientInfo() {
+            /**
+             *  Function to retrieve call info from data storage
+             * **/
+            prepareCallInfo() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
                     this.client = curr_log;
@@ -97,6 +115,10 @@
                     this.nurse_name = curr_log.nurseFullname;
                 }
             },
+            /**
+             *  Function to go and edit call info section 
+             *  @event checkSwicth - ask parent to re-cehck status of the switch
+             * **/
             onEditTap() {
                 this.$showModal(EditCallInfo, { 
                     fullscreen: true,
