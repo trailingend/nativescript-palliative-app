@@ -3,6 +3,18 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to generate PDF and to send email
+     *  [Description] - used in Summary page
+     *  @param {String} submit_text - the text appears on the submit button; will change if status of document change
+     *  @param {Boolean} is_resubmit -  the variable records the current status of document
+     *  @props {String} log_id - the id of the current dociment
+     *  @props {Boolean} is_reviewed - the variable records whether this document can be submitted or not
+     * 
+     *  =============================================================
+     * **/
     import Dashboard from '../../home/Dashboard.vue';
     import Reason from '../Reason.vue';
 
@@ -51,11 +63,19 @@
                 'changeChartStatus',
                 'changeClientHistory'
             ]),
+            /**
+             *  Function to prepare the two component-level parameters
+             * **/
             prepareText() {
                 const status = this.logs.find(elem => { return elem.id === this.log_id; }).status;
                 this.submit_text = status ? 'Re-submit' : 'Submit';
                 this.is_resubmit = status;
             },
+            /**
+             *  Function to capture the current date and time
+             *  [Description] - in format of XX:XX | DD MMM YYYY
+             *  @return {String} dateTime - the current date and time
+             * **/
             recordTime() {
                 const today = new Date();
                 const today_arr = today.toString().split(' ');
@@ -64,6 +84,11 @@
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
+            /**
+             *  Function to capture the current date and time for generating PDF name
+             *  [Description] - in format of YYYY-MM-DD_XXXX
+             *  @return {String} dateTime - the current date and time
+             * **/
             recordTimeForPDFName() {
                 const today = new Date();
                 const month = ((today.getMonth() + 1) < 10) ? ('0' + (today.getMonth() + 1)) : ('' + (today.getMonth() + 1));
@@ -74,11 +99,21 @@
                 console.log("for pdf - " + dateTime);
                 return dateTime;
             },
+            /**
+             *  Function to capture the first and last name for generating PDF name
+             *  [Description] - in format of firstname_lastname
+             *  @return {String} full_name - the full name of client
+             * **/
             recordClientForPDFName(curr_log) {
                 const full_name = curr_log.client.split(' ').join('_');
                 console.log(curr_log.client)
                 return full_name;
             },
+            /**
+             *  Function to capture the current date and time for generating email name
+             *  [Description] - in format of YYYY.MM.DD XX:XX
+             *  @return {String} dateTime - the current date and time
+             * **/
             recordTimeForEmailName() {
                 const today = new Date();
                 const month = ((today.getMonth() + 1) < 10) ? ('0' + (today.getMonth() + 1)) : ('' + (today.getMonth() + 1));
@@ -89,15 +124,26 @@
                 console.log("for email - " + dateTime);
                 return dateTime;
             },
+            /**
+             *  Function to capture full name of client
+             *  [Description] - in format of firstname lastname
+             *  @return {String} full_name - first and last name of client
+             * **/
             recordClientForEmailName(curr_log) {
                 const full_name = curr_log.client;
                 return full_name;
             },
+            /**
+             *  Function to generate PDF and send email when button is clicked
+             *  [Description] - if the status of the document is already submitted, open modal to ask for reason of modification before submit
+             *  [Related] - will call generate PDF is conditions met
+             *  @event onClick - let the parent page Summary to know that the buttom is clicked
+             * **/
             onSubmitTap() {
                 this.$emit("onClick");
 
-                if (this.is_reviewed) {
-                    if (this.is_resubmit) {
+                if (this.is_reviewed) { // only proceed if the document is allowed to send
+                    if (this.is_resubmit) { // if reason of modification needed
                         this.$showModal(Reason, {
                             fullscreen: false,
                             ios: {
@@ -106,7 +152,7 @@
                             props: {
                                 log_id: this.log_id,
                             }
-                        }).then((resp) => {
+                        }).then((resp) => { // after reasons being enterred
                             if (resp) {
                                 confirm({
                                     title: "Send Document",
@@ -120,7 +166,7 @@
                                 });
                             } 
                         });
-                    } else {
+                    } else { // if first time trying to send PDF
                         confirm({
                             title: "Send Document",
                             message: "This summary will be sent to your email as a PDF for you to upload to PARIS.",
@@ -132,14 +178,22 @@
                             } 
                         });
                     }
-                } else {
+                } else { // do not send the document if not allowed
                     console.log("=== Submit === document not reviewed");
                 }
             },
+            /**
+             *  Function to capture the current date and time for generating PDF name
+             *  [Description] - in format of YYYY-MM-DD_XXXX
+             *  @return {String} dateTime - the current date and time
+             * **/
             onEmailSent() {
                 this.changeChartStatus(this.log_id);
                 this.backToHome();
             },
+            /**
+             *  Function to close the current page and return to Dashboard
+             * **/
             backToHome() {
                 this.$navigateTo(Dashboard, {
                     animated: true,
@@ -151,6 +205,13 @@
                     }
                 });
             },
+            /**
+             *  Function to prepare caller info table for PDF
+             *  [Description] - caller info is a two columns table
+             *      - a column - includes call starts and call ends time
+             *      - b column - includes intake date, nurse id and nurse name
+             *  @return {Array} info_body - the array with content to feed into the call info table
+             * **/
             prepareInfo(curr_log) {
                 let info_body = [];
                 const nurse_id = curr_log.nurseID;
@@ -164,6 +225,13 @@
                 });
                 return info_body;
             },
+            /**
+             *  Function to prepare introduction section table for PDF
+             *  [Description] - introduction table has two columns
+             *      - q column - question column, one question per row
+             *      - a column - answer column, group answers for one question in one row
+             *  @return {Array} intro_body - the array with content to feed into the introduction table
+             * **/
             prepareIntro(curr_log) {
                 let intro_body = [];
                 this.intro.forEach(step => {
@@ -178,6 +246,11 @@
                 });
                 return intro_body;
             },
+            /**
+             *  Function to prepare names of protocols for PDF
+             *  [Description] - display names of all selected protocols as a line of text
+             *  @return {String} titles - names of selected protocols
+             * **/
             prepareProtocolsSummary(curr_log) {
                 let protocol_titles = [];
                 this.protocols.forEach(protocol => {
@@ -200,6 +273,14 @@
                 titles = (titles === '') ? 'N/A' : titles;
                 return titles;
             },
+            /**
+             *  Function to prepare protocols table for PDF
+             *  [Description] - protocols table has three columns. Assessment letters with no question attached will be ignored
+             *      - t column - assessment letter or others column, questions with the same tag will be group into one cell in this column
+             *      - q column - question column, one question per row
+             *      - a column - answer column, group answers for one question in one row
+             *  @return {Array} proto_bodies - the array with content to feed into the protocols table
+             * **/
             prepareProtocols(curr_log) {
                 let protocol_bodies = [];
                 const other_title = 'Other';
@@ -275,6 +356,12 @@
                 }); 
                 return protocol_bodies;
             },
+            /**
+             *  Function to prepare plans table for PDF
+             *  [Description] - protocols table has one columns
+             *      - a column - plan column, group all plans
+             *  @return {Array} plans_body - the array with content to feed into the plans table
+             * **/
             preparePlans(curr_log) {
                 let plans_body = [];
                 if (curr_log.plans_answers.join('').trim() != "") {
@@ -292,6 +379,12 @@
                 }
                 return plans_body;
             },
+            /**
+             *  Function to prepare notes table for PDF
+             *  [Description] - protocols table has one columns
+             *      - a column - note column, group all notes
+             *  @return {Array} notes_body - the array with content to feed into the notes table
+             * **/
             prepareNotes(curr_log) {
                 let notes_body = [];
                 notes_body.push({
@@ -299,6 +392,14 @@
                 });
                 return notes_body;
             },
+            /**
+             *  Function to prepare edit history table for PDF
+             *  [Description] - history table has three columns
+             *      - n column - nurse column, name pr id of the nurse who made the edits
+             *      - t column - time column, edit timestap
+             *      - r column - reason column, group all reasons into string
+             *  @return {Array} hist_body - the array with content to feed into the history table
+             * **/
             prepareHistory(curr_log) {
                 let hist_body = [];
                 curr_log.editHistory.forEach((hist) => {
@@ -311,8 +412,11 @@
                 });
                 return hist_body;
             },
+            /**
+             *  Function to generate PDF and send email
+             * **/
             generatePDF() {
-                console.log("FLAG1");
+                // set up variables to import jsPDF library
                 global['window'] = {
                     'document': {
                         'createElementNS': () => { return {} }
@@ -330,6 +434,8 @@
                     return base64.decode(bytes);
                 };
                 global["utf8"] = {};
+
+                // require jsPDF library, if failed, try again util success
                 let jsPDF;
                 let lib_loaded = false;
                 while(!lib_loaded) {
@@ -341,9 +447,11 @@
                         lib_loaded = false;
                     }
                 }
-                
+
+                // import jsPDF auto-table library
                 require("jspdf-autotable");
                 
+                // prepare basic settings for generating texts and tables
                 var doc = new jsPDF();
                 const end_of_line = 196.5;
                 const start_of_text = 15;
@@ -351,6 +459,8 @@
                 const table_font_size = 9;
                 const cell_padding = 3;
                 
+                // retrieve necessary data from data storage
+                // record final documentation/ modification end time
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 const info_body = this.prepareInfo(curr_log);
                 const intro_body = this.prepareIntro(curr_log);
@@ -365,18 +475,22 @@
                 const client_info_for_email = this.recordClientForEmailName(curr_log);
                 const submit_time_for_email = this.recordTimeForEmailName();
                 
+                // generating the title
                 doc.setFontSize(7);
                 doc.setFontType('normal')
                 doc.text("PALLIATIVE ASSESSMENT TOOL", 85, 18);
 
+                // drawing separator
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
                 doc.line(start_of_text, 20, end_of_line, 20);
 
+                // generating section title
                 doc.setFontSize(title_font_size);
                 doc.setFontType('bold');
                 doc.text("Call Information", start_of_text, 20 + 6);
           
+                // generating call info table
                 doc.autoTable({
                     startY: 20 + 10,
                     theme: 'grid',
@@ -387,6 +501,8 @@
                     styles: {minCellHeight: 18, fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
+                // drawing separator
+                // generating protocol names preview line
                 let finalY = doc.previousAutoTable.finalY;
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
@@ -398,6 +514,7 @@
                 doc.setFontType('normal');
                 doc.text(protocol_titles, start_of_text + 37, finalY + 6);
                 
+                // generating introduction table
                 const intro_padding = 6 + 4 * Math.max(1, Math.ceil(protocol_bodies.length / 3));
                 finalY = doc.previousAutoTable.finalY + intro_padding;
                 const finalYInfo = doc.previousAutoTable.finalY + intro_padding;
@@ -410,10 +527,14 @@
                                    a: {cellWidth: 'auto', minCellWidth: 50}},
                     styles: {minCellHeight: 10, fontSize: table_font_size, cellPadding: cell_padding},
                 });
+
+                // drawing separator
+                // drawing protocol tables
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
                 doc.line(start_of_text, finalYInfo, end_of_line, finalYInfo);
                 protocol_bodies.forEach(protocol_body => {
+                    // generating current protocol title
                     finalY = doc.previousAutoTable.finalY;
                     doc.setLineWidth(0.25);
                     doc.setDrawColor(0, 0, 0);
@@ -422,6 +543,7 @@
                     doc.setFontType('bold')
                     doc.text(protocol_body.name, start_of_text, finalY + 6);
 
+                    // generating current protocol table
                     doc.autoTable({
                         startY: finalY + 10,
                         theme: 'grid',
@@ -434,7 +556,8 @@
                     });
                 });
                 
-
+                // drawing separator
+                // generting plans title
                 finalY = doc.previousAutoTable.finalY;
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
@@ -444,6 +567,7 @@
                 doc.setDrawColor(200, 200, 200);
                 doc.line(start_of_text, finalY + 10, end_of_line, finalY + 10);
 
+                // generating plans table
                 doc.autoTable({
                     startY: finalY + 10,
                     theme: 'plain',
@@ -453,12 +577,15 @@
                     styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
+                // drawing separator
+                // generating notes title
                 finalY = doc.previousAutoTable.finalY;
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
                 doc.line(start_of_text, finalY, end_of_line, finalY);
                 doc.text("Additional Notes", start_of_text, finalY + 6);
 
+                // generating notes table
                 doc.autoTable({
                     startY: finalY + 10,
                     theme: 'plain',
@@ -468,13 +595,16 @@
                     styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
 
-                if (hist_body.length > 0) {
+                if (hist_body.length > 0) { // in edit history exists
+                    // drawing separator
+                    // generating history title
                     finalY = doc.previousAutoTable.finalY;
                     doc.setLineWidth(0.25);
                     doc.setDrawColor(0, 0, 0);
                     doc.line(start_of_text, finalY, end_of_line, finalY);
                     doc.text("Edit History", start_of_text, finalY + 6);
 
+                    // generating edit history table
                     doc.autoTable({
                         startY: finalY + 10,
                         theme: 'grid',
@@ -487,11 +617,13 @@
                     });
                 }
                 
+                // generating footer
                 finalY = doc.previousAutoTable.finalY;
                 doc.setFontSize(7);
                 doc.setFontType('normal')
                 doc.text(`Phone assessment -Generated by Palliative Assessment Tool (PAT) at ${submit_time}`, start_of_text, finalY + 20);
 
+                // marking all left and right border transparent
                 let pageInfo = doc.internal.getCurrentPageInfo();
                 for (var i = 1; i <= pageInfo.pageNumber; i++) {
                     doc.setPage(i);
@@ -506,10 +638,13 @@
                     doc.line(197, 0, 197, 300);
                 }
 
+                // modifying the PDF strings to be an email attachement
                 var doc_64 = "base64://" + doc.output("datauristring").split(",")[1];
 
+                // sending email
                 email.available().then(avaialble => {
                     if (avaialble) {
+                        // composing email
                         email.compose({
                             subject: `[PAT] ${client_info_for_email} - ${submit_time_for_email}`,
                             body: "This is a <strong>fake</strong> email template for a palliative document",
@@ -522,6 +657,8 @@
                                 mimeType: 'application/pdf'
                             }]
                         }).then(() => {
+                            // manually check if email sent, then set the status of the document
+                            // go back home if email sent
                             confirm({
                                 title: "Confirm Email Sent",
                                 message: "Confirm that the email is sent?",
@@ -535,6 +672,7 @@
                                 }
                             });
                         }, (error) => {
+                            // mysterious error happens
                             alert({
                                 title: "Fail to Email",
                                 message: error,
@@ -542,18 +680,19 @@
                             });
                         });
                     } else {
+                        // if email client is not available
                         alert({
                             title: "Email Client not Available",
                             okButtonText: "OK"
                         });
                     }
                 }).catch(error => {
+                    // if other email client error is happending
                     alert({
                         title: "Email Client not Found",
                         message: error,
                         okButtonText: "OK"
                     });
-                    
                 });
             }
         }
