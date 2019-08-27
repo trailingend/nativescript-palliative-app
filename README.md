@@ -51,8 +51,7 @@ tns prepare ios --provision
 ```
 
 ### List of plugins used in this app: 
-[jsPDF](https://github.com/MrRio/jsPDF)
-[jsPDF-AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable)
+- [jsPDF](https://github.com/MrRio/jsPDF) and [jsPDF-AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable)
 ``` bash
 npm install jspdf --save
 npm install @types/jspdf --save
@@ -61,22 +60,22 @@ npm install utf8 --save
 npm install jspdf-autotable
 ```
 
-[Masked Text Field](https://www.npmjs.com/package/nativescript-masked-text-field)
+- [Masked Text Field](https://www.npmjs.com/package/nativescript-masked-text-field)
 `npm install nativescript-masked-text-field`
 
-[IQ Keyboard Manager](https://www.npmjs.com/package/nativescript-iqkeyboardmanager)
+- [IQ Keyboard Manager](https://www.npmjs.com/package/nativescript-iqkeyboardmanager)
 `npm install nativescript-iqkeyboardmanager`
 
-[NativeScript Videoplayer](https://github.com/nstudio/nativescript-videoplayer)
+- [NativeScript Videoplayer](https://github.com/nstudio/nativescript-videoplayer)
 `npm install nativescript-videoplayer`
 
-[RadListView](https://docs.nativescript.org/ui/professional-ui-components/ListView/overview)
+- [RadListView](https://docs.nativescript.org/ui/professional-ui-components/ListView/overview)
 `tns plugin add nativescript-ui-listview`
 
-[NativeScript Email](https://www.npmjs.com/package/nativescript-email)
+- [NativeScript Email](https://www.npmjs.com/package/nativescript-email)
 `tns plugin add nativescript-email`
 
-[NativeScript LocalStorage](https://github.com/NathanaelA/nativescript-localstorage)
+- [NativeScript LocalStorage](https://github.com/NathanaelA/nativescript-localstorage)
 `tns plugin add nativescript-localstorage`
 
 ## Memory Management
@@ -102,7 +101,7 @@ npm install jspdf-autotable
 
 ## VueX Data Structure
 ### General Structure of All Data Storage
-- **curr_user_id** :raised_hand:
+- **curr_user_id** :id:
 	- [Type] string, null state is -1
 	- [Description] - ID of the nurse currently logged in to the app
 	- [Related Places] - it will be changed mostly in Login/ AddUser/ Options page
@@ -313,7 +312,7 @@ plans_answers: [
 ]
 ```
 
-## Vue Page / Components Structure
+## Vue Pages / Components Structure
 ### answers:open_file_folder:
 - [Description] - folder for components of different types of answers
 - [Members] - all answer typesare shared across sections
