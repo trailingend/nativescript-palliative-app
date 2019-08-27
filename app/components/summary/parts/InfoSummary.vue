@@ -48,6 +48,20 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to display client info section in Summary
+     *  [Description] - used in Summary page
+     *  @param {client} - local cache of current client document
+     *  @param {String} nurse_name - the name of the intake nurse
+     *  @param {String} formatted_phone - the formatted call-back number
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Boolean} can_check - the variable recprds whether can perform error checking
+     * 
+     *  =============================================================
+     * **/
+
     import EditClient from '../../general/EditClient.vue';
 
     import { mapGetters } from 'vuex';
@@ -83,6 +97,9 @@
 			]),
 		},
         methods: {
+            /**
+             *  Function to retrieve client info from data storage
+             * **/
             prepareClientInfo() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
@@ -92,10 +109,18 @@
                     this.nurse_name = (curr_user) ? curr_user.name : 'Unknown';
                 }
             },
+            /**
+             *  Function to parse caller name
+             *  @return {String} caller - name of caller
+             * **/
             getCallerName(client) {
                 const caller = client.caller;
                 return (caller != '') ? caller : 'Anonymous';
             },
+            /**
+             *  Function to go and edit client info section 
+             *  @event checkSwicth - ask parent to re-cehck status of the switch
+             * **/
             onEditTap() {
                 this.$showModal(EditClient, { 
                     fullscreen: true,

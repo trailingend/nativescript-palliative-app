@@ -17,6 +17,17 @@
 </template>
 
 <script lang="ts">    
+    /**
+     *  =============================================================
+     * 
+     *  Component to display plans selected in Summary
+     *  [Description] - used in Summary page
+     *  @param {Array} plan_answers - list of plans selected
+     *  @prop {String} log_id - the id of the current dociment
+     * 
+     *  =============================================================
+     * **/
+
     import Plans from '../../protocols/Plans.vue';
     
     import { mapGetters } from 'vuex';
@@ -44,9 +55,16 @@
 			]),
 		},
         methods: {
+            /**
+             *  Function to get saved plans for current client
+             * **/
             prepareSummary() {
                 this.plans_answers = this.logs.find(elem => { return elem.id === this.log_id; }).plans_answers;
             },
+            /**
+             *  Function to go and edit Plans page of current client
+             *  [Description] - from_summary flag on for Plans oage
+             * **/
             onPlansEditTap() {
                 this.$navigateTo(Plans, {
                     animated: true,
