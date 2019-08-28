@@ -23,8 +23,9 @@
                 </v-template>
 
                 <v-template name="itemswipe">
-                    <GridLayout class="swipe-ctnr" columns="*, auto">
-                        <Button col="1" id="delete-view" class="delete-btn" text="DELETE" @tap="onDeleteTap"></Button>
+                    <GridLayout class="swipe-ctnr" columns="*, auto, auto">
+                        <Button col="1" id="complete-view" class="complete-btn" text="COMPLETE" @tap="onCompleteTap"></Button>
+                        <Button col="2" id="delete-view" class="delete-btn" text="DELETE" @tap="onDeleteTap"></Button>
                     </GridLayout>
                 </v-template>
 
@@ -171,7 +172,9 @@
                     }
                 });
             },
-
+            onCompleteTap(args) {
+                console.log('')
+            },
             onSwipeStarted ({ data, object }) {
                 // this.$refs.logListView.notifySwipeToExecuteFinished();
                 if (! this.isSwiping) {
@@ -179,9 +182,10 @@
                     this.isSwiping = true;
                     const swipeLimits = data.swipeLimits;
                     const swipeView = object;
-                    const rightItem = swipeView.getViewById('delete-view');
+                    const rightItem2 = swipeView.getViewById('delete-view');
+                    const rightItem = swipeView.getViewById('complete-view');
                     swipeLimits.left = 0;
-                    swipeLimits.right = rightItem.getMeasuredWidth();
+                    swipeLimits.right = rightItem.getMeasuredWidth() + rightItem2.getMeasuredWidth();
                     swipeLimits.top = 0;
                     swipeLimits.bottom = 0;
                     swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
