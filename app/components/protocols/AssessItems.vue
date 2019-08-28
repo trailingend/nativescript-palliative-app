@@ -80,6 +80,41 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Modal to allow user to enter or to modify call infomation
+     *  [Description] - called from Summary page
+     *  @param {String} p_title - name of current protocol
+     *  @param {String} l_title - name of current assessment letter section that reached the top of the page
+     *  @param {String} next_text - text displayed on next button, either 'Next' pr 'Skip'
+     *  @param {String} color_uncomplete - constant, color indicate the letter section has not been reached
+     *  @param {String} color_complete - constant, color indicate the letter section has been reached
+     *  @param {String} color_white - constant, color white
+     *  @param {String} color_black - const, color black
+     *  @param {Set} textview_ids - set of unique ids of every textfield on the page
+     *  @param {Array} item_anchors - list of objects records the y position of each element
+     *      - id - the id of the element
+     *      - y - the y position of the element on the page
+     *  @param {Number} curr_letter_id - id of the current letter appearing on the top of the viewport
+     *  @param {Number} end_spacer_height - if the height of the last letter section has a height smaller than a viepage height, 
+     *                                      Add extra padding to the section. This variable is the height of the padding.
+     *  @param {Number} thingsHeight - if the height of the last letter section has a height smaller than a viepage height, 
+     *                                 Add extra padding to the section. This variable is the height of any other element on the page if padding is needed.
+     *  @param {Array} letters / filtered_letters - list of assessment letters that actually have content
+     *  @param {Array} assessments - list of assessment items questions
+     *  @param {Set} existing_letters - set of unique letter objects
+     *  @param {Set} complete_letter_ids - set of letter ids who at least has one response to any of questions
+     *  @param {Object} gridSetting - variable to store screen-size sensitive GridLayout settings
+     *  @param {Object} formatSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Number} protocol_id - the id of the current protocol
+     *  @prop {String} preset_letter_id - the id of the pre-set letter to scroll to when page loads 
+     *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import AssessItem from './parts/AssessItem.vue';
@@ -105,7 +140,6 @@
                 color_complete: '#acd6b5',
                 color_white: '#ffffff',
                 color_black: '#000000',
-                is_text_setup: false,
                 textview_ids: new Set(),
                 item_anchors: [],
                 curr_letter_id: 1,
@@ -114,7 +148,6 @@
                 
                 letters: [],
                 assessments: [],
-                responses:[],
                 existing_letters: new Set(),
                 complete_letter_ids: new Set(),
 
