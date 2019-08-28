@@ -78,8 +78,7 @@
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
     import Plans from '../protocols/Plans.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { alert }  from "tns-core-modules/ui/dialogs";
 
