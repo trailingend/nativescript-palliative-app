@@ -181,9 +181,9 @@
             },
             onSaveTap(args) {
                 const client_phone = (this.c_phone === '') ? '0000000000' : this.c_phone;
-                const caller_name = (this.c_caller === '') ? 'Uknown' : this.c_caller;
-                const client_name = (this.c_client === '') ? 'Unknown' : this.c_client;
-                const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
+                const caller_name = this.c_caller.trim();
+                const client_name = this.c_client.trim();
+                const client_relation = this.c_relation.trim();
 
                 if (client_phone.length != 10) {
                     this.$refs.phoneErrorFieldRef.nativeView.opacity = 1;
