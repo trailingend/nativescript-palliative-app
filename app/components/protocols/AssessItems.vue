@@ -337,7 +337,7 @@
                     });
                 }
             },
-            /**
+            /** 
              *  Function to change letter tab styles according to scroll y value and to swap title letter name accordingly
              *  [Description] - if a tab is active, the background will be green
              *  @param {Number} id - id of letter to check

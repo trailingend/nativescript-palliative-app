@@ -58,6 +58,25 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Page to ask user to select a plan
+     *  [Description] - can be opened from AssessOthers/ Summary page
+     *  [Related] - styles in plans.scss
+     *  @param {String} free_text - textfield to record user's free response
+     *  @param {String} color_checked - constant, color indicate the plan has been selected
+     *  @param {String} color_unchecked - constant, color indicate the plan has not been selected
+     *  @param {Array} plans_list - list of plan items 
+     *  @param {Array} selected_plans - list of all responses
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Number} protocol_id - the id of the current protocol
+     *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
@@ -67,8 +86,7 @@
     import AssessItems from './AssessItems.vue';
     import Summary from '../summary/Summary.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import Vue from 'nativescript-vue';
 
     import { confirm }  from "tns-core-modules/ui/dialogs";
@@ -78,8 +96,6 @@
         data() {
             return {
                 plans_list: [],
-                status_list: [],
-
                 selected_plans: [],
                 free_text: '',
 
@@ -127,6 +143,9 @@
                 'saveProtoProgress',
                 'saveSummaryProgress'
             ]),
+            /**
+             *  Function to retrieved previously saved plans from data storage
+             * **/
             retrieveSavedPlans() {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const saved_answers = log.plans_answers;
@@ -140,17 +159,27 @@
                     }
                 });
             },
+            /**
+             *  Function to retrieve saved data and setup status sub-field on the page
+             * **/
             preparePlans() {
                 this.plans_list = [... this.plans];
                 this.preparePlansStatus();
                 this.retrieveSavedPlans();
             },
+            /**
+             *  Function to setup each plan status
+             * **/
             preparePlansStatus() {
                 this.plans_list.forEach(elem => { 
                     elem.status = false; 
                     this.$set(elem, 'unique', elem.id)
                 });
             },
+            /**
+             *  Function to go back to AssessOthers page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             preparePrevStage() {
                 let q_ids = [];
                 const others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
@@ -172,6 +201,10 @@
                     }
                 });
             },
+            /**
+             *  Function to go next to Summary page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextStage() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -188,6 +221,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to ChooseProtocol page if no protocol selected in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareChooseProto() {
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
@@ -203,6 +240,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to another protocol's Itenms page
+             *  [Description] - always clear navigation history
+             * **/
             goToNextProtocol(p_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -219,6 +260,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump back to Summary page if in summary edit mode
+             *  [Description] - always clear navigation history
+             * **/
             goToSummary() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -234,6 +279,10 @@
                     }
                 });
             },
+            /**
+             *  Function to select or deselect a plan
+             *  @param {String} plan_text - the text of plan to check
+             * **/
             toggleMultiPlanSelection(plan_text) {
                 const plan_idx = this.selected_plans.findIndex( selected => { return selected === plan_text; });
                 if (plan_idx === -1) {
@@ -242,11 +291,17 @@
                     this.selected_plans.splice(plan_idx, 1);
                 }
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 const freeTextfield = layoutView.getViewById("plans-free");
                 freeTextfield.dismissSoftInput();
             },
+            /**
+             *  Function to save selected plans to data storage
+             * **/
             recordResponse() {
                 const update = {
                     log_id: this.log_id,
@@ -254,6 +309,10 @@
                 };
                 this.savePlansUpdate(update);
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -265,6 +324,9 @@
                     },
                 });
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
             onForward() {
                 console.log("=== Forward === ");
                 
@@ -276,6 +338,9 @@
 
                 this.prepareNextStage();
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward() {
                 if (this.protocol_id != null && this.protocol_id != undefined && this.protocol_id != -1) {
                     const progress = {
@@ -293,15 +358,27 @@
                     this.prepareChooseProto();
                 }
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to call when next button tapped
+             * **/
             onNextTap() {
                 this.onForward();
             },
+            /**
+             *  Function to call when save button tapped
+             * **/
             onSummaryTap() {
                 this.goToSummary();
             },
+            /**
+             *  Function to call when a plan is tapped
+             * **/
             onAnswerTap(plan) {
                 const plan_idx = this.plans_list.findIndex( elem => { return elem.id === plan.id; });
                 this.toggleMultiPlanSelection(plan.plan);
@@ -309,11 +386,15 @@
                 this.$set(plan, 'unique', plan.unique + 0.01);
                 this.recordResponse();
             },
+            /**
+             *  Function to call when free textfield is changed
+             * **/
             onTextEntered() {
                 this.recordResponse();
             },
-            onNavigatingFrom() {
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.plansGridRef.nativeView.getMeasuredWidth() );
 
@@ -326,30 +407,6 @@
                         class: "plans-ctnr"
                     };
                 }
-            },
-
-            onNewTap() {
-                confirm({
-                    title: "Create New Client",
-                    message: "Your current progress will be saved in your Client History.",
-                    okButtonText: "Create New Client",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result || result === undefined) {
-                        this.addNewLog();
-                    } 
-                });
-            },
-            addNewLog(args) {
-                this.$navigateTo(NewClient, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'slide',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                });
             },
         }
     };

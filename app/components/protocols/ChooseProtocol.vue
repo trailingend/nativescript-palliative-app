@@ -49,6 +49,28 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Page to ask user to select a protocol to continue
+     *  [Description] - can be opened from Introduction/ AssessItems/ Plans/ Summary page
+     *  [Related] - styles in plans.scss
+     *  @param {Boolean} show_next - textfield to record user's free response
+     *  @param {String} unclicked_color - constant, color indicate the protocol has not been selected
+     *  @param {String} clicked_color - constant, color indicate the protocol has been selected
+     *  @param {String} saved_color - constant, color indicate the protocol has not been selected
+     *  @param {String} white_color - constant, color white
+     *  @param {String} black_color - constant, color black
+     *  @param {Number} protocol_id - id of selected protocol
+     *  @param {Object} chooseSetting - variable to store rowSpan of the GridLayout
+     *  @param {Object} gridSetting - variable to store parent settings of the GridLayout
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import Introduction from '../intro/Introduction.vue';
@@ -115,6 +137,10 @@
             ]),
             prepareProtocols() {
             },
+            /**
+             *  Function to go back to Introduction page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             preparePrevQuestion() {
                 if (this.from_summary) {
                     this.$navigateTo(Summary, {
@@ -150,6 +176,10 @@
                     });
                 }
             },
+            /**
+             *  Function to go next to AssessItems page of selected protocol if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextProtocol() {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -166,6 +196,11 @@
                     }
                 });
             },
+            /**
+             *  Function to go next to AssessItems page of selected protocol if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             *  @param {Number} p_id - protocol id to go tp
+             * **/
             goToNextProtocol(p_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -182,12 +217,20 @@
                     }
                 });
             },
+            /**
+             *  Function to to check whether the protocol is attempted
+             *  @param {Number} p_id - protocol id
+             * **/
             checkSavedProtocols(p_id) {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const p_items = log.items_answers.find(elem => { return elem.id === p_id; });
                 const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
                 return p_items != undefined || p_others != undefined;
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -199,6 +242,12 @@
                     },
                 });
             },
+            /**
+             *  Function to change style of selected button, and then navigate to the protocol
+             *  @param {Object} args - event object
+             *  @param {Object} proto - protocol object
+             *  @param {Number} index - index of the button tapped
+             * **/
             onBtnTap(args, proto, index) {
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
@@ -206,7 +255,7 @@
 
                 for (let i = 0; i < this.protocols.length; i++) {
                     const p_id_to_check = this.protocols[i].id;
-                    if (this.checkSavedProtocols(p_id_to_check)) {
+                    if (this.checkSavedProtocols(p_id_to_check)) { // if the current protocol has been attempted 
                         if (i === index) {
                             if (this.protocol_id != null) {
                                 clicked_btn.color = this.black_color;
@@ -219,7 +268,7 @@
                             page.getViewById(`choose-btn-${i}`).color = this.saved_color;
                             page.getViewById(`choose-btn-${i}`).background = this.white_color;
                         }
-                    } else {
+                    } else { // if the current protocol has not been attempted 
                         if (i === index) {
                             if (this.protocol_id != null && proto.assessment_questions.length > 0) { 
                                 // CONDITIONING - Style before go to protocol
@@ -241,6 +290,9 @@
 
                 this.onForward();
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
             onForward(args) {
                 if (this.protocol_id != null) {
                     const progress = {
@@ -253,6 +305,9 @@
                     console.log("=== TODO navigate to summary and submit ===");
                 }
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward(args) {
                 const progress = {
                     log_id: this.log_id,
@@ -261,11 +316,15 @@
                 this.saveProtoProgress(progress);
                 this.preparePrevQuestion();
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
-            onNextTap() {
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
                     this.$refs.chooseGridRef.nativeView.getMeasuredWidth() 
