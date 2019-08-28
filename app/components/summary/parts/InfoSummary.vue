@@ -63,7 +63,7 @@
      * **/
 
     import EditClient from '../../general/EditClient.vue';
-
+    
     import { mapGetters } from 'vuex';
     import { formatPhoneForDisplay } from '../../../scripts/common';
 
