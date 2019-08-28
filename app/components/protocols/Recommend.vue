@@ -1,65 +1,65 @@
 <template>
-<Frame id="resourcesFrame">
-     <Page class="page resources-page" @navigatedTo="onNavigatedTo">
+<Frame id="recommendFrame">
+     <Page class="page recommend-page" @navigatedTo="onNavigatedTo">
          <GridLayout :class="ctnrSetting"
                      rows="auto, auto, *" columns="*"
-                     ref="resourcesGridRef" 
+                     ref="recommendGridRef" 
                      @layoutChanged="onLayoutUpdate">
 
-            <StackLayout row="0" col="0" class="resources-title-ctnr">
-                <Label class="resources-title" :text="protocol_name" />
-                <Label class="resources-subtitle" text="Recommend" />
+            <StackLayout row="0" col="0" class="recommend-title-ctnr">
+                <Label class="recommend-title" :text="protocol_name" />
+                <Label class="recommend-subtitle" text="Recommend" />
             </StackLayout>
                 
             <Image row="0" col="0" width=30 class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
 
-            <FlexboxLayout row="1" col="0" flexDirect="row" alignItems="center" justifyContent="center" class="resources-tab-ctnr">
+            <FlexboxLayout row="1" col="0" flexDirect="row" alignItems="center" justifyContent="center" class="recommend-tab-ctnr">
                 <Button v-for="(info, index) in button_list" 
                         :key="index"
                         :text="info.title"
-                        class="resources-tab"
+                        class="recommend-tab"
                         textWrap="true" 
                         @tap="(args) => { onTabTap(args, info.id); }" />
             </FlexboxLayout>
 
-            <ScrollView row="2" col="0" id="resources-main-ctnr" class="resources-main-ctnr">
+            <ScrollView row="2" col="0" id="recommend-main-ctnr" class="recommend-main-ctnr">
                 <StackLayout >
-                    <StackLayout id="resources-item-ctnr-res" class="resources-item-ctnr resources-resc-ctnr">
+                    <StackLayout id="recommend-item-ctnr-res" class="recommend-item-ctnr recommend-resc-ctnr">
                         <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                             <StackLayout class="divider"/>
-                            <Label class="resources-text resources-sec-title" text="resources" />
+                            <Label class="recommend-text recommend-sec-title" text="recommend" />
                         </FlexboxLayout>
                         <StackLayout v-for="resource in resources_list" 
                                     :key="resource.id" 
-                                    class="resources-item resources-res-item" > 
-                            <Label class="resources-text resources-url" 
+                                    class="recommend-item recommend-res-item" > 
+                            <Label class="recommend-text recommend-url" 
                                     :textDecoration="(resource.url != '' && resource.url != 'null' && resource.url !=null) ? 'underline' : 'none'" 
                                     :text="resource.title" 
                                     @tap="onLinkTap(resource.url)" />
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout id="resources-item-ctnr-pro" class="resources-item-ctnr resources-resc-ctnr">
+                    <StackLayout id="recommend-item-ctnr-pro" class="recommend-item-ctnr recommend-resc-ctnr">
                         <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                             <StackLayout class="divider"/>
-                            <Label class="resources-text resources-sec-title" text="Related Protocols"></Label>
+                            <Label class="recommend-text recommend-sec-title" text="Related Protocols"></Label>
                         </FlexboxLayout>
                         <StackLayout v-for="related in related_list" 
                                     :key="related.id" 
-                                    class="resources-item resources-rela-item" > 
-                            <Label class="resources-text" :text="related.name"></Label>
+                                    class="recommend-item recommend-rela-item" > 
+                            <Label class="recommend-text" :text="related.name"></Label>
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout class="resources-item-ctnr resources-reco-ctnr">
+                    <StackLayout class="recommend-item-ctnr recommend-reco-ctnr">
                         <StackLayout v-for="recommendation in recommendations_list" 
                                     :key="recommendation.id" 
-                                    :id="`resources-item-ctnr-${recommendation.id}`"
-                                    class="resources-reco-item" > 
+                                    :id="`recommend-item-ctnr-${recommendation.id}`"
+                                    class="recommend-reco-item" > 
                             <FlexboxLayout flexDirection="row" justifyContent="flex-start" alignItems="center">
                                 <StackLayout class="divider"/>
-                                <Label class="resources-text resources-sec-title" :text="recommendation.title" />
+                                <Label class="recommend-text recommend-sec-title" :text="recommendation.title" />
                             </FlexboxLayout>
-                            <StackLayout class="resources-item">
-                                <HtmlView class="resources-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
+                            <StackLayout class="recommend-item">
+                                <HtmlView class="recommend-html" backgroundColor="transparent" :html="style_string + recommendation.content" />
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
@@ -72,8 +72,29 @@
 </template>
 
 <script lang="ts">
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    /**
+     *  =============================================================
+     * 
+     *  Modal to show Recommendations for current protocol
+     *  [Description] - can be opened from AssessItems/ AssessOthers page
+     *  [Related] - styles in recommend.scss
+     *  @param {String} style_string - css styles for the htmlView
+     *  @param {String} protocol_name - name of current protocol
+     *  @param {Array} resources_list - list of resources related to current protocol
+     *  @param {Array} recommendations_list - list of recommendations related to current protocol
+     *  @param {Array} related_list - list of related protocols related to current protocol
+     *  @param {Array} button_list - list of navigation buttons
+     *  @param {Array} res_anchors - list of objects records the y position of each element
+     *      - id - the id of the element
+     *      - y - the y position of the element on the page
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Number} protocol_id - the id of the current protocol
+     * 
+     *  =============================================================
+     * **/
+
+    import { mapActions, mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
 
     export default {
@@ -88,7 +109,7 @@
                 button_list: [],
                 res_anchors: [],
 
-                ctnrSetting: "resources-ctnr",
+                ctnrSetting: "recommend-ctnr",
             }
         },
         created() {
@@ -115,6 +136,9 @@
         methods: {
             ...mapActions([
             ]),
+            /**
+             *  Function to retrieve current protocol recomendation info and prepare button list accordingly from data storage
+             * **/
             prepareResources() {
                 const protocol_obj = this.protocols.find(elem => { return elem.id == this.protocol_id; });
                 this.protocol_name = protocol_obj.name;
@@ -135,41 +159,62 @@
                     }
                 });
             },
+            /**
+             *  Function to record y position of each section
+             * **/
             setupAnchors(args) {
                 const page = args.object.page;
-                const scrollView = args.object.page.getViewById("resources-main-ctnr");
+                const scrollView = args.object.page.getViewById("recommend-main-ctnr");
                 this.button_list.forEach(elem => {
-                    const view = page.getViewById(`resources-item-ctnr-${elem.id}`);
+                    const view = page.getViewById(`recommend-item-ctnr-${elem.id}`);
                     this.res_anchors.push({
                         id: elem.id,
                         y: view.getLocationRelativeTo(scrollView).y
                     });
                 });
             },
+            /**
+             *  Function to call when a resource link tapped
+             *  @param {String} url - url to open
+             * **/
             onLinkTap(url) {
                 if (url === null || url === '' || url === 'null') {
-                    console.log("=== Resources === navigating to " + url);
+                    console.log("=== Recommend === navigating to " + url);
                     utils.openUrl(url);
                 }
             },
+            /**
+             *  Function to call when a button is tapped, scroll to the section
+             *  @param {Object} args - event default obejct
+             *  @param {Number} curr_id - button item id
+             * **/
             onTabTap(args, curr_id) {
-                const scrollView = args.object.page.getViewById("resources-main-ctnr");
+                const scrollView = args.object.page.getViewById("recommend-main-ctnr");
                 const y = this.res_anchors.find(elem => { return elem.id === curr_id; }).y;
                 scrollView.scrollToVerticalOffset(y, true);
             },
+            /**
+             *  Function to close the current modal
+             * **/
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to be called when the page is loaded
+             * **/
             onNavigatedTo(args) {
                 this.setupAnchors(args);
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.editGridRef) {
-                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.resourcesGridRef.nativeView.getMeasuredWidth() );
+                    const width = utils.layout.toDeviceIndependentPixels( this.$refs.recommendGridRef.nativeView.getMeasuredWidth() );
                     if (width > 1000) {
-                        ctnrSetting: "resources-ctnr tablet-landscape"
+                        ctnrSetting: "recommend-ctnr tablet-landscape"
                     } else {
-                        ctnrSetting: "resources-ctnr"
+                        ctnrSetting: "recommend-ctnr"
                     }
                 }
             },

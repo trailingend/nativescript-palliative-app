@@ -12,7 +12,7 @@
      *  Component to display a question and responses associated with it in Summary
      *  [Description] - used in Summary page
      *  @param {String} responses - all responses from user will be combined into a line of text
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      *  @prop {Number} protocol_id - the id of the current protocol
      *  @prop {Object} unit - the content of the question being asked
      *  @prop {String} section - enum states between 'intro', 'items' or 'others

@@ -17,7 +17,7 @@
      *  Component to display additional notes in Summary
      *  [Description] - used in Summary page
      *  @param {String} notes - notes in one line of text
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      * 
      *  =============================================================
      * **/

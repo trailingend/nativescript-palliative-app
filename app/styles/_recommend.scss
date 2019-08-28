@@ -1,9 +1,9 @@
 @import "variables";
 
-.resources-ctnr {
+.recommend-ctnr {
     background: white;
 
-    .resources-main-ctnr {
+    .recommend-main-ctnr {
         vertical-align: middle;
     }
     .close-btn {
@@ -11,7 +11,7 @@
         horizontal-align: right;
         vertical-align: top;
     }  
-    .resources-main-ctnr {
+    .recommend-main-ctnr {
         margin: auto;
     }
     .divider {
@@ -20,11 +20,11 @@
         background: black;
         margin-right: 5;
     }
-    .resources-title-ctnr {
+    .recommend-title-ctnr {
         padding-top: 25;
         background: $color-light-yellow;
     }
-    .resources-title {
+    .recommend-title {
         font-size: $page-title-font-size;
         font-weight: 700;
         text-align: center;
@@ -32,15 +32,15 @@
         color: black;
         margin-bottom: 5; 
     }
-    .resources-subtitle {
+    .recommend-subtitle {
         margin-bottom: 20; 
         text-transform: uppercase;
     }
-    .resources-tab-ctnr {
+    .recommend-tab-ctnr {
         padding: 10 0 30 0;
         background: $color-light-yellow;
     }
-    .resources-tab {
+    .recommend-tab {
         padding: 3 8;
         margin: 0 2;
         font-size: 16;
@@ -53,27 +53,27 @@
         border-width: 1.5;
         border-color: black;
     }
-    .resources-text {
+    .recommend-text {
         text-align: left;
         font-weight: 400;
     }
-    .resources-sec-title {
+    .recommend-sec-title {
         font-weight: 700;
         font-size: 24;
         text-transform: capitalize;
     }
-    .resources-item-ctnr {
+    .recommend-item-ctnr {
         padding: 0;
         margin: 25 0;
-        & .resources-reco-ctnr {
+        & .recommend-reco-ctnr {
             margin: 0;
         }
     }
-    .resources-item {
+    .recommend-item {
         padding: 0 100;
         margin: 0;
     }
-    .resources-item-title {
+    .recommend-item-title {
         font-weight: 700;
         text-transform: uppercase;
     }

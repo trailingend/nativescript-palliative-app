@@ -26,7 +26,7 @@
      * 
      *  Component to display introduction section in Summary
      *  [Description] - used in Summary page
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      * 
      *  =============================================================
      * **/

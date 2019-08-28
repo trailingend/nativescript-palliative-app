@@ -23,7 +23,7 @@
      *  Component to display plans selected in Summary
      *  [Description] - used in Summary page
      *  @param {Array} plan_answers - list of plans selected
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      * 
      *  =============================================================
      * **/

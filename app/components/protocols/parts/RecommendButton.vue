@@ -5,7 +5,18 @@
 </template>
 
 <script lang="ts">
-    import Resources from '../Resources.vue';
+    /**
+     *  =============================================================
+     * 
+     *  Component to open Recommand pop-up
+     *  [Description] - used in AssessItems/ AssessOthers pages
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Object} unit - question object
+     * 
+     *  =============================================================
+     * **/
+
+    import Recommend from '../Recommend.vue';
 
     export default {
         props: {
@@ -19,8 +30,11 @@
             },
         },
         methods: {
+            /**
+             *  Function to call when the button is tapped, open Recommend pop-up
+             * **/
             onBtnTap() {
-                this.$showModal(Resources, { 
+                this.$showModal(Recommend, { 
                     fullscreen: true,
                     props: {
                         log_id: this.log_id,

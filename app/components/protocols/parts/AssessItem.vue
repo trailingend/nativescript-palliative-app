@@ -27,14 +27,24 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to determine which question-answer type to display
+     *  [Description] - called in AssessItems page
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Object} unit - question object
+     * 
+     *  =============================================================
+     * **/
+
     import SingleSelect from '../../answers/SingleSelect.vue';
     import MultiSelect from '../../answers/MultiSelect.vue';
     import BooleanSelect from '../../answers/BooleanSelect.vue';
     import ScaleSelect from '../../answers/ScaleSelect.vue';
     import FreeText from '../../answers/FreeText.vue';
 
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     
     export default {
         data() {
@@ -69,6 +79,11 @@
             ...mapActions([
                 'saveItemsUpdate',
             ]),
+            /**
+             *  Function to retrieved previously saved responses to current question from data storage
+             *  @param {Object} unit - question object
+             *  @return {Array} saved_responses
+             * **/
             retrieveSavedResponses(unit) {
                 const p_id = unit.protocol.id;
                 const q_id = unit.id;
@@ -89,6 +104,11 @@
                 }
                 return [];
             },
+            /**
+             *  Function to check whether there is any response to the letter associated with current letter
+             *  @param {Number} l_id - the id of the letter to check
+             *  @return {Boolean} is_empty
+             * **/
             checkEmptyResponsesForLetter(l_id) {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const p_obj = log.items_answers.find(elem => { return elem.id === this.unit.protocol.id; });
@@ -103,6 +123,10 @@
                     }
                 }
             },
+            /**
+             *  Function to call when any response change, always save the recent update to data storage
+             *  @event answerChange - let parent component to know that there is a response change
+             * **/
             onAnswerChange(data, args) {
                 
                 const update = {

@@ -27,7 +27,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="4" col="2"
+            <RecommendButton row="4" col="2"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
             <Button row="5" col="0" colSpan="1" class="back-btn" v-if="!from_summary" text="Back" @tap="onBackTap" ></Button>
@@ -40,11 +40,28 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Page to ask assessment-other questions
+     *  [Description] - can be opened from AssessItems/ Plans/ Summary page
+     *  [Related] - styles in assessOthers.scss
+     *  @param {String} p_title - name of current protocol
+     *  @param {String} next_text - text displayed on next button, either 'Next' pr 'Skip'
+     *  @param {Set} textview_ids - set of unique ids of every textfield on the page
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Number} protocol_id - the id of the current protocol
+     *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+    
     import NavBar from '../general/parts/NavBar.vue';
     import OthersQuestion from './parts/OthersQuestion.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
-    import ResourcesButton from './parts/ResourcesButton.vue';
+    import RecommendButton from './parts/RecommendButton.vue';
     import AssessItems from './AssessItems.vue';
     import Plans from './Plans.vue';
     import Summary from '../summary/Summary.vue';
@@ -60,12 +77,7 @@
             return {
                 p_title: 'Protocol',
                 next_text: 'Skip',
-
-                responses: [],
                 textview_ids: new Set(),
-
-                color_checked: '#acd6b5',
-                color_unchecked: '#f5f5f5',
 
                 ctnrSetting: {
                     class: "others-ctnr"
@@ -79,7 +91,7 @@
             NavBar,
             OthersQuestion,
             ClientBlock,
-            ResourcesButton
+            RecommendButton
         },
         props: {
             log_id: {
@@ -109,10 +121,17 @@
                 'saveOthersProgress',
                 'savePlansProgress',
             ]),
+            /**
+             *  Function to retrieve id of textfields on the page
+             * **/
             prepareQuestions() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.others_questions.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
             },
+            /**
+             *  Function to go back to AssessItems page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             preparePrevStage() {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -129,6 +148,10 @@
                     }
                 });
             },
+            /**
+             *  Function to go next to Plans page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextStage() {
                 this.$navigateTo(Plans, {
                     animated: true,
@@ -145,6 +168,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to another protocol's Itenms page
+             *  [Description] - always clear navigation history
+             * **/
             goToNextProtocol(p_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -161,6 +188,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump back to Summary page if in summary edit mode
+             *  [Description] - always clear navigation history
+             * **/
             goToSummary() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -176,9 +207,16 @@
                     }
                 });
             },
+            /**
+             *  Function to change next button text
+             * **/
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -190,6 +228,9 @@
                     },
                 });
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
             onForward() {
                 const progress = {
                     log_id: this.log_id,
@@ -198,6 +239,9 @@
                 this.savePlansProgress(progress);
                 this.prepareNextStage();
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward() {
                 const progress = {
                     log_id: this.log_id,
@@ -206,15 +250,27 @@
                 this.saveOthersProgress(progress);
                 this.preparePrevStage();
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to call when next button tapped
+             * **/
             onNextTap() {
                 this.onForward();
             },
+            /**
+             *  Function to call when save button tapped in summary editing mode
+             * **/
             onSummaryTap() {
                 this.goToSummary();
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 this.textview_ids.forEach(elem => {
@@ -222,6 +278,10 @@
                     if (freeTextfield) freeTextfield.dismissSoftInput();
                 });
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             *  [Description] - all add extra padding to the laste letter section
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.othersGridRef.nativeView.getMeasuredWidth() );
 

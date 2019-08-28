@@ -59,7 +59,7 @@
      *  @param {String} end_time - the call end time in format of XX:XX
      *  @param {String} nurse_id - the if of intake nurse
      *  @param {String} formatted_phone - the formatted call-back number
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      *  @prop {Boolean} can_check - the variable recprds whether can perform error checking
      * 
      *  =============================================================

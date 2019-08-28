@@ -41,7 +41,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="4" col="3" rowSpan="1" colSpan="1" 
+            <RecommendButton row="4" col="3" rowSpan="1" colSpan="1" 
                              :log_id="log_id" :protocol_id="protocol_id" />
 
             <Button row="5" col="0" colSpan="2" v-if="!from_summary" class="back-btn" text="Intro" @tap="onBackTap" ></Button>
@@ -83,8 +83,9 @@
     /**
      *  =============================================================
      * 
-     *  Modal to allow user to enter or to modify call infomation
-     *  [Description] - called from Summary page
+     *  Page to ask assessment-item questions
+     *  [Description] - can be opened from ChooseProtocol/ Catalogue/ AssessOthers/ Summary page
+     *  [Related] - styles in assessItems.scss
      *  @param {String} p_title - name of current protocol
      *  @param {String} l_title - name of current assessment letter section that reached the top of the page
      *  @param {String} next_text - text displayed on next button, either 'Next' pr 'Skip'
@@ -107,7 +108,7 @@
      *  @param {Set} complete_letter_ids - set of letter ids who at least has one response to any of questions
      *  @param {Object} gridSetting - variable to store screen-size sensitive GridLayout settings
      *  @param {Object} formatSetting - variable to store screen-size sensitive classnames
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      *  @prop {Number} protocol_id - the id of the current protocol
      *  @prop {String} preset_letter_id - the id of the pre-set letter to scroll to when page loads 
      *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
@@ -119,13 +120,12 @@
     import NewClient from '../intro/NewClient.vue';
     import AssessItem from './parts/AssessItem.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
-    import ResourcesButton from './parts/ResourcesButton.vue';
+    import RecommendButton from './parts/RecommendButton.vue';
     import Introduction from '../intro/Introduction.vue';
     import AssessOthers from './AssessOthers.vue';
     import Summary from '../summary/Summary.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import { confirm }  from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
     import { animateSubTitle } from '../../scripts/common';
@@ -161,6 +161,7 @@
             }
         },
         beforeCreate: function () {
+            // Enable this component to call itself
             this.$options.components.AssessItems = require('./AssessItems.vue').default;
         },
         created() {
@@ -172,7 +173,7 @@
             NavBar,
             ClientBlock,
             AssessItem,
-            ResourcesButton
+            RecommendButton
         },
         props: {
             log_id: {
@@ -199,6 +200,10 @@
                 'protocols',
                 'assessment_letters'
             ]), 
+            /**
+             *  Function to return list of letters with active questions to ask. Do not use Set to Array method to enforce order.
+             *  @return {Array} filtered_letters
+             * **/
             filtered_letters: function() {
                 return this.assessment_letters.filter(elem => { return this.existing_letters.has(elem.id); });
             }
@@ -209,11 +214,19 @@
                 'saveItemsProgress',
                 'saveOthersProgress'
             ]),
+            /**
+             *  Function to retrieve questions associated with a given assessment letter
+             *  @param {Object} letter - assessment letter object to be used as a filter
+             *  @return {Array} filtered_assessment
+             * **/
             filteredAssessments(letter) {
                 const filted_assessments = this.assessments.filter(elem => elem.assessment_letter.id == letter.id);
                 filted_assessments.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
                 return filted_assessments;
             },
+            /**
+             *  Function to retrieve current protocol info from data storage
+             * **/
             prepareProtocol() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
                 this.assessments = this.protocols.find(elem => { return elem.id === this.protocol_id; }).assessment_questions;
@@ -221,6 +234,10 @@
                 this.letters = this.filtered_letters;
                 this.letters.forEach(elem => { elem.willExpand = false; elem.unique = 0 + elem.id; });
             },
+            /**
+             *  Function to go back to Introduction page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             preparePrevPage() {
                 let steps_ids = [];
                 this.intro.forEach(elem => { steps_ids.push(elem.id); });
@@ -240,6 +257,10 @@
                     }
                 });
             },
+            /**
+             *  Function to go next to Others page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextPage() {
                 let q_ids = [];
                 const others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
@@ -261,6 +282,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to another protocol's Itenms page
+             *  [Description] - always clear navigation history
+             * **/
             goToNextProtocol(p_id) {
                 this.$navigateTo(this.$options.components.AssessItems, {
                     animated: true,
@@ -277,6 +302,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump back to Summary page if in summary edit mode
+             *  [Description] - always clear navigation history
+             * **/
             goToSummary() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -292,6 +321,9 @@
                     }
                 });
             },
+            /**
+             *  Function to record y position of each letter sections
+             * **/
             setupAnchors(args) {
                 if (args.object.page) {
                     const page = args.object.page;
@@ -305,12 +337,19 @@
                     });
                 }
             },
+            /**
+             *  Function to change letter tab styles according to scroll y value and to swap title letter name accordingly
+             *  [Description] - if a tab is active, the background will be green
+             *  @param {Number} id - id of letter to check
+             *  @param {Object} page - page object in nativescript-view format
+             *  @param {Boolean} init - variable to indicate whether this functio is called from page load
+             * **/
             setTabText(id, page, init=false) {
                 if (page) {
                     this.letters.forEach(elem => { 
                         const letter_view = page.getViewById(`items-tab-${elem.id}`);
                         const mark_view = page.getViewById(`items-icon-${elem.id}`);
-                        if (elem.id === id) {
+                        if (elem.id === id) { // the letter is active
                             if (!init) {
                                 const subtitle = this.$refs.subtitleRef.nativeView;
                                 animateSubTitle(subtitle, elem.title);
@@ -319,7 +358,7 @@
                             letter_view.color = this.color_black;
                             letter_view.backgroundColor = this.color_complete;
                             letter_view.borderColor = this.color_complete;
-                        } else {
+                        } else { // the letter is not active
                             if (this.complete_letter_ids.has(elem.id)) {
                                 mark_view.opacity = 1;
                                 letter_view.color = this.color_complete;
@@ -335,18 +374,21 @@
                         }
                     });
                 }
-                // console.log("change of letter: " + id);
             },
+            /**
+             *  Function to setup the style of letter tabs depending on whether the letter section has beedn freshly touched
+             *  @param {Object} page - page object in nativescript-view format
+             * **/
             setTabMarks(page) {
                 this.letters.forEach(elem => { 
                     const letter_view = page.getViewById(`items-tab-${elem.id}`);
                     const mark_view = page.getViewById(`items-icon-${elem.id}`);
-                    if (this.complete_letter_ids.has(elem.id)) {
+                    if (this.complete_letter_ids.has(elem.id)) { // letter section is touched
                         mark_view.opacity = 1;
                         letter_view.color = this.color_complete;
                         letter_view.background = this.color_white;
                         letter_view.borderColor = this.color_complete;
-                    } else {
+                    } else { // letter section is not touched
                         mark_view.opacity = 0;
                         letter_view.color = this.color_black;
                         letter_view.background = this.color_white;
@@ -354,6 +396,12 @@
                     }
                 });
             },
+            /**
+             *  Function to scroll to another protocol's Itenms page
+             *  [Description] - extra padding added if scrolling to the first one
+             *  @param {Object} page - page object in nativescript-view format
+             *  @param {Object} letter - letter object to scroll to
+             * **/
             goToTab(page, letter) {
                 if (page) {
                     const dividerOffset = 72;
@@ -366,15 +414,28 @@
                     }
                 }
             },
+            /**
+             *  Function to change next button text
+             * **/
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
+            /**
+             *  Function to mark a letter section as complete
+             * **/
             markAsComplete(l_id) {
                 this.complete_letter_ids.add(l_id);
             },
+            /**
+             *  Function to mark a letter section as not complete
+             * **/
             markAsIncomplete(l_id) {
                 const success = this.complete_letter_ids.delete(l_id);
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -386,12 +447,17 @@
                     },
                 });
             },
-            
+            /**
+             *  Function to style letter tab when any response changes
+             *  @param {Number} l_id - the letter id associated with the question of the response changed
+             *  @param {Object} args - default args from the event
+             *  @param {Boolean} checkNotEmpty - variable indicates whether the response has changed to empty 
+             * **/
             onResponseEntered(l_id, args, checkNotEmpty) {
                 if (args.object.page) {
                     const letter_view = args.object.page.getViewById(`items-tab-${l_id}`);
                     const mark_view = args.object.page.getViewById(`items-icon-${l_id}`);
-                    if (checkNotEmpty) {
+                    if (checkNotEmpty) { // if all responses changed to empty, then mark the letter tab incomplete
                         this.markAsComplete(l_id);
                         mark_view.opacity = 1;
                         if (this.curr_letter_id != l_id) {
@@ -399,7 +465,7 @@
                             letter_view.background = this.color_white;
                             letter_view.borderColor = this.color_complete;
                         }
-                    } else {
+                    } else { // if response is filled, then mark the letter tab complete
                         this.markAsIncomplete(l_id);
                         mark_view.opacity = 0;
                         if (this.curr_letter_id != l_id) {
@@ -410,10 +476,18 @@
                     }
                 }
             },
+            /**
+             *  Function to style letter tab when previously saved responses found for current letter
+             *  @param {Number} l_id - the letter id associated with the question of the response found
+             *  @param {Boolean} checkNotEmpty - variable indicates whether the response has changed to empty 
+             * **/
             onResponseFound(l_id, checkNotEmpty) {
                 this.changeNextText("Next");
                 this.markAsComplete(l_id);
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
             onForward(args) {
                 const progress = {
                     log_id: this.log_id,
@@ -422,6 +496,9 @@
                 this.saveOthersProgress(progress);
                 this.prepareNextPage();
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward(args) {
                 const progress = {
                     log_id: this.log_id,
@@ -430,32 +507,52 @@
                 this.saveProtoProgress(progress);
                 this.preparePrevPage();
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to call when next button tapped
+             * **/
             onNextTap() {
                 this.onForward();
             },
+            /**
+             *  Function to call when save button tapped in summary editing mode
+             * **/
             onSummaryTap() {
                 this.goToSummary();
             },
+            /**
+             *  Function to call when any letter tab tapped, scroll to the letter section
+             * **/
             onTabTap(args, letter) {
                 this.goToTab(args.object.page, letter)
             },
+            /**
+             *  Function to call when page is scrolling
+             * **/
             onScroll(args) {
                 let id = 1;
+                // check the current letter tab being active
                 for (let i = 0; i < this.item_anchors.length; i++) {
                     const prev_y = this.item_anchors[i].y;
                     if (args.scrollY >= prev_y) {
                         id = this.item_anchors[i].id;
                     }
                 }
+                // if not currently active, proceed
                 if (this.curr_letter_id != id) {
                     this.curr_letter_id = id;
                     const anchor_y = this.item_anchors.find(elem=>elem.id==id).y
                     this.setTabText(id, args.object.page);                    
                 }                
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 this.textview_ids.forEach(elem => {
@@ -463,6 +560,9 @@
                     if (freeTextfield) freeTextfield.dismissSoftInput();
                 });
             },
+            /**
+             *  Function to be called when the page is loaded
+             * **/
             onNavigatedTo(args) {
                 this.setupAnchors(args);
                 this.setTabMarks(args.object.page);
@@ -473,6 +573,10 @@
                     this.goToTab(args.object.page, preset_letter);
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             *  [Description] - all add extra padding to the laste letter section
+             * **/
             onLayoutUpdate(args) {
                 let extra_for_landscape = 0;
 
@@ -498,11 +602,15 @@
                     extra_for_landscape = 0;
                 }
                 
+                // starting adding extra paddings to the last letter section
                 if (this.filtered_letters[this.filtered_letters.length - 1]) {
-                     const last_letter_id = this.filtered_letters[this.filtered_letters.length - 1].id;
+                    // get which letter is the last one
+                    const last_letter_id = this.filtered_letters[this.filtered_letters.length - 1].id;
                     const pageHeight = utils.layout.toDeviceIndependentPixels( 
                         this.$refs.itemsGridRef.nativeView.getMeasuredHeight() 
                     );
+                    // get height of every other elements on th epage when scroll to the bottom of the page
+                    // only updates when the last section is shorter than a full viewport
                     if (this.thingsHeight) {
                         this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
                     } else {
@@ -512,6 +620,7 @@
                             + this.$refs.titleRef.nativeView.getMeasuredHeight() 
                             + args.object.page.getViewById(`items-item-ctnr-${last_letter_id}`).getMeasuredHeight() 
                         );
+                        // set the padding
                         this.end_spacer_height = pageHeight > this.thingsHeight ? (pageHeight - this.thingsHeight) + 5 + extra_for_landscape : 0;
                     }
                 }

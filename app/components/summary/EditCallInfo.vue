@@ -60,6 +60,7 @@
      * 
      *  Modal to allow user to enter or to modify call infomation
      *  [Description] - called from Summary page
+     *  [Related] - styles in recommend.scss
      *  @param {String} u_id - intake user id, the null state is empty string
      *  @param {String} u_name - intake user name with shortened last name, the null state is empty string
      *  @param {String} u_fullname - intake nurse full name, the null state is empty string
@@ -69,7 +70,7 @@
      *  @param {Number} u_call_e_m - the call end minute
      *  @param {Boolean} end_time_changed - variable to check whether the end time has been changed
      *  @param {Object} formSetting - variable to store screen-size sensitive classnames
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      * 
      *  =============================================================
      * **/

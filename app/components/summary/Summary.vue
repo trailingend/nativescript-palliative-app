@@ -54,12 +54,12 @@
      *  =============================================================
      * 
      *  Page to display summary of current client
-     *  [Description] - used in Summary page
+     *  [Related] - styles in summary.scss
      *  @param {Boolean} is_reviewed - the variable controls whether can submit
      *  @param {Boolean} can_check_call_info - the variable controls whether to check call info 
      *  @param {Boolean} is_switch_enabled - the variable controls whether to enable switch
      *  @param {Array} protocol_ids - the list of ids of selected protocols 
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      *  @prop {Number} protocol_id - the id of the current protocol
      *  @prop {Boolean} has_prev - the variable records whether Summary page is in linearly documenting mode or opened directly from Dashboard
      * 
@@ -149,7 +149,8 @@
                 }
             },
             /**
-             *  Function to go back to plans page if in linearly documenting mode
+             *  Function to go back to Plans page if in linearly documenting mode
+             *  [Description] - always clear navigation history
              * **/
             preparePrevStage() {
                 this.$navigateTo(Plans, {
@@ -215,6 +216,7 @@
             },
             /**
              *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
              * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
@@ -247,7 +249,7 @@
             },
             /**
              *  Function to add another protocol by navigating to ChooseProtocol page
-             *  [Description] - from_summary flag set to true
+             *  [Description] - from_summary flag set to true; always clear navigation history
              * **/
             onNewTap() {
                 this.$navigateTo(ChooseProtocol, {

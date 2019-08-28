@@ -66,6 +66,7 @@
      * 
      *  Modal to ask the user to fill in a reason for editing current client
      *  [Description] - called in Summary page
+     *  [Related] - styles in summary.scss
      *  @param {Number} c_q_id - question if, this variable is always 0, because there is only one question  to ask
      *  @param {String} user_text_color - the color code of the user name, will turn red if username is unknown
      *  @param {String} user_head_color - the color code of the user avatar
@@ -76,7 +77,7 @@
      *  @param {Array} preset_reasons - pre-set choices for the question
      *  @param {Boolean} is_user_editing - the variable to indicate whether in user editing mode or reasons editing mode
      *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      * 
      *  =============================================================
      * **/

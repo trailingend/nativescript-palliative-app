@@ -352,12 +352,12 @@ plans_answers: [
 - **parts**:open_file_folder: - folder for sub-components
 	- **AssessItem.vue**:page_with_curl: - component to determine which answer component to display for items-assessment questions
 	- **OthersQuestion.vue**:page_with_curl: - component to determine which answer component to display for additional questions
-	- **ResourcesButton.vue**:page_with_curl: - component to open Resources pop-up, used in all protocol related pages
+	- **RecommendButton.vue**:page_with_curl: - component to open Recommend pop-up, used in all protocol related pages
 - **AssessItems.vue**:page_with_curl: - page to show items-assessment questions related with a protocol
 - **AssessOthers.vue**:page_with_curl: - page to show additional questions related with a protocol
 - **ChooseProtocol.vue**:page_with_curl: - page to choose a protocol
 - **Plans.vue**:page_with_curl: - page to show plans to a client
-- **Resources.vue**:page_with_curl: - pop-up frame/ page fto show related resources, protocols and recommendation of a protocol
+- **Recommend.vue**:page_with_curl: - pop-up frame/ page fto show related resources, protocols and recommendation of a protocol
 ### summary :open_file_folder: - folder for scss files
 - **parts**:open_file_folder: - folder for sub-components
 	- **CallSummary.vue**:page_with_curl: - component to show summary of the call information

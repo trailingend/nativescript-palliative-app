@@ -46,7 +46,7 @@
      *  @param {String} protocol_title - name of current protocol
      *  @param {Array} items_questions - local cache of the items questions
      *  @param {Array} others_questions - local cache of the others questions
-     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {String} log_id - the id of the current document
      *  @prop {Number} protocol_id - the id of the current protocol
      * 
      *  =============================================================

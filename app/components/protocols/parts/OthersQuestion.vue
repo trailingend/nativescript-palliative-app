@@ -27,6 +27,17 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to determine which question-answer type to display 
+     *  [Description] - used in AssessOthers page
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Object} unit - question object
+     * 
+     *  =============================================================
+     * **/
+
     import SingleSelect from '../../answers/SingleSelect.vue';
     import MultiSelect from '../../answers/MultiSelect.vue';
     import BooleanSelect from '../../answers/BooleanSelect.vue';
@@ -69,6 +80,11 @@
             ...mapActions([
                 'saveOthersUpdate',
             ]),
+            /**
+             *  Function to retrieved previously saved responses to current question from data storage
+             *  @param {Object} unit - question object
+             *  @return {Array} saved_responses
+             * **/
             retrieveSavedResponses(unit) {
                 const p_id = unit.protocol.id;
                 const q_id = unit.id;
@@ -86,6 +102,10 @@
                 }
                 return [];
             },
+            /**
+             *  Function to call when any response change, always save the recent update to data storage
+             *  @event answerChange - let parent component to know that there is a response change
+             * **/
             onAnswerChange(data) {
                 this.$emit("answerChange");
                 const update = {
