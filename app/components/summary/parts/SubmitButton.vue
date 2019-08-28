@@ -650,7 +650,7 @@
                     if (avaialble) {
                         // composing email
                         email.compose({
-                            subject: `[PAT] ${client_info_for_email} - ${submit_time_for_email}`,
+                            subject: `[PAT] ${client_info_for_email} - ${submit_time_for_email} | PID: [INSERT PARIS ID]`,
                             body: "This is a <strong>fake</strong> email template for a palliative document",
                             to: [],
                             cc: ['zhou.jiayi.1992@gmail.com'],
