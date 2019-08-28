@@ -22,7 +22,7 @@
     import { mapGetters, mapActions } from 'vuex';
     import * as email from "nativescript-email";
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
-    import { monthIndexToString } from '../../../scripts/common';
+    import { monthIndexToString, formatPhoneForDisplay } from '../../../scripts/common';
     import * as base64 from "base-64";
     import * as utf8 from "utf8";
 
@@ -210,20 +210,38 @@
              *  [Description] - caller info is a two columns table
              *      - a column - includes call starts and call ends time
              *      - b column - includes intake date, nurse id and nurse name
-             *  @return {Array} info_body - the array with content to feed into the call info table
+             *  @return {Array} call_info_body - the array with content to feed into the call info table
              * **/
-            prepareInfo(curr_log) {
-                let info_body = [];
+            prepareCallInfo(curr_log) {
+                let call_info_body = [];
                 const nurse_id = curr_log.nurseID;
                 const nurse_name = (curr_log.nurseFullname != '') ? curr_log.nurseFullname : "Unknown";
                 const start_time = curr_log.startTime;
                 const date = curr_log.date;
                 const end_time = curr_log.endTime;
-                info_body.push({
+                call_info_body.push({
                     a: `Call Start: ${start_time}\nCall End: ${end_time}`, 
                     b: `Date: ${date}\nIntake Nurse ID: ${nurse_id}\nIntake Nurse Name: ${nurse_name}`,
                 });
-                return info_body;
+                return call_info_body;
+            },
+            /**
+             *  Function to prepare patient info table for PDF
+             *  [Description] - patient info is a two columns table
+             *  @return {Array} call_info_body - the array with content to feed into the call info table
+             * **/
+            preparePatientInfo(curr_log) {
+                let client_info_body = [];
+                const phone = formatPhoneForDisplay(curr_log.phone);
+                const caller = curr_log.caller !== "" ? curr_log.caller : 'Unknown';
+                const client = curr_log.client !== "" ? curr_log.client : 'Unknown';
+                const relation = curr_log.relation !== "" ? curr_log.relation : 'Unknown';
+                const info = curr_log.info;
+                client_info_body.push({
+                    a: `Client Name: ${client}\nCaller Name: ${caller}\nRelationship to Client: ${relation}\nCall-back Number: ${phone}`, 
+                    b: `General Client Info: \n${info}`,
+                });
+                return client_info_body;
             },
             /**
              *  Function to prepare introduction section table for PDF
@@ -466,7 +484,9 @@
                 // retrieve necessary data from data storage
                 // record final documentation/ modification end time
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
-                const info_body = this.prepareInfo(curr_log);
+                const call_info_body = this.prepareCallInfo(curr_log);
+                const client_info_body = this.preparePatientInfo(curr_log);
+
                 const intro_body = this.prepareIntro(curr_log);
                 const protocol_titles = this.prepareProtocolsSummary(curr_log);
                 const protocol_bodies = this.prepareProtocols(curr_log);
@@ -492,13 +512,30 @@
                 // generating section title
                 doc.setFontSize(title_font_size);
                 doc.setFontType('bold');
-                doc.text("Call Information", start_of_text, 20 + 6);
+                doc.text("Client Information", start_of_text, 20 + 6);
           
                 // generating call info table
                 doc.autoTable({
                     startY: 20 + 10,
                     theme: 'grid',
-                    body: info_body,
+                    body: client_info_body,
+                    columns: [{ dataKey: 'a' }, { dataKey: 'b'}],
+                    columnStyles: {a: {cellWidth: 'auto', minCellWidth: 60},
+                                   b: {cellWidth: 'auto', minCellWidth: 60}},
+                    styles: {minCellHeight: 18, fontSize: table_font_size, cellPadding: cell_padding},
+                });
+
+                let finalY = doc.previousAutoTable.finalY;
+                // generating section title
+                doc.setFontSize(title_font_size);
+                doc.setFontType('bold');
+                doc.text("Call Information", start_of_text, finalY + 6);
+          
+                // generating call info table
+                doc.autoTable({
+                    startY: finalY + 10,
+                    theme: 'grid',
+                    body: call_info_body,
                     columns: [{ dataKey: 'a' }, { dataKey: 'b'}],
                     columnStyles: {a: {cellWidth: 'auto', minCellWidth: 60},
                                    b: {cellWidth: 'auto', minCellWidth: 60}},
@@ -507,7 +544,7 @@
 
                 // drawing separator
                 // generating protocol names preview line
-                let finalY = doc.previousAutoTable.finalY;
+                finalY = doc.previousAutoTable.finalY;
                 doc.setLineWidth(0.25);
                 doc.setDrawColor(0, 0, 0);
                 doc.line(start_of_text, finalY, end_of_line, finalY);
