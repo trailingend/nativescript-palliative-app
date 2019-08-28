@@ -55,6 +55,25 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal to allow user to enter or to modify call infomation
+     *  [Description] - called from Summary page
+     *  @param {String} u_id - intake user id, the null state is empty string
+     *  @param {String} u_name - intake user name with shortened last name, the null state is empty string
+     *  @param {String} u_fullname - intake nurse full name, the null state is empty string
+     *  @param {Number} u_call_s_h - the call start hour
+     *  @param {Number} u_call_s_m - the call start minute
+     *  @param {Number} u_call_e_h - the call end hour
+     *  @param {Number} u_call_e_m - the call end minute
+     *  @param {Boolean} end_time_changed - variable to check whether the end time has been changed
+     *  @param {Object} formSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current dociment
+     * 
+     *  =============================================================
+     * **/
+
     import Tutorial from '../tutorials/Tutorial.vue';
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -100,6 +119,9 @@
                 'saveCallInfo',
                 'saveUserInfo'
             ]),
+            /**
+             *  Function to retrieve call info from data storage
+             * **/
             prepareCallInfo() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 if (curr_log) {
@@ -116,6 +138,9 @@
                     this.$refs.idCallInfoRef.nativeView.text = this.u_id;
                 }
             },
+            /**
+             *  Function to check whether the user name is filled and decide whether to show error message
+             * **/
             checkNameError(args) {
                 if (args.oldValue.trim() != '') {
                     if (args.value.trim() === '') {
@@ -130,6 +155,9 @@
                     }
                 } 
             },
+            /**
+             *  Function to check whether the user ID is filled and decide whether to show error message
+             * **/
             checkIDError(args) {
                 if (args.value) {
                     const new_input = args.value.replace(/\D/g, '');
@@ -145,6 +173,12 @@
                     } 
                 }
             },
+            /**
+             *  Function to save edited info to data storage
+             *  [Description] - will only proceed if the user full name is not empty, if the user id is valid and if the call end time has been manually set
+             *                - if the user does not exist in users array in data storage, then the user info will automatically added to the list
+             *                - the user will take the intake nurse instead of the logged-in user
+             * **/
             onSaveTap(args) {
                 if (this.u_name.trim() === '') {
                     this.$refs.nameECallInfoRef.nativeView.opacity = 1;
@@ -159,6 +193,7 @@
                 }
                 if (this.u_name.trim() === '' || this.u_id.length != 6 || !this.end_time_changed) return;
 
+                // passed all conditions, proceed
                 const s_time_obj = this.$refs.sTimeCallInfoRef.nativeView.time;
                 const e_time_obj = this.$refs.eTimeCallInfoRef.nativeView.time;
                 let s_time = s_time_obj.toString().split(' ')[4].substring(0, 5);
@@ -174,6 +209,7 @@
                
                 this.saveCallInfo(call_item);
 
+                // check whether the user need to be saved
                 if (this.users.find(elem => elem.id === this.u_id) === undefined) {
                     let color_idx = userColors.findIndex(elem => {
                         if (this.users.length === 0) return false;
@@ -190,22 +226,36 @@
                     }
                     this.saveUserInfo(user_item);
                 }
+
+                // automatically close the modal
                 this.$modal.close();
             },
+            /**
+             *  Function to close this reason editing pop-up
+             * **/
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to confirm that call end time has been set
+             * **/
             onTimeChange() {
                 if (! this.end_time_changed) {
                     this.end_time_changed = true;
                     this.$refs.timeECallInfoRef.nativeView.opacity = 0;
                 }
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 layoutView.getViewById("call-a1").dismissSoftInput();
                 layoutView.getViewById("call-a2").dismissSoftInput();
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.callGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.callGridRef.nativeView.getMeasuredWidth() );

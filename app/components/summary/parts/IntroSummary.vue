@@ -33,6 +33,7 @@
 
     import QuestionSummary from './QuestionSummary.vue';
     import Introduction from '../../intro/Introduction.vue';
+    
     import { mapGetters } from 'vuex';
 
     export default {

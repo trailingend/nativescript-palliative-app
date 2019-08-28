@@ -61,10 +61,29 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Modal to ask the user to fill in a reason for editing current client
+     *  [Description] - called in Summary page
+     *  @param {Number} c_q_id - question if, this variable is always 0, because there is only one question  to ask
+     *  @param {String} user_text_color - the color code of the user name, will turn red if username is unknown
+     *  @param {String} user_head_color - the color code of the user avatar
+     *  @param {String} user_name - the name of the user currently logged in
+     *  @param {Array} responses - the array to collect user responses, the null state is []
+     *  @param {String} u_name - the fullname of the nurse user
+     *  @param {String} u_id - the user ID of the nurse
+     *  @param {Array} preset_reasons - pre-set choices for the question
+     *  @param {Boolean} is_user_editing - the variable to indicate whether in user editing mode or reasons editing mode
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current dociment
+     * 
+     *  =============================================================
+     * **/
+
     import SingleSelect from '../answers/SingleSelect.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { alert }  from "tns-core-modules/ui/dialogs";
     import { formatUsernameForDisplay, userColors, monthIndexToString } from '../../scripts/common';
@@ -72,9 +91,7 @@
     export default {
         data() {
             return {
-                c_id: '',
                 c_q_id: 0,
-                c_reason: '',
                 user_text_color: '#000000',
                 user_head_color: '#a57ed7',
                 user_name: '',
@@ -127,6 +144,9 @@
                 'changeClientHistory',
                 'saveUserInfo'
             ]),
+            /**
+             *  Function to retrieve document info from data storage
+             * **/
             loadExistingInfo() {
                 if (this.log_id) {
                     if (this.curr_user_id != -1) {
@@ -144,12 +164,22 @@
                     }
                 }
             },
+            /**
+             *  Function to retrieve saved responses
+             *  @return {Array} responses
+             * **/
             retrieveSavedResponses() {
                 return this.responses;
             },
+            /**
+             *  Function to save user responses when user makes any change
+             * **/
             onAnswerChange(data) {
                 this.responses = data;
             },
+            /**
+             *  Function to save reason to data storage
+             * **/
             saveReason(args) {
                 const entry = {
                     log_id: this.log_id,
@@ -157,6 +187,9 @@
                 };
                 this.changeClientReason(entry);
             },
+            /**
+             *  Function to check whether the user name is filled and decide whether to show error message
+             * **/
             checkNameError(args) {
                 if (args.oldValue.trim() != '') {
                     if (args.value.trim() === '') {
@@ -171,6 +204,9 @@
                     }
                 } 
             },
+            /**
+             *  Function to check whether the user ID is filled and decide whether to show error message
+             * **/
             checkIDError(args) {
                 if (args.value) {
                     const new_input = args.value.replace(/\D/g, '');
@@ -186,6 +222,10 @@
                     } 
                 }
             },
+            /**
+             *  Function to record modification time, in format of XX:XX | DD MMM YYYY
+             *  @return {String} dateTime
+             * **/
             recordTime() {
                 const today = new Date();
                 const date = today.getDate() + ' ' + monthIndexToString(today.getMonth()) + ' ' + today.getFullYear();
@@ -194,6 +234,12 @@
                 const dateTime = time + ' | ' + date;
                 return dateTime;
             },
+            /**
+             *  Function to save user info in user editing mode 
+             *  [Description] - in user editing mode, the user will be saved only if the username is not empty and if the ID is valid 
+             *                - if the user does not exist in users array in data storage, then the user info will automatically added to the list
+             *                - the user will take the user who currently logged in as the default value instead of using the intake nurse info
+             * **/
             onUserSaveTap(args) {
                 if (this.u_name.trim() === '') {
                     this.$refs.nameEReasonRef.nativeView.opacity = 1;
@@ -230,6 +276,10 @@
                 this.user_text_color = '#000000';
                 this.is_user_editing = false;
             },
+            /**
+             *  Function to submit edit history in reason editing mode 
+             *  [Description] - only proceed if the user info is not empty
+             * **/
             onSubmit() {
                 if (this.u_id === '') {
                     alert({
@@ -250,10 +300,17 @@
                     this.$modal.close(true);
                 }
             },
+            /**
+             *  Function to change reason editing mode to user editing mode
+             *  [Description] - in user editing mode, the user will be saved only if the username is not empty and if the ID is valid 
+             * **/
             onChangeUser() {
                 // this.$refs.idReasonRef.nativeView.text = this.curr_user_id;
                 this.is_user_editing = true;
             },
+            /**
+             *  Function to determine whether to save user or save history
+             * **/
             onSubmitTap(args) {
                 if (this.is_user_editing) {
                     this.onUserSaveTap(args);
@@ -261,9 +318,15 @@
                     this.onSubmit();
                 }
             },
+            /**
+             *  Function to close this reason editing pop-up
+             * **/
             onCloseTap() {
                 this.$modal.close(false);
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 if (this.is_user_editing) {
                     const a1Textfield = args.object.getViewById(`reason-a1`);
@@ -275,9 +338,9 @@
                     aTextfield.dismissSoftInput();
                 }
             },
-            onNavigatingFrom() {
-                
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.reasonGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.reasonGridRef.nativeView.getMeasuredWidth() );
