@@ -15,11 +15,11 @@
      * 
      *  =============================================================
      * **/
+    
     import Dashboard from '../../home/Dashboard.vue';
     import Reason from '../Reason.vue';
 
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import * as email from "nativescript-email";
     import { confirm, alert }  from "tns-core-modules/ui/dialogs";
     import { monthIndexToString } from '../../../scripts/common';
@@ -288,12 +288,15 @@
                 this.protocols.forEach(protocol => {
                     const items_idx = curr_log.items_answers.findIndex(elem => protocol.id === elem.id);
                     const others_idx = curr_log.others_answers.findIndex(elem => protocol.id === elem.id);
-                    console.log("FLAG IN 1");
+                    
+                    // only continue if there exists at least one response in items or others section of current protocol
                     if ( items_idx != -1 || others_idx != -1) {
                         let items_body = [];
                         let info = [];
                         if (items_idx != -1) {
+                            // starting to write items questions
                             this.assessment_letters.forEach(letter => {
+                                // count_letter will count how many questions is associated with one assessment letter
                                 let count_letter = 0;
                                 const l_objs = protocol.assessment_questions.filter(elem => {return elem.assessment_letter.id === letter.id});
                                 if (l_objs) {
@@ -319,8 +322,7 @@
                             });
                         }
                         
-                        console.log("FLAG IN 1");
-                        
+                        // starting to write others questions
                         if (others_idx != -1) {
                             protocol.additional_questions.forEach(q_obj => {
                                 const r_obj = curr_log.others_answers[others_idx].a.find(elem => {return elem.q_id === q_obj.id});
@@ -336,7 +338,8 @@
                                 c: protocol.additional_questions.length
                             });
                         }
-                        console.log("FLAG IN 2");
+                        
+                        // starting to group column one of the rows with same assessment letters
                         info.forEach(info_item => {
                             if (info_item.c > 1) {
                                 const item_to_change = items_body.find(item => { return item.t == info_item.t; });
@@ -347,6 +350,7 @@
                                 };
                             }
                         });
+                        
                         protocol_bodies.push({
                             name: protocol.name,
                             items: items_body,
