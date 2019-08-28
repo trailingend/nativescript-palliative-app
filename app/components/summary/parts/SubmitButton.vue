@@ -10,8 +10,8 @@
      *  [Description] - used in Summary page
      *  @param {String} submit_text - the text appears on the submit button; will change if status of document change
      *  @param {Boolean} is_resubmit -  the variable records the current status of document
-     *  @props {String} log_id - the id of the current dociment
-     *  @props {Boolean} is_reviewed - the variable records whether this document can be submitted or not
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Boolean} is_reviewed - the variable records whether this document can be submitted or not
      * 
      *  =============================================================
      * **/

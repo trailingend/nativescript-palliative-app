@@ -38,6 +38,20 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to display protocol questions and responses in Summary
+     *  [Description] - used in Summary page
+     *  @param {String} protocol_title - name of current protocol
+     *  @param {Array} items_questions - local cache of the items questions
+     *  @param {Array} others_questions - local cache of the others questions
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Number} protocol_id - the id of the current protocol
+     * 
+     *  =============================================================
+     * **/
+
     import QuestionSummary from './QuestionSummary.vue';
     import AssessItems from '../../protocols/AssessItems.vue';
     import AssessOthers from '../../protocols/AssessOthers.vue';
@@ -47,7 +61,6 @@
     export default {
         data() {
             return {
-                protocol_id: -1,
                 protocol_title:'',
                 items_questions: [],
                 others_questions: [],
@@ -76,6 +89,11 @@
 			]),
 		},
         methods: {
+            /**
+             *  Function to get array of assessment lettters with questions
+             *  [Description] - assessment letters with no question will be excluded
+             *  @return {Array} valid_letters
+             * **/
             valid_assessment_letters() {
                 let valid_letters = new Set();
                 this.assessment_letters.forEach(letter_obj => {
@@ -84,17 +102,29 @@
                 })
                 return Array.from(valid_letters);
             },
+            /**
+             *  Function to get questions related with a given letter in current protocol
+             *  @param {Object} letter - the current letter object
+             *  @return {Array} filted_assessments - array of questions related with current letter
+             * **/
             filteredAssessments(letter) {
                 const filted_assessments = this.items_questions.filter(elem => elem.assessment_letter.id == letter.id);
                 return filted_assessments;
             },
+            /**
+             *  Function to prepare local cache of questions of current protocol
+             * **/
             prepareSummary() {
                 const protocol = this.protocols.find(elem => { return elem.id === this.protocol_id; });
-                this.protocol_id = protocol.id;
                 this.protocol_title = protocol.name;
                 this.items_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).assessment_questions;
                 this.others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
             },
+            /**
+             *  Function to go and edit Assessment Items page of current protocol
+             *  [Description] - from_summary flag on for Items oage
+             *  @param {Number} letter_id - the current letter id to be edited
+             * **/
             onItemsEditTap(letter_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -112,6 +142,10 @@
                     }
                 });
             },
+            /**
+             *  Function to go and edit Assessment Others page of current protocol
+             *  [Description] - from_summary flag on for Others oage
+             * **/
             onOthersEditTap() {
                 this.$navigateTo(AssessOthers, {
                     animated: true,

@@ -50,6 +50,22 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Page to display summary of current client
+     *  [Description] - used in Summary page
+     *  @param {Boolean} is_reviewed - the variable controls whether can submit
+     *  @param {Boolean} can_check_call_info - the variable controls whether to check call info 
+     *  @param {Boolean} is_switch_enabled - the variable controls whether to enable switch
+     *  @param {Array} protocol_ids - the list of ids of selected protocols 
+     *  @prop {String} log_id - the id of the current dociment
+     *  @prop {Number} protocol_id - the id of the current protocol
+     *  @prop {Boolean} has_prev - the variable records whether Summary page is in linearly documenting mode or opened directly from Dashboard
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import SubmitButton from './parts/SubmitButton.vue';
@@ -119,8 +135,8 @@
                 'saveSummaryProgress'
             ]),
             /**
-             *  Function to prepare data to display on load
-             *  - also check whether the switch can be enabled based on content of nurse info of the log
+             *  Function to prepare data for the page
+             *  [Description] - also check whether the switch can be enabled based on content of nurse info of the log
              * **/
             prepareSummary() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
@@ -133,6 +149,9 @@
                     this.checkSwitch();
                 }
             },
+            /**
+             *  Function to go back to plans page if in linearly documenting mode
+             * **/
             preparePrevStage() {
                 this.$navigateTo(Plans, {
                     animated: true,
@@ -149,6 +168,9 @@
                     }
                 });
             },
+            /**
+             *  Function to enable call info and client info check when switch is tapped
+             * **/
             onSwitchTap(args) {
                 if (! this.is_switch_enabled) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
@@ -169,6 +191,9 @@
                     }
                 }           
             },
+            /**
+             *  Function to toggle values of the review switch
+             * **/
             onSwitchSwap(args) {
                 this.is_reviewed = ! this.is_reviewed;
                 if (args.oldValue) {
@@ -181,11 +206,17 @@
                     }
                 } 
             },
+            /**
+             *  Function to show error message if review switch is not checked 
+             * **/
             checkConditions() {
                 if (! this.is_reviewed) {
                     this.$refs.consentErrorRef.nativeView.opacity = 1;
                 }
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             * **/
             addNewChart() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -197,6 +228,10 @@
                     },
                 });
             },
+            /**
+             *  Function to go back to previous page in linear mode
+             *  [Description] - update progress in this function
+             * **/
             onBackward() {
                 const progress = {
                     log_id: this.log_id,
@@ -205,9 +240,16 @@
                 this.saveSummaryProgress(progress);
                 this.preparePrevStage();
             },
+            /**
+             *  Function to go back on tap
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to add another protocol by navigating to ChooseProtocol page
+             *  [Description] - from_summary flag set to true
+             * **/
             onNewTap() {
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
@@ -223,10 +265,16 @@
                     }
                 });
             },
+            /**
+             *  Function to check whether all conditions met to enable switch
+             * **/
             checkSwitch() {
                 const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                 this.is_switch_enabled = ! (curr_log.nurseID === "" || curr_log.endTime === "" || curr_log.client === "");
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.summaryGridRef.nativeView.getMeasuredWidth() );
 
