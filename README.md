@@ -167,7 +167,7 @@ npm install jspdf-autotable
 	- [Type] String, required field
 	- [Description] - unique ID of client used by this app only, unique string based on creation time
 - **phone** :phone:
-	- [Type] String, in format of XXXXXXXXXX, null state is 8888888888
+	- [Type] String, in format of XXXXXXXXXX, null state is 0000000000
 	- [Description] - call-back number of client
 - **caller** :telephone_receiver:
 	- [Type] String

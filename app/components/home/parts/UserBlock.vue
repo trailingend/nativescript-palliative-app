@@ -31,7 +31,7 @@
         data() {
             return {
                 user: {
-                    id: '888888',
+                    id: '00000',
                     name: 'Nomen Nescio',
                     shift_start: '5:30',
                     shift_end: '8:30',

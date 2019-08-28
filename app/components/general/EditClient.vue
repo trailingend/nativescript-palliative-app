@@ -180,9 +180,9 @@
                 // this.$refs.editClientRef.nativeView.text = args.value;
             },
             onSaveTap(args) {
-                const client_phone = (this.c_phone === '') ? '8888888888' : this.c_phone;
-                const caller_name = (this.c_caller === '') ? 'Anonymous' : this.c_caller;
-                const client_name = (this.c_client === '') ? 'John Doe' : this.c_client;
+                const client_phone = (this.c_phone === '') ? '0000000000' : this.c_phone;
+                const caller_name = (this.c_caller === '') ? 'Uknown' : this.c_caller;
+                const client_name = (this.c_client === '') ? 'Unknown' : this.c_client;
                 const client_relation = (this.c_relation === '') ? 'Unknown' : this.c_relation;
 
                 if (client_phone.length != 10) {

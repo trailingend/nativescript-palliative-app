@@ -205,7 +205,7 @@
                 this.c_info = args.value;
             },
             parsePhoneInput() {
-                let client_phone = '8888888888';
+                let client_phone = '0000000000';
                 if (this.$refs.phoneFieldRef) {
                     if (this.$refs.phoneFieldRef.nativeView.text != null 
                         && this.$refs.phoneFieldRef.nativeView.text != '') {
