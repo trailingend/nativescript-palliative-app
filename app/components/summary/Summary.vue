@@ -26,6 +26,7 @@
                                              :protocol_id="p_id" />
                         </StackLayout>
                     </StackLayout>
+                    <RecommendationsSummary :log_id="log_id" /> 
                     <PlanSummary :log_id="log_id" /> 
                     <NoteSummary :log_id="log_id" />
 
@@ -73,6 +74,7 @@
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
+    import RecommendationsSummary from './parts/RecommendationsSummary.vue';
     import PlanSummary from './parts/PlanSummary.vue';
     import NoteSummary from './parts/NoteSummary.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
@@ -119,6 +121,7 @@
             InfoSummary,
             IntroSummary,
             ProtocolSummary,
+            RecommendationsSummary,
             PlanSummary,
             NoteSummary
         },

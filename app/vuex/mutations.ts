@@ -104,6 +104,11 @@ export default {
         // console.log("=== in mutation LOG_OTHERS_UPDATE ===");
         // console.dir(state.logs[LOG_item.idx].others_answers);
     },
+    [types.LOG_RECOMMENDATIONS_UPDATE](state, LOG_item) {
+        state.logs[LOG_item.idx].recommendations = LOG_item.content;
+        console.log("=== in mutation LOG_RECOMMENDATIONS_UPDATE ===");
+        console.dir(state.logs[LOG_item.idx].recommendations);
+    },
     [types.LOG_PLANS_UPDATE](state, LOG_item) {
         state.logs[LOG_item.idx].plans_answers = LOG_item.content;
         // console.log("=== in mutation LOG_PLANS_UPDATE ===");
@@ -120,6 +125,7 @@ export default {
         state.logs[item.idx].progress[3] = 0;
         state.logs[item.idx].progress[4] = 0;
         state.logs[item.idx].progress[5] = 0;
+        state.logs[item.idx].progress[6] = 0;
         console.log("=== in mutation LOG_PROTO_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.LOG_ITEMS_PROGRESS](state, item) {
@@ -130,12 +136,16 @@ export default {
         state.logs[item.idx].progress[3] = item.in_others;
         console.log("=== in mutation LOG_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
     },
+    [types.LOG_RECOMMENDATIONS_PROGRESS](state, item) {
+        state.logs[item.idx].progress[4] = item.in_recommendations;
+        console.log("=== in mutation LOG_RECOMMENDATIONS_PROGRESS === " + state.logs[item.idx].progress);
+    },
     [types.LOG_PLANS_PROGRESS](state, item) {
-        state.logs[item.idx].progress[4] = item.has_plan;
+        state.logs[item.idx].progress[5] = item.has_plan;
         console.log("=== in mutation LOG_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.LOG_SUM_PROGRESS](state, item) {
-        state.logs[item.idx].progress[5] = item.in_sum;
+        state.logs[item.idx].progress[6] = item.in_sum;
         console.log("=== in mutation LOG_SUM_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.LOG_CALL_UPDATE](state, item) {

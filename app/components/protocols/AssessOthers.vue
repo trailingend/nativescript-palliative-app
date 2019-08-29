@@ -46,7 +46,7 @@
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import ResourcesButton from './parts/ResourcesButton.vue';
     import AssessItems from './AssessItems.vue';
-    import Plans from './Plans.vue';
+    import Recommendations from './Recommendations.vue';
     import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
@@ -107,7 +107,7 @@
         methods: {
             ...mapActions([
                 'saveOthersProgress',
-                'savePlansProgress',
+                'saveRecommendationsProgress',
             ]),
             prepareQuestions() {
                 this.p_title = this.protocols.find(elem => { return elem.id === this.protocol_id; }).name;
@@ -130,7 +130,7 @@
                 });
             },
             prepareNextStage() {
-                this.$navigateTo(Plans, {
+                this.$navigateTo(Recommendations, {
                     animated: true,
                     clearHistory: true,
                     transition: {
@@ -193,9 +193,9 @@
             onForward() {
                 const progress = {
                     log_id: this.log_id,
-                    has_plan: 1,
+                    in_recommendations: 1,
                 }
-                this.savePlansProgress(progress);
+                this.saveRecommendationsProgress(progress);
                 this.prepareNextStage();
             },
             onBackward() {

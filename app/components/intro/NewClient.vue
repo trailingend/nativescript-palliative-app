@@ -272,11 +272,12 @@
                         startTime: this.created_time,
                         endTime: '',
                         status: false,
-                        progress: [-1, -2, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Bool], others[Tri-state], plans[Bool], summary[Bool]
+                        progress: [-1, -2, 0, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Bool], others[Tri-state], plans[Bool], summary[Bool]
                         editHistory: [],
                         intro_answers: [],
                         items_answers: [],
                         others_answers: [],
+                        recommendations: '',
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);

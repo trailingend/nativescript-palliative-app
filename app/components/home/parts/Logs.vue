@@ -40,6 +40,7 @@
     import AssessItems from '../../protocols/AssessItems.vue';
     import AssessOthers from '../../protocols/AssessOthers.vue';
     import Plans from '../../protocols/Plans.vue';
+    import Recommendations from '../../protocols/Recommendations.vue';
     import Summary from '../../summary/Summary.vue';
 
     import { mapGetters } from 'vuex';
@@ -202,12 +203,16 @@
                     this.prepareSummary(log.id);
                     return;
                 } 
-                if (progress[5] === 1) { // if last at summary page
+                if (progress[6] === 1) { // if last at summary page
                     this.prepareSummary(log.id);
                     return;
                 }
-                if (progress[4] === 1) { // if last at plans page
+                if (progress[5] === 1) { // if last at summary page
                     this.preparePlans(log.id);
+                    return;
+                }
+                if (progress[4] === 1) { // if last at recommendations page
+                    this.prepareRecommendations(log.id);
                     return;
                 }
                 if (progress[1] > -1) { // if protocol selected
@@ -299,6 +304,21 @@
                     props: {
                         log_id: log_id,
                         protocol_id: protocol_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            prepareRecommendations(log_id) {
+                this.$navigateTo(Recommendations, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
                         from_summary: false,
                     }
                 });

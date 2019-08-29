@@ -187,6 +187,19 @@ export default {
         }
     },
 
+    saveRecommendationsUpdate({commit, state}, update_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In Recommendations log update: OH NO !!! ===");
+        } else {
+            const log_item = {
+                idx: log_idx,
+                content: update_item.content,
+            };
+            commit(types.LOG_RECOMMENDATIONS_UPDATE, log_item);
+        }
+    },
+
     savePlansUpdate({commit, state}, update_item) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == update_item.log_id});
         if (log_idx === -1) {
@@ -248,6 +261,19 @@ export default {
                 in_others: input_item.in_others
             };
             commit(types.LOG_OTHERS_PROGRESS, progress_item);
+        }
+    },
+
+    saveRecommendationsProgress({commit, state}, input_item) {
+        const log_idx = state.logs.findIndex((elem) => {return elem.id == input_item.log_id});
+        if (log_idx === -1) {
+            console.log("=== In recommendations progress update: OH NO !!! ===");
+        } else {
+            const progress_item = {
+                idx: log_idx,
+                in_recommendations: input_item.in_recommendations,
+            };
+            commit(types.LOG_RECOMMENDATIONS_PROGRESS, progress_item);
         }
     },
 
