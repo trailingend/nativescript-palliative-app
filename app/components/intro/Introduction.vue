@@ -34,6 +34,28 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Page to ask introduction questions
+     *  [Description] - can be opened from NewClient/ ChooseProtocols/ AssessItems/ Summary page
+     *  [Related] - styles in introduction.scss
+     *  @param {Number} step_id - the id number of current step in introduction
+     *  @param {Array} questions - list of introduction questions in current step
+     *  @param {Array} responses - list of responses
+     *  @param {String} next_text - text of the next button
+     *  @param {String} textview_ids list of objects records the y position of each element
+     *      - id - the id of the element
+     *      - y - the y position of the element on the page
+     *  @param {Object} formatSetting - variable to store screen-size sensitive classnames
+     *  @prop {Number} log_id - the id of the current document
+     *  @prop {Array} step_ids - list of available step ids
+     *  @prop {Number} step_idx - the index of current step
+     *  @prop {Boolean} from_summary - - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';

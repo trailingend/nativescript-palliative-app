@@ -237,19 +237,23 @@ export default {
 		}, {
 			title: 'Document',
 			video: 'help3',
-			desc: 'You have the option of free text and multiple choice to assist with documentation. To help navigate the assessment you can skip, go-back or forward. The ‘Recommend’ section is to support you with more info.'
+			desc: 'You have the option of free text and multiple choice to assist with documentation. switch between protocols, tap ‘Protocols’. To help navigate the assessment you can skip, go-back or forward. The ‘Recommend’ section is to support you with more info. Add follow up info in the ‘Notes’ section.'
 		}, {
 			title: 'Review Summary Screen',
 			video: 'help4',
-			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section of the document. Tick the box “Documentation reviewed and finalized”.'
+			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section of the document. Verify you’ve finished reviewing by checking “Documentation reviewed and finalized.”.'
 		}, {
-			title: 'Uploading to PARIS',
+			title: 'Upload to PARIS',
 			video: 'help5',
-			desc: 'TBD.'
+			desc: 'The document will be sent to a generic email by default. Input your personal VCH email as backup. To upload to PARIS, refer to the PARIS upload guide.'
 		}, {
-			title: 'Delete Document',
+			title: 'Complete and Delete',
 			video: 'help2',
-			desc: 'TBD'
+			desc: 'Completed documentation must be uploaded to PARIS ASAP. Select the client chart and swipe right to delete after uploaded to PARIS. Client charts will autodelete after 7 days.'
+		}, {
+			title: 'Edit a Completed Document',
+			video: 'help2',
+			desc: 'A reason must be provided before a new PDF is exported. Choose between ‘Correcting errors’ or ‘Generic edits’’ and then type a description of your edits in the text field below.'
 	}],
 
 
