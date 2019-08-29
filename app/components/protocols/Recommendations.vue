@@ -283,17 +283,6 @@
                     } 
                 });
             },
-            addNewLog(args) {
-                this.$navigateTo(NewClient, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'slide',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                });
-            },
         }
     };
 </script>
