@@ -87,7 +87,7 @@ export default {
         commit(types.LOG_HISTORY_UPDATE, log_item);
     },
 
-    deleteChart({commit, state}, log_id) {
+    deleteLog({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         commit(types.LOG_DELETE, log_idx);
     },
@@ -316,16 +316,16 @@ export default {
         }
     },
 
-    changeChartStatus({commit, state}, log_id) {
+    changeLogStatus({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
         commit(types.LOG_STATUS_TRUE, log_idx);
     },
 
-    saveActiveChart({commit, state}, id) {
+    saveActiveLog({commit, state}, id) {
         commit(types.LOG_ACTIVATE, id);
     },
 
-    deleteActiveChart({commit, state}) {
+    deleteActiveLog({commit, state}) {
         commit(types.LOG_DEACTIVATE);
     },
 

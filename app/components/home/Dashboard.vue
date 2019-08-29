@@ -79,7 +79,7 @@
             ...mapActions([
                 'loadLocalData',
                 'loadOnlineData',
-                'deleteActiveChart'
+                'deleteActiveLog'
             ]),
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
@@ -95,7 +95,7 @@
             },
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
-                this.deleteActiveChart();
+                this.deleteActiveLog();
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

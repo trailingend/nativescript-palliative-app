@@ -5,7 +5,7 @@
                     columns="auto, auto, *, auto" ref="itemsGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="4" :is_close="true" @newClient="addNewChart" ref="navRef" />
+            <NavBar row="0" col="0" colSpan="4" :is_close="true" @newClient="addNewLog" ref="navRef" />
 
             <ClientBlock row="1" col="0" colSpan="4" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)" ref="clientBlockRef"/>
 
@@ -375,7 +375,7 @@
             markAsIncomplete(l_id) {
                 const success = this.complete_letter_ids.delete(l_id);
             },
-            addNewChart() {
+            addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

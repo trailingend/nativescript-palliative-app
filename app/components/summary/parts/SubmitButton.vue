@@ -60,7 +60,7 @@
 		},
         methods: {
             ...mapActions([
-                'changeChartStatus',
+                'changeLogStatus',
                 'changeClientHistory'
             ]),
             /**
@@ -188,7 +188,7 @@
              *  @return {String} dateTime - the current date and time
              * **/
             onEmailSent() {
-                this.changeChartStatus(this.log_id);
+                this.changeLogStatus(this.log_id);
                 this.backToHome();
             },
             /**

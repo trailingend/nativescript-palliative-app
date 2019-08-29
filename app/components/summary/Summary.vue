@@ -4,7 +4,7 @@
                     rows="auto, *, auto" 
                     columns="auto, *" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
             <ScrollView row="1" col="0" rowSpan="2" colSpan="2" id="sum-scroll">
                 <StackLayout class="summary-main-ctnr">
@@ -219,7 +219,7 @@
             /**
              *  Function to abort the current document and start a new doucment
              * **/
-            addNewChart() {
+            addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

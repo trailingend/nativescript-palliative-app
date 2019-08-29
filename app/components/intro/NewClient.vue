@@ -190,7 +190,7 @@
         methods: {
             ...mapActions([
                 'saveClientInfo',
-                'saveActiveChart',
+                'saveActiveLog',
                 'saveIntroProgress'
             ]),
             recordTime() {
@@ -281,7 +281,7 @@
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);
-                    // this.saveActiveChart(this.c_id);
+                    // this.saveActiveLog(this.c_id);
 
                     let steps_ids = [];
                     this.intro.forEach(elem => { steps_ids.push(elem.id); });

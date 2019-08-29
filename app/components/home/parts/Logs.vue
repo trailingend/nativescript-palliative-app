@@ -71,8 +71,8 @@
 		},
         methods: {
             ...mapActions([
-                'deleteChart',
-                'saveActiveChart'
+                'deleteLog',
+                'saveActiveLog'
             ]),
             /**
              *  Function to prepare data to display on load
@@ -84,7 +84,7 @@
                     log.countdown = this.formatCountdown(log.date);
                     if (log.countdown === 'TODAY') {
                         console.log("=== auto deleting === " + log.id);
-                        this.deleteChart(log.id);
+                        this.deleteLog(log.id);
                     }
 
                     log.color = (log.countdown === 'TOMORROW' || log.countdown === 'IN 2 DAYS') ? "#ff1f00" : "#4b4b4b";
@@ -166,7 +166,7 @@
                 }).then(isConfirmed => {
                     if (isConfirmed) {
                         console.log("=== Delete client === " + id);
-                        this.deleteChart(id);
+                        this.deleteLog(id);
                     } else {
                         console.log("=== no delete ===");
                     }

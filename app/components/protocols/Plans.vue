@@ -5,7 +5,7 @@
                     columns="auto, *, auto" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
@@ -252,7 +252,7 @@
                 };
                 this.savePlansUpdate(update);
             },
-            addNewChart() {
+            addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
