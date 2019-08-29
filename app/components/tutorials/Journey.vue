@@ -32,7 +32,7 @@
 
             <Button row="2" col="0" colSpan="1" class="back-btn" text="Back" @tap="onBackTap" :opacity="(!is_first_time && item_idx === 0) ? 0 : 1"></Button>
             <StackLayout row="2" col="1" colSpan="1" class="tutorial-progress-ctnr">
-                <Label class="tutorial-progress" :text="`${$props.item_idx + 1} / 6`"></Label>
+                <Label class="tutorial-progress" :text="`${$props.item_idx + 1} / ${total_pages}`"></Label>
             </StackLayout>
             <Button row="2" col="2"  colSpan="1" v-if="$props.item_idx < tutorials.length - 1" class="next-btn" text="Next" @tap="onNextTap" ></Button>
             <Button row="2" col="2"  colSpan="1" v-else class="next-btn" text="Next" opacity="0" ></Button>
@@ -51,6 +51,7 @@
         data() {
             return {
                 isReady: false,
+                total_pages: 7,
                 
                 ctnrSetting: "first-time-ctnr",
                 widthSetting: '367.5',
