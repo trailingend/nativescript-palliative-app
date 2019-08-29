@@ -36,119 +36,129 @@ export default {
         state.users.splice(user_idx, 1);
     },
 
-    [types.CHART_CREATE](state, entry){
+    [types.LOG_CREATE](state, entry){
         state.logs.unshift(entry); 
-        console.log("=== in mutation CHART_CREATE ===");
+        console.log("=== in mutation LOG_CREATE ===");
         console.dir(state.logs[0]);
     },
-    [types.CHART_DELETE](state, chart_idx) {
-        state.logs.splice(chart_idx, 1);
+    [types.LOG_DELETE](state, LOG_idx) {
+        state.logs.splice(LOG_idx, 1);
     },
-    [types.CHART_ACTIVATE](state, chart_id) {
-        state.currLogId = chart_id;
+    [types.LOG_ACTIVATE](state, LOG_id) {
+        state.currLogId = LOG_id;
     },
-    [types.CHART_DEACTIVATE](state) {
+    [types.LOG_DEACTIVATE](state) {
         state.currLogId = null;
     },
-    [types.CHART_STATUS_TRUE](state, chart_idx) {
-        state.logs[chart_idx].status = true;
-        console.log("in mutation status ===: " + state.logs[chart_idx].status);
+    [types.LOG_STATUS_TRUE](state, LOG_idx) {
+        state.logs[LOG_idx].status = true;
+        console.log("in mutation status ===: " + state.logs[LOG_idx].status);
     },
-    [types.CHART_INFO_UPDATE](state, entry) {
-        const chart_idx = state.logs.findIndex((elem) => {return elem.id == entry.id});
-        state.logs[chart_idx].phone = entry.phone;
-        state.logs[chart_idx].caller = entry.caller;
-        state.logs[chart_idx].client = entry.client;
-        state.logs[chart_idx].relation = entry.relation;
-        state.logs[chart_idx].info = entry.info;
+    [types.LOG_INFO_UPDATE](state, entry) {
+        const LOG_idx = state.logs.findIndex((elem) => {return elem.id == entry.id});
+        state.logs[LOG_idx].phone = entry.phone;
+        state.logs[LOG_idx].caller = entry.caller;
+        state.logs[LOG_idx].client = entry.client;
+        state.logs[LOG_idx].relation = entry.relation;
+        state.logs[LOG_idx].info = entry.info;
     },
-    [types.CHART_NOTE_UPDATE](state, chart_item){
-        state.logs[chart_item.idx].notes = chart_item.content;
-        // console.log("=== in mutation CHART_NOTE_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].notes);
+    [types.LOG_NOTE_UPDATE](state, LOG_item){
+        state.logs[LOG_item.idx].notes = LOG_item.content;
+        // console.log("=== in mutation LOG_NOTE_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].notes);
     },
-    [types.CHART_INTRO_UPDATE](state, chart_item){
-        if (chart_item.q_idx === -1) {
-            state.logs[chart_item.idx].intro_answers.push(chart_item.content);
+    [types.LOG_INTRO_UPDATE](state, LOG_item){
+        if (LOG_item.q_idx === -1) {
+            state.logs[LOG_item.idx].intro_answers.push(LOG_item.content);
         } else {
-            state.logs[chart_item.idx].intro_answers[chart_item.q_idx].a = chart_item.content.a;
+            state.logs[LOG_item.idx].intro_answers[LOG_item.q_idx].a = LOG_item.content.a;
         } 
-        // console.log("=== in mutation CHART_INTRO_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].intro_answers);
+        // console.log("=== in mutation LOG_INTRO_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].intro_answers);
     },
-    [types.CHART_ITEMS_ADD](state, chart_item) {
-        state.logs[chart_item.idx].items_answers.push(chart_item.content);
-        // console.log("=== in mutation CHART_ITEMS_ADD ===");
-        // console.dir(state.logs[chart_item.idx].items_answers);
+    [types.LOG_ITEMS_ADD](state, LOG_item) {
+        state.logs[LOG_item.idx].items_answers.push(LOG_item.content);
+        // console.log("=== in mutation LOG_ITEMS_ADD ===");
+        // console.dir(state.logs[LOG_item.idx].items_answers);
     },
-    [types.CHART_ITEMS_UPDATE](state, chart_item) {
-        if (chart_item.q_idx === -1) {
-            state.logs[chart_item.idx].items_answers[chart_item.p_idx].a.push(chart_item.content);
+    [types.LOG_ITEMS_UPDATE](state, LOG_item) {
+        if (LOG_item.q_idx === -1) {
+            state.logs[LOG_item.idx].items_answers[LOG_item.p_idx].a.push(LOG_item.content);
         } else {
-            state.logs[chart_item.idx].items_answers[chart_item.p_idx].a[chart_item.q_idx].a = chart_item.content.a;
+            state.logs[LOG_item.idx].items_answers[LOG_item.p_idx].a[LOG_item.q_idx].a = LOG_item.content.a;
         } 
-        // console.log("=== in mutation CHART_ITEMS_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].items_answers);
+        // console.log("=== in mutation LOG_ITEMS_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].items_answers);
     },
-    [types.CHART_OTHERS_ADD](state, chart_item){
-        state.logs[chart_item.idx].others_answers.push(chart_item.content);
-        // console.log("=== in mutation CHART_OTHERS_ADD ===");
-        // console.dir(state.logs[chart_item.idx].others_answers);
+    [types.LOG_OTHERS_ADD](state, LOG_item){
+        state.logs[LOG_item.idx].others_answers.push(LOG_item.content);
+        // console.log("=== in mutation LOG_OTHERS_ADD ===");
+        // console.dir(state.logs[LOG_item.idx].others_answers);
     },
-    [types.CHART_OTHERS_UPDATE](state, chart_item){
-        if (chart_item.q_idx === -1) {
-            state.logs[chart_item.idx].others_answers[chart_item.p_idx].a.push(chart_item.content);
+    [types.LOG_OTHERS_UPDATE](state, LOG_item){
+        if (LOG_item.q_idx === -1) {
+            state.logs[LOG_item.idx].others_answers[LOG_item.p_idx].a.push(LOG_item.content);
         } else {
-            state.logs[chart_item.idx].others_answers[chart_item.p_idx].a[chart_item.q_idx].a = chart_item.content.a;
+            state.logs[LOG_item.idx].others_answers[LOG_item.p_idx].a[LOG_item.q_idx].a = LOG_item.content.a;
         } 
-        // console.log("=== in mutation CHART_OTHERS_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].others_answers);
+        // console.log("=== in mutation LOG_OTHERS_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].others_answers);
     },
-    [types.CHART_PLANS_UPDATE](state, chart_item) {
-        state.logs[chart_item.idx].plans_answers = chart_item.content;
-        // console.log("=== in mutation CHART_PLANS_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].plans_answers);
+    [types.LOG_RECOMMENDATIONS_UPDATE](state, LOG_item) {
+        state.logs[LOG_item.idx].recommendations = LOG_item.content;
+        console.log("=== in mutation LOG_RECOMMENDATIONS_UPDATE ===");
+        console.dir(state.logs[LOG_item.idx].recommendations);
+    },
+    [types.LOG_PLANS_UPDATE](state, LOG_item) {
+        state.logs[LOG_item.idx].plans_answers = LOG_item.content;
+        // console.log("=== in mutation LOG_PLANS_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].plans_answers);
     },
     
-    [types.CHART_INTRO_PROGRESS](state, item) {
+    [types.LOG_INTRO_PROGRESS](state, item) {
         state.logs[item.idx].progress[0] = item.s_id;
-        console.log("=== in mutation CHART_INTRO_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation LOG_INTRO_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_PROTO_PROGRESS](state, item) {
+    [types.LOG_PROTO_PROGRESS](state, item) {
         state.logs[item.idx].progress[1] = item.p_id;
         state.logs[item.idx].progress[2] = item.p_id > -1 ? 1 : 0;
         state.logs[item.idx].progress[3] = 0;
         state.logs[item.idx].progress[4] = 0;
         state.logs[item.idx].progress[5] = 0;
-        console.log("=== in mutation CHART_PROTO_PROGRESS === " + state.logs[item.idx].progress);
+        state.logs[item.idx].progress[6] = 0;
+        console.log("=== in mutation LOG_PROTO_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_ITEMS_PROGRESS](state, item) {
+    [types.LOG_ITEMS_PROGRESS](state, item) {
         state.logs[item.idx].progress[2] = item.l_id;
-        console.log("=== in mutation CHART_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation LOG_ITEMS_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_OTHERS_PROGRESS](state, item) {
+    [types.LOG_OTHERS_PROGRESS](state, item) {
         state.logs[item.idx].progress[3] = item.in_others;
-        console.log("=== in mutation CHART_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
+        console.log("=== in mutation LOG_OTHERS_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_PLANS_PROGRESS](state, item) {
-        state.logs[item.idx].progress[4] = item.has_plan;
-        console.log("=== in mutation CHART_PLANS_PROGRESS === " + state.logs[item.idx].progress);
+    [types.LOG_RECOMMENDATIONS_PROGRESS](state, item) {
+        state.logs[item.idx].progress[4] = item.in_recommendations;
+        console.log("=== in mutation LOG_RECOMMENDATIONS_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_SUM_PROGRESS](state, item) {
-        state.logs[item.idx].progress[5] = item.in_sum;
-        console.log("=== in mutation CHART_SUM_PROGRESS === " + state.logs[item.idx].progress);
+    [types.LOG_PLANS_PROGRESS](state, item) {
+        state.logs[item.idx].progress[5] = item.has_plan;
+        console.log("=== in mutation LOG_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
-    [types.CHART_CALL_UPDATE](state, item) {
+    [types.LOG_SUM_PROGRESS](state, item) {
+        state.logs[item.idx].progress[6] = item.in_sum;
+        console.log("=== in mutation LOG_SUM_PROGRESS === " + state.logs[item.idx].progress);
+    },
+    [types.LOG_CALL_UPDATE](state, item) {
         state.logs[item.idx].nurseID = item.content.nurse_id;
         state.logs[item.idx].nurseFullname = item.content.nurse_fullname;
         state.logs[item.idx].startTime = item.content.call_start;
         state.logs[item.idx].endTime = item.content.call_end;
-        // console.log("=== in mutation CHART_CALL_UPDATE === " + state.logs[item.idx]);
+        // console.log("=== in mutation LOG_CALL_UPDATE === " + state.logs[item.idx]);
     },
-    [types.CHART_HISTORY_UPDATE](state, chart_item){
-        state.logs[chart_item.idx].editHistory.push(chart_item.content);
-        // console.log("=== in mutation CHART_HISTORY_UPDATE ===");
-        // console.dir(state.logs[chart_item.idx].history);
+    [types.LOG_HISTORY_UPDATE](state, LOG_item){
+        state.logs[LOG_item.idx].editHistory.push(LOG_item.content);
+        // console.log("=== in mutation LOG_HISTORY_UPDATE ===");
+        // console.dir(state.logs[LOG_item.idx].history);
     },
 
     [types.TIMER_ADD](state, timer_obj){

@@ -162,7 +162,7 @@ npm install jspdf-autotable
 	- [Type] String
 	- [Description] - color code associated with this nurse user
 
-### Detailed Structure of Logs Array
+### Detailed Structure of Logs Object Array
 - **id** :id:
 	- [Type] String, required field
 	- [Description] - unique ID of client used by this app only, unique string based on creation time
@@ -204,14 +204,15 @@ npm install jspdf-autotable
 	- [Type] Boolean
 	- [Description] - whether the document has been compiled as PDF and sent via email
 - **progress** :card_index: 
-	- [Type] Array of Numbers, null state is [-1, -2, 0, 0, 0, 0]
+	- [Type] Array of Numbers, null state is [-1, -2, 0, 0, 0, 0, 0]
 	- [Description] The 6 items individually represents :one:progress of the intro section, :two:the current protocol id, :three:whether items page of current protocol is reached, :four:whether others page of current protocol is reached, :five:whether plan page is reached, :six:whether summary page is reached.
 		- @param {Number} intro progress - current step id of intro section
 		- @param {Number} protocol id - current protocol id
-		- @param {Boolean} items page - whether reached, if protocol id is set, this variable is usually set to true 
-		- @param {Boolean} others page - whether reached
-		- @param {Boolean} plans page - whether reached
-		- @param {Boolean} summary page - whether reached
+		- @param {Number} protocol assessment items page - whether reached, if protocol id is set, this variable is usually set to true 
+		- @param {Number} protocol others page - whether reached
+		- @param {Number} recommendations page - whether reached
+		- @param {Number} plans page - whether reached
+		- @param {Number} summary page - whether reached
 	- [Related Places] - this info is set in every pages in the linear flow of documenting. this info will be used in Client History section on Dashboard.
 	- e.g.
 		- [3, 3, 1, 1, 1, 1] - currently reached summary page

@@ -60,7 +60,7 @@
 		},
         methods: {
             ...mapActions([
-                'changeChartStatus',
+                'changeLogStatus',
                 'changeClientHistory'
             ]),
             /**
@@ -188,7 +188,7 @@
              *  @return {String} dateTime - the current date and time
              * **/
             onEmailSent() {
-                this.changeChartStatus(this.log_id);
+                this.changeLogStatus(this.log_id);
                 this.backToHome();
             },
             /**
@@ -402,6 +402,19 @@
                 return plans_body;
             },
             /**
+             *  Function to prepare plans table for PDF
+             *  [Description] - protocols table has one columns
+             *      - a column - plan column, group all plans
+             *  @return {Array} plans_body - the array with content to feed into the plans table
+             * **/
+            prepareRecommendations(curr_log) {
+                let recommendations_body = [];
+                recommendations_body.push({
+                    a: (curr_log.recommendations.trim() !== "") ? curr_log.recommendations.trim() : "N/A"
+                });
+                return recommendations_body;
+            },
+            /**
              *  Function to prepare notes table for PDF
              *  [Description] - protocols table has one columns
              *      - a column - note column, group all notes
@@ -490,6 +503,7 @@
                 const intro_body = this.prepareIntro(curr_log);
                 const protocol_titles = this.prepareProtocolsSummary(curr_log);
                 const protocol_bodies = this.prepareProtocols(curr_log);
+                const recommendations_body = this.prepareRecommendations(curr_log);
                 const plans_body = this.preparePlans(curr_log);
                 const notes_body = this.prepareNotes(curr_log);
                 const hist_body = this.prepareHistory(curr_log);
@@ -595,6 +609,24 @@
                                        a: {cellWidth: 'auto', minCellWidth: 50}},
                         styles: {minCellHeight: 10, fontSize: table_font_size, cellPadding: cell_padding},
                     });
+                });
+
+                // drawing separator
+                // generating recommendations title
+                finalY = doc.previousAutoTable.finalY;
+                doc.setLineWidth(0.25);
+                doc.setDrawColor(0, 0, 0);
+                doc.line(start_of_text, finalY, end_of_line, finalY);
+                doc.text("Recommendations", start_of_text, finalY + 6);
+
+                // generating recommendations table
+                doc.autoTable({
+                    startY: finalY + 10,
+                    theme: 'plain',
+                    body: recommendations_body,
+                    columns: [{ dataKey: 'a' }],
+                    columnStyles: {a: {cellWidth: 'auto'}},
+                    styles: {fontSize: table_font_size, cellPadding: cell_padding},
                 });
                 
                 // drawing separator

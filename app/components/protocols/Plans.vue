@@ -5,7 +5,7 @@
                     columns="auto, *, auto" ref="plansGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
@@ -82,7 +82,7 @@
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import RecommendButton from './parts/RecommendButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
-    import AssessOthers from './AssessOthers.vue';
+    import Recommendations from './Recommendations.vue';
     import AssessItems from './AssessItems.vue';
     import Summary from '../summary/Summary.vue';
 
@@ -184,7 +184,7 @@
                 let q_ids = [];
                 const others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
                 others_questions.forEach(elem => { q_ids.push(elem.id); });
-                this.$navigateTo(AssessOthers, {
+                this.$navigateTo(Recommendations, {
                     animated: true,
                     clearHistory: true,
                     transition: {
@@ -195,8 +195,6 @@
                     props: {
                         log_id: this.log_id,
                         protocol_id: this.protocol_id,
-                        question_ids: q_ids,
-                        question_idx: q_ids.length - 1,
                         from_summary: false,
                     }
                 });
@@ -309,11 +307,15 @@
                 };
                 this.savePlansUpdate(update);
             },
+<<<<<<< HEAD
             /**
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
             addNewChart() {
+=======
+            addNewLog() {
+>>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
@@ -408,6 +410,22 @@
                     };
                 }
             },
+<<<<<<< HEAD
+=======
+
+            onNewTap() {
+                confirm({
+                    title: "Create New Client",
+                    message: "Your current progress will be saved in your Client History.",
+                    okButtonText: "Create New Client",
+                    cancelButtonText: "Cancel",
+                }).then((result) => {
+                    if (result || result === undefined) {
+                        this.addNewLog();
+                    } 
+                });
+            }
+>>>>>>> josh
         }
     };
 </script>

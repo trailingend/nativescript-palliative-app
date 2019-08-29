@@ -25,7 +25,7 @@
                 required: true,
             },
             protocol_id: {
-                type: Number,
+                // type: Number,
                 required: true,
             },
         },

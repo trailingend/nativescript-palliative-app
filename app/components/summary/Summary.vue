@@ -4,7 +4,7 @@
                     rows="auto, *, auto" 
                     columns="auto, *" ref="summaryGridRef" 
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
             <ScrollView row="1" col="0" rowSpan="2" colSpan="2" id="sum-scroll">
                 <StackLayout class="summary-main-ctnr">
@@ -26,6 +26,7 @@
                                              :protocol_id="p_id" />
                         </StackLayout>
                     </StackLayout>
+                    <RecommendationsSummary :log_id="log_id" /> 
                     <PlanSummary :log_id="log_id" /> 
                     <NoteSummary :log_id="log_id" />
 
@@ -73,6 +74,7 @@
     import InfoSummary from './parts/InfoSummary.vue';
     import IntroSummary from './parts/IntroSummary.vue';
     import ProtocolSummary from './parts/ProtocolSummary.vue';
+    import RecommendationsSummary from './parts/RecommendationsSummary.vue';
     import PlanSummary from './parts/PlanSummary.vue';
     import NoteSummary from './parts/NoteSummary.vue';
     import ChooseProtocol from '../protocols/ChooseProtocol.vue';
@@ -119,6 +121,7 @@
             InfoSummary,
             IntroSummary,
             ProtocolSummary,
+            RecommendationsSummary,
             PlanSummary,
             NoteSummary
         },
@@ -218,7 +221,7 @@
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
-            addNewChart() {
+            addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

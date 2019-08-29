@@ -5,7 +5,7 @@
                     ref="othersGridRef" 
                     @tap="clearTextfieldFocus"
                     @layoutChanged="onLayoutUpdate">
-            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewChart" />
+            <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
             <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="true" @goToProtocol="(data) => goToNextProtocol(data)"/>
 
@@ -63,7 +63,7 @@
     import ClientBlock from '../general/parts/ClientBlock.vue';
     import RecommendButton from './parts/RecommendButton.vue';
     import AssessItems from './AssessItems.vue';
-    import Plans from './Plans.vue';
+    import Recommendations from './Recommendations.vue';
     import Summary from '../summary/Summary.vue';
 
     import { mapActions } from 'vuex';
@@ -119,7 +119,7 @@
         methods: {
             ...mapActions([
                 'saveOthersProgress',
-                'savePlansProgress',
+                'saveRecommendationsProgress',
             ]),
             /**
              *  Function to retrieve id of textfields on the page
@@ -153,7 +153,7 @@
              *  [Description] - always clear navigation history
              * **/
             prepareNextStage() {
-                this.$navigateTo(Plans, {
+                this.$navigateTo(Recommendations, {
                     animated: true,
                     clearHistory: true,
                     transition: {
@@ -213,11 +213,15 @@
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
+<<<<<<< HEAD
             /**
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
             addNewChart() {
+=======
+            addNewLog() {
+>>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
@@ -234,9 +238,9 @@
             onForward() {
                 const progress = {
                     log_id: this.log_id,
-                    has_plan: 1,
+                    in_recommendations: 1,
                 }
-                this.savePlansProgress(progress);
+                this.saveRecommendationsProgress(progress);
                 this.prepareNextStage();
             },
             /**

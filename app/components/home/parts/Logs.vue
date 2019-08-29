@@ -30,7 +30,7 @@
 
             </RadListView>
         </ScrollView>
-        <Label v-else text="no current chart records" class="home-log-null"/>
+        <Label v-else text="No logs are currently saved on this device" class="home-log-null"/>
     </StackLayout>
 </template>
 
@@ -40,6 +40,7 @@
     import AssessItems from '../../protocols/AssessItems.vue';
     import AssessOthers from '../../protocols/AssessOthers.vue';
     import Plans from '../../protocols/Plans.vue';
+    import Recommendations from '../../protocols/Recommendations.vue';
     import Summary from '../../summary/Summary.vue';
 
     import { mapGetters } from 'vuex';
@@ -70,8 +71,8 @@
 		},
         methods: {
             ...mapActions([
-                'deleteChart',
-                'saveActiveChart'
+                'deleteLog',
+                'saveActiveLog'
             ]),
             /**
              *  Function to prepare data to display on load
@@ -83,7 +84,7 @@
                     log.countdown = this.formatCountdown(log.date);
                     if (log.countdown === 'TODAY') {
                         console.log("=== auto deleting === " + log.id);
-                        this.deleteChart(log.id);
+                        this.deleteLog(log.id);
                     }
 
                     log.color = (log.countdown === 'TOMORROW' || log.countdown === 'IN 2 DAYS') ? "#ff1f00" : "#4b4b4b";
@@ -165,7 +166,7 @@
                 }).then(isConfirmed => {
                     if (isConfirmed) {
                         console.log("=== Delete client === " + id);
-                        this.deleteChart(id);
+                        this.deleteLog(id);
                     } else {
                         console.log("=== no delete ===");
                     }
@@ -202,12 +203,16 @@
                     this.prepareSummary(log.id);
                     return;
                 } 
-                if (progress[5] === 1) { // if last at summary page
+                if (progress[6] === 1) { // if last at summary page
                     this.prepareSummary(log.id);
                     return;
                 }
-                if (progress[4] === 1) { // if last at plans page
+                if (progress[5] === 1) { // if last at summary page
                     this.preparePlans(log.id);
+                    return;
+                }
+                if (progress[4] === 1) { // if last at recommendations page
+                    this.prepareRecommendations(log.id);
                     return;
                 }
                 if (progress[1] > -1) { // if protocol selected
@@ -299,6 +304,21 @@
                     props: {
                         log_id: log_id,
                         protocol_id: protocol_id,
+                        from_summary: false,
+                    }
+                });
+            },
+            prepareRecommendations(log_id) {
+                this.$navigateTo(Recommendations, {
+                    animated: true,
+                    clearHistory: true,
+                    transition: {
+                        name: 'fade',
+                        curve: 'easeIn',
+                        duration: 300
+                    },
+                    props: {
+                        log_id: log_id,
                         from_summary: false,
                     }
                 });
