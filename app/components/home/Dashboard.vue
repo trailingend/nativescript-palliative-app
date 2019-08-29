@@ -20,7 +20,7 @@
             <Logs row="2" col="0" rowSpan="2" colSpan="3" class="home-log-ctnr" />
 
             <Image row="3" col="0" colSpan="3" v-show="is_vertical" src="~/assets/images/mask-p.png" stretch="aspectFill"></Image>
-            <Image row="4" col="0" colSpan="3" v-show="is_vertical" src="~/assets/images/pad-p.png" stretch="aspectFill"></Image>
+            <Image row="4" col="0" colSpan="3" v-show="is_vertical" src="~/assets/images/pad-p-shorter.png" stretch="aspectFill"></Image>
 
             <Image row="3" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/mask-l.png" stretch="aspectFill"></Image>
             <Image row="4" col="0" colSpan="3" v-show="!is_vertical" src="~/assets/images/pad-l.png" stretch="aspectFill"></Image>
