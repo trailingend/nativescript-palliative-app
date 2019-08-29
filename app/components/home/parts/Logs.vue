@@ -30,7 +30,7 @@
 
             </RadListView>
         </ScrollView>
-        <Label v-else text="no current chart records" class="home-log-null"/>
+        <Label v-else text="No logs are currently saved on this device" class="home-log-null"/>
     </StackLayout>
 </template>
 
