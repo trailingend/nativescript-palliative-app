@@ -62,11 +62,11 @@ export default {
     },
 
     saveClientInfo({commit, state}, entry) {
-        commit(types.CHART_CREATE, entry);
+        commit(types.LOG_CREATE, entry);
     },
 
     changeClientInfo({commit, state}, entry) {
-        commit(types.CHART_INFO_UPDATE, entry);
+        commit(types.LOG_INFO_UPDATE, entry);
     },
 
     changeClientNotes({commit, state}, update_item) {
@@ -75,7 +75,7 @@ export default {
             idx: log_idx,
             content: update_item.content
         };
-        commit(types.CHART_NOTE_UPDATE, log_item);
+        commit(types.LOG_NOTE_UPDATE, log_item);
     },
 
     changeClientHistory({commit, state}, update_item) {
@@ -84,12 +84,12 @@ export default {
             idx: log_idx,
             content: update_item.content
         };
-        commit(types.CHART_HISTORY_UPDATE, log_item);
+        commit(types.LOG_HISTORY_UPDATE, log_item);
     },
 
     deleteChart({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
-        commit(types.CHART_DELETE, log_idx);
+        commit(types.LOG_DELETE, log_idx);
     },
 
     saveIntroUpdate({commit, state}, update_item) {
@@ -108,7 +108,7 @@ export default {
                         a: respond.a,
                     }
                 }
-                commit(types.CHART_INTRO_UPDATE, log_item);
+                commit(types.LOG_INTRO_UPDATE, log_item);
             });
         }
     },
@@ -132,7 +132,7 @@ export default {
                         }]
                     }
                 }
-                commit(types.CHART_ITEMS_ADD, log_item);
+                commit(types.LOG_ITEMS_ADD, log_item);
             } else {
                 const existed_q_idx = state.logs[log_idx].items_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === update_item.q_id; });
                 const log_item = {
@@ -146,7 +146,7 @@ export default {
                         a: update_item.a,
                     }
                 }
-                commit(types.CHART_ITEMS_UPDATE, log_item);
+                commit(types.LOG_ITEMS_UPDATE, log_item);
             }
         }
     },
@@ -169,7 +169,7 @@ export default {
                         }]
                     }
                 }
-                commit(types.CHART_OTHERS_ADD, log_item);
+                commit(types.LOG_OTHERS_ADD, log_item);
             } else {
                 const existed_q_idx = state.logs[log_idx].others_answers[existed_p_idx].a.findIndex(q_ans => { return q_ans.q_id === update_item.q_id; });
                 const log_item = {
@@ -182,7 +182,7 @@ export default {
                         a: update_item.a,
                     }
                 }
-                commit(types.CHART_OTHERS_UPDATE, log_item);
+                commit(types.LOG_OTHERS_UPDATE, log_item);
             }
         }
     },
@@ -196,7 +196,7 @@ export default {
                 idx: log_idx,
                 content: update_item.content,
             };
-            commit(types.CHART_PLANS_UPDATE, log_item);
+            commit(types.LOG_PLANS_UPDATE, log_item);
         }
     },
     saveIntroProgress({commit, state}, input_item) {
@@ -208,7 +208,7 @@ export default {
                 idx: log_idx,
                 s_id: input_item.s_id,
             };
-            commit(types.CHART_INTRO_PROGRESS, progress_item);
+            commit(types.LOG_INTRO_PROGRESS, progress_item);
         }
     },
 
@@ -221,7 +221,7 @@ export default {
                 idx: log_idx,
                 p_id: input_item.p_id,
             };
-            commit(types.CHART_PROTO_PROGRESS, progress_item);
+            commit(types.LOG_PROTO_PROGRESS, progress_item);
         }
     },
 
@@ -234,7 +234,7 @@ export default {
                 idx: log_idx,
                 l_id: input_item.l_id,
             };
-            commit(types.CHART_ITEMS_PROGRESS, progress_item);
+            commit(types.LOG_ITEMS_PROGRESS, progress_item);
         }
     },
 
@@ -247,7 +247,7 @@ export default {
                 idx: log_idx,
                 in_others: input_item.in_others
             };
-            commit(types.CHART_OTHERS_PROGRESS, progress_item);
+            commit(types.LOG_OTHERS_PROGRESS, progress_item);
         }
     },
 
@@ -260,7 +260,7 @@ export default {
                 idx: log_idx,
                 has_plan: input_item.has_plan,
             };
-            commit(types.CHART_PLANS_PROGRESS, progress_item);
+            commit(types.LOG_PLANS_PROGRESS, progress_item);
         }
     },
 
@@ -273,7 +273,7 @@ export default {
                 idx: log_idx,
                 in_sum: input_item.in_sum,
             };
-            commit(types.CHART_SUM_PROGRESS, progress_item);
+            commit(types.LOG_SUM_PROGRESS, progress_item);
         }
     },
 
@@ -286,21 +286,21 @@ export default {
                 idx: log_idx,
                 content: input_item,
             };
-            commit(types.CHART_CALL_UPDATE, item);
+            commit(types.LOG_CALL_UPDATE, item);
         }
     },
 
     changeChartStatus({commit, state}, log_id) {
         const log_idx = state.logs.findIndex((elem) => {return elem.id == log_id});
-        commit(types.CHART_STATUS_TRUE, log_idx);
+        commit(types.LOG_STATUS_TRUE, log_idx);
     },
 
     saveActiveChart({commit, state}, id) {
-        commit(types.CHART_ACTIVATE, id);
+        commit(types.LOG_ACTIVATE, id);
     },
 
     deleteActiveChart({commit, state}) {
-        commit(types.CHART_DEACTIVATE);
+        commit(types.LOG_DEACTIVATE);
     },
 
     startTimer({commit, state}, timer_obj) {
