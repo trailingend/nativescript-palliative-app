@@ -307,15 +307,8 @@
                 };
                 this.savePlansUpdate(update);
             },
-<<<<<<< HEAD
-            /**
-             *  Function to abort the current document and start a new doucment
-             *  [Description] - always clear navigation history
-             * **/
-            addNewChart() {
-=======
+            
             addNewLog() {
->>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
@@ -410,8 +403,6 @@
                     };
                 }
             },
-<<<<<<< HEAD
-=======
 
             onNewTap() {
                 confirm({
@@ -425,7 +416,6 @@
                     } 
                 });
             }
->>>>>>> josh
         }
     };
 </script>

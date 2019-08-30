@@ -227,15 +227,11 @@
                 const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
                 return p_items != undefined || p_others != undefined;
             },
-<<<<<<< HEAD
             /**
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
-            addNewChart() {
-=======
             addNewLog() {
->>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

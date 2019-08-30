@@ -432,15 +432,11 @@
             markAsIncomplete(l_id) {
                 const success = this.complete_letter_ids.delete(l_id);
             },
-<<<<<<< HEAD
             /**
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
-            addNewChart() {
-=======
             addNewLog() {
->>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,

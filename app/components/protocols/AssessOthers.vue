@@ -213,15 +213,11 @@
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
-<<<<<<< HEAD
             /**
              *  Function to abort the current document and start a new doucment
              *  [Description] - always clear navigation history
              * **/
-            addNewChart() {
-=======
             addNewLog() {
->>>>>>> josh
                 this.$navigateTo(NewClient, {
                     animated: true,
                     clearHistory: true,
