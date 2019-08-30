@@ -141,10 +141,12 @@
 
                 // calculate countdown based on how many days the documents can live
                 countdown = (countdown > this.countdown_threshold) ? 0 : this.countdown_threshold - countdown; 
-
+                console.log("countdown ===== " + countdown + " " + this.countdown_threshold);
+                
                 if (countdown === 1) {
                     return 'TOMORROW';
                 } else if (countdown === 0) {
+                    console.log("=== deleting a log === ");
                     return 'TODAY';
                 } else {
                     return `IN ${countdown} DAYS`;
