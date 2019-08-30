@@ -231,31 +231,31 @@ export default {
 
 	tutorials: [{
 			title: 'Create New Client',
-			video: 'help1',
+			video: 'charting_new_client',
 			desc: 'Tap on ‘New Client’ on the bottom of the Dashboard screen to start. Even unfinished documentation will be saved in ‘Client History’. If another client calls, you can pause your current documentation to answer the new call.'
 		}, {
 			title: 'Access Client History',
-			video: 'help2',
+			video: 'accessing_chart_history',
 			desc: 'Access your Client History on the home-screen. Arrow with semi-circle indicates incomplete documenting. Checkmark indicates documenting is complete and sent. Tap the document to open where you left off and continue.'
 		}, {
 			title: 'Document',
-			video: 'help3',
+			video: 'charting',
 			desc: 'You have the option of free text and multiple choice to assist with documentation. switch between protocols, tap ‘Protocols’. To help navigate the assessment you can skip, go-back or forward. The ‘Recommend’ section is to support you with more info. Add follow up info in the ‘Notes’ section.'
 		}, {
 			title: 'Review Summary Screen',
-			video: 'help4',
+			video: 'summary',
 			desc: 'This screen is a final review of your documentation. Tap the pencil icon to access any section of the document. Verify you’ve finished reviewing by checking “Documentation reviewed and finalized.”.'
 		}, {
 			title: 'Upload to PARIS',
-			video: 'help5',
+			video: 'upload_to_PARIS',
 			desc: 'The document will be sent to a generic email by default. Input your personal VCH email as backup. To upload to PARIS, refer to the PARIS upload guide.'
 		}, {
 			title: 'Complete and Delete',
-			video: 'help2',
+			video: 'send_and_delete',
 			desc: 'Completed documentation must be uploaded to PARIS ASAP. Select the client chart and swipe right to delete after uploaded to PARIS. Client charts will autodelete after 7 days.'
 		}, {
 			title: 'Edit a Completed Document',
-			video: 'help2',
+			video: 'new_edit',
 			desc: 'A reason must be provided before a new PDF is exported. Choose between ‘Correcting errors’ or ‘Generic edits’’ and then type a description of your edits in the text field below.'
 	}],
 
