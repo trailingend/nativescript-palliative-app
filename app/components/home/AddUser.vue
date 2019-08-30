@@ -7,9 +7,9 @@
                     @layoutChanged="onLayoutUpdate">
             <Image row="0" col="0" width="30" class="close-btn" src="~/assets/images/close.png" stretch="aspectFit" @tap="onCloseTap"></Image>
             
-            <Label row="1" col="0" class="add-user-title" :text="is_login ? 'sign in' : 'user information'" ></Label>  
+            <Label row="1" col="0" class="add-user-title" :text="is_created ? 'sign in' : 'user information'" ></Label>  
                
-            <GridLayout v-if="!is_login"
+            <GridLayout v-if="!is_created"
                         row="2" col="0" rowSpan="2" class="add-content-ctnr"
                         rows="auto, auto, auto, auto, auto, auto" columns="*">
                 <Label row="0" col="0" class="add-q1 add-q" text="Full name:" textWrap="true"/>
@@ -44,8 +44,7 @@
                 <!-- <Label row="0" col="0" class="add-e add-e3" text="Please select start time" opacity="0" ref="sErrorAddRef" /> -->
                 <Label class="add-q" text="Shift Starts:" />
                 <TimePicker class="add-picker" 
-                            ref="sTimeAddRef"
-                            @timeChange="onStartTimeChange" />
+                            ref="sTimeAddRef" />
                 <GridLayout rows="auto" columns="auto, *" >
                     <Label row="0" col="0" class="add-q" text="Shift Ends:" />
                     <Label row="0" col="1" class="add-e add-e4" text="Please select end time" opacity="0" ref="eErrorAddRef" />
@@ -55,12 +54,28 @@
                             @timeChange="onEndTimeChange"/>
             </StackLayout>
 
-            <Button row="3" col="0" class="form-btn add-user-btn" :text="is_login ? 'Start' : 'Save'" @tap="onSaveTap" />
+            <Button row="3" col="0" class="form-btn add-user-btn" :text="is_created ? 'Start' : 'Save'" @tap="onSaveTap" />
         </GridLayout>
     </Page>
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal to gather new user infomation and login the new user
+     *  [Description] - called in SelectUser page, note that this page cannot solely exists without a pop-up frame
+     *  [Related] - styles in user.scss
+     *  @param {String} u_id - user's VCH employee id, the null state is 000000, the id should be a 6-digit number
+     *  @param {String} u_name - user's first name and initial of last name
+     *  @param {String} u_fullname - user's full name
+     *  @param {Boolean} is_created - variable indicating whether the user has been created
+     *  @param {Boolean} end_time_changed - variable indicating whether the shift end time has been changed
+     *  @param {Object} formSetting - variable to store screen-size sensitive GridLayout information 
+     * 
+     *  =============================================================
+     * **/
+
     import Tutorial from '../tutorials/Tutorial.vue';
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
@@ -75,8 +90,7 @@
                 u_name: '',
                 u_fullname: '',
 
-                is_login: false,
-                start_time_changed: true,
+                is_created: false,
                 end_time_changed: false,
 
                 formSetting: {
@@ -101,6 +115,9 @@
                 'deactivateUser',
                 'startTimer'
             ]),
+            /**
+             *  Function to navigate to open tutorials
+             * **/
             prepareTutorial() {
                 this.$showModal(Tutorial, { 
                     fullscreen: true,
@@ -111,6 +128,10 @@
                     this.parent_modal.close();
                 });
             },
+            /**
+             *  Function to parse user_ID in format of XXXXXX
+             *  @return {String} user_ID
+             * **/
             parseIDInput() {
                 let user_ID = '000000';
                 if (this.$refs.idFieldAddUserRef) {
@@ -122,6 +143,9 @@
                 }
                 return user_ID;
             },
+            /**
+             *  Function to check whether the username is empty and display error accordingly
+             * **/
             checkNameError(args) {
                 if (args.oldValue.trim() != '') {
                     if (args.value.trim() === '') {
@@ -136,6 +160,9 @@
                     }
                 } 
             },
+            /**
+             *  Function to check whether the username is a 6-digit number and display error accordingly
+             * **/
             checkIDError(args) {
                 const id_to_check = this.parseIDInput();
                 if (id_to_check.length != 6) {
@@ -146,20 +173,21 @@
                     this.$refs.idFieldAddUserRef.nativeView.borderColor = '#dbdbdb';
                 } 
             },
-            onStartTimeChange() {
-                if (! this.start_time_changed) {
-                    this.start_time_changed = true;
-                    // this.$refs.sErrorAddRef.nativeView.opacity = 0;
-                }
-            },
+            /**
+             *  Function to check whether the shift end time has been enterred and display error accordingly
+             * **/
             onEndTimeChange() {
                 if (! this.end_time_changed) {
                     this.end_time_changed = true;
                     this.$refs.eErrorAddRef.nativeView.opacity = 0;
                 }
             },
+            /**
+             *  Function to check if all required field being filled correctly. Save the user info to date storage if the user is not in users array yet. Log in user if the user is created
+             * **/
             onSaveTap(args) {
-                if (! this.is_login) { 
+                if (! this.is_created) { // trying to check conditions and to save user info to the data storage
+
                     if (this.u_name.trim() === '') {
                         this.$refs.nameErrorAddRef.nativeView.opacity = 1;
                         this.$refs.nameFieldAddUserRef.nativeView.borderColor = '#ff1f00';
@@ -172,7 +200,7 @@
                     if (this.u_name.trim() === '' || this.u_id.length != 6) {
                         return;
                     } else {
-                        this.is_login = ! this.is_login;
+                        this.is_created = ! this.is_created;
                     }
 
                     const user_name = (this.u_name.trim() != '') ? this.u_name.trim() : 'Unknown';
@@ -191,14 +219,12 @@
                         color: userColors[color_idx],
                     }
                     this.saveUserInfo(item);
-                } else {
-                    if (! this.start_time_changed) {
-                        // this.$refs.sErrorAddRef.nativeView.opacity = 1;
-                    }
+                } else { // trying to login 
+
                     if (! this.end_time_changed) {
                         this.$refs.eErrorAddRef.nativeView.opacity = 1;
+                        return;
                     }
-                    if (! this.start_time_changed || ! this.end_time_changed) return;
 
                     const s_time_obj = this.$refs.sTimeAddRef.nativeView.time;
                     const e_time_obj = this.$refs.eTimeAddRef.nativeView.time;
@@ -223,6 +249,15 @@
                     this.prepareTutorial();
                 }
             },
+            /**
+             *  Function to start timer when a user is loggied in
+             *  [Description] - by deafult the timer will use the same date as the user creation date. 
+             *                  However, if the shift end time has a smaller value than shift start time, increment the date by 1
+             *  @param {Number} s_hour - the start hour in format of an int
+             *  @param {Number} s_minute - the start minute in format of an int
+             *  @param {Number} e_hour - the end hour in format of an int
+             *  @param {Number} e_minute - the end minute in format of an int
+             * **/
             startTimerForUser(s_hour, s_minute, e_hour, e_minute) {
                 const today = new Date();
                 let tomorrow = new Date();
@@ -244,6 +279,7 @@
                 
                 console.log("=== Timer init === " + e_date + ' ' + e_hour + ' ' + e_minute);
 
+                // start the timer and save the timer object to data storage just in case
                 this.timer_obj = setInterval(() => {
                     const current = new Date();
                     const c_date = current.getDate();
@@ -261,14 +297,19 @@
                             user_time_up = (c_minute >= e_minute);
                         }
                     }
+
+                    // when the time is up, call function to terminate and destroy the timer
                     if (user_time_up) {
                         this.endTimerForUser();
-
                     }
                 }, 10000);
 
                 this.startTimer(this.timer_obj);
             },
+            /**
+             *  Function to reset timer if user choose to extend timer by an hour
+             *  @param {Number} duration - the total duration of the time interval in seconds
+             * **/
             resetTimerForUser(duration) {
                 let start = Date.now();
                 console.log("=== Timer init === " + start);
@@ -288,6 +329,9 @@
 
                 this.startTimer(this.timer_obj);
             },
+            /**
+             *  Function to terminate timer. The user can choose to terminate immediately or to extend another hour
+             * **/
             endTimerForUser() {
                 const minutes_to_delay = 60;
                 clearInterval(this.timer_obj);
@@ -308,24 +352,39 @@
                 });
                 
             },
+            /**
+             *  Function to terminate the timer after user already extended the timer
+             * **/
             forceEndTimerForUser() {
                 clearInterval(this.timer_obj);
                 this.deactivateUser();
                 console.log("=== Login === second timer stopped, logging out now");
             },
+            /**
+             *  Function to close the current modal and return back to Dashboard
+             * **/
             onCloseTap() {
                 this.onBackHome();
             },
+            /**
+             *  Function to close current modal
+             * **/
             onBackHome() {
                 this.parent_modal.close();
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
-                if (! this.is_login) {
+                if (! this.is_created) {
                     const layoutView = args.object;
                     layoutView.getViewById("user-add-a1").dismissSoftInput();
                     layoutView.getViewById("user-add-a2").dismissSoftInput();
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.addUserGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.addUserGridRef.nativeView.getMeasuredWidth() );
@@ -340,6 +399,3 @@
         
     };
 </script>
-
-<style>
-</style>

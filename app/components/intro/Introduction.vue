@@ -1,5 +1,5 @@
 <template>
-    <Page class="page intro-page" @navigatedTo="onNavigatedTo">
+    <Page class="page intro-page">
         <GridLayout :class="formatSetting" 
                     rows="auto, auto, *, auto" 
                     columns="auto, *, auto" ref="introGridRef" 

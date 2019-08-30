@@ -1,5 +1,5 @@
 <template>
-    <Page class="page new-client-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page new-client-page">
         <GridLayout rows="auto, *, auto" columns="*" :class="ctnrSetting.class" 
                      ref="newClientGridRef" 
                      @tap="clearTextfieldFocus"

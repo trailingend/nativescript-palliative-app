@@ -50,6 +50,20 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal to select from an existing users. Also has options to delete user and to add a new user
+     *  [Description] - called from Dashboard
+     *  [Related] - styles in user.scss
+     *  @param {Boolean} canDelete - variable to indicate delete mode/ normal mode
+     *  @param {Number} next_color_idx - user avatar's color index in color array
+     *  @param {String} widthSetting - width of an user item
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames information 
+     * 
+     *  =============================================================
+     * **/
+
     import AddUser from './AddUser.vue';
     import LoginUser from './LoginUser.vue';
 
@@ -83,6 +97,9 @@
                 'activateUser',
                 'deleteUser'
             ]),
+            /**
+             *  Function to log in to a user, promping LoginUser page in the same modal frame
+             * **/
             onUserTap(user) {
                 if (! this.canDelete) {
                     this.$navigateTo(LoginUser, {
@@ -101,6 +118,9 @@
                 });
                 }
             },
+            /**
+             *  Function to open AddUser page in the same modal frame
+             * **/
             onAddTap(args) {
                 // const page = args.object.page;
                 this.$navigateTo(AddUser, {
@@ -117,9 +137,15 @@
                     }
                 });
             },
+            /**
+             *  Function to toggle between deleting mode and normal mode
+             * **/
             onEditUserTap() {
                 this.canDelete = !this.canDelete;
             },
+            /**
+             *  Function to delete a user from data storage. Note that current loggedin user cannot be deleted
+             * **/
             onDeleteTap(user) {
                 if (this.curr_user_id === user.id) {
                     dialogs.alert('This is the current user. Cannot delete. Please log out first.').then(() => {
@@ -140,9 +166,15 @@
                 }
                 
             },
+            /**
+             *  Function to close current modal
+             * **/
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.userSelectGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.userSelectGridRef.nativeView.getMeasuredWidth() );

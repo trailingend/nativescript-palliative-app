@@ -57,6 +57,24 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal to login an existing user
+     *  [Description] - called in SelectUser page, note that this page cannot solely exists without a pop-up frame
+     *  [Related] - styles in user.scss
+     *  @param {String} u_id - user's VCH employee id, the null state is 000000, the id should be a 6-digit number
+     *  @param {String} u_name - user's first name and initial of last name
+     *  @param {String} u_fullname - user's full name
+     *  @param {Boolean} is_passed - variable indicating whether the user has enterred their ID correctly
+     *  @param {Boolean} end_time_changed - variable indicating whether the shift end time has been changed
+     *  @param {Object} formSetting - variable to store screen-size sensitive GridLayout information 
+     *  @prop {Object} parent_modal - the parent modal
+     *  @prop {Object} selected_user - the user object selected
+     * 
+     *  =============================================================
+     * **/
+
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -71,7 +89,6 @@
                 u_fullname: '',
 
                 is_passed: false,
-                start_time_changed: true, //Disabled checking for start_time input
                 end_time_changed: false,
 
                 timer_obj: undefined,
@@ -106,6 +123,9 @@
                 'deactivateUser',
                 'startTimer'
             ]),
+            /**
+             *  Function to parse user_ID in format of XXXXXX
+             * **/
             parseIDInput() {
                 let user_ID = '000000';
                 if (this.$refs.idFieldRef) {
@@ -117,6 +137,9 @@
                 }
                 return user_ID;
             },
+            /**
+             *  Function to check whether the user ID enterred matched whats in the record
+             * **/
             checkIDError(args) {
                 const id_to_check = this.parseIDInput();
                 if (id_to_check.length != 6) {
@@ -127,20 +150,20 @@
                     this.$refs.idFieldRef.nativeView.borderColor = '#dbdbdb';
                 } 
             },
-            onStartTimeChange() {
-                if (! this.start_time_changed) {
-                    this.start_time_changed = true;
-                    this.$refs.sErrorLoginRef.nativeView.opacity = 0;
-                }
-            },
+            /**
+             *  Function to check whether the shift end time has been enterred and display error accordingly
+             * **/
             onEndTimeChange() {
                 if (! this.end_time_changed) {
                     this.end_time_changed = true;
                     this.$refs.eErrorLoginRef.nativeView.opacity = 0;
                 }
             },
+            /**
+             *  Function to check if all required field being filled correctly. Save the user info to date storage if the user is not in users array yet. Log in user if the user is created
+             * **/
             onSaveTap(args) {
-                if (! this.is_passed) { 
+                if (! this.is_passed) { // to check whether the user has enterred the correct id
                     this.u_id = this.parseIDInput();
                     if (this.u_id.length != 6 || this.u_id == '000000') {
                         this.$refs.idErrorFieldRef.nativeView.opacity = 1;
@@ -157,14 +180,11 @@
                             });
                         }
                     }
-                } else {
-                    if (! this.start_time_changed) {
-                        this.$refs.sErrorLoginRef.nativeView.opacity = 1;
-                    }
+                } else { // to check whether the user has enterred shift end time
                     if (! this.end_time_changed) {
                         this.$refs.eErrorLoginRef.nativeView.opacity = 1;
+                        return;
                     }
-                    if (! this.start_time_changed || ! this.end_time_changed) return;
 
                     const s_time_obj = this.$refs.sTimeLoginRef.nativeView.time;
                     const e_time_obj = this.$refs.eTimeLoginRef.nativeView.time;
@@ -189,6 +209,15 @@
                     this.parent_modal.close();
                 }
             },
+            /**
+             *  Function to start timer when a user is loggied in
+             *  [Description] - by deafult the timer will use the same date as the user creation date. 
+             *                  However, if the shift end time has a smaller value than shift start time, increment the date by 1
+             *  @param {Number} s_hour - the start hour in format of an int
+             *  @param {Number} s_minute - the start minute in format of an int
+             *  @param {Number} e_hour - the end hour in format of an int
+             *  @param {Number} e_minute - the end minute in format of an int
+             * **/
             startTimerForUser(s_hour, s_minute, e_hour, e_minute) {
                 const today = new Date();
                 let tomorrow = new Date();
@@ -235,6 +264,10 @@
 
                 this.startTimer(this.timer_obj);
             },
+            /**
+             *  Function to reset timer if user choose to extend timer by an hour
+             *  @param {Number} duration - the total duration of the time interval in seconds
+             * **/
             resetTimerForUser(duration) {
                 let start = Date.now();
                 console.log("=== Timer init === " + start);
@@ -254,6 +287,9 @@
 
                 this.startTimer(this.timer_obj);
             },
+            /**
+             *  Function to terminate timer. The user can choose to terminate immediately or to extend another hour
+             * **/
             endTimerForUser() {
                 const minutes_to_delay = 60;
                 clearInterval(this.timer_obj);
@@ -274,23 +310,38 @@
                 });
                 
             },
+            /**
+             *  Function to terminate the timer after user already extended the timer
+             * **/
             forceEndTimerForUser() {
                 clearInterval(this.timer_obj);
                 this.deactivateUser();
                 console.log("=== Login === second timer stopped, logging out now");
             },
+            /**
+             *  Function to close the current modal and return back to Dashboard
+             * **/
             onCloseTap() {
                 this.onBackHome();
             },
+            /**
+             *  Function to close current modal
+             * **/
             onBackHome() {
                 this.parent_modal.close();
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 if (! this.is_passed) {
                     const layoutView = args.object;
                     layoutView.getViewById("user-login-a2").dismissSoftInput();
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.loginUserGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.loginUserGridRef.nativeView.getMeasuredWidth() );

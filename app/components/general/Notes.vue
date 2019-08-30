@@ -1,5 +1,5 @@
 <template>
-    <Page class="page notes-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page notes-page">
         <GridLayout rows="auto, *" columns="*" 
                     :class="ctnrSetting.class" 
                     ref="notesGridRef" 
@@ -87,9 +87,9 @@
                 const aTextfield = args.object.getViewById(`notes-free`);
                 aTextfield.dismissSoftInput();
             },
-            onNavigatingFrom() {
-                
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.notesGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.notesGridRef.nativeView.getMeasuredWidth() );

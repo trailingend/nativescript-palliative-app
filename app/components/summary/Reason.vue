@@ -1,5 +1,5 @@
 <template>
-    <Page class="page reason-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page reason-page">
         <GridLayout rows="auto, *, auto" columns="*" 
                     :class="ctnrSetting.class" 
                     ref="reasonGridRef" 

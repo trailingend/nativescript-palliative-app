@@ -26,6 +26,17 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal that displays the options of the app
+     *  [Description] - called from Dashboard page
+     *  [Related] - styles in options.scss
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive GridLayout information 
+     * 
+     *  =============================================================
+     * **/
+
     import Tutorial from '../tutorials/Tutorial.vue';
 
     import { mapActions } from 'vuex';
@@ -55,27 +66,42 @@
             ...mapActions([
                 'deactivateUser',
             ]),
+            /**
+             *  Function to open Tutorial pages
+             * **/
             prepareTutorial() {
-                console.log("go to tutorial")
                 this.$showModal(Tutorial, { 
                     fullscreen: true,
                     props: {
                         is_first_time: false,
                     }
                 }).then(() => {
+                    // // uncomment this line when you want to close Options automatically after closing Tutorials
                     // this.$modal.close();
                 });
             },
+            /**
+             *  Function to terminate any timer that is running
+             * **/
             endTimerForUser() {
                 console.log("=== Setting === timer stopped");
                 clearInterval(this.timer);
             },
+            /**
+             *  Function to close current modal
+             * **/
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to open tutorial storylines
+             * **/
             onTutorialTap() {
                 this.prepareTutorial();
             },
+            /**
+             *  Function to make current user logout
+             * **/
             onLogoutTap() {
                 const user = this.users.find(elem => elem.id === this.curr_user_id);
                 if (user) {
@@ -94,6 +120,9 @@
                     console.log("=== no curr user to logout ===")
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.optionsGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.optionsGridRef.nativeView.getMeasuredWidth() );

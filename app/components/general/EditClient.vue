@@ -1,5 +1,5 @@
 <template>
-    <Page class="page edit-client-page" @navigatingFrom="onNavigatingFrom">
+    <Page class="page edit-client-page">
         <GridLayout rows="auto, *" columns="*" 
                     :class="ctnrSetting.class" 
                     ref="editClientGridRef" 
@@ -230,9 +230,9 @@
                     aTextfield.dismissSoftInput();
                 }
             },
-            onNavigatingFrom() {
-                
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.editClientGridRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.editClientGridRef.nativeView.getMeasuredWidth() );

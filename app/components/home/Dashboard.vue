@@ -9,7 +9,7 @@
             </StackLayout>
 
             <StackLayout row="0" col="1" :class="(curr_user_id == -1) ? 'home-user-ctnr home-user-begin-ctnr' : 'home-user-ctnr'" orientation="horizontal">
-                <Image class="home-setting" width="35" height="35" src="~/assets/images/union.png" stretch="aspectFill" @tap="onSettingTap"></Image>
+                <Image class="home-setting" width="35" height="35" src="~/assets/images/union.png" stretch="aspectFill" @tap="onOptionsTap"></Image>
                 <UserBlock @userChange="checkUserStatus" />
             </StackLayout>
 
@@ -33,6 +33,19 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Page that displays the Dashboard of the app. This is the default page when the app is freshly loadded
+     *  [Description] - called from the main App frame as a default, can be accessed from every other screen
+     *  [Related] - styles in dashboard.scss
+     *  @param {Boolean} is_vertical - variable indicating whether the user has been created
+     *  @param {Object} pageSetting - variable to store GridLayout settings
+     *  @param {Object} userSetting - variable to store screen-size sensitive GridLayout information 
+     * 
+     *  =============================================================
+     * **/
+    
     import UserBlock from './parts/UserBlock.vue';
     import Logs from './parts/Logs.vue';
     import NewClient from '../intro/NewClient.vue';
@@ -81,18 +94,27 @@
                 'loadOnlineData',
                 'deleteActiveLog'
             ]),
+            /**
+             *  Function to load local JSON data into the app and saved to data storage
+             * **/
             loadLocalJsonFile() {
                 const localJsonData = require('@/assets/data/data.json');
                 if (localJsonData) {
-                    console.log(`=== check if load from local json === ${localJsonData.info.version >= this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
+                    console.log(`=== check if load from local json === ${localJsonData.info.version > this.data_version} (${localJsonData.info.version}, ${this.data_version})`);
                     if (localJsonData.info.version > this.data_version) {
                         this.loadLocalData(localJsonData);
                     } 
                 }
             },
+            /**
+             *  Function to set classnames based on whether there is an user logged in
+             * **/
             checkUserStatus() {
                 this.userSetting = (this.curr_user_id == -1) ? "home-user-ctnr home-user-begin-ctnr" : "home-user-ctnr";
             },
+            /**
+             *  Function to create a new client 
+             * **/
             onNewTap(args) {
                 console.log("=== Creating new Patient ===");
                 this.deleteActiveLog();
@@ -106,13 +128,19 @@
                     },
                 });
             },
-            onSettingTap() {
+            /**
+             *  Function to open options page
+             * **/
+            onOptionsTap() {
                 this.$showModal(Options, { 
                     fullscreen: true,
                 }).then(() => {
                     this.checkUserStatus();
                 });
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.homeGridRef.nativeView.getMeasuredWidth() );
                 const half_width = width / 2;

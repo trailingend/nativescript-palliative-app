@@ -53,6 +53,9 @@
                     });
                 }
             },
+            /**
+             *  Function to create a new client 
+             * **/
             onNewTap() {
                 confirm({
                     title: "Create New Client",

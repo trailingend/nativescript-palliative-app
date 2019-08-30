@@ -145,6 +145,9 @@
                     console.log("OH NO!!!!!");
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
                     this.$refs.catalogueGridRef.nativeView.getMeasuredWidth() 
