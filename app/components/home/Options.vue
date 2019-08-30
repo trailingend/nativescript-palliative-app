@@ -39,8 +39,7 @@
 
     import Tutorial from '../tutorials/Tutorial.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { confirm }  from "tns-core-modules/ui/dialogs";
     

@@ -67,8 +67,7 @@
     import AddUser from './AddUser.vue';
     import LoginUser from './LoginUser.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import * as dialogs from "tns-core-modules/ui/dialogs";
     import * as utils from "tns-core-modules/utils/utils";
 

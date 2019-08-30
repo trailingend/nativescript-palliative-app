@@ -25,6 +25,24 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to display single-select-type answers
+     *  [Description] - used in every question-answers page
+     *  [Related] - styles in answers.scss
+     *  @param {String} free_text - textfield to record user's free response
+     *  @param {Array} selected_answers - list of all responses
+     *  @param {String} color_checked - constant, color indicate the plan has been selected
+     *  @param {String} color_unchecked - constant, color indicate the plan has not been selected
+     *  @param {Array} answers_list - list of answer choices 
+     *  @prop {Number} question_id - the id of the current question
+     *  @prop {String} answers - answers to this question
+     *  @prop {String} responses - saved responses to this question
+     * 
+     *  =============================================================
+     * **/
+
     import { mapGetters } from 'vuex';
     
     export default {
@@ -70,20 +88,33 @@
             }
         },
         methods: {
+            /**
+             *  Function to prepare answers and retrieve saved responses
+             * **/
             prepareChoices() {
                 this.answers_list = this.answers;
                 this.prepareAnswersStatus();
                 this.retrieveSavedAnswers();
             },
+            /**
+             *  Function to set up status for each answer
+             * **/
             prepareAnswersStatus() {
                 this.answers_list.forEach(elem => { elem.status = false; });
             },
+            /**
+             *  Function to prepare saving response
+             *  @return {Array} data_to_send
+             * **/
             prepareResponseToSend() {
                 let data_to_send = [];
                 this.selected_answers.forEach((elem) => {data_to_send.push(elem)});
                 data_to_send.push(this.free_text);
                 return data_to_send;
             },
+            /**
+             *  Function to retieve saved responses
+             * **/
             retrieveSavedAnswers() {
                 this.free_text = this.responses.length > 0 ? this.responses[this.responses.length - 1] : "";
                 this.answers_list.forEach(ans => {
@@ -95,6 +126,11 @@
                     }
                 });
             },
+            /**
+             *  Function to style answer being interacted
+             *  @param {Object} ans - the answer object changed
+             *  @event answerChange - let the question component know that a response has been made
+             * **/
             onAnswerTap(ans, args) {
                 const prev_status = ans.status; 
                 this.answers_list.forEach((elem, elem_idx) => { 
@@ -106,6 +142,10 @@
         
                 this.$emit('answerChange', this.prepareResponseToSend(), args);
             },
+            /**
+             *  Function to let parent know free textfield being interacted
+             *  @event answerChange - let the question component know that a response has been made
+             * **/
             onTextEntered(args) {
                 this.$emit("answerChange", this.prepareResponseToSend(), args);
             },

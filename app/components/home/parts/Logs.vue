@@ -56,8 +56,7 @@
     import Recommendations from '../../protocols/Recommendations.vue';
     import Summary from '../../summary/Summary.vue';
 
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { confirm }  from "tns-core-modules/ui/dialogs";
     import { formatPhoneForDisplay, monthStringToNumber, numDaysInMon, formatUsernameForDisplay } from '../../../scripts/common';

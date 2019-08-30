@@ -43,8 +43,7 @@
     import Catalogue from '../Catalogue.vue';
     import Notes from '../Notes.vue';
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import { openUrl } from 'tns-core-modules/utils/utils';
     import { formatPhoneForDisplay, formatUsernameForDisplay } from '../../../scripts/common';
 

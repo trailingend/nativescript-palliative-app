@@ -150,8 +150,7 @@
     import Dashboard from '../home/Dashboard.vue';
     import Introduction from "./Introduction.vue";
 
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
     import { dialogConsent, 
              monthIndexToString, 
