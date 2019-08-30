@@ -307,7 +307,10 @@
                 };
                 this.savePlansUpdate(update);
             },
-            
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -403,7 +406,9 @@
                     };
                 }
             },
-
+            /**
+             *  Function to create a new client 
+             * **/
             onNewTap() {
                 confirm({
                     title: "Create New Client",
