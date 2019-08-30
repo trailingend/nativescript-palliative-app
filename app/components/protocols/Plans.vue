@@ -62,7 +62,7 @@
      *  =============================================================
      * 
      *  Page to ask user to select a plan
-     *  [Description] - can be opened from AssessOthers/ Summary page
+     *  [Description] - can be opened from Recommendations/ Summary page
      *  [Related] - styles in plans.scss
      *  @param {String} free_text - textfield to record user's free response
      *  @param {String} color_checked - constant, color indicate the plan has been selected
@@ -177,7 +177,7 @@
                 });
             },
             /**
-             *  Function to go back to AssessOthers page if in linearly documenting mode
+             *  Function to go back to Recommendations page if in linearly documenting mode
              *  [Description] - always clear navigation history
              * **/
             preparePrevStage() {
@@ -325,15 +325,12 @@
             /**
              *  Function to save current progress in linear documenting mode moving forwards
              * **/
-            onForward() {
-                console.log("=== Forward === ");
-                
+            onForward() {                
                 const progress = {
                     log_id: this.log_id,
                     in_sum: 1,
                 }
                 this.saveSummaryProgress(progress);
-
                 this.prepareNextStage();
             },
             /**
@@ -343,7 +340,7 @@
                 if (this.protocol_id != null && this.protocol_id != undefined && this.protocol_id != -1) {
                     const progress = {
                         log_id: this.log_id,
-                        has_plan: 0,
+                        in_plans: 0,
                     }
                     this.savePlansProgress(progress);
                     this.preparePrevStage();

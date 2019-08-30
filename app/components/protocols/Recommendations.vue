@@ -41,6 +41,21 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Page to ask user to provide a recommendation
+     *  [Description] - can be opened from AssessOthers/ Plans page
+     *  [Related] - styles in recommendations.scss
+     *  @param {String} free_text - textfield to record user's free response
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Number} protocol_id - the id of the current protocol
+     *  @prop {String} from_summary - variable to check whether the page is navigated from Summary page
+     * 
+     *  =============================================================
+     * **/
+
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
@@ -100,15 +115,25 @@
                 'saveRecommendationsUpdate',
                 'saveRecommendationsProgress',
                 'saveProtoProgress',
-                'saveSummaryProgress'
+                'savePlansProgress'
             ]),
+            /**
+             *  Function to retrieved previously saved recommendations from data storage
+             * **/
             retrieveSavedRecommendations() {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 this.free_text = log.recommendations;
             },
+            /**
+             *  Function to retrieve saved data and setup status sub-field on the page
+             * **/
             prepareRecommendations() {
                 this.retrieveSavedRecommendations();
             },
+            /**
+             *  Function to go back to AssessOthers page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             preparePrevStage() {
                 let q_ids = [];
                 const others_questions = this.protocols.find(elem => { return elem.id === this.protocol_id; }).additional_questions;
@@ -130,6 +155,10 @@
                     }
                 });
             },
+            /**
+             *  Function to go next to Plans page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextStage() {
                 this.$navigateTo(Plans, {
                     animated: true,
@@ -146,6 +175,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to ChooseProtocol page if no protocol selected in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareChooseProto() {
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
@@ -161,6 +194,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump to another protocol's Itenms page
+             *  [Description] - always clear navigation history
+             * **/
             goToNextProtocol(p_id) {
                 this.$navigateTo(AssessItems, {
                     animated: true,
@@ -177,6 +214,10 @@
                     }
                 });
             },
+            /**
+             *  Function to jump back to Summary page if in summary edit mode
+             *  [Description] - always clear navigation history
+             * **/
             goToSummary() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -192,11 +233,17 @@
                     }
                 });
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 const freeTextfield = layoutView.getViewById("recommendations-free");
                 freeTextfield.dismissSoftInput();
             },
+            /**
+             *  Function to save recommendations to data storage
+             * **/
             recordResponse() {
                 const update = {
                     log_id: this.log_id,
@@ -204,6 +251,10 @@
                 };
                 this.saveRecommendationsUpdate(update);
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -215,17 +266,20 @@
                     },
                 });
             },
-            onForward() {
-                console.log("=== Forward === ");
-                
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
+            onForward() {                
                 const progress = {
                     log_id: this.log_id,
-                    in_sum: 1,
+                    in_plans: 1,
                 }
-                this.saveSummaryProgress(progress);
-
+                this.savePlansProgress(progress);
                 this.prepareNextStage();
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward() {
                 if (this.protocol_id != null && this.protocol_id != undefined && this.protocol_id != -1) {
                     const progress = {
@@ -243,20 +297,33 @@
                     this.prepareChooseProto();
                 }
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to call when next button tapped
+             * **/
             onNextTap() {
                 this.onForward();
             },
+            /**
+             *  Function to call when save button tapped
+             * **/
             onSummaryTap() {
                 this.goToSummary();
             },
+            /**
+             *  Function to call when free textfield is changed
+             * **/
             onTextEntered() {
                 this.recordResponse();
             },
-            onNavigatingFrom() {
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.recommendationsGridRef.nativeView.getMeasuredWidth() );
 
@@ -270,7 +337,9 @@
                     };
                 }
             },
-
+            /**
+             *  Function to create a new client 
+             * **/
             onNewTap() {
                 confirm({
                     title: "Create New Client",

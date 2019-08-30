@@ -141,7 +141,7 @@ export default {
         console.log("=== in mutation LOG_RECOMMENDATIONS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.LOG_PLANS_PROGRESS](state, item) {
-        state.logs[item.idx].progress[5] = item.has_plan;
+        state.logs[item.idx].progress[5] = item.in_plans;
         console.log("=== in mutation LOG_PLANS_PROGRESS === " + state.logs[item.idx].progress);
     },
     [types.LOG_SUM_PROGRESS](state, item) {

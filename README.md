@@ -205,21 +205,23 @@ npm install jspdf-autotable
 	- [Description] - whether the document has been compiled as PDF and sent via email
 - **progress** :card_index: 
 	- [Type] Array of Numbers, null state is [-1, -2, 0, 0, 0, 0, 0]
-	- [Description] The 6 items individually represents :one:progress of the intro section, :two:the current protocol id, :three:whether items page of current protocol is reached, :four:whether others page of current protocol is reached, :five:whether plan page is reached, :six:whether summary page is reached.
+	- [Description] The 6 items individually represents :one:progress of the Introduction section, :two:the selected protocol id, :three:whether AssessItems page of current protocol is reached, :four:whether AssessOthers page of current protocol is reached, :five:whether Plans page is reached, :six:whether Recommendations page is reached,:seven:whether Summary page is reached.
 		- @param {Number} intro progress - current step id of intro section
 		- @param {Number} protocol id - current protocol id
-		- @param {Number} protocol assessment items page - whether reached, if protocol id is set, this variable is usually set to true 
-		- @param {Number} protocol others page - whether reached
+		- @param {Number} protocol assess items page - whether reached, if protocol id is set, this variable is usually set to true 
+		- @param {Number} protocol assess others page - whether reached
 		- @param {Number} recommendations page - whether reached
 		- @param {Number} plans page - whether reached
 		- @param {Number} summary page - whether reached
 	- [Related Places] - this info is set in every pages in the linear flow of documenting. this info will be used in Client History section on Dashboard.
 	- e.g.
-		- [3, 3, 1, 1, 1, 1] - currently reached summary page
-		- [3, 3, 1, 1, 1, 0] - currently reached plans page
-		- [3, 3, 1, 0, 0, 0] - currently reached items page of protocol 3
-		- [3, -1, 0, 1, 1, 1] - currently reached ChooseProtocol page
-		- [3, -2, 0, 1, 1, 1] - currently reached step 3 page of intro section
+		- [3, 3, 1, 1, 1, 1, 1] - currently reached Summary page
+		- [3, 3, 1, 1, 1, 1, 0] - currently reached Plans page
+		- [3, 3, 1, 1, 1, 0, 0] - currently reached Recommendations page of protocol 3
+		- [3, 3, 1, 1, 0, 0, 0] - currently reached Assess Others page of protocol 3
+		- [3, 3, 1, 0, 0, 0, 0] - currently reached Assess Items page of protocol 3
+		- [3, -1, 0, 0, 0, 0, 0] - currently reached ChooseProtocol page
+		- [3, -2, 0, 0, 0, 0, 0] - currently reached step 3 page of Introduction section
 - **editHistory** :newspaper:
 	- [Type] Array, null state is []
 	- [Description] each item in the array represents a change history. note that the initial submission is not in this history.
@@ -256,6 +258,9 @@ npm install jspdf-autotable
 	- [Type] Array, null state is []
 	- [Description] each item in the array represents a plan entry.
 	- e.g. see below
+- **Recommendations** :pencil: 
+	- [Type] String
+	- [Description] - recommendations given to client
 
 ### Example of editHistory Field with A Answer Entry of A Client in Logs 
 ``` json
@@ -359,6 +364,7 @@ plans_answers: [
 - **ChooseProtocol.vue**:page_with_curl: - page to choose a protocol
 - **Plans.vue**:page_with_curl: - page to show plans to a client
 - **Recommend.vue**:page_with_curl: - pop-up frame/ page fto show related resources, protocols and recommendation of a protocol
+- **Recommenddations.vue**:page_with_curl: - page to show recommendations to a client
 ### summary :open_file_folder: - folder for scss files
 - **parts**:open_file_folder: - folder for sub-components
 	- **CallSummary.vue**:page_with_curl: - component to show summary of the call information
@@ -368,6 +374,7 @@ plans_answers: [
 	- **PlanSummary.vue**:page_with_curl: - component to show summary of plans
 	- **ProtocolSummary.vue**:page_with_curl: - component to show summary of one protocol
 	- **QuestionSummary.vue**:page_with_curl: - component to show summary of one question and its answers
+	- **RecommendationsSummary.vue**:page_with_curl: - component to show summary of recommendations
 	- **SubmitButton.vue**:page_with_curl: - component to generate PDF, and to send email
 - **EditCallInfo.vue**:page_with_curl: - popup page/ frame to edit call information, opened from Summary
 - **Reason.vue**:page_with_curl: - semi-page popup to record pdf modification history

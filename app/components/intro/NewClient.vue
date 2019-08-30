@@ -272,7 +272,7 @@
                         startTime: this.created_time,
                         endTime: '',
                         status: false,
-                        progress: [-1, -2, 0, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Bool], others[Tri-state], plans[Bool], summary[Bool]
+                        progress: [-1, -2, 0, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Binary], others[Binary], recommendations[Binary], plans[Binary], summary[Binary]
                         editHistory: [],
                         intro_answers: [],
                         items_answers: [],
@@ -281,7 +281,6 @@
                         plans_answers: [],
                     };
                     this.saveClientInfo(entry);
-                    // this.saveActiveLog(this.c_id);
 
                     let steps_ids = [];
                     this.intro.forEach(elem => { steps_ids.push(elem.id); });
@@ -319,9 +318,7 @@
                 const freeTextView = layoutView.getViewById(`client-free`);
                 freeTextView.dismissSoftInput();
             },
-            // onPhoneEntered() {
-            //     this.input_phone = formatPhoneNum(this.c_phone);
-            // },
+
             onBackToHome(args) {
                 this.$navigateTo(Dashboard, {
                     animated: true,

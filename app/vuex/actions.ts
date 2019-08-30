@@ -284,7 +284,7 @@ export default {
         } else {
             const progress_item = {
                 idx: log_idx,
-                has_plan: input_item.has_plan,
+                in_plans: input_item.in_plans,
             };
             commit(types.LOG_PLANS_PROGRESS, progress_item);
         }

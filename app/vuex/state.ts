@@ -36,7 +36,7 @@ export default {
 		startTime: '05:45',
 		endTime: '05:58',
 		status: false,
-		progress: [1, -2, 0, 0, 0, 0, 0], // progress: intro[step id], proto[protocol id], items[Bool], others[Bool], plans[Bool], summary[Bool]
+		progress: [1, -2, 0, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Binary], others[Binary], recommendations[Binary], plans[Binary], summary[Binary]
 		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
@@ -63,7 +63,7 @@ export default {
 		startTime: '01:45',
 		endTime: '02:15',
 		status: false,
-		progress: [3, 3, 1, 0, 0, 0, 0], // progress: intro[step id], proto[protocol id], items[Bool], others[Bool], plans[Bool], summary[Bool]
+		progress: [3, 3, 1, 0, 0, 0, 0], // intro[step id], proto[protocol id], items[Binary], others[Binary], recommendations[Binary], plans[Binary], summary[Binary]
 		editHistory: [],
 		intro_answers: [{
 			q_id: 4,
@@ -107,7 +107,7 @@ export default {
 		startTime: '05:05',
 		endTime: '05:20',
 		status: true,
-		progress: [3, 3, 1, 1, 1, 1, 1], // progress: intro[step id], proto[protocol id], items[Bool], others[Bool], plans[Bool], summary[Bool]
+		progress: [3, 3, 1, 1, 1, 1, 1], // intro[step id], proto[protocol id], items[Binary], others[Binary], recommendations[Binary], plans[Binary], summary[Binary]
 		editHistory: [],
 		intro_answers: [{
 			q_id: 4,

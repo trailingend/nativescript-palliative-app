@@ -5,7 +5,7 @@
             <Image class="edit-icon" src="~/assets/images/darkpen.png" stretch="aspectFit" @tap="onRecommendationsEditTap"></Image>
         </FlexboxLayout>                 
         <StackLayout class="sec-content-ctnr sum-unit-ctnr">
-            <Label :text="recommendations" class="sum-text"/>
+            <Label :text="recommendations === '' ? 'N/A' : recommendations" class="sum-text"/>
         </StackLayout>
     </StackLayout>
 </template>
@@ -14,9 +14,9 @@
     /**
      *  =============================================================
      * 
-     *  Component to display plans selected in Summary
+     *  Component to display Recommendation given in Summary
      *  [Description] - used in Summary page
-     *  @param {Array} plan_answers - list of plans selected
+     *  @param {Array} recommendations - recommendation text saved
      *  @prop {String} log_id - the id of the current dociment
      * 
      *  =============================================================
@@ -50,14 +50,14 @@
 		},
         methods: {
             /**
-             *  Function to get saved plans for current client
+             *  Function to get saved recommendations for current client
              * **/
             prepareSummary() {
                 this.recommendations = this.logs.find(elem => { return elem.id === this.log_id; }).recommendations;
             },
             /**
-             *  Function to go and edit Plans page of current client
-             *  [Description] - from_summary flag on for Plans oage
+             *  Function to go and edit Recomendations page of current client
+             *  [Description] - from_summary flag on for Recomendations oage
              * **/
             onRecommendationsEditTap() {
                 this.$navigateTo(Recommendations, {
