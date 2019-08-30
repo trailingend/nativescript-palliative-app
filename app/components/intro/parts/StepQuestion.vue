@@ -27,6 +27,18 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component to determine which question-answer type to display
+     *  [Description] - called in Introduction page
+     *  [Related] - styles in introduction.scss
+     *  @prop {String} log_id - the id of the current document
+     *  @prop {Object} unit - question object
+     * 
+     *  =============================================================
+     * **/
+
     import SingleSelect from '../../answers/SingleSelect.vue';
     import MultiSelect from '../../answers/MultiSelect.vue';
     import BooleanSelect from '../../answers/BooleanSelect.vue';
@@ -65,6 +77,11 @@
             ]), 
         },
         methods: {
+            /**
+             *  Function to retrieved previously saved responses to current question from data storage
+             *  @param {Object} unit - question object
+             *  @return {Array} saved_responses
+             * **/
             retrieveSavedResponses(unit) {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const q_obj = log.intro_answers.find(elem => { return elem.q_id === unit.id; });
@@ -78,6 +95,10 @@
                 }
                 return [];
             },
+            /**
+             *  Function to call when any response change, always save the recent update to data storage
+             *  @event answerChange - let parent component to know that there is a response change
+             * **/
             onAnswerChange(data) {
                 this.$emit("answerChange", data);
             },

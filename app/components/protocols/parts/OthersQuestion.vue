@@ -32,6 +32,7 @@
      * 
      *  Component to determine which question-answer type to display 
      *  [Description] - used in AssessOthers page
+     *  [Related] - styles in assessOthers.scss
      *  @prop {String} log_id - the id of the current document
      *  @prop {Object} unit - question object
      * 

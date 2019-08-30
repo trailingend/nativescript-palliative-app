@@ -35,6 +35,20 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal sub-page to display when a user is fiest-time created
+     *  [Description] - called in Tutorials page, note that this page cannot solely exists without a pop-up frame
+     *  [Related] - styles in tutorial.scss
+     *  @param {Boolean} isReady - variable indicating whether the video object on th epage is ready to be displayed
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames
+     *  @param {Object} mainSetting - variable to store screen-size sensitive GridLayout information 
+     *  @prop {Object} parent_modal - Object of the parent modal
+     * 
+     *  =============================================================
+     * **/
+
     import Journey from './Journey.vue';
 
     import { mapActions } from 'vuex';
@@ -80,7 +94,9 @@
         methods: {
             ...mapActions([
             ]),
-            
+            /**
+             *  Function to navigate to tutorial storyline page on start button tap
+             * **/
             onStartTap(args) {
                 this.$navigateTo(Journey, {
                     frame: 'tutorialFrame',
@@ -98,16 +114,28 @@
                     }
                 });
             },
+            /**
+             *  Function to close current modal and navigate back to Dashboard on skip button tap
+             * **/
             onSkipTap() {
                 this.onBackHome();
             },
+            /**
+             *  Function to close current modal and bavigate back to previous frame
+             * **/
             onCloseTap() {
                 this.onBackHome();
             },
+            /**
+             *  Function to destroy the video on pgae and close current modal 
+             * **/
             onBackHome() {
                 this.$refs.firstTimePlayerRef.nativeView.pause();
                 this.parent_modal.close();
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.firstTimeRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.firstTimeRef.nativeView.getMeasuredWidth() );

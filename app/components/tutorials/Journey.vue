@@ -41,6 +41,23 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal sub-page to display tutorial storyline
+     *  [Description] - called in Tutorials page, note that this page cannot solely exists without a pop-up frame
+     *  [Related] - styles in tutorial.scss
+     *  @param {Boolean} isReady - variable indicating whether the video object on th epage is ready to be displayed
+     *  @param {Number} total_pages - total number of storyline pages
+     *  @param {String} widthSetting - default width value for video obejcts
+     *  @param {Object} mainSetting - variable to store screen-size sensitive GridLayout information 
+     *  @prop {Number} item_idx - the index of the current tutorial page
+     *  @prop {Boolean} is_first_time - variable indicating whether current user is a first-time user
+     *  @prop {Object} parent_modal - Object of the parent modal
+     * 
+     *  =============================================================
+     * **/
+
     import FirstTime from './FirstTime.vue';
 
     import { mapActions } from 'vuex';
@@ -101,13 +118,23 @@
         methods: {
             ...mapActions([
             ]),
+            /**
+             *  Function to close current modal and navigate back to Dashboard
+             * **/
             onCloseTap() {
                 this.onBackHome();
             },
+            /**
+             *  Function to close current modal
+             * **/
             onBackHome() {
                 this.$refs.journeyPlayerRef.nativeView.pause();
                 this.parent_modal.close();
             },
+            /**
+             *  Function to call when next button tapped and navigate to the next tutorial story
+             *  [Description] - if it reached the first of tutorial storyline, then depending on whether the user being a first-time user, hide back button or navigate to first-time screen
+             * **/
             onBackTap() {
                 if (this.is_first_time && this.item_idx === 0) {
                     this.$navigateTo(FirstTime, {
@@ -143,6 +170,9 @@
                 }
                 
             },
+            /**
+             *  Function to call when next button tapped and navigate to the next tutorial story
+             * **/
             onNextTap() {
                 const next_item_idx = this.item_idx + 1;
                 if (next_item_idx < this.tutorials.length) {
@@ -164,6 +194,9 @@
 
                 }
             },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 if (this.$refs.firstTimeRef) {
                     const width = utils.layout.toDeviceIndependentPixels( this.$refs.firstTimeRef.nativeView.getMeasuredWidth() );

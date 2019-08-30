@@ -280,7 +280,6 @@
             },
             /**
              *  Function to swap class-level classnames on media query changes
-             *  [Description] - all add extra padding to the laste letter section
              * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( this.$refs.othersGridRef.nativeView.getMeasuredWidth() );

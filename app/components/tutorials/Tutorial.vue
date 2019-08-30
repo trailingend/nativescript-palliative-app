@@ -6,6 +6,17 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Modal frame for tutorial pages
+     *  [Description] - called in Tutorials page, note that this frame cannot solely exists without a pop-up page. Depending on whether the user is first-time here, this frame navigate to FirstTime or Journey
+     *  [Related] - styles in tutorial.scss
+     *  @prop {Boolean} is_first_time - variable indicating whether current user is a first-time user
+     * 
+     *  =============================================================
+     * **/
+
     import FirstTime from './FirstTime.vue';
     import Journey from './Journey.vue';
 

@@ -7,7 +7,7 @@
                     @layoutChanged="onLayoutUpdate">
             <NavBar row="0" col="0" colSpan="3" :is_close="true" @newClient="addNewLog" />
 
-            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="false" @goToProtocol="(data) => goToNextProtocol(data)"/>
+            <ClientBlock row="1" col="0" colSpan="3" :log_id="log_id" :has_proto="false" />
 
             <ScrollView row="2" col="0" rowSpan="2" colSpan="3" class="intro-main-ctnr">
                 <StackLayout>
@@ -81,6 +81,7 @@
             }
         },
         beforeCreate: function () {
+            // Enable this component to call itself
             this.$options.components.Introduction = require('./Introduction.vue').default;
         },
         created() {
@@ -125,6 +126,9 @@
                 'saveIntroProgress',
                 'saveProtoProgress'
             ]),
+            /**
+             *  Function to retrieve all question objects related with current step
+             * **/
             prepareIntro() {
                 this.step_id = this.step_ids[this.step_idx];
                 const step_obj = this.intro.find(elem => { return elem.id == this.step_id; });
@@ -133,6 +137,10 @@
                     this.questions.forEach(elem => { this.textview_ids.add(`answers-free-${elem.id}`); });
                 }
             },
+            /**
+             *  Function to navigate to another introduction step page
+             *  @param {Number} step_idx - the index of step
+             * **/
             prepareAnotherQuestion(step_idx) {
                 this.$navigateTo(this.$options.components.Introduction, {
                     animated: true,
@@ -150,6 +158,11 @@
                     }
                 });
             },
+            /**
+             *  Function to save any response changes to data storage
+             *  @param {Object} q - the question object
+             *  @param {data} data - the response object
+             * **/
             recordResponse(q, data) {
                 const response_item = {
                     q_id: q.id, 
@@ -170,6 +183,10 @@
                 
                 this.onResponseChange(false);
             },
+            /**
+             *  Function to go next to ChooseProtocol page if in linearly documenting mode
+             *  [Description] - always clear navigation history
+             * **/
             prepareNextStage() {
                 this.$navigateTo(ChooseProtocol, {
                     animated: true,
@@ -185,22 +202,10 @@
                     }
                 });
             },
-            goToNextProtocol(p_id) {
-                this.$navigateTo(AssessItems, {
-                    animated: true,
-                    clearHistory: true,
-                    transition: {
-                        name: 'fade',
-                        curve: 'easeIn',
-                        duration: 300
-                    },
-                    props: {
-                        log_id: this.log_id,
-                        protocol_id: p_id,
-                        from_summary: false,
-                    }
-                });
-            },
+            /**
+             *  Function to jump back to Summary page if in summary edit mode
+             *  [Description] - always clear navigation history
+             * **/
             goToSummary() {
                 this.$navigateTo(Summary, {
                     animated: true,
@@ -216,9 +221,17 @@
                     }
                 });
             },
+            /**
+             *  Function to change next button text
+             *  @param {new_next}
+             * **/
             changeNextText(new_text) {
                 this.next_text = new_text;
             },
+            /**
+             *  Function to abort the current document and start a new doucment
+             *  [Description] - always clear navigation history
+             * **/
             addNewLog() {
                 this.$navigateTo(NewClient, {
                     animated: true,
@@ -230,6 +243,9 @@
                     },
                 });
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving forwards
+             * **/
             onForward(args) {
                 const next_step_idx = this.step_idx + 1;
                 if (next_step_idx < this.intro.length) {
@@ -248,6 +264,9 @@
                     this.prepareNextStage();
                 }
             },
+            /**
+             *  Function to save current progress in linear documenting mode moving backwards
+             * **/
             onBackward(args) {
                 const prev_step_idx = this.step_idx - 1;
                 if (prev_step_idx >= 0) {
@@ -261,15 +280,28 @@
                     console.log("=== No prev step to go to ===")
                 }
             },
+            /**
+             *  Function to call when back button tapped
+             * **/
             onBackTap() {
                 this.onBackward();
             },
+            /**
+             *  Function to call when next button tapped
+             * **/
             onNextTap() {
                 this.onForward();
             },
+            /**
+             *  Function to call when save button tapped
+             * **/
             onSummaryTap() {
                 this.goToSummary();
             },
+            /**
+             *  Function to call when any response has changed, set button text accordingly
+             *  @param {Boolean} from_saved - whether the response change is happenning because of user interaction or from saved data storage
+             * **/
             onResponseChange(from_saved=false) {
                 let test_empty_response = '';
                 this.responses.forEach(r => { test_empty_response = test_empty_response + r.a.join(); });
@@ -280,6 +312,9 @@
                     this.changeNextText('Skip');
                 }
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const page = args.object.page;
                 this.textview_ids.forEach(elem => {
@@ -287,8 +322,9 @@
                     if (freeTextfield) freeTextfield.dismissSoftInput();   
                 });
             },
-            onNavigatedTo(args) {
-            },
+            /**
+             *  Function to swap class-level classnames on media query changes
+             * **/
             onLayoutUpdate() {
                 const width = utils.layout.toDeviceIndependentPixels( 
                     this.$refs.introGridRef.nativeView.getMeasuredWidth() 
