@@ -223,6 +223,9 @@
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const layoutView = args.object;
                 for (let i = 1; i <= 4; i++) {

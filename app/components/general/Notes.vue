@@ -27,6 +27,20 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Modal to let user input any additional / uncategoried notes
+     *  [Description] - used in ClientBlock, in every client document related pages.
+     *  [Related] - styles in clientBlock.scss
+     *  @param {String} c_id - id of client
+     *  @param {String} c_notes - content of notes
+     *  @param {Object} ctnrSetting - variable to store screen-size sensitive classnames information 
+     *  @prop {String} log_id - id the current client document
+     * 
+     *  =============================================================
+     * **/
+
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -64,12 +78,19 @@
             ...mapActions([
                 'changeClientNotes',
             ]),
+            /**
+             *  Function to retrieve previously saved notes
+             * **/
             loadExistingNote() {
                 if (this.log_id) {
                     const curr_log = this.logs.find((elem) => { return elem.id === this.log_id; });
                     this.c_notes = curr_log.notes;
                 }
             },
+            /**
+             *  Function to save user response to data storage
+             *  @param args - the event object
+             * **/
             saveNotes(args) {
                 const entry = {
                     log_id: this.log_id,
@@ -77,12 +98,21 @@
                 };
                 this.changeClientNotes(entry);
             },
+            /**
+             *  Function to close current modal
+             * **/
             onSaveTap(args) {
                 this.$modal.close();
             },
+            /**
+             *  Function to close current modal
+             * **/
             onCloseTap() {
                 this.$modal.close();
             },
+            /**
+             *  Function to dismiss keyboard if tapping on any non-hotspot places on the screen
+             * **/
             clearTextfieldFocus(args) {
                 const aTextfield = args.object.getViewById(`notes-free`);
                 aTextfield.dismissSoftInput();

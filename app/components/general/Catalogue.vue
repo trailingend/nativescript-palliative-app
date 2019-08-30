@@ -35,6 +35,25 @@
 </template>
 
 <script>
+    /**
+     *  =============================================================
+     * 
+     *  Modal to display all available protocols and their completion status as a navigatable menu
+     *  [Description] - used in ClientBlock, in every client document related pages.
+     *  [Related] - styles in clientBlock.scss
+     *  @param {Boolean} show_next - 
+     *  @param {String} unclicked_color - constant, color for unclicked button
+     *  @param {String} clicked_color - constant, color for clicked button
+     *  @param {String} white_color - constant, color white
+     *  @param {String} black_color - constant, color black
+     *  @param {Number} protocol_id - if of protocol selected
+     *  @param {Object} chooseSetting - variable to store child level GridLayout setting
+     *  @param {Object} gridSetting - variable to store parent level GridLayout setting
+     *  @prop {String} log_id - id the current client document
+     * 
+     *  =============================================================
+     * **/
+
     import { mapActions } from 'vuex';
     import { mapGetters } from 'vuex';
     import * as utils from "tns-core-modules/utils/utils";
@@ -83,12 +102,22 @@
             ...mapActions([
                 'saveProtoProgress'
             ]),
+            /**
+             *  Function to check whether a protocol has any response saved
+             *  @param {Number} p_id - the protocol id to check
+             * **/
             checkSavedProtocols(p_id) {
                 const log = this.logs.find(elem => { return elem.id === this.log_id; });
                 const p_items = log.items_answers.find(elem => { return elem.id === p_id; });
                 const p_others = log.others_answers.find(elem => { return elem.id === p_id; });
                 return p_items != undefined || p_others != undefined;
             },
+            /**
+             *  Function to change button style based on user interaction
+             *  @param {object} args - event object
+             *  @param {Object} proto - the protocol object selected
+             *  @param {Number} index - index of the button being clicked
+             * **/
             onBtnTap(args, proto, index) {
                 const page = args.object.page;
                 const clicked_btn = page.getViewById(`choose-btn-${index}`);
@@ -128,12 +157,18 @@
                         }
                     }
                 }
-                this.onForwardTap();
+                this.goToProtocol();
             },
+            /**
+             *  Function to close current modal
+             * **/
             onCloseTap() {
                 this.$modal.close(-1);
             },
-            onForwardTap() {
+            /**
+             *  Function to log progress of the new protocol to go to
+             * **/
+            goToProtocol() {
                 if (this.protocol_id != null) {
                     const progress = {
                         log_id: this.log_id,

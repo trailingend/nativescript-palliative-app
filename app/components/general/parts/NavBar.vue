@@ -13,6 +13,17 @@
 </template>
 
 <script lang="ts">
+    /**
+     *  =============================================================
+     * 
+     *  Component of main navigation on client document related pages
+     *  [Description] - used in every client document related pages
+     *  [Related] - styles in navigation.scss
+     *  @prop {Boolean} is_close - can close current document
+     * 
+     *  =============================================================
+     * **/
+
     import Dashboard from '../../home/Dashboard.vue';
     import { confirm }  from "tns-core-modules/ui/dialogs";
 
@@ -28,6 +39,9 @@
             }
         },
         methods: {
+            /**
+             *  Function to ask the user to confirm whether to close current client document and go back to Dashboard
+             * **/
             onCloseTap() {
                 if (this.is_close) {
                     confirm({
@@ -68,6 +82,9 @@
                     } 
                 });
             },
+            /**
+             *  Function to navigate to Dashboard page
+             * **/
             onBackToHome(args) {
                 this.$navigateTo(Dashboard, {
                     animated: true,

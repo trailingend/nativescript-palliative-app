@@ -208,11 +208,11 @@ npm install jspdf-autotable
 	- [Description] The 6 items individually represents :one:progress of the Introduction section, :two:the selected protocol id, :three:whether AssessItems page of current protocol is reached, :four:whether AssessOthers page of current protocol is reached, :five:whether Plans page is reached, :six:whether Recommendations page is reached,:seven:whether Summary page is reached.
 		- @param {Number} intro progress - current step id of intro section
 		- @param {Number} protocol id - current protocol id
-		- @param {Number} protocol assess items page - whether reached, if protocol id is set, this variable is usually set to true 
-		- @param {Number} protocol assess others page - whether reached
-		- @param {Number} recommendations page - whether reached
-		- @param {Number} plans page - whether reached
-		- @param {Number} summary page - whether reached
+		- @param {Number} protocol assess items page - binary [0, 1], whether reached, if protocol id is set, this variable is usually set to true 
+		- @param {Number} protocol assess others page - binary [0, 1], whether reached
+		- @param {Number} recommendations page - binary [0, 1], whether reached
+		- @param {Number} plans page - binary [0, 1], whether reached
+		- @param {Number} summary page - binary [0, 1], whether reached
 	- [Related Places] - this info is set in every pages in the linear flow of documenting. this info will be used in Client History section on Dashboard.
 	- e.g.
 		- [3, 3, 1, 1, 1, 1, 1] - currently reached Summary page
