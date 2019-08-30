@@ -27,7 +27,7 @@
                 </StackLayout>
             </ScrollView>
 
-            <ResourcesButton row="4" col="2" rowSpan="1" colSpan="1" 
+            <RecommendButton row="4" col="2" rowSpan="1" colSpan="1" 
                              v-show="protocol_id != null && protocol_id != undefined && protocol_id != -1"
                              :log_id="log_id" :protocol_id="protocol_id" />
 
@@ -44,7 +44,7 @@
     import NavBar from '../general/parts/NavBar.vue';
     import NewClient from '../intro/NewClient.vue';
     import ClientBlock from '../general/parts/ClientBlock.vue';
-    import ResourcesButton from './parts/ResourcesButton.vue';
+    import RecommendButton from './parts/RecommendButton.vue';
     import ChooseProtocol from './ChooseProtocol.vue';
     import AssessOthers from './AssessOthers.vue';
     import AssessItems from './AssessItems.vue';
@@ -87,7 +87,7 @@
         components: {
             NavBar,
             ClientBlock,
-            ResourcesButton,
+            RecommendButton,
         },
         computed: {
             ...mapGetters([
