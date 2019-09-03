@@ -2,6 +2,13 @@
 
 The Palliative Assessment Tool (PAT) is an iOS application that provides on call palliative nurses with a structured documentation system as they process with a call.  Once the call is finished, a pdf is generated that is sent via email and uploaded to PARIS.
 
+## Docs
+Full documenation on Backend AND iOS App can be found at [https://docs.palliative.vchlearn.ca/](https://docs.palliative.vchlearn.ca/)
+
+The iOS portion of the docs and also be found below.
+
+___
+
 ## Usage
 
 ``` bash
